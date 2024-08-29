@@ -32,13 +32,13 @@ Ensure you have the following installed:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/zacharybaca/bounty-hunter-part-one.git
+   git clone https://github.com/zacharybaca/software-bug-tracker.git
    ```
 
 2. Navigate to the project directory:
 
    ```bash
-   cd bounty-hunter-part-one
+   cd software-bug-tracker
    ```
 
 3. Install dependencies for both the client and server:
@@ -52,13 +52,13 @@ Ensure you have the following installed:
 1. Start the server:
 
    ```bash
-   node app.js
+   npm run start
    ```
 
 2. Start the React development server:
 
    ```bash
-   npm start
+   npm run start
    ```
 
 The application will be running on `http://localhost:3000` by default, with the backend API available on `http://localhost:9000`.
@@ -70,4 +70,3 @@ The application will be running on `http://localhost:3000` by default, with the 
 - **DELETE /api/tasks/:id**: Delete a task by ID.
 - **PUT /api/tasks/:id**: Update a task by ID.
 - **GET /api/tasks/id**: Get a task by its ID.
-# software-bug-tracker
