@@ -66,7 +66,7 @@ The application will be running on `http://localhost:3000` by default, with the 
 ## API Endpoints
 
 - **GET /api/tasks**: Retrieve a list of all tasks.
-- **POST /api/taks**: Add a new task.
+- **POST /api/tasks**: Add a new task.
 - **DELETE /api/tasks/:id**: Delete a task by ID.
 - **PUT /api/tasks/:id**: Update a task by ID.
 - **GET /api/tasks/id**: Get a task by its ID.
