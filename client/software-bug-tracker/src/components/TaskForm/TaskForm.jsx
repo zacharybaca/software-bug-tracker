@@ -14,7 +14,7 @@ const TaskForm = (props) => {
             <select id="assigned-employee" name="assignedEmployee">
                 <option defaultValue>Select An Employee</option>
             </select>
-            <labl htmlFor="taskCompleted">Task Completed: </labl>
+            <label htmlFor="taskCompleted">Task Completed: </label>
             <input type="checkbox" id="task-completed" name="taskCompleted" />
             <button type="submit" id="add-task-button">{props.buttonText}</button>
         </form>
