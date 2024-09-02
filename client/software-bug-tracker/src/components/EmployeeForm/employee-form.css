@@ -1,4 +1,4 @@
-#task-form {
+#employee-form {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -11,12 +11,12 @@
     border: 2px solid black;
 }
 
-label, input, select, textarea {
+label, input, select {
     margin-bottom: 20%;
     padding: 5%;
 }
 
-#add-task-button {
+#add-employee-button {
     width: 100%;
     border-radius: 5px;
 }

@@ -1,7 +1,7 @@
 import './task-form.css';
 
 
-const TaskForm = () => {
+const TaskForm = (props) => {
     return (
         <form id="task-form" name="taskForm">
             <label htmlFor="taskTitle">Task Title: </label>
@@ -16,6 +16,7 @@ const TaskForm = () => {
             </select>
             <labl htmlFor="taskCompleted">Task Completed: </labl>
             <input type="checkbox" id="task-completed" name="taskCompleted" />
+            <button type="submit" id="add-task-button">{props.buttonText}</button>
         </form>
     )
 }
