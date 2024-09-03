@@ -1,0 +1,30 @@
+#login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-left: 40%;
+    padding-right: 40%;
+    padding-top: 30%;
+    padding-bottom: 30%;
+    border-radius: 10px;
+    background-color: beige;
+    width: 75%;
+    border: 2px solid black;
+}
+
+#landing-page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+label, input {
+    margin-bottom: 20%;
+    padding: 5%;
+    
+}
+
+#login-button, #new-user-button {
+    width: 100%;
+    border-radius: 5px;
+}

@@ -1,6 +1,8 @@
 import TaskForm from './components/TaskForm/TaskForm';
 import TaskList from './components/TaskList/TaskList';
 import EmployeeForm from './components/EmployeeForm/EmployeeForm';
+import SignUpForm from './components/SignUpForm/SignUpForm';
+import LandingPage from './components/LandingPage/LandingPage';
 import { TasksContextProvider } from './context/tasksContext';
 import { EmployeesContextProvider } from './context/employeesContext';
 import { Routes, Route, Link } from 'react-router-dom';
@@ -12,7 +14,7 @@ function App() {
   return (
     <div id="app-container">
       <h1 id="application-title-heading">Issue Insight</h1>
-      <div id="action-buttons">
+      {/* <div id="action-buttons">
         <Link to="/add-task">
           <button type="button" id="add-task-main-button">
             Add Task
@@ -23,11 +25,12 @@ function App() {
             Add Employee
           </button>
         </Link>
-      </div>
+      </div> */}
 
       <Routes>
+        <Route path="/" element={<LandingPage />} />
         <Route
-          path="/"
+          path="/tasks"
           element={
             <>
               <TasksContextProvider>
@@ -56,6 +59,14 @@ function App() {
               </EmployeesContextProvider>
             </>
           }
+        />
+        <Route path="/sign-up" element={
+          <>
+            <EmployeesContextProvider>
+                <SignUpForm buttonText={"Sign Up For Access"}/>
+            </EmployeesContextProvider>
+          </>
+        }
         />
       </Routes>
     </div>
