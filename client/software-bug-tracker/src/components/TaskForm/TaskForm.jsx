@@ -1,10 +1,10 @@
 import './task-form.css';
 import React from 'react';
-import TaskList from '../TaskList/TaskList';
-import { TasksContext } from '../../context/tasksContext';
+
+
 
 const TaskForm = (props) => {
-    const context = React.useContext(TasksContext);
+    
   // State Responsible For Individual Tasks
   const initialValues = {
     taskTitle: props.taskTitle || "",
@@ -27,12 +27,14 @@ const TaskForm = (props) => {
 
   function handleSubmit(e) {
     e.preventDefault();
-    props.submitTask(task, task._id) || context.addTask(task);
+    props.submitTask(task, task._id);
     setTask(initialValues);
+    if (props.toggleForm) {
+        props.toggleForm(prevState => !prevState);
+    }
   }
 
   return (
-    <>
     <form id="task-form" name="taskForm" onSubmit={handleSubmit}>
       <label htmlFor="taskTitle">Task Title: </label>
       <input
@@ -70,8 +72,6 @@ const TaskForm = (props) => {
         {props.buttonText}
       </button>
     </form>
-    <TaskList />
-    </>
   );
 }
 

@@ -18,7 +18,7 @@ const Task = (props) => {
         <button type="button">Edit</button>
         <button type="button">Delete</button>
         </>
-        : <><TaskForm buttonText="Update" id={props._id} taskTitle={props.taskTitle} taskCompleted={props.taskCompleted} taskDetails={props.taskDetails} taskTodos={props.taskTodos} assignedEmployee={props.assignedEmployee} toggleForm={setShowForm}/><button type="button" onClick={() => setShowForm(prevState => !prevState)}>Close</button></>
+        : <><TaskForm buttonText="Update" id={props._id} taskTitle={props.title} taskCompleted={props.completed} taskDetails={props.details} taskTodos={props.todos} assignedEmployee={props.assigned} toggleForm={setShowForm}/><button type="button" onClick={() => setShowForm(prevState => !prevState)}>Close</button></>
         }
         </>
     )

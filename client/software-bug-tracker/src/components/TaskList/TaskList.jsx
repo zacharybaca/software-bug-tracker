@@ -2,6 +2,7 @@ import './task-list.css';
 import Task from '../Task/Task';
 import React from 'react';
 import { TasksContext } from '../../context/tasksContext';
+import TaskForm from '../TaskForm/TaskForm';
 import { Link } from 'react-router-dom';
 
 
@@ -11,6 +12,7 @@ const TaskList = () => {
 
     return (
       <>
+        <TaskForm submitTask={context.addTask}/>
         <div id="action-buttons">
           <Link to="/tasks">
             <button type="button" id="add-task-main-button">
