@@ -1,5 +1,4 @@
 import TaskForm from './components/TaskForm/TaskForm';
-import TaskList from './components/TaskList/TaskList';
 import EmployeeForm from './components/EmployeeForm/EmployeeForm';
 import SignUpForm from './components/SignUpForm/SignUpForm';
 import LandingPage from './components/LandingPage/LandingPage';
@@ -22,7 +21,6 @@ function App() {
             <>
               <TasksContextProvider>
                 <TaskForm buttonText={"Add Task"} />
-                <TaskList />
               </TasksContextProvider>
             </>
           }

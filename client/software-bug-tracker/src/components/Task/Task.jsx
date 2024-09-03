@@ -1,11 +1,10 @@
 import './task.css';
 import TaskForm from '../TaskForm/TaskForm';
-import { TasksContext } from '../../context/tasksContext';
 import React from 'react';
 
 const Task = (props) => {
     const [showForm, setShowForm] = React.useState(false);
-    const context = React.useContext(TasksContext);
+    
     return (
         <>
         {!showForm ? <>
@@ -16,8 +15,10 @@ const Task = (props) => {
             <h3>{props.completed}</h3>
             <h3>{props.assigned}</h3>
         </li>
+        <button type="button">Edit</button>
+        <button type="button">Delete</button>
         </>
-        : <><TaskForm buttonText="Update" submitTask={context.addTask} id={props._id} taskTitle={props.taskTitle} taskCompleted={props.taskCompleted} taskDetails={props.taskDetails} taskTodos={props.taskTodos} assignedEmployee={props.assignedEmployee} toggleForm={setShowForm}/><button type="button" onClick={() => setShowForm(prevState => !prevState)}>Close</button></>
+        : <><TaskForm buttonText="Update" id={props._id} taskTitle={props.taskTitle} taskCompleted={props.taskCompleted} taskDetails={props.taskDetails} taskTodos={props.taskTodos} assignedEmployee={props.assignedEmployee} toggleForm={setShowForm}/><button type="button" onClick={() => setShowForm(prevState => !prevState)}>Close</button></>
         }
         </>
     )

@@ -30,8 +30,8 @@ function TasksContextProvider(props) {
 
     useEffect(() => {
         const getTasks = async () => {
-            const data = await fetch('/api/tasks');
-            const response = await data.json();
+            const data = await fetch('/api/tasks')
+            const response = await data.json()
             setTasks(response);
         }
         getTasks();

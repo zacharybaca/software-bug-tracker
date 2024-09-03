@@ -1,5 +1,6 @@
 import './task-form.css';
 import React from 'react';
+import TaskList from '../TaskList/TaskList';
 import { TasksContext } from '../../context/tasksContext';
 
 const TaskForm = (props) => {
@@ -31,6 +32,7 @@ const TaskForm = (props) => {
   }
 
   return (
+    <>
     <form id="task-form" name="taskForm" onSubmit={handleSubmit}>
       <label htmlFor="taskTitle">Task Title: </label>
       <input
@@ -68,6 +70,8 @@ const TaskForm = (props) => {
         {props.buttonText}
       </button>
     </form>
+    <TaskList />
+    </>
   );
 }
 
