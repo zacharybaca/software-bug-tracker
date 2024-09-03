@@ -1,7 +1,9 @@
 import './task-form.css';
 import React from 'react';
+import { TasksContext } from '../../context/tasksContext';
 
 const TaskForm = (props) => {
+    const context = React.useContext(TasksContext);
   // State Responsible For Individual Tasks
   const initialValues = {
     taskTitle: props.taskTitle || "",
@@ -24,7 +26,7 @@ const TaskForm = (props) => {
 
   function handleSubmit(e) {
     e.preventDefault();
-    props.submitTask(task, task._id);
+    props.submitTask(task, task._id) || context.addTask(task);
     setTask(initialValues);
   }
 

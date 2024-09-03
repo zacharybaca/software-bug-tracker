@@ -10,36 +10,24 @@ import './App.css'
 
 function App() {
   
-  
-  
   return (
     <div id="app-container">
       <h1 id="application-title-heading">Issue Insight</h1>
-      
 
       <Routes>
-        <Route path="/" element={<LandingPage buttonText={'Login'}/>} />
+        <Route path="/" element={<LandingPage buttonText={"Login"} />} />
         <Route
           path="/tasks"
           element={
             <>
               <TasksContextProvider>
+                <TaskForm buttonText={"Add Task"} />
                 <TaskList />
               </TasksContextProvider>
             </>
           }
         />
 
-        <Route
-          path="/add-task"
-          element={
-            <>
-              <TasksContextProvider>
-                <TaskForm buttonText={"Add Task"} />
-              </TasksContextProvider>
-            </>
-          }
-        />
         <Route
           path="/add-employee"
           element={
@@ -50,13 +38,15 @@ function App() {
             </>
           }
         />
-        <Route path="/sign-up" element={
-          <>
-            <EmployeesContextProvider>
-                <SignUpForm buttonText={"Sign Up For Access"}/>
-            </EmployeesContextProvider>
-          </>
-        }
+        <Route
+          path="/sign-up"
+          element={
+            <>
+              <EmployeesContextProvider>
+                <SignUpForm buttonText={"Sign Up For Access"} />
+              </EmployeesContextProvider>
+            </>
+          }
         />
       </Routes>
     </div>

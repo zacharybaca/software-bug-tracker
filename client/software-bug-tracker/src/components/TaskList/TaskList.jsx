@@ -12,7 +12,7 @@ const TaskList = () => {
     return (
       <>
         <div id="action-buttons">
-          <Link to="/add-task">
+          <Link to="/tasks">
             <button type="button" id="add-task-main-button">
               Add Task
             </button>
