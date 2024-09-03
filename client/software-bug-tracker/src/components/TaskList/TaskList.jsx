@@ -12,7 +12,7 @@ const TaskList = () => {
 
     return (
       <>
-        <TaskForm submitTask={context.addTask}/>
+        <TaskForm submitTask={context.addTask} buttonText="Add Task"/>
         <div id="action-buttons">
           <Link to="/tasks">
             <button type="button" id="add-task-main-button">

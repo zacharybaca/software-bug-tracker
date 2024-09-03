@@ -1,0 +1,9 @@
+#task-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-height: 25vh;
+    width: 75%;
+    overflow: auto;
+    border: 3px solid black;
+}
