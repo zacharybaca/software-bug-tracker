@@ -18,5 +18,12 @@ label, input, select, textarea {
 
 #add-task-button {
     width: 100%;
+    height: 5vh;
     border-radius: 5px;
+}
+
+#add-task-button:hover {
+    cursor: pointer;
+    background-color: green;
+    color: white;
 }
