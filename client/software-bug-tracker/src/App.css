@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Protest+Guerrilla&display=swap');
+
 #app-container {
     display: flex;
     flex-direction: column;
@@ -7,6 +9,9 @@
     max-width: 100%;
     min-height: 100vh;
     border: 2px solid black;
+    background-image: url('./assets/signup-login-page-background.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 #action-buttons {
@@ -29,5 +34,8 @@
 }
 
 #application-title-heading {
+    font-family: "Protest Guerrilla", sans-serif;
+    font-weight: 400;
+    font-style: normal;
     font-size: 45px;
 }

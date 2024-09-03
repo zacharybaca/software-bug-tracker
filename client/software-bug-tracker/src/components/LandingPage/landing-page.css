@@ -28,3 +28,13 @@ label, input {
     width: 100%;
     border-radius: 5px;
 }
+
+#new-user-button {
+    margin-top: 8%;
+}
+
+#login-button:hover, #new-user-button:hover {
+    cursor: pointer;
+    background-color: green;
+    color: white;
+}

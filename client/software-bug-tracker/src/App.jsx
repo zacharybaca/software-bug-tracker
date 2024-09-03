@@ -28,7 +28,7 @@ function App() {
       </div> */}
 
       <Routes>
-        <Route path="/" element={<LandingPage />} />
+        <Route path="/" element={<LandingPage buttonText={'Login'}/>} />
         <Route
           path="/tasks"
           element={
