@@ -6,25 +6,26 @@ const TasksContext = React.createContext();
 
 function TasksContextProvider(props) {
 
-    // State Responsible For Individual Tasks
-    const [task, setTask] = useState({
-        taskTitle: props.taskTitle || "",
-        taskCompleted: props.taskCompleted || false,
-        taskDetails: props.taskDetails || "",
-        taskTodos: props.taskTodos || "",
-        assignedEmployee: props.assignedEmployee || ""
-    });
-
     // State Responsible For All Tasks
     const [tasks, setTasks] = useState([]);
 
-    function handleChange(e) {
-        const {name, value, type, checked} = e.target;
 
-        setTask(prevState => ({
+    const addTask = async (newTask) => {
+        const response = await fetch('/api/tasks', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(newTask)
+        })
+        const data = response.json()
+
+        setTasks(prevState => ([
             ...prevState,
-            [name]: type === "checkbox" ? checked : value
-        }));
+            {
+                ...data
+            }
+        ]))
     }
 
     useEffect(() => {
@@ -38,9 +39,8 @@ function TasksContextProvider(props) {
 
     return (
         <TasksContext.Provider value={{
-            task: task,
             tasks: tasks,
-            handleChange: handleChange
+            addTask: addTask
         }}>
             {props.children}
         </TasksContext.Provider>

@@ -5,27 +5,17 @@ import SignUpForm from './components/SignUpForm/SignUpForm';
 import LandingPage from './components/LandingPage/LandingPage';
 import { TasksContextProvider } from './context/tasksContext';
 import { EmployeesContextProvider } from './context/employeesContext';
-import { Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import './App.css'
 
 function App() {
   
-
+  
+  
   return (
     <div id="app-container">
       <h1 id="application-title-heading">Issue Insight</h1>
-      {/* <div id="action-buttons">
-        <Link to="/add-task">
-          <button type="button" id="add-task-main-button">
-            Add Task
-          </button>
-        </Link>
-        <Link to="/add-employee">
-          <button type="button" id="add-employee-main-button">
-            Add Employee
-          </button>
-        </Link>
-      </div> */}
+      
 
       <Routes>
         <Route path="/" element={<LandingPage buttonText={'Login'}/>} />
