@@ -11,7 +11,7 @@ const TaskForm = (props) => {
     taskCompleted: props.taskCompleted || false,
     taskDetails: props.taskDetails || "",
     taskTodos: props.taskTodos || "",
-    assignedEmployee: props.assignedEmployee || "",
+    assignedEmployee: props.assignedEmployee
   };
 
   const [task, setTask] = React.useState(initialValues);

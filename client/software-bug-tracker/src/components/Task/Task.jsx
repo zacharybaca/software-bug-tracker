@@ -9,7 +9,7 @@ const Task = (props) => {
       <>
         {!showForm ? (
           <>
-            <li className="task">
+            <div className="task">
               <h1>
                 <span className="heading">Title: </span>
                 {props.title}
@@ -28,9 +28,9 @@ const Task = (props) => {
               </h3>
               <h3>
                 <span className="heading">Assigned: </span>
-                {!props.assigned ? "Not Assigned" : props.assigned}
+                {props.assigned}
               </h3>
-            </li>
+            </div>
             <div id="buttons-container">
               <button
                 type="button"
@@ -39,7 +39,6 @@ const Task = (props) => {
               </button>
               <button type="button">Delete</button>
             </div>
-            <hr />
           </>
         ) : (
           <>

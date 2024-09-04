@@ -11,14 +11,15 @@ function TasksContextProvider(props) {
 
 
     const addTask = async (newTask) => {
-        const response = await fetch('/api/tasks', {
+        try {
+            const response = await fetch('/api/tasks', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(newTask)
         })
-        const data = response.json()
+        const data = await response.json()
 
         setTasks(prevState => ([
             ...prevState,
@@ -26,6 +27,9 @@ function TasksContextProvider(props) {
                 ...data
             }
         ]))
+        } catch {
+            throw new Error("Failed To Add Task")
+        }
     }
 
     useEffect(() => {

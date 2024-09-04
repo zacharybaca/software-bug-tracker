@@ -7,3 +7,10 @@
     overflow: auto;
     border: 3px solid black;
 }
+
+hr {
+    width: 50%;
+    border: none;
+    height: 3px;
+    background-color: black;
+}

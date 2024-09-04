@@ -27,14 +27,14 @@ const TaskList = () => {
         </div>
           <ul id="task-list">
             {context.tasks.map((task) => (
-              <Task
-                key={task._id}
-                title={task.taskTitle}
-                completed={task.taskCompleted}
-                details={task.taskDetails}
-                todos={task.taskTodos}
-                assigned={task.assignedEmployee}
-              />
+              <><li key={task._id} className="task">
+                <Task
+                  title={task.taskTitle}
+                  completed={task.taskCompleted}
+                  details={task.taskDetails}
+                  todos={task.taskTodos}
+                  assigned={task.assignedEmployee} />
+              </li><hr /></>
             ))}
           </ul>
       </>
