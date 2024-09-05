@@ -1,10 +1,12 @@
 import './task-form.css';
 import React from 'react';
+import { EmployeesContext } from '../../context/employeesContext';
 
 
 
 const TaskForm = (props) => {
-    
+  const context = React.useContext(EmployeesContext);
+    console.log('Context: ', context);
   // State Responsible For Individual Tasks
   const initialValues = {
     taskTitle: props.taskTitle || "",
@@ -65,6 +67,9 @@ const TaskForm = (props) => {
       <label htmlFor="assignedEmployee">Assign Task: </label>
       <select id="assigned-employee" name="assignedEmployee" value={task.assignedEmployee} onChange={handleChange}>
         <option defaultValue>Select An Employee</option>
+        {context.employees.map(employee => (
+          <option value={employee.firstName}>`{employee.firstName} {employee.lastName}`</option>
+        ))}
       </select>
       <label htmlFor="taskCompleted">Task Completed: </label>
       <input type="checkbox" id="task-completed" name="taskCompleted" checked={task.taskCompleted} value={task.taskCompleted.checked} onChange={handleChange}/>
