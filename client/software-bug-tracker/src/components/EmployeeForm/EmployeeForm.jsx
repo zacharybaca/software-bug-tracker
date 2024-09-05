@@ -21,7 +21,9 @@ function EmployeeForm(props) {
         <label htmlFor="employeeRole">Assign Employee Role: </label>
         <select id="employee-role" name="employeeRole">
           <option defaultValue>Select A Role</option>
-          <option value="softwareEngineer">Software Engineer</option>
+          <option value="softwareEngineer">Software Engineer I</option>
+          <option value="softwareEngineer2">Software Engineer II</option>
+          <option value="uxSpecialist">UX Specialist</option>
           <option value="manager">Manager</option>
         </select>
         <button type="submit" id="add-employee-button">
