@@ -4,6 +4,7 @@ import React from 'react';
 import { TasksContext } from '../../context/tasksContext';
 import TaskForm from '../TaskForm/TaskForm';
 import { Link } from 'react-router-dom';
+import { EmployeesContextProvider } from '../../context/employeesContext';
 
 
 const TaskList = () => {
@@ -12,7 +13,9 @@ const TaskList = () => {
 
     return (
       <>
-        <TaskForm submitTask={context.addTask} buttonText="Add Task"/>
+        <EmployeesContextProvider>
+          <TaskForm submitTask={context.addTask} buttonText="Add Task"/>
+        </EmployeesContextProvider>
         <div id="action-buttons">
           <Link to="/tasks">
             <button type="button" id="add-task-main-button">
