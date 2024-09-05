@@ -1,4 +1,3 @@
-import React from 'react';
 import TaskList from './components/TaskList/TaskList';
 import EmployeeForm from './components/EmployeeForm/EmployeeForm';
 import SignUpForm from './components/SignUpForm/SignUpForm';
