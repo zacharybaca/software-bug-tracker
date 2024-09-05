@@ -5,24 +5,33 @@ const EmployeesContext = React.createContext();
 
 function EmployeesContextProvider(props) {
 
-    // State Responsible For Individual Employees
-    const [employee, setEmployee] = useState({
-        firstName: props.firstName || "",
-        lastName: props.lastName || "",
-        roleAtCompany: props.roleAtCompany || "",
-        isAdmin: props.roleAtCompany === "manager"
-    });
+    
 
     // State Responsible For All Employees
     const [employees, setEmployees] = useState([]);
 
-    function handleChange(e) {
-        const {name, value, type, checked} = e.target;
+   
 
-        setEmployee(prevState => ({
+    const addEmployee = async (newEmployee) => {
+        try {
+            const response = await fetch('/api/employees', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(newEmployee)
+        })
+        const data = await response.json()
+
+        setEmployees(prevState => ([
             ...prevState,
-            [name]: type === "checkbox" ? checked : value
-        }));
+            {
+                ...data
+            }
+        ]))
+        } catch {
+            throw new Error("Failed To Add New Employee")
+        }
     }
 
     useEffect(() => {
@@ -36,9 +45,8 @@ function EmployeesContextProvider(props) {
 
     return (
         <EmployeesContext.Provider value={{
-            employee: employee,
             employees: employees,
-            handleChange: handleChange
+            addEmployee: addEmployee
         }}>
             {props.children}
         </EmployeesContext.Provider>
