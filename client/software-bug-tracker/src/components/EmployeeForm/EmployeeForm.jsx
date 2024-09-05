@@ -40,6 +40,7 @@ function EmployeeForm(props) {
           id="employee-first-name"
           name="employeeFirstName"
           onChange={handleChange}
+          value={employee.firstName}
           placeholder="Enter Employee's First Name"
         />
         <label htmlFor="employeeLastName">Employee Last Name: </label>
@@ -48,10 +49,11 @@ function EmployeeForm(props) {
           id="employee-last-name"
           name="employeeLastName"
           onChange={handleChange}
+          value={employee.lastName}
           placeholder="Enter Employee's Last Name"
         />
         <label htmlFor="employeeRole">Assign Employee Role: </label>
-        <select id="employee-role" name="employeeRole" onChange={handleChange}>
+        <select id="employee-role" name="employeeRole" onChange={handleChange} value={employee.roleAtCompany}>
           <option defaultValue>Select A Role</option>
           <option value="softwareEngineer">Software Engineer I</option>
           <option value="softwareEngineer2">Software Engineer II</option>
