@@ -5,11 +5,12 @@ import { TasksContext } from '../../context/tasksContext';
 import TaskForm from '../TaskForm/TaskForm';
 import { Link } from 'react-router-dom';
 import { EmployeesContextProvider } from '../../context/employeesContext';
+import { EmployeesContext } from '../../context/employeesContext';
 
 
 const TaskList = () => {
   const context = React.useContext(TasksContext);
-
+  const employeesContext = React.useContext(EmployeesContext);
 
     return (
       <>
@@ -36,7 +37,7 @@ const TaskList = () => {
                   completed={task.taskCompleted}
                   details={task.taskDetails}
                   todos={task.taskTodos}
-                  assigned={task.assignedEmployee} />
+                  assigned={employeesContext.employees.map(employee => employee._id === task.assignedEmployee ? employee.firstName : "")} />
               </li><hr /></>
             ))}
           </ul>
