@@ -14,3 +14,8 @@ hr {
     height: 3px;
     background-color: black;
 }
+
+#action-buttons {
+    padding-top: 2%;
+    padding-bottom: 2%;
+}
