@@ -63,10 +63,18 @@ Ensure you have the following installed:
 
 The application will be running on `http://localhost:3000` by default, with the backend API available on `http://localhost:9000`.
 
-## API Endpoints
+## Task API Endpoints
 
 - **GET /api/tasks**: Retrieve a list of all tasks.
 - **POST /api/tasks**: Add a new task.
 - **DELETE /api/tasks/:id**: Delete a task by ID.
 - **PUT /api/tasks/:id**: Update a task by ID.
 - **GET /api/tasks/id**: Get a task by its ID.
+
+## Employee API Endpoints
+
+- **GET /api/employees**: Retrieve a list of all employees.
+- **POST /api/employees**: Add a new employee.
+- **DELETE /api/employees/:id**: Delete an employee by ID.
+- **PUT /api/employees/:id**: Update an employee by ID.
+- **GET /api/employees/:id**: Get an employee by their ID.
