@@ -13,7 +13,7 @@ const TaskForm = (props) => {
     taskCompleted: props.taskCompleted || false,
     taskDetails: props.taskDetails || "",
     taskTodos: props.taskTodos || "",
-    assignedEmployee: props.assignedEmployee
+    assignedEmployee: props.assignedEmployee || ""
   };
 
   const [task, setTask] = React.useState(initialValues);
@@ -68,7 +68,7 @@ const TaskForm = (props) => {
       <select id="assigned-employee" name="assignedEmployee" value={task.assignedEmployee} onChange={handleChange}>
         <option defaultValue>Select An Employee</option>
         {context.employees.map(employee => (
-          <option value={employee._id}>{employee.firstName} {employee.lastName}</option>
+          <option value={employee._id} key={employee._id}>{employee.firstName} {employee.lastName}</option>
         ))}
       </select>
       <label htmlFor="taskCompleted">Task Completed: </label>
