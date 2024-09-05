@@ -1,3 +1,4 @@
+import React from 'react';
 import TaskList from './components/TaskList/TaskList';
 import EmployeeForm from './components/EmployeeForm/EmployeeForm';
 import SignUpForm from './components/SignUpForm/SignUpForm';
@@ -9,6 +10,7 @@ import './App.css'
 
 function App() {
   
+
   return (
     <div id="app-container">
       <h1 id="application-title-heading">Issue Insight</h1>
@@ -19,9 +21,11 @@ function App() {
           path="/tasks"
           element={
             <>
-              <TasksContextProvider>
-                <TaskList />
-              </TasksContextProvider>
+              <EmployeesContextProvider>
+                <TasksContextProvider>
+                  <TaskList />
+                </TasksContextProvider>
+              </EmployeesContextProvider>
             </>
           }
         />
