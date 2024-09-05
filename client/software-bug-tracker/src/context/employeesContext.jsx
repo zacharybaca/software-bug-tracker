@@ -10,7 +10,7 @@ function EmployeesContextProvider(props) {
         firstName: props.firstName || "",
         lastName: props.lastName || "",
         roleAtCompany: props.roleAtCompany || "",
-        isAdmin: props.isAdmin || false
+        isAdmin: props.roleAtCompany === "manager"
     });
 
     // State Responsible For All Employees
