@@ -34,26 +34,26 @@ function EmployeeForm(props) {
   }
     return (
       <form id="employee-form" name="employeeForm" onSubmit={handleSubmit}>
-        <label htmlFor="employeeFirstName">Employee First Name: </label>
+        <label htmlFor="firstName">Employee First Name: </label>
         <input
           type="text"
           id="employee-first-name"
-          name="employeeFirstName"
+          name="firstName"
           onChange={handleChange}
           value={employee.firstName}
           placeholder="Enter Employee's First Name"
         />
-        <label htmlFor="employeeLastName">Employee Last Name: </label>
+        <label htmlFor="lastName">Employee Last Name: </label>
         <input
           type="text"
           id="employee-last-name"
-          name="employeeLastName"
+          name="lastName"
           onChange={handleChange}
           value={employee.lastName}
           placeholder="Enter Employee's Last Name"
         />
-        <label htmlFor="employeeRole">Assign Employee Role: </label>
-        <select id="employee-role" name="employeeRole" onChange={handleChange} value={employee.roleAtCompany}>
+        <label htmlFor="roleAtCompany">Assign Employee Role: </label>
+        <select id="employee-role" name="roleAtCompany" onChange={handleChange} value={employee.roleAtCompany}>
           <option defaultValue>Select A Role</option>
           <option value="softwareEngineer">Software Engineer I</option>
           <option value="softwareEngineer2">Software Engineer II</option>
