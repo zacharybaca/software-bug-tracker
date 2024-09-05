@@ -20,3 +20,8 @@ label, input, select {
     width: 100%;
     border-radius: 5px;
 }
+
+#add-employee-button:hover {
+    cursor: pointer;
+    background-color: green;
+}
