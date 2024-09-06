@@ -34,7 +34,7 @@ function App() {
           element={
             <>
               <EmployeesContextProvider>
-                <EmployeeForm buttonText={"Add Employee"} />
+                <EmployeeForm />
               </EmployeesContextProvider>
             </>
           }
