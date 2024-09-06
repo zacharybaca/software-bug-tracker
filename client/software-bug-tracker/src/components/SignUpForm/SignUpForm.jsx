@@ -1,39 +1,47 @@
 import './sign-up-form.css';
 import React from 'react';
+import { EmployeesContext } from '../../context/employeesContext';
 
 
-function SignUpForm(props) {
-    
+function SignUpForm() {
+  const context = React.useContext(EmployeesContext);
 
-    const initialValues = {
-      _id: props._id || "",
-      firstName: props.firstName || "",
-      lastName: props.lastName || "",
-      roleAtCompany: props.roleAtCompany || "",
+    const [user, setUser] = React.useState({
       user: {
-        userID: props.user.userID || "",
-        password: props.user.password || "",
+        userID: "",
+        password: ""
       }
-    };
+    });
 
-    const [employee, setEmployee] = React.useState(initialValues);
+    function handleChange(e) {
+      const { name, value, type, checked } = e.target;
 
-     function handleChange(e) {
-       const { name, value, type, checked } = e.target;
+      if (name === "userID" || name === "password") {
+        setUser((prevState) => ({
+          ...prevState,
+          user: {
+            ...prevState.user,
+            [name]: type === "checkbox" ? checked : value,
+          },
+        }));
+      } else {
+        setUser((prevState) => ({
+          ...prevState,
+          [name]: type === "checkbox" ? checked : value,
+        }));
+      }
+    }
 
-       setEmployee((prevState) => ({
-         ...prevState,
-         [name]: type === "checkbox" ? checked : value,
-       }));
-     }
 
      function handleSubmit(e) {
        e.preventDefault();
        props.submitEmployee(employee, employee._id);
-       setEmployee(initialValues);
-       if (props.toggleForm) {
-         props.toggleForm((prevState) => !prevState);
-       }
+       setEmployee({
+        user: {
+          userID: "",
+          password: ""
+        }
+       });
      }
 
     return (
@@ -45,7 +53,7 @@ function SignUpForm(props) {
             <label htmlFor="password">Create A Password: </label>
             <input type="password" id="password" name="password" value={employee.user.password} onChange={handleChange} placeholder="Password" />
             
-            <button type="submit" id="sign-up-form-button">{props.buttonText}</button>
+            <button type="submit" id="sign-up-form-button">Sign Up!</button>
         </form>
         <button type="button" id="existing-user-button">Already A User? Click Here to Login</button>
         </>

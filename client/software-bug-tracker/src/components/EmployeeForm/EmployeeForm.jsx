@@ -10,6 +10,12 @@ function EmployeeForm(props) {
       firstName: props.firstName || "",
       lastName: props.lastName || "",
       roleAtCompany: props.roleAtCompany || "",
+      user: {
+        userID: props.user ? props.user.userID : "",
+        password: props.user && props.user.userID ? props.user.password : ""
+      },
+      generateAccessCode: props.generateAccessCode || false,
+      accessCode: props.accessCode || "",
       isAdmin: props.roleAtCompany === "manager"
   };
 
@@ -60,6 +66,8 @@ function EmployeeForm(props) {
           <option value="uxSpecialist">UX Specialist</option>
           <option value="manager">Manager</option>
         </select>
+        <label htmlFor="generateAccessCode">Generate Access Code?</label>
+        <input type="checkbox" id="generateAccessCode" name="generateAccessCode" checked={employee.generateAccessCode} value={employee.generateAccessCode.checked} onChange={handleChange} />
         <button type="submit" id="add-employee-button">
           {props.buttonText}
         </button>

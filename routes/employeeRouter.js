@@ -16,6 +16,9 @@ employeeRouter
   .post(async (req, res, next) => {
     try {
       const newEmployee = new Employee(req.body);
+      if (newEmployee.generateAccessCode) {
+        newEmployee.accessCode = Math.floor(Math.random() * 5000) + 1;
+      }
       const savedEmployee = await newEmployee.save();
       return res.status(201).send(savedEmployee);
     } catch (error) {

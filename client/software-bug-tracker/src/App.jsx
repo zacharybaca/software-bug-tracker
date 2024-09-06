@@ -44,7 +44,7 @@ function App() {
           element={
             <>
               <EmployeesContextProvider>
-                <SignUpForm buttonText={"Sign Up For Access"} />
+                <SignUpForm />
               </EmployeesContextProvider>
             </>
           }
