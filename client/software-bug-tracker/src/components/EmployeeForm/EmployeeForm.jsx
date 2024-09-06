@@ -3,21 +3,24 @@ import React from 'react';
 import { EmployeesContext } from '../../context/employeesContext';
 
 
-function EmployeeForm() {
+function EmployeeForm(props) {
     const context = React.useContext(EmployeesContext);
 
-    const [employee, setEmployee] = React.useState({
-      firstName: "",
-      lastName: "",
-      roleAtCompany: "",
+    // State Responsible For Individual Employees
+    const initialValues = {
+      firstName: props.firstName || "",
+      lastName: props.lastName || "",
+      roleAtCompany: props.roleAtCompany || "",
       user: {
-        userID: "",
-        password: ""
+        userID: props.user ? props.user.userID : "",
+        password: props.user && props.user.userID ? props.user.password : ""
       },
-      generateAccessCode: false,
-      accessCode: "",
-      isAdmin: false
-  });
+      generateAccessCode: props.generateAccessCode || false,
+      accessCode: props.accessCode || "",
+      isAdmin: props.roleAtCompany === "manager"
+  };
+
+    const [employee, setEmployee] = React.useState(initialValues);
 
     function handleChange(e) {
       const {name, value, type, checked} = e.target;
@@ -30,19 +33,11 @@ function EmployeeForm() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    context.addEmployee(employee, employee._id);
-    setEmployee({
-      firstName: "",
-      lastName: "",
-      roleAtCompany: "",
-      user: {
-        userID: "",
-        password: ""
-      },
-      generateAccessCode: false,
-      accessCode: "",
-      isAdmin: false
-  });
+    props.submitEmployee(employee, employee._id);
+    setEmployee(initialValues);
+    if (props.toggleForm) {
+        props.toggleForm(prevState => !prevState);
+    }
   }
     return (
       <form id="employee-form" name="employeeForm" onSubmit={handleSubmit}>
@@ -76,7 +71,7 @@ function EmployeeForm() {
         <input type="checkbox" id="generateAccessCode" name="generateAccessCode" checked={employee.generateAccessCode} value={employee.generateAccessCode.checked} onChange={handleChange} />
         {employee.accessCode && <span>`Access Code: <p id="access-code">${employee.accessCode}</p>`</span>}
         <button type="submit" id="add-employee-button">
-          Add Employee
+          {props.buttonText}
         </button>
       </form>
     );
