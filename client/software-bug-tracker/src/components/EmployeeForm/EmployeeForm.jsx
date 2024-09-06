@@ -1,10 +1,9 @@
 import './employee-form.css';
 import React from 'react';
-import { EmployeesContext } from '../../context/employeesContext';
+
 
 
 function EmployeeForm(props) {
-    const context = React.useContext(EmployeesContext);
 
     // State Responsible For Individual Employees
     const initialValues = {
