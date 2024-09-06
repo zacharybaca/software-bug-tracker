@@ -2,10 +2,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-left: 8%;
-    padding-right: 8%;
-    padding-top: 2%;
-    padding-bottom: 2%;
+    padding-left: 10%;
+    padding-right: 10%;
+    padding-top: 5%;
+    padding-bottom: 5%;
     border-radius: 10px;
     background-color: beige;
     border: 2px solid black;
@@ -24,4 +24,8 @@ label, input, select {
 #add-employee-button:hover {
     cursor: pointer;
     background-color: green;
+}
+
+#access-code {
+    font-weight: 800;
 }
