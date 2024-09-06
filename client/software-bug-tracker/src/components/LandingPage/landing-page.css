@@ -40,6 +40,12 @@ label, input {
     height: 5vh;
 }
 
+#form-header {
+    font-size: 25px;
+    padding-bottom: 10%;
+    font-weight: 800;
+}
+
 #login-button:hover, #new-user-button:hover {
     cursor: pointer;
     background-color: green;
