@@ -1,25 +1,23 @@
 import './employee-form.css';
 import React from 'react';
+import { EmployeesContext } from '../../context/employeesContext';
 
 
-function EmployeeForm(props) {
-    
+function EmployeeForm() {
+    const context = React.useContext(EmployeesContext);
 
-    // State Responsible For Individual Employees
-    const initialValues = {
-      firstName: props.firstName || "",
-      lastName: props.lastName || "",
-      roleAtCompany: props.roleAtCompany || "",
+    const [employee, setEmployee] = React.useState({
+      firstName: "",
+      lastName: "",
+      roleAtCompany: "",
       user: {
-        userID: props.user ? props.user.userID : "",
-        password: props.user && props.user.userID ? props.user.password : ""
+        userID: "",
+        password: ""
       },
-      generateAccessCode: props.generateAccessCode || false,
-      accessCode: props.accessCode || "",
-      isAdmin: props.roleAtCompany === "manager"
-  };
-
-    const [employee, setEmployee] = React.useState(initialValues);
+      generateAccessCode: false,
+      accessCode: "",
+      isAdmin: false
+  });
 
     function handleChange(e) {
       const {name, value, type, checked} = e.target;
@@ -32,11 +30,19 @@ function EmployeeForm(props) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    props.submitEmployee(employee, employee._id);
-    setEmployee(initialValues);
-    if (props.toggleForm) {
-        props.toggleForm(prevState => !prevState);
-    }
+    context.addEmployee(employee, employee._id);
+    setEmployee({
+      firstName: "",
+      lastName: "",
+      roleAtCompany: "",
+      user: {
+        userID: "",
+        password: ""
+      },
+      generateAccessCode: false,
+      accessCode: "",
+      isAdmin: false
+  });
   }
     return (
       <form id="employee-form" name="employeeForm" onSubmit={handleSubmit}>
@@ -70,7 +76,7 @@ function EmployeeForm(props) {
         <input type="checkbox" id="generateAccessCode" name="generateAccessCode" checked={employee.generateAccessCode} value={employee.generateAccessCode.checked} onChange={handleChange} />
         {employee.accessCode && <span>`Access Code: <p id="access-code">${employee.accessCode}</p>`</span>}
         <button type="submit" id="add-employee-button">
-          {props.buttonText}
+          Add Employee
         </button>
       </form>
     );
