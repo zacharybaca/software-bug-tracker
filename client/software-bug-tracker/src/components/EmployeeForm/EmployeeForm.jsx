@@ -68,6 +68,7 @@ function EmployeeForm(props) {
         </select>
         <label htmlFor="generateAccessCode">Generate Access Code?</label>
         <input type="checkbox" id="generateAccessCode" name="generateAccessCode" checked={employee.generateAccessCode} value={employee.generateAccessCode.checked} onChange={handleChange} />
+        {employee.accessCode && <span>`Access Code: <p id="access-code">${employee.accessCode}</p>`</span>}
         <button type="submit" id="add-employee-button">
           {props.buttonText}
         </button>
