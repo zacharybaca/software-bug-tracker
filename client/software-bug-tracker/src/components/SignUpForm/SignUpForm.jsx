@@ -54,7 +54,7 @@ function SignUpForm() {
             <label htmlFor="password">Create A Password: </label>
             <input type="password" id="password" name="password" value={user.password} onChange={handleChange} placeholder="Password" />
             <label htmlFor="accessCode">Please Enter Access Code To Create An Account: </label>
-            <input type="text" id="accessCode" name="accessCode" value={user.accessCode} onChange={handleChange}/>
+            <input type="text" id="accessCode" name="accessCode" value={user.accessCode} onChange={handleChange} placeholder="Access Code"/>
             <button type="submit" id="sign-up-form-button">Sign Up!</button>
         </form>
         <button type="button" id="existing-user-button">Already A User? Click Here to Login</button>
