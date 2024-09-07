@@ -6,30 +6,17 @@ import React from 'react';
 function SignUpForm() {
 
     const [user, setUser] = React.useState({
-      user: {
         userID: "",
         password: "",
         accessCode: ""
-      }
     });
 
     function handleChange(e) {
       const { name, value, type, checked } = e.target;
-
-      if (name === "userID" || name === "password") {
-        setUser((prevState) => ({
-          ...prevState,
-          user: {
-            ...prevState.user,
-            [name]: type === "checkbox" ? checked : value,
-          },
-        }));
-      } else {
         setUser((prevState) => ({
           ...prevState,
           [name]: type === "checkbox" ? checked : value,
         }));
-      }
     }
 
 
@@ -37,11 +24,9 @@ function SignUpForm() {
        e.preventDefault();
        props.submitEmployee(employee, employee._id);
        setUser({
-        user: {
           userID: "",
           password: "",
           accessCode: ""
-        }
        });
      }
 
