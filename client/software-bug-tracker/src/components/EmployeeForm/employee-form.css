@@ -29,3 +29,7 @@ label, input, select {
 #access-code {
     font-weight: 800;
 }
+
+#admin-label {
+    height: 8vh;
+}

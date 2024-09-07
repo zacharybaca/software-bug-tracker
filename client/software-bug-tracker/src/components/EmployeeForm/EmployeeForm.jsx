@@ -71,16 +71,35 @@ function EmployeeForm() {
           placeholder="Enter Employee's Last Name"
         />
         <label htmlFor="roleAtCompany">Assign Employee Role: </label>
-        <select id="employee-role" name="roleAtCompany" onChange={handleChange} value={employee.roleAtCompany}>
+        <select
+          id="employee-role"
+          name="roleAtCompany"
+          onChange={handleChange}
+          value={employee.roleAtCompany}>
           <option defaultValue>Select A Role</option>
           <option value="softwareEngineer">Software Engineer I</option>
           <option value="softwareEngineer2">Software Engineer II</option>
           <option value="uxSpecialist">UX Specialist</option>
           <option value="manager">Manager</option>
         </select>
+        <label id="admin-label">
+          Does Employee Have Admin Rights?{" "}
+            {employee.roleAtCompany === "manager" ? "✅" : "❌"}
+        </label>
         <label htmlFor="generateAccessCode">Generate Access Code?</label>
-        <input type="checkbox" id="generateAccessCode" name="generateAccessCode" checked={employee.generateAccessCode} value={employee.generateAccessCode.checked} onChange={handleChange} />
-        {employee.accessCode && <span>`Access Code: <p id="access-code">${employee.accessCode}</p>`</span>}
+        <input
+          type="checkbox"
+          id="generateAccessCode"
+          name="generateAccessCode"
+          checked={employee.generateAccessCode}
+          value={employee.generateAccessCode.checked}
+          onChange={handleChange}
+        />
+        {employee.accessCode && (
+          <span>
+            `Access Code: <p id="access-code">${employee.accessCode}</p>`
+          </span>
+        )}
         <button type="submit" id="add-employee-button">
           Add Employee
         </button>

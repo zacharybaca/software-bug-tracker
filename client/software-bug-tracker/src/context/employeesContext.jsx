@@ -45,6 +45,18 @@ function EmployeesContextProvider(props) {
         setEmployees(prevState => prevState.map(employee => employee._id === employeeID ? data : employee))
     }
 
+    const createLoginAccount = (loginData, employeeID, accessToken) => {
+        const foundEmployee = employees.find(employee => employee._id === employeeID);
+
+        if (foundEmployee) {
+            if (foundEmployee.accessCode) {
+                if (foundEmployee.accessCode === accessToken) {
+                    updateEmployee(loginData, employeeID);
+                }
+            }
+        }
+    }
+
     useEffect(() => {
         const getEmployees = async () => {
             const data = await fetch('/api/employees');
@@ -58,7 +70,8 @@ function EmployeesContextProvider(props) {
         <EmployeesContext.Provider value={{
             employees: employees,
             addEmployee: addEmployee,
-            updateEmployee: updateEmployee
+            updateEmployee: updateEmployee,
+            createLogin: createLoginAccount
         }}>
             {props.children}
         </EmployeesContext.Provider>
