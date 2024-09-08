@@ -86,6 +86,7 @@ function SignUpForm() {
         user: {
           userID: "",
           password: "",
+          associatedEmployee: ""
         },
         generateAccessCode: false,
         accessCode: "",
@@ -109,7 +110,7 @@ function SignUpForm() {
               ))}
             </select>
             <label htmlFor="accessCode">Please Enter Access Code To Create An Account: </label>
-            <input type="text" id="accessCode" name="accessCode" value={employee.user.accessCode} onChange={handleChange} placeholder="Access Code"/>
+            <input type="text" id="accessCode" name="accessCode" value={employee.accessCode} onChange={handleChange} placeholder="Access Code"/>
             <button type="submit" id="sign-up-form-button">Sign Up!</button>
         </form>
         <button type="button" id="existing-user-button">Already A User? Click Here to Login</button>
