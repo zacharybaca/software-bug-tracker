@@ -8,30 +8,89 @@ function SignUpForm() {
 
   const context = React.useContext(EmployeesContext);
 
-    const [user, setUser] = React.useState({
+    const [employee, setEmployee] = React.useState({
+      firstName: "",
+      lastName: "",
+      roleAtCompany: "",
+      user: {
         userID: "",
         password: "",
-        accessCode: "",
-        associatedEmployee: ""
+      },
+      generateAccessCode: "",
+      accessCode: "",
+      isAdmin: "",
     });
 
     function handleChange(e) {
       const { name, value, type, checked } = e.target;
-        setUser((prevState) => ({
-          ...prevState,
-          [name]: type === "checkbox" ? checked : value,
-        }));
+      
+        if (name === "roleAtCompany" && value === "manager") {
+          setEmployee((prevState) => ({
+            ...prevState,
+            isAdmin: true,
+          }));
+        }
+
+        if (name === "userID" || name === "password") {
+          setEmployee((prevState) => ({
+            ...prevState,
+            user: {
+              ...prevState.user,
+              [name]: type === "checkbox" ? checked : value,
+            },
+          }));
+        } else {
+          setEmployee((prevState) => ({
+            ...prevState,
+            [name]: type === "checkbox" ? checked : value,
+          }));
+        }
     }
+     
+     function removeEmptyFields(obj) {
+       const cleanedObj = {};
+
+       Object.keys(obj).forEach((key) => {
+         if (typeof obj[key] === "object" && obj[key] !== null) {
+           // Recursively clean nested objects (like the 'user' object)
+           const cleanedNested = removeEmptyFields(obj[key]);
+           if (Object.keys(cleanedNested).length > 0) {
+             cleanedObj[key] = cleanedNested;
+           }
+         } else if (
+           obj[key] !== "" &&
+           obj[key] !== null &&
+           obj[key] !== undefined
+         ) {
+           // Add non-empty, non-null, and non-undefined values
+           cleanedObj[key] = obj[key];
+         }
+       });
+
+       return cleanedObj;
+     }
 
 
      function handleSubmit(e) {
        e.preventDefault();
-       context.createLogin(user, user.associatedEmployee._id, user.accessCode);
-       setUser({
+       const cleanedEmployee = removeEmptyFields(employee);
+       try {
+        context.createLogin(cleanedEmployee, cleanedEmployee.associatedEmployee, cleanedEmployee.accessCode);
+       } catch (error) {
+        console.error("Error creating login: ", error.message);
+       }
+      setEmployee({
+        firstName: "",
+        lastName: "",
+        roleAtCompany: "",
+        user: {
           userID: "",
           password: "",
-          accessCode: ""
-       });
+        },
+        generateAccessCode: false,
+        accessCode: "",
+        isAdmin: false,
+      });
      }
 
     return (
@@ -39,18 +98,18 @@ function SignUpForm() {
         <h1 id="sign-up-heading">Sign Up For Account Access</h1>
         <form id="sign-up-form" name="signUpForm" onSubmit={handleSubmit}>
             <label htmlFor="userID">Create A Username: </label>
-            <input type="text" id="user-name" name="userID" value={user.userID} onChange={handleChange} placeholder="Username" />
+            <input type="text" id="userID" name="userID" value={employee.user.userID} onChange={handleChange} placeholder="Username" />
             <label htmlFor="password">Create A Password: </label>
-            <input type="password" id="password" name="password" value={user.password} onChange={handleChange} placeholder="Password" />
+            <input type="password" id="password" name="password" value={employee.user.password} onChange={handleChange} placeholder="Password" />
             <label htmlFor="associatedEmployee">Select Associated Employee: </label>
-            <select id="associated-employee" name="associatedEmployee" value={user.associatedEmployee} onChange={handleChange}>
-              <option defaultValue>Select Associated Employee</option>
+            <select id="associatedEmployee" name="associatedEmployee" value={employee.user.associatedEmployee} onChange={handleChange}>
+              <option value="">Select Associated Employee</option>
               {context.employees.map(employee => (
                 <option value={employee._id} key={employee._id}>{employee.firstName} {employee.lastName}</option>
               ))}
             </select>
             <label htmlFor="accessCode">Please Enter Access Code To Create An Account: </label>
-            <input type="text" id="accessCode" name="accessCode" value={user.accessCode} onChange={handleChange} placeholder="Access Code"/>
+            <input type="text" id="accessCode" name="accessCode" value={employee.user.accessCode} onChange={handleChange} placeholder="Access Code"/>
             <button type="submit" id="sign-up-form-button">Sign Up!</button>
         </form>
         <button type="button" id="existing-user-button">Already A User? Click Here to Login</button>

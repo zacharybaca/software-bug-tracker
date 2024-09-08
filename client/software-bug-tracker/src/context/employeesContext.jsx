@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
+
 const EmployeesContext = React.createContext();
 
 
@@ -37,16 +38,30 @@ function EmployeesContextProvider(props) {
 
 
     const updateEmployee = async (updatedEmployee, employeeID) => {
+      console.log("Sending Data:", updatedEmployee); // Add this to see what's being sent
+      try {
         const response = await fetch(`/api/employees/${employeeID}`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(updatedEmployee)
-        })
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(updatedEmployee),
+        });
+        if (!response.ok) {
+          throw new Error(`Failed to update employee: ${response.statusText}`);
+        }
         const data = await response.json();
-        setEmployees(prevState => prevState.map(employee => employee._id === employeeID ? data : employee))
-    }
+        console.log("User: ", data);
+        setEmployees((prevState) =>
+          prevState.map((employee) =>
+            employee._id !== employeeID ? employee : { ...data }
+          )
+        );
+      } catch (error) {
+        console.error("Error updating employee:", error);
+      }
+    };
+
 
     const createLoginAccount = (loginData, employeeID, accessToken) => {
         const foundEmployee = employees.find(employee => employee._id === employeeID);
@@ -54,7 +69,7 @@ function EmployeesContextProvider(props) {
         if (foundEmployee) {
             if (foundEmployee.accessCode) {
                 if (foundEmployee.accessCode === accessToken) {
-                   return updateEmployee(loginData, employeeID);
+                   updateEmployee(loginData, foundEmployee._id)
                 } else {
                     throw new Error("Access Code is Incorrect. Please Try Again.");
                 }
@@ -67,11 +82,18 @@ function EmployeesContextProvider(props) {
     }
 
     useEffect(() => {
-        const getEmployees = async () => {
-            const data = await fetch('/api/employees');
-            const response = await data.json();
-            setEmployees(response);
-        }
+       const getEmployees = async () => {
+         try {
+           const response = await fetch("/api/employees");
+           if (!response.ok) {
+             throw new Error(`Error: ${response.statusText}`);
+           }
+           const data = await response.json();
+           setEmployees(data);
+         } catch (error) {
+           console.error("Failed to fetch employees:", error);
+         }
+       };
         getEmployees();
     }, [])
 
