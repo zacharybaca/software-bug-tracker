@@ -12,6 +12,12 @@ This web application allows employees, who are on the software engineering team 
 - **Edit Tasks**: Users can update existing tasks with new information.
 - **View Tasks By Id**: Users can view tasks based on their ID.
 
+- **Create Employees**: Users with a role of "manager" can create a new employee in the system.
+- **View Employees**: Users with a role of "manager" can view a list of employees that are registered in the system.
+- **Delete Employees**: Users with a role of "manager" can remove an employee from the system.
+- **Edit Employees**: Users with a role of "manager" can edit an employee in the system.
+- **View Specific Employee**: Users with a role of "manager" can view a specific employee in the system.
+
 ## Technologies Used
 
 - **Frontend**: React
