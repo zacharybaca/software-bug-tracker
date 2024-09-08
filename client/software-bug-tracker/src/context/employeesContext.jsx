@@ -51,9 +51,15 @@ function EmployeesContextProvider(props) {
         if (foundEmployee) {
             if (foundEmployee.accessCode) {
                 if (foundEmployee.accessCode === accessToken) {
-                    updateEmployee(loginData, employeeID);
+                   return updateEmployee(loginData, employeeID);
+                } else {
+                    throw new Error("Access Code is Incorrect. Please Try Again.");
                 }
+            } else {
+                throw new Error("Employee Does Not Have Access To Create An Account. Contact A Manager To Set Up.");
             }
+        } else {
+            throw new Error("Employee ID Does Not Exist");
         }
     }
 
