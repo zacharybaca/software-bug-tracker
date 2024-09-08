@@ -27,11 +27,30 @@ function EmployeeForm() {
     function handleChange(e) {
       const {name, value, type, checked} = e.target;
 
-      setEmployee(prevState => ({
-          ...prevState,
-          [name]: type === "checkbox" ? checked : value
-      }));
-  }
+       if (name === "roleAtCompany" && value === "manager") {
+         setEmployee((prevState) => ({
+           ...prevState,
+           isAdmin: true,
+         }));
+       }
+
+        if (name === "userID" || name === "password") {
+          setEmployee((prevState) => ({
+            ...prevState,
+            user: {
+              ...prevState.user,
+              [name]: type === "checkbox" ? checked : value,
+            },
+          }));
+        } else {
+          setEmployee((prevState) => ({
+            ...prevState,
+            [name]: type === "checkbox" ? checked : value,
+          }));
+        }
+      }
+
+  
 
   function handleSubmit(e) {
     e.preventDefault();

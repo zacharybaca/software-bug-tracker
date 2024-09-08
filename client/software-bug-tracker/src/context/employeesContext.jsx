@@ -21,12 +21,15 @@ function EmployeesContextProvider(props) {
         })
         const data = await response.json()
 
+        alert(`Employee's Access Code is: ${data.accessCode}`)
+
         setEmployees(prevState => ([
             ...prevState,
             {
                 ...data
             }
         ]))
+
         } catch {
             throw new Error("Failed To Add New Employee")
         }
