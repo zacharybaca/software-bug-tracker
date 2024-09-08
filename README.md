@@ -11,7 +11,7 @@ This web application allows employees, who are on the software engineering team 
 - **Delete Tasks**: Users can remove tasks from the system.
 - **Edit Tasks**: Users can update existing tasks with new information.
 - **View Tasks By Id**: Users can view tasks based on their ID.
-
+------------------------------------------------------------------------------------------------------------------------
 - **Create Employees**: Users with a role of "manager" can create a new employee in the system.
 - **View Employees**: Users with a role of "manager" can view a list of employees that are registered in the system.
 - **Delete Employees**: Users with a role of "manager" can remove an employee from the system.
