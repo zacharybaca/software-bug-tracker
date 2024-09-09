@@ -18,11 +18,7 @@ const TaskList = () => {
           <TaskForm submitTask={context.addTask} buttonText="Add Task"/>
         </EmployeesContextProvider>
         <div id="action-buttons">
-          <Link to="/tasks">
-            <button type="button" id="add-task-main-button">
-              Add Task
-            </button>
-          </Link>
+          
           <Link to="/add-employee">
             <button type="button" id="add-employee-main-button">
               Add Employee
@@ -33,10 +29,13 @@ const TaskList = () => {
             {context.tasks.map((task) => (
               <><li key={task._id} className="task">
                 <Task
+                  id={task._id}
                   title={task.taskTitle}
                   completed={task.taskCompleted}
                   details={task.taskDetails}
                   todos={task.taskTodos}
+                  editTask={context.editTask}
+                  deleteTask={context.deleteTask}
                   assigned={employeesContext.employees.map(employee => employee._id === task.assignedEmployee ? employee.firstName : "")} />
               </li><hr /></>
             ))}

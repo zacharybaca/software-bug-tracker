@@ -32,6 +32,25 @@ function TasksContextProvider(props) {
         }
     }
 
+    const deleteTask = async (id) => {
+        try {
+            const response = await fetch(`/api/tasks/${id}`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to Delete Task');
+            }
+
+            setTasks(prevTasks => prevTasks.filter(task => task._id !== id))
+        } catch (error) {
+            console.error('Error: ', error);
+        }
+    }
+
     useEffect(() => {
         const getTasks = async () => {
             const data = await fetch('/api/tasks');
@@ -44,7 +63,8 @@ function TasksContextProvider(props) {
     return (
         <TasksContext.Provider value={{
             tasks: tasks,
-            addTask: addTask
+            addTask: addTask,
+            deleteTask: deleteTask
         }}>
             {props.children}
         </TasksContext.Provider>

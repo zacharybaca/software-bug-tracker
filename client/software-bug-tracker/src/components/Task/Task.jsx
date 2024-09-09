@@ -37,7 +37,7 @@ const Task = (props) => {
                 onClick={() => setShowForm((prevState) => !prevState)}>
                 Edit
               </button>
-              <button type="button">Delete</button>
+              <button type="button" onClick={() => props.deleteTask(props.id)}>Delete</button>
             </div>
           </>
         ) : (
@@ -51,6 +51,7 @@ const Task = (props) => {
               taskTodos={props.todos}
               assignedEmployee={props.assigned}
               toggleForm={setShowForm}
+              submitTask={props.editTask}
             />
             <button
               type="button"
