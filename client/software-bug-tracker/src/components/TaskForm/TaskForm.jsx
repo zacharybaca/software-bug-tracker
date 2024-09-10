@@ -29,12 +29,28 @@ const TaskForm = (props) => {
 
   function handleSubmit(e) {
     e.preventDefault();
-    props.submitTask(task, task._id);
+
+    // Format the taskTodos field before submitting
+    const formattedTodos = task.taskTodos
+      .split(".")
+      .map((todo) => todo.trim())
+      .filter((todo) => todo)
+      .join(".\n");
+
+    const formattedTask = {
+      ...task,
+      taskTodos: formattedTodos,
+    };
+
+    props.submitTask(formattedTask, task._id);
     setTask(initialValues);
+
     if (props.toggleForm) {
-        props.toggleForm(prevState => !prevState);
+      props.toggleForm((prevState) => !prevState);
     }
   }
+
+
 
   return (
     <form id="task-form" name="taskForm" onSubmit={handleSubmit}>

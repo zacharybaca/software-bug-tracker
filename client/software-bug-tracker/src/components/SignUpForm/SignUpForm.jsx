@@ -106,7 +106,7 @@ function SignUpForm() {
             <select id="associatedEmployee" name="associatedEmployee" value={employee.user.associatedEmployee} onChange={handleChange}>
               <option value="">Select Associated Employee</option>
               {context.employees.map(employee => (
-                <option value={employee._id} key={employee._id}>{employee.firstName} {employee.lastName}</option>
+                <option value={employee._id} key={employee._id}>{employee.firstName} {employee.lastName} - {employee.roleAtCompany.charAt(0).toUpperCase() + employee.roleAtCompany.slice(1)}</option>
               ))}
             </select>
             <label htmlFor="accessCode">Please Enter Access Code To Create An Account: </label>

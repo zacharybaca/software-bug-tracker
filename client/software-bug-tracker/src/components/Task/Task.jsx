@@ -4,6 +4,10 @@ import React from 'react';
 
 const Task = (props) => {
     const [showForm, setShowForm] = React.useState(false);
+    const [completedTodos, setCompletedTodos] = React.useState(
+      new Array(props.todos.split("\n").length).fill(false)
+    );
+
     
     return (
       <>
@@ -20,7 +24,24 @@ const Task = (props) => {
               </h2>
               <h2>
                 <span className="heading">Todos: </span>
-                {props.todos}
+                {props.todos.split("\n").map((line, index) => (
+                  <p
+                    style={
+                      completedTodos[index]
+                        ? { textDecoration: "line-through" }
+                        : {}
+                    }
+                    key={index}
+                    onClick={() => {
+                      setCompletedTodos((prevState) => {
+                        const updatedTodos = [...prevState];
+                        updatedTodos[index] = !updatedTodos[index]; // Toggle the specific todo's completion
+                        return updatedTodos;
+                      });
+                    }}>
+                    {line}
+                  </p>
+                ))}
               </h2>
               <h3>
                 <span className="heading">Completed: </span>
@@ -37,7 +58,9 @@ const Task = (props) => {
                 onClick={() => setShowForm((prevState) => !prevState)}>
                 Edit
               </button>
-              <button type="button" onClick={() => props.deleteTask(props.id)}>Delete</button>
+              <button type="button" onClick={() => props.deleteTask(props.id)}>
+                Delete
+              </button>
             </div>
           </>
         ) : (
