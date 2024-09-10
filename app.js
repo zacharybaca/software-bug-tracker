@@ -36,6 +36,6 @@ app.use((err, req, res, next) => {
 
 
 // Initiates Connection to Server
-app.listen(9000, () => {
-    console.log("Server Listening on Port 9000");
+app.listen(process.env.PORT, () => {
+    console.log(`Server Listening on ${process.env.PORT}`);
 });

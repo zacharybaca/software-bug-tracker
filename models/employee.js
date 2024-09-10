@@ -16,7 +16,8 @@ const employeeSchema = new Schema({
   },
   user: {
     userID: {
-      type: String
+      type: String,
+      unique: true
     },
     password: {
       type: String,

@@ -1,6 +1,7 @@
 const express = require("express");
 const employeeRouter = express.Router();
 const Employee = require("../models/employee.js");
+const jwt = require('jsonwebtoken');
 
 employeeRouter
   .route("/")
@@ -32,6 +33,12 @@ employeeRouter
   .put(async (req, res, next) => {
     try {
       const id = req.params.id;
+      const user = await Employee.findOne({userID: req.body.user.userID})
+      if (user) {
+        res.status(403)
+        return next(new Error('Username has already been taken'))
+      }
+
       const employeeToBeUpdated = await Employee.findByIdAndUpdate(
         id,
         req.body,
@@ -40,6 +47,12 @@ employeeRouter
         }
       );
       console.log("Updated Employee Data:", employeeToBeUpdated); // Log incoming data
+
+      if (employeeToBeUpdated.user) {
+        const newUser = employeeToBeUpdated.user;
+        const token = jwt.sign(newUser.toObject(), process.env.SECRET)
+        return res.status(201).send({user: newUser, token})
+      }
       return res.status(201).send(employeeToBeUpdated);
     } catch (error) {
       res.status(500);
