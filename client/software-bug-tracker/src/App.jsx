@@ -2,6 +2,7 @@ import TaskList from './components/TaskList/TaskList';
 import EmployeeForm from './components/EmployeeForm/EmployeeForm';
 import SignUpForm from './components/SignUpForm/SignUpForm';
 import LandingPage from './components/LandingPage/LandingPage';
+import EmployeeDirectory from './components/EmployeeDirectory/EmployeeDirectory';
 import { TasksContextProvider } from './context/tasksContext';
 import { EmployeesContextProvider } from './context/employeesContext';
 import { Routes, Route } from 'react-router-dom';
@@ -16,6 +17,7 @@ function App() {
 
       <Routes>
         <Route path="/" element={<LandingPage buttonText={"Login"} />} />
+        
         <Route
           path="/tasks"
           element={
@@ -29,6 +31,15 @@ function App() {
           }
         />
 
+        <Route path="/employee-directory" element={
+          <TasksContextProvider>
+            <EmployeesContextProvider>
+              <EmployeeDirectory />
+            </EmployeesContextProvider>
+          </TasksContextProvider>
+        }
+        />
+
         <Route
           path="/add-employee"
           element={
@@ -39,6 +50,7 @@ function App() {
             </>
           }
         />
+
         <Route
           path="/sign-up"
           element={
@@ -49,6 +61,7 @@ function App() {
             </>
           }
         />
+
       </Routes>
     </div>
   );

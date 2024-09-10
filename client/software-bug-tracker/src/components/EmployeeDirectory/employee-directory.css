@@ -1,0 +1,11 @@
+#employee-directory-container {
+    border: 2px solid black;
+}
+
+#employee-directory-list {
+    border: 4px solid blue;
+}
+
+.employee {
+    border: 2px solid orange;
+}
