@@ -1,0 +1,67 @@
+#badge-container {
+    display: flex;
+    flex-direction: column;
+    padding-left: 6%;
+    padding-right: 6%;
+    padding-bottom: 2%;
+}
+
+#badge-name-container {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 4%;
+    padding-top: 1%;
+}
+
+#badge-personal-info-container {
+    display: flex;
+    justify-content: space-evenly;
+    padding-bottom: 4%;
+}
+
+#badge-other-info-container {
+    display: flex;
+    justify-content: space-evenly;
+    padding-bottom: 4%;
+}
+
+#badge-button-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+#badge-header {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: grey;
+    color: white;
+    padding-left: 3%;
+    height: 3vh;
+}
+
+.label {
+    font-weight: 800;
+}
+
+#remove-employee-button {
+    height: 5vh;
+    border-radius: 10px;
+}
+
+#remove-employee-button:hover {
+    cursor: pointer;
+    background-color: red;
+    color: white;
+}
+
+#edit-employee-button {
+    height: 5vh;
+    border-radius: 10px;
+}
+
+#edit-employee-button:hover {
+    cursor: pointer;
+    background-color: green;
+    color: white;
+}

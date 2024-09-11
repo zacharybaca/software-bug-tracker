@@ -1,5 +1,6 @@
 import './employee-directory.css';
 import { EmployeesContext } from '../../context/employeesContext';
+import EmployeeBadge from '../EmployeeBadge/EmployeeBadge';
 import React from 'react';
 
 const EmployeeDirectory = () => {
@@ -9,15 +10,17 @@ const EmployeeDirectory = () => {
     return (
       <div id="employee-directory-container">
         <ul id="employee-directory-list">
-          {context.employees.map((employee) => (
+          {context.employees.map((employee, index) => (
             <li key={employee._id} className="employee">
-              <h1>First Name: {employee.firstName}</h1>
-              <h1>Last Name: {employee.lastName}</h1>
-              <h3>
-                Position:{" "}
-                {employee.roleAtCompany.charAt(0).toUpperCase() +
-                  employee.roleAtCompany.slice(1)}
-              </h3>
+              <EmployeeBadge
+                itemNumber={index}
+                employeeID={employee._id}
+                firstName={employee.firstName}
+                lastName={employee.lastName}
+                roleAtCompany={employee.roleAtCompany}
+                userID={employee.user.userID}
+                isAdmin={employee.isAdmin}
+              />
             </li>
           ))}
         </ul>
