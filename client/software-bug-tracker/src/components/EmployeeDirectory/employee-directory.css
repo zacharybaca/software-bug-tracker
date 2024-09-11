@@ -1,11 +1,17 @@
 #employee-directory-container {
+    box-sizing: border-box;
+    height: 50vh;
+    width: 100%;
     border: 2px solid black;
 }
 
 #employee-directory-list {
+    display: flex;
+    justify-content: space-between;
     border: 4px solid blue;
 }
 
 .employee {
+    background-color: beige;
     border: 2px solid orange;
 }
