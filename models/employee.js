@@ -17,7 +17,8 @@ const employeeSchema = new Schema({
   user: {
     userID: {
       type: String,
-      unique: true
+      unique: true,
+      sparse: true
     },
     password: {
       type: String,
