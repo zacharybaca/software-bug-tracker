@@ -6,6 +6,11 @@
     padding-bottom: 2%;
 }
 
+#all-badges-container {
+    border: 2px solid green;
+    border-radius: 1px;
+}
+
 #badge-name-container {
     display: flex;
     justify-content: center;
