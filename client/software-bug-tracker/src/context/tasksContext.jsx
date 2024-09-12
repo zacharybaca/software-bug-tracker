@@ -32,6 +32,23 @@ function TasksContextProvider(props) {
         }
     }
 
+    const updateTask = async (updatedTask, id) {
+        try {
+            const response = await fetch(`/api/tasks/${id}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(updatedTask)
+            });
+
+            const data = await response.json();
+            setTasks(prevTasks => prevTasks.map((task => task._id !== id ? task : {...data})))
+        } catch (error) {
+            console.error("Error: ", error);
+        }
+    }
+
     const deleteTask = async (id) => {
         try {
             const response = await fetch(`/api/tasks/${id}`, {
@@ -64,7 +81,8 @@ function TasksContextProvider(props) {
         <TasksContext.Provider value={{
             tasks: tasks,
             addTask: addTask,
-            deleteTask: deleteTask
+            deleteTask: deleteTask,
+            updateTask: updateTask
         }}>
             {props.children}
         </TasksContext.Provider>
