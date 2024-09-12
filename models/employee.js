@@ -29,22 +29,30 @@ const employeeSchema = new Schema({
     associatedEmployee: {
       type: String,
       required: function () {
-        return !!this.user.userID
+        return !!this.user.userID;
       }
     }
   },
-   accessCode: {
-      type: String,
-      required: function () {
-        return !!this.user.userID; // Dynamically require accessCode if userID exists
-      },
+  accessCode: {
+    type: String,
+    required: function () {
+      return !!this.user.userID; // Dynamically require accessCode if userID exists
     },
-    generateAccessCode: {
-        type: Boolean
-    },
+  },
+  generateAccessCode: {
+    type: Boolean,
+  },
   isAdmin: {
     type: Boolean,
   },
+});
+
+// Pre-save hook to remove empty userID
+employeeSchema.pre('save', function (next) {
+  if (this.user && this.user.userID === "") {
+    this.user.userID = undefined; // Remove empty userID
+  }
+  next();
 });
 
 module.exports = mongoose.model("Employee", employeeSchema);
