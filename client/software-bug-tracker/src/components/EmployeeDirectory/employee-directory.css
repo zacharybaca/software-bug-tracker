@@ -15,3 +15,9 @@
     width: 40%;
     background-color: beige;
 }
+
+#employee-directory-heading {
+    text-align: center;
+    padding-bottom: 2%;
+    font-weight: 800;
+}

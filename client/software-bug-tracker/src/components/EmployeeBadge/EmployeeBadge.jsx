@@ -1,8 +1,9 @@
 import './employee-badge.css';
-
+import { EmployeesContext } from '../../context/employeesContext';
+import React from 'react';
 
 const EmployeeBadge = (props) => {
-    
+    const context = React.useContext(EmployeesContext);
 
     return (
       <div id="all-badges-container">
@@ -42,7 +43,7 @@ const EmployeeBadge = (props) => {
             </p>
           </div>
           <div id="badge-button-container">
-            <button type="button" id="remove-employee-button">
+            <button type="button" id="remove-employee-button" onClick={() => context.deleteEmployee(props.employeeID)}>
               Remove Employee
             </button>
             <button type="button" id="edit-employee-button">

@@ -62,6 +62,25 @@ function EmployeesContextProvider(props) {
       }
     };
 
+    const deleteEmployee = async (id) => {
+      try {
+        const response = await fetch(`api/employees/${id}`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json"
+          }
+        })
+        
+        if (!response.ok) {
+          throw new Error ('Failed to delete Employee')
+        }
+
+        setEmployees(prevEmployees => prevEmployees.filter(employee => employee._id !== id));
+      } catch (error) {
+        console.error('Error: ', error);
+      }
+    }
+
 
     const createLoginAccount = (loginData, employeeID, accessToken) => {
         const foundEmployee = employees.find(employee => employee._id === employeeID);
@@ -102,6 +121,7 @@ function EmployeesContextProvider(props) {
             employees: employees,
             addEmployee: addEmployee,
             updateEmployee: updateEmployee,
+            deleteEmployee: deleteEmployee,
             createLogin: createLoginAccount
         }}>
             {props.children}

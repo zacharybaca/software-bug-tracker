@@ -9,6 +9,7 @@ const EmployeeDirectory = () => {
 
     return (
       <div id="employee-directory-container">
+        <h2 id="employee-directory-heading">Employee Directory</h2>
         <ul id="employee-directory-list">
           {context.employees.map((employee, index) => (
             <li key={employee._id} className="employee">
