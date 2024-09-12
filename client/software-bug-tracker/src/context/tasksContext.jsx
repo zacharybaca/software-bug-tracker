@@ -32,7 +32,7 @@ function TasksContextProvider(props) {
         }
     }
 
-    const updateTask = async (updatedTask, id) {
+    const updateTask = async (updatedTask, id) => {
         try {
             const response = await fetch(`/api/tasks/${id}`, {
                 method: "PUT",
