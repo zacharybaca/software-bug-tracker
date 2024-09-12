@@ -9,18 +9,21 @@ const TaskForm = (props) => {
     console.log('Context: ', context);
   // State Responsible For Individual Tasks
   const initialValues = {
+    id: props.id || "",
     taskTitle: props.taskTitle || "",
     taskCompleted: props.taskCompleted || false,
     taskDetails: props.taskDetails || "",
     taskTodos: props.taskTodos || "",
+    assignedId: props.assignedId || "",
     assignedEmployee: props.assignedEmployee || ""
   };
-
+  console.log('Initial Values: ', initialValues);
   const [task, setTask] = React.useState(initialValues);
 
   function handleChange(e) {
+    console.log('Handle Function Values: ', e.target.name, e.target.value);
     const { name, value, type, checked } = e.target;
-
+    
     setTask((prevState) => ({
       ...prevState,
       [name]: type === "checkbox" ? checked : value,
@@ -36,13 +39,14 @@ const TaskForm = (props) => {
       .map((todo) => todo.trim())
       .filter((todo) => todo)
       .join(".\n");
+    
+    setTask(prevState => ({
+      ...prevState,
+      taskTodos: formattedTodos
+    }));
 
-    const formattedTask = {
-      ...task,
-      taskTodos: formattedTodos,
-    };
-
-    props.submitTask(formattedTask, task._id);
+    props.submitTask(task, task.id);
+    console.log('Task: ', task.id)
     setTask(initialValues);
 
     if (props.toggleForm) {
@@ -82,7 +86,7 @@ const TaskForm = (props) => {
       />
       <label htmlFor="assignedEmployee">Assign Task: </label>
       <select id="assigned-employee" name="assignedEmployee" value={task.assignedEmployee} onChange={handleChange}>
-        <option defaultValue>Select An Employee</option>
+        <option value="">Select An Employee</option>
         {context.employees.map(employee => (
           <option value={employee._id} key={employee._id}>{employee.firstName} {employee.lastName}</option>
         ))}

@@ -73,6 +73,7 @@ const Task = (props) => {
               taskDetails={props.details}
               taskTodos={props.todos}
               assignedEmployee={props.assigned}
+              assignedId={props.assignedId}
               toggleForm={setShowForm}
               submitTask={props.editTask}
             />

@@ -36,6 +36,7 @@ const TaskList = () => {
                   todos={task.taskTodos}
                   editTask={context.updateTask}
                   deleteTask={context.deleteTask}
+                  assignedId={employeesContext.employees.map(employee => employee._id === task.assignedEmployee ? employee._id : "")}
                   assigned={employeesContext.employees.map(employee => employee._id === task.assignedEmployee ? employee.firstName : "")} />
               </li><hr /></>
             ))}
