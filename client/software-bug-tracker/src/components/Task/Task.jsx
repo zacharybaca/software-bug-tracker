@@ -67,7 +67,7 @@ const Task = (props) => {
           <>
             <TaskForm
               buttonText="Update"
-              id={props._id}
+              id={props.id}
               taskTitle={props.title}
               taskCompleted={props.completed}
               taskDetails={props.details}
