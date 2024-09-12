@@ -12,7 +12,7 @@ function EmployeeForm() {
     lastName: "",
     roleAtCompany: "",
     user: {
-      userID: null,
+      userID: "",
       password: ""
     },
     generateAccessCode: false,
