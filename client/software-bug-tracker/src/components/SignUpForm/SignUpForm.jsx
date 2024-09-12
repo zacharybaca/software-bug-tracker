@@ -13,7 +13,7 @@ function SignUpForm() {
       lastName: "",
       roleAtCompany: "",
       user: {
-        userID: null,
+        userID: undefined,
         password: "",
       },
       generateAccessCode: "",
@@ -84,7 +84,7 @@ function SignUpForm() {
         lastName: "",
         roleAtCompany: "",
         user: {
-          userID: null,
+          userID: undefined,
           password: "",
           associatedEmployee: ""
         },
