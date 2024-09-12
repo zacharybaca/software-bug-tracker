@@ -103,10 +103,20 @@ function SignUpForm() {
             <label htmlFor="password">Create A Password: </label>
             <input type="password" id="password" name="password" value={employee.user.password} onChange={handleChange} placeholder="Password" />
             <label htmlFor="associatedEmployee">Select Associated Employee: </label>
-            <select id="associatedEmployee" name="associatedEmployee" value={employee.user.associatedEmployee} onChange={handleChange}>
+            <select
+              id="associatedEmployee"
+              name="associatedEmployee"
+              value={employee.user.associatedEmployee}
+              onChange={handleChange}
+            >
               <option value="">Select Associated Employee</option>
-              {context.employees.map(employee => (
-                <option value={employee._id} key={employee._id}>{employee.firstName} {employee.lastName} - {employee.roleAtCompany.charAt(0).toUpperCase() + employee.roleAtCompany.slice(1)}</option>
+              {context.employees.map((employee) => (
+                <option value={employee._id} key={employee._id}>
+                  {employee.firstName} {employee.lastName} -{" "}
+                  {employee.roleAtCompany
+                    ? employee.roleAtCompany.charAt(0).toUpperCase() + employee.roleAtCompany.slice(1)
+                    : "No Role Assigned"}
+                </option>
               ))}
             </select>
             <label htmlFor="accessCode">Please Enter Access Code To Create An Account: </label>
