@@ -4,6 +4,7 @@ import React from 'react';
 
 const EmployeeBadge = (props) => {
     const context = React.useContext(EmployeesContext);
+    const [showForm, setShowForm] = React.useState(false);
 
     return (
       <div id="all-badges-container">
