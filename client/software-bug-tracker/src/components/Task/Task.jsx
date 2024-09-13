@@ -1,14 +1,17 @@
 import './task.css';
 import TaskForm from '../TaskForm/TaskForm';
 import React from 'react';
+import { EmployeesContext } from '../../context/employeesContext';
+import { TasksContext } from '../../context/tasksContext';
 
 const Task = (props) => {
     const [showForm, setShowForm] = React.useState(false);
     const [completedTodos, setCompletedTodos] = React.useState(
       new Array(props.todos.split("\n").length).fill(false)
     );
+    const employees = React.useContext(EmployeesContext);
+    const tasks = React.useContext(TasksContext);
 
-    
     return (
       <>
         {!showForm ? (
@@ -49,7 +52,7 @@ const Task = (props) => {
               </h3>
               <h3>
                 <span className="heading">Assigned: </span>
-                {props.assigned}
+                {props.assignedEmployee}
               </h3>
             </div>
             <div id="buttons-container">
@@ -72,8 +75,7 @@ const Task = (props) => {
               taskCompleted={props.completed}
               taskDetails={props.details}
               taskTodos={props.todos}
-              assignedEmployee={props.assigned}
-              assignedId={props.assignedId}
+              assignedEmployee={props.assignedEmployee}
               toggleForm={setShowForm}
               submitTask={props.editTask}
             />
