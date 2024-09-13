@@ -11,6 +11,11 @@
     border-radius: 1px;
 }
 
+#access-code-container {
+    display: flex;
+    justify-content: center;
+}
+
 #badge-name-container {
     display: flex;
     justify-content: center;
