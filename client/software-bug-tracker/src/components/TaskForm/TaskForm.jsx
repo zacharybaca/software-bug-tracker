@@ -15,9 +15,6 @@ const TaskForm = (props) => {
     assignedEmployee: props.assignedEmployee || "",
   };
 
-  if (initialValues.taskTodos) {
-    initialValues.taskTodos = initialValues.taskTodos.split(".").map((todo) => todo.trim()).filter((todo) => todo).join(".\n")
-  }
 
   const [task, setTask] = React.useState(initialValues);
 
@@ -36,9 +33,19 @@ const TaskForm = (props) => {
   function handleSubmit(e) {
     e.preventDefault();
 
+    const formattedTodos = task.taskTodos
+    .split(".")
+    .map((todo) => todo.trim())
+    .filter((todo) => todo)
+    .join(".\n");
+
+  const updatedTask = {
+    ...task,
+    taskTodos: formattedTodos
+  };
     console.log('Assigned ID: ', task.assignedEmployee)
     console.log('Task: ', task);
-    props.submitTask(task, task.id); // Submit the updated task object
+    props.submitTask(updatedTask, task.id); // Submit the updated task object
     setTask(initialValues); // Reset the form
 
     if (props.toggleForm) {
