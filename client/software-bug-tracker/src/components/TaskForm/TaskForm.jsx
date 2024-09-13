@@ -7,6 +7,10 @@ import { EmployeesContext } from '../../context/employeesContext';
 const TaskForm = (props) => {
   const context = React.useContext(EmployeesContext);
     console.log('Context: ', context);
+    console.log('Task ID: ', props.id)
+   
+  
+   
   // State Responsible For Individual Tasks
   const initialValues = {
     id: props.id || "",
@@ -18,6 +22,7 @@ const TaskForm = (props) => {
     assignedEmployee: props.assignedEmployee || ""
   };
   console.log('Initial Values: ', initialValues);
+  
   const [task, setTask] = React.useState(initialValues);
 
   function handleChange(e) {
@@ -28,6 +33,7 @@ const TaskForm = (props) => {
       ...prevState,
       [name]: type === "checkbox" ? checked : value,
     }));
+    
   }
 
   function handleSubmit(e) {
