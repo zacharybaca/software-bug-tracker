@@ -43,6 +43,12 @@ const EmployeeBadge = (props) => {
               {props.isAdmin ? "✅" : "❌"}
             </p>
           </div>
+          <div id="access-code-container">
+            <p>
+              <span className="label">Access Code:</span>{" "}
+              {props.accessCode ? props.accessCode : "Access Code Has Not Been Generated"}
+            </p>
+          </div>
           <div id="badge-button-container">
             <button type="button" id="remove-employee-button" onClick={() => context.deleteEmployee(props.employeeID)}>
               Remove Employee
