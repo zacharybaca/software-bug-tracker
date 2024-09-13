@@ -12,8 +12,12 @@ const TaskForm = (props) => {
     taskCompleted: props.taskCompleted || false,
     taskDetails: props.taskDetails || "",
     taskTodos: props.taskTodos || "",
-    assignedId: props.assignedId || "",
+    assignedEmployee: props.assignedEmployee || "",
   };
+
+  if (initialValues.taskTodos) {
+    initialValues.taskTodos = initialValues.taskTodos.split(".").map((todo) => todo.trim()).filter((todo) => todo).join(".\n")
+  }
 
   const [task, setTask] = React.useState(initialValues);
 
@@ -26,23 +30,15 @@ const TaskForm = (props) => {
     }));
   }
 
+ 
+  
   // Handle form submission
   function handleSubmit(e) {
     e.preventDefault();
 
-    // Format the taskTodos field before submitting
-    const formattedTodos = task.taskTodos
-      .split(".")
-      .map((todo) => todo.trim())
-      .filter((todo) => todo)
-      .join(".\n");
-
-    const updatedTask = {
-      ...task,
-      taskTodos: formattedTodos, // Ensure taskTodos is formatted properly
-    };
-
-    props.submitTask(updatedTask, task.id); // Submit the updated task object
+    console.log('Assigned ID: ', task.assignedEmployee)
+    console.log('Task: ', task);
+    props.submitTask(task, task.id); // Submit the updated task object
     setTask(initialValues); // Reset the form
 
     if (props.toggleForm) {
@@ -85,8 +81,8 @@ const TaskForm = (props) => {
       <label htmlFor="assignedEmployee">Assign Task: </label>
       <select
         id="assigned-employee"
-        name="assignedId" // Use the employee's ID as the value
-        value={task.assignedId}
+        name="assignedEmployee" // Use the employee's ID as the value
+        value={task.assignedEmployee}
         onChange={handleChange}>
         <option value="">Select An Employee</option>
         {context.employees.map((employee) => (
