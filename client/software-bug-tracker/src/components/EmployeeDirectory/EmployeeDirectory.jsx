@@ -21,6 +21,7 @@ const EmployeeDirectory = () => {
                 roleAtCompany={employee.roleAtCompany}
                 userID={employee.user.userID}
                 isAdmin={employee.isAdmin}
+                accessCode={employee.accessCode}
               />
             </li>
           ))}
