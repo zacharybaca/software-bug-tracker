@@ -46,7 +46,6 @@ employeeRouter
           new: true,
         }
       );
-      console.log("Updated Employee Data:", employeeToBeUpdated); // Log incoming data
 
       if (employeeToBeUpdated.user) {
         const newUser = employeeToBeUpdated.user;

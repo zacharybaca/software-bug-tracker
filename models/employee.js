@@ -48,11 +48,13 @@ const employeeSchema = new Schema({
 });
 
 // Pre-save hook to remove empty userID
-employeeSchema.pre('save', function (next) {
-  if (this.user && this.user.userID === "") {
-    this.user.userID = undefined; // Remove empty userID
+employeeSchema.pre("save", function (next) {
+  if (this.user && (!this.user.userID || this.user.userID === "")) {
+    this.user.userID = undefined; // Set null or empty string userID to undefined
   }
   next();
 });
+
+
 
 module.exports = mongoose.model("Employee", employeeSchema);
