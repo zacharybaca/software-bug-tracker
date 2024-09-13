@@ -6,6 +6,7 @@ import EmployeeDirectory from './components/EmployeeDirectory/EmployeeDirectory'
 import { TasksContextProvider } from './context/tasksContext';
 import { EmployeesContextProvider } from './context/employeesContext';
 import { Routes, Route } from 'react-router-dom';
+import logo from './assets/logo.png';
 import './App.css'
 
 function App() {
@@ -13,8 +14,11 @@ function App() {
 
   return (
     <div id="app-container">
-      <h1 id="application-title-heading">Issue Insight</h1>
-
+      <div id="application-logo-container">
+        <img src={logo} alt="logo" id="logo"/>
+        <h1 id="application-title-heading">Issue Insight</h1>
+      </div>
+      
       <Routes>
         <Route path="/" element={<LandingPage buttonText={"Login"} />} />
         
