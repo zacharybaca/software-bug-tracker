@@ -2,7 +2,7 @@ import './task.css';
 import TaskForm from '../TaskForm/TaskForm';
 import React from 'react';
 import { EmployeesContext } from '../../context/employeesContext';
-import { TasksContext } from '../../context/tasksContext';
+
 
 const Task = (props) => {
     const [showForm, setShowForm] = React.useState(false);
@@ -10,7 +10,7 @@ const Task = (props) => {
       new Array(props.todos.split("\n").length).fill(false)
     );
     const employees = React.useContext(EmployeesContext);
-    const tasks = React.useContext(TasksContext);
+    
 
     return (
       <>
@@ -52,7 +52,14 @@ const Task = (props) => {
               </h3>
               <h3>
                 <span className="heading">Assigned: </span>
-                {props.assignedEmployee}
+                {(() => {
+                  const assignedEmployee = employees.employees.find(
+                    (employee) => employee._id === props.assignedEmployee
+                  );
+                  return assignedEmployee
+                    ? `${assignedEmployee.firstName} ${assignedEmployee.lastName}`
+                    : "Not Assigned";
+                })()}
               </h3>
             </div>
             <div id="buttons-container">

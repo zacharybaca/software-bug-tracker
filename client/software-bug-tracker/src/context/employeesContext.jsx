@@ -38,7 +38,6 @@ function EmployeesContextProvider(props) {
 
 
     const updateEmployee = async (updatedEmployee, employeeID) => {
-      console.log("Sending Data:", updatedEmployee); // Add this to see what's being sent
       try {
         const response = await fetch(`/api/employees/${employeeID}`, {
           method: "PUT",
@@ -51,7 +50,6 @@ function EmployeesContextProvider(props) {
           throw new Error(`Failed to update employee: ${response.statusText}`);
         }
         const data = await response.json();
-        console.log("User: ", data);
         setEmployees((prevState) =>
           prevState.map((employee) =>
             employee._id !== employeeID ? employee : { ...data }

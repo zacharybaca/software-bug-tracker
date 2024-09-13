@@ -114,11 +114,6 @@ function EmployeeForm() {
           value={employee.generateAccessCode.checked}
           onChange={handleChange}
         />
-        {employee.accessCode && (
-          <span>
-            `Access Code: <p id="access-code">${employee.accessCode}</p>`
-          </span>
-        )}
         <button type="submit" id="add-employee-button">
           Add Employee
         </button>

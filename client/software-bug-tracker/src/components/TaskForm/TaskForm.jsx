@@ -43,8 +43,6 @@ const TaskForm = (props) => {
     ...task,
     taskTodos: formattedTodos
   };
-    console.log('Assigned ID: ', task.assignedEmployee)
-    console.log('Task: ', task);
     props.submitTask(updatedTask, task.id); // Submit the updated task object
     setTask(initialValues); // Reset the form
 
