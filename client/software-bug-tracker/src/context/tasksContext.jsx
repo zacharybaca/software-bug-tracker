@@ -8,7 +8,7 @@ function TasksContextProvider(props) {
 
     // State Responsible For All Tasks
     const [tasks, setTasks] = useState([]);
-
+    
 
     const addTask = async (newTask) => {
         try {
@@ -68,21 +68,37 @@ function TasksContextProvider(props) {
         }
     }
 
+    const getTasks = async () => {
+      const data = await fetch("/api/tasks");
+      const response = await data.json();
+      setTasks(response);
+    };
+
+    const getCompletedTasks = async () => {
+        const res = await fetch('/api/tasks/taskCompleted?taskCompleted=true');
+        const data = await res.json();
+        setTasks(data);
+    }
+
+    const getIncompleteTasks = async () => {
+        const res = await fetch('api/tasks/taskCompleted?taskCompleted=false');
+        const data = await res.json();
+        setTasks(data);
+    }
+
     useEffect(() => {
-        const getTasks = async () => {
-            const data = await fetch('/api/tasks');
-            const response = await data.json();
-            setTasks(response);
-        }
         getTasks();
     }, [])
 
     return (
         <TasksContext.Provider value={{
             tasks: tasks,
+            getTasks: getTasks,
             addTask: addTask,
             deleteTask: deleteTask,
-            updateTask: updateTask
+            updateTask: updateTask,
+            completed: getCompletedTasks,
+            incomplete: getIncompleteTasks
         }}>
             {props.children}
         </TasksContext.Provider>
