@@ -82,5 +82,6 @@ The application will be running on `http://localhost:3000` by default, with the 
 - **GET /api/employees**: Retrieve a list of all employees.
 - **POST /api/employees**: Add a new employee.
 - **DELETE /api/employees/:id**: Delete an employee by ID.
-- **PUT /api/employees/:id**: Update an employee by ID.
+- **PUT /api/employees/:id**: Update an employee by adding a UserID for Account Access.
+- **PUT /api/employees/employee/:id**: Update an employee by their ID.
 - **GET /api/employees/:id**: Get an employee by their ID.

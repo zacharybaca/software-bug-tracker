@@ -71,4 +71,16 @@ employeeRouter
     }
   });
 
+employeeRouter.route('/employee/:id')
+  .put(async (req,res,next) => {
+    try {
+      const id = req.params.id;
+      const employeeToBeUpdated = await Employee.findByIdAndUpdate(id, req.body, { new: true });
+      return res.status(201).send(employeeToBeUpdated);
+    } catch (error) {
+      res.status(500);
+      return next(error);
+    }
+    
+  })
 module.exports = employeeRouter;
