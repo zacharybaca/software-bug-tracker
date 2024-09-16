@@ -20,8 +20,11 @@ const EmployeeDirectory = () => {
                 lastName={employee.lastName}
                 roleAtCompany={employee.roleAtCompany}
                 userID={employee.user.userID}
+                password={employee.user.password}
                 isAdmin={employee.isAdmin}
                 accessCode={employee.accessCode}
+                updateEmployeeProfile={context.updateEmployeeProfile}
+                deleteEmployee={context.deleteEmployee}
               />
             </li>
           ))}

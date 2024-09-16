@@ -60,6 +60,30 @@ function EmployeesContextProvider(props) {
       }
     };
 
+    const updateEmployeeProfile = async (updatedEmployee, id) => {
+      try {
+        const response = await fetch(`/api/employees/employee/${id}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(updatedEmployee)
+        });
+
+        if (!response.ok) {
+          throw new Error(`Failed to Update Employee Profile: ${response.statusText}`);
+        }
+        const data = await response.json();
+        setEmployees((prevState) =>
+          prevState.map((employee) =>
+            employee._id !== id ? employee : { ...data }
+          )
+        );
+      } catch (error) {
+        console.error('Error Updating Employee Profile: ', error)
+      }
+    }
+
     const deleteEmployee = async (id) => {
       try {
         const response = await fetch(`api/employees/${id}`, {
@@ -119,6 +143,7 @@ function EmployeesContextProvider(props) {
             employees: employees,
             addEmployee: addEmployee,
             updateEmployee: updateEmployee,
+            updateEmployeeProfile: updateEmployeeProfile,
             deleteEmployee: deleteEmployee,
             createLogin: createLoginAccount
         }}>

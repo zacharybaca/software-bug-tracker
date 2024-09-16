@@ -4,70 +4,71 @@ import { EmployeesContext } from '../../context/employeesContext';
 
 
 
-function EmployeeForm() {
+function EmployeeForm(props) {
   const context = React.useContext(EmployeesContext);
 
-  const [employee, setEmployee] = React.useState({
-    firstName: "",
-    lastName: "",
-    roleAtCompany: "",
+  
+  const initialValues = {
+    firstName: props.firstName || "",
+    lastName: props.lastName || "",
+    roleAtCompany: props.roleAtCompany || "",
     user: {
-      userID: "",
-      password: ""
+      userID: props.userID || "",
+      password: props.password || "",
     },
     generateAccessCode: false,
-    accessCode: "",
-    isAdmin: false
-});
+    accessCode: props.accessCode || "",
+    isAdmin: props.isAdmin || false,
+  };
+
+
+  const [employee, setEmployee] = React.useState(initialValues);
 
    
 
-    
+  function handleChange(e) {
+    const { name, value, type, checked } = e.target;
 
-    function handleChange(e) {
-      const {name, value, type, checked} = e.target;
+    // If the role is "manager", set the employee as an admin
+    if (name === "roleAtCompany" && value === "manager") {
+      setEmployee((prevState) => ({
+        ...prevState,
+        roleAtCompany: value,
+        isAdmin: true,
+      }));
+    }
+    // Check if name belongs to the user object (like userID or password)
+    else if (name === "userID" || name === "password") {
+      setEmployee((prevState) => ({
+        ...prevState,
+        user: {
+          ...prevState.user,
+          [name]: value, // Update the user field (userID or password)
+        },
+      }));
+    }
+    // Handle other input fields
+    else {
+      setEmployee((prevState) => ({
+        ...prevState,
+        [name]: type === "checkbox" ? checked : value,
+      }));
+    }
+  }
+  
 
-       if (name === "roleAtCompany" && value === "manager") {
-         setEmployee((prevState) => ({
-           ...prevState,
-           isAdmin: true,
-         }));
-       }
-
-        if (name === "userID" || name === "password") {
-          setEmployee((prevState) => ({
-            ...prevState,
-            user: {
-              ...prevState.user,
-              [name]: type === "checkbox" ? checked : value,
-            },
-          }));
-        } else {
-          setEmployee((prevState) => ({
-            ...prevState,
-            [name]: type === "checkbox" ? checked : value,
-          }));
-        }
-      }
+   
 
   
 
   function handleSubmit(e) {
     e.preventDefault();
-    context.addEmployee(employee, employee._id);
-    setEmployee({
-      firstName: "",
-      lastName: "",
-      roleAtCompany: "",
-      user: {
-        userID: "",
-        password: ""
-      },
-      generateAccessCode: false,
-      accessCode: "",
-      isAdmin: false
-  });
-   
+    props.submitEmployee ? props.submitEmployee(employee, props.employeeID) : context.addEmployee(employee);
+    setEmployee(initialValues);
+
+    if (props.toggleForm) {
+      props.toggleForm((prevState) => !prevState);
+    }
   }
     return (
       <form id="employee-form" name="employeeForm" onSubmit={handleSubmit}>
@@ -88,6 +89,22 @@ function EmployeeForm() {
           onChange={handleChange}
           value={employee.lastName}
           placeholder="Enter Employee's Last Name"
+        />
+        <label htmlFor="userID">Employee UserID: </label>
+        <input 
+          type="text"
+          id="employee-userid"
+          name="userID"
+          onChange={handleChange}
+          value={employee.user.userID}
+        />
+        <label htmlFor="password">Employee Password: </label>
+        <input
+          type="password"
+          id="employee-password"
+          name="password"
+          onChange={handleChange}
+          value={employee.user.password}
         />
         <label htmlFor="roleAtCompany">Assign Employee Role: </label>
         <select
@@ -115,7 +132,7 @@ function EmployeeForm() {
           onChange={handleChange}
         />
         <button type="submit" id="add-employee-button">
-          Add Employee
+          {props.bttnText || "Add Employee"}
         </button>
       </form>
     );
