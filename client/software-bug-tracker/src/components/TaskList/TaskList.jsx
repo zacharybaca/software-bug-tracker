@@ -43,7 +43,7 @@ const TaskList = () => {
         </div>
         <div id="filtered-container">
           <select id="filterTasks" name="filterTasks" value={selectFiltered} onChange={handleFilter}>
-            <option value="">Filter Tasks</option>
+            <option value="">Select An Option To Filter Tasks</option>
             <option value="all">Show All Tasks</option>
             <option value="completed">Show Completed Tasks</option>
             <option value="incompleted">Show Incompleted Tasks</option>
