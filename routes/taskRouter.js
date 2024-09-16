@@ -51,5 +51,19 @@ taskRouter.route('/:id')
         }
     })
 
+    taskRouter.route('/taskCompleted')
+        .get(async (req, res, next) => {
+            try {
+                const taskCompleted = req.query.taskCompleted;
+
+                const foundCompletedStatus = await Task.find({ taskCompleted });
+
+                return res.status(200).send(foundCompletedStatus);
+            } catch (error) {
+                res.status(500);
+                return next(error);
+            }
+        })
+
 
 module.exports = taskRouter;
