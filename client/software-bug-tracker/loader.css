@@ -1,0 +1,13 @@
+#gear-loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    border: 2px solid black;
+}
+
+#gear-loader img {
+    width: 150px;
+    height: 150px;
+}
