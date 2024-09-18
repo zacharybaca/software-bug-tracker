@@ -12,7 +12,7 @@ function TasksContextProvider(props) {
 
     const addTask = async (newTask) => {
         try {
-            const response = await fetch('/api/tasks', {
+            const response = await fetch('/api/main/tasks', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -34,7 +34,7 @@ function TasksContextProvider(props) {
 
     const updateTask = async (updatedTask, id) => {
         try {
-            const response = await fetch(`/api/tasks/${id}`, {
+            const response = await fetch(`/api/main/tasks/${id}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json"
@@ -51,7 +51,7 @@ function TasksContextProvider(props) {
 
     const deleteTask = async (id) => {
         try {
-            const response = await fetch(`/api/tasks/${id}`, {
+            const response = await fetch(`/api/main/tasks/${id}`, {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json"
@@ -69,19 +69,19 @@ function TasksContextProvider(props) {
     }
 
     const getTasks = async () => {
-      const data = await fetch("/api/tasks");
+      const data = await fetch("/api/main/tasks");
       const response = await data.json();
       setTasks(response);
     };
 
     const getCompletedTasks = async () => {
-        const res = await fetch('/api/tasks/taskCompleted?taskCompleted=true');
+        const res = await fetch('/api/main/tasks/taskCompleted?taskCompleted=true');
         const data = await res.json();
         setTasks(data);
     }
 
     const getIncompleteTasks = async () => {
-        const res = await fetch('api/tasks/taskCompleted?taskCompleted=false');
+        const res = await fetch('api/main/tasks/taskCompleted?taskCompleted=false');
         const data = await res.json();
         setTasks(data);
     }
