@@ -4,7 +4,7 @@ const Task = require('../models/task.js');
 const Employee = require('../models/employee.js');
 
 
-
+// Endpoints To Provide Managers The Capability to View, Delete, Update, and Add Tasks to Any Employee
 taskRouter.route('/')
     .get(async (req, res, next) => {
         try {
@@ -66,12 +66,12 @@ taskRouter.route('/:id')
         }
     })
 
-    taskRouter.route("/:userID").get(async (req, res, next) => {
+    // Endpoint That Will Show Only Tasks That Are Currently Assigned to the Logged In User
+    taskRouter.route("/personal-tasks").get(async (req, res, next) => {
       try {
-        const userID = req.params.userID;
 
         // First, find the Employee document where the userID matches
-        const employee = await Employee.findOne({ "user.userID": userID });
+        const employee = await Employee.findOne({ "user.userID": req.auth._id });
         
 
         if (!employee) {

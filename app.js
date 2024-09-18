@@ -2,6 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 require("dotenv").config();
 const mongoose = require('mongoose');
+const {expressjwt} = require('express-jwt');
 const app = express();
 
 
@@ -12,8 +13,9 @@ app.use(express.json());
 app.use(morgan('combined'));
 
 // Middleware That Will Help With Routing To The Appropriate Routes
-app.use('/api/tasks', require('./routes/taskRouter.js'));
-app.use('/api/employees', require('./routes/employeeRouter.js'));
+app.use('/api/main', expressjwt({secret: process.env.SECRET, algorithms: ['HS256']}))
+app.use("/api/main/tasks", require("./routes/taskRouter.js"));
+app.use("/api/employees", require("./routes/employeeRouter.js"));
 
 
 const connectToMongoDB = async () => {
@@ -31,7 +33,10 @@ connectToMongoDB();
 // Global Error Handler
 app.use((err, req, res, next) => {
     console.error(err);
-    return res.send(`Error: ${err}`);
+    if (err.name === "UnauthorizedError") {
+        res.status(err.status);
+    }
+    return res.send({errMsg: err.message});
 });
 
 
