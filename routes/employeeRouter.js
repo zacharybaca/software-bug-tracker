@@ -83,4 +83,23 @@ employeeRouter.route('/employee/:id')
     }
     
   })
+
+employeeRouter.route('/login', async(req, res, next) => {
+  try {
+    const employee = await Employee.findOne({userID: req.body.user.userID});
+
+    if (!employee) {
+      res.status(403);
+      return next(new Error("Incorrect Username or Password"));
+    }
+
+    if (req.body.user.password !== employee.user.password) {
+      res.status(403);
+      return next(new Error("Incorrect Username or Password"));
+    }
+  } catch (error) {
+    res.status(500);
+    return next(error);
+  }
+})
 module.exports = employeeRouter;
