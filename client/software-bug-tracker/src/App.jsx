@@ -28,9 +28,9 @@ function App() {
         <div id="application-logo-container">
           <img src={logo} alt="logo" id="logo" />
           <h1 id="application-title-heading">Issue Insight</h1>
-          {Object.keys(context.userState.user).length !== 0 ? <h1>Welcome {context.userState.user}</h1> : ""}
+          {Object.keys(context.userState.user).length !== 0 ? <h1>Welcome {context.userState.user.userID}</h1> : ""}
         </div>
-        {console.log('Context: ', context)}
+        
         <Routes>
           <Route path="/" element={Object.keys(context.userState.user).length !== 0 ? <Navigate to="/personal-tasks"/> : <LandingPage />} />
 
