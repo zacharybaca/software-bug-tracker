@@ -5,13 +5,15 @@ import LandingPage from './components/LandingPage/LandingPage';
 import EmployeeDirectory from './components/EmployeeDirectory/EmployeeDirectory';
 import Footer from './components/Footer/Footer';
 import { TasksContextProvider } from './context/tasksContext';
+import { EmployeesContext } from './context/employeesContext';
 import { EmployeesContextProvider } from './context/employeesContext';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import logo from './assets/issue-insight-logo.png';
 import React from 'react';
 import './App.css'
 
 function App() {
+  const context = React.useContext(EmployeesContext);
   const [loading,setLoading] = React.useState(true);
   const loader = document.getElementById('gear-loader');
 
@@ -31,7 +33,7 @@ function App() {
         </div>
 
         <Routes>
-          <Route path="/" element={<LandingPage />} />
+          <Route path="/" element={context !== undefined && Object.keys(context.userState.user).length !== 0 ? <Navigate to="/personal-tasks"/> : <LandingPage />} />
 
           <Route
             path="/tasks"
