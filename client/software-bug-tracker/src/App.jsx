@@ -28,7 +28,7 @@ function App() {
         <div id="application-logo-container">
           <img src={logo} alt="logo" id="logo" />
           <h1 id="application-title-heading">Issue Insight</h1>
-          {Object.keys(context.userState.user).length !== 0 ? <h2 id="user-welcome-heading">Welcome {context.userState.user.userID}</h2> : ""}
+          {Object.keys(context.userState.user).length !== 0 ? <h2 id="user-welcome-heading">Welcome {context.findName(context.userState.user.userID)}</h2> : ""}
           {Object.keys(context.userState.user).length !== 0 ? <button type="button" id="logout-button">Logout</button> : ""}
         </div>
         
