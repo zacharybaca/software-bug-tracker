@@ -1,6 +1,7 @@
 import './sign-up-form.css';
 import React from 'react';
 import { EmployeesContext } from '../../context/employeesContext';
+import { Link } from 'react-router-dom';
 
 
 
@@ -123,7 +124,7 @@ function SignUpForm() {
             <input type="text" id="accessCode" name="accessCode" value={employee.accessCode} onChange={handleChange} placeholder="Access Code"/>
             <button type="submit" id="sign-up-form-button">Sign Up!</button>
         </form>
-        <button type="button" id="existing-user-button">Already A User? Click Here to Login</button>
+        <Link to='/'><button type="button" id="existing-user-button">Already A User? Click Here to Login</button></Link>
         </>
     )
 }
