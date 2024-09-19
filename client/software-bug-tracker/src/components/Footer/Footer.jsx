@@ -6,7 +6,7 @@ function Footer() {
         <footer id="footer">
             <p>Icons Provided By: <a href="https://icons8.com">Icons8</a></p>
             <img src={Logo} alt="logo" />
-            <p>©️2024</p>
+            <p>©️ 2024</p>
         </footer>
     )
 }
