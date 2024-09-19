@@ -4,9 +4,7 @@ import SignUpForm from './components/SignUpForm/SignUpForm';
 import LandingPage from './components/LandingPage/LandingPage';
 import EmployeeDirectory from './components/EmployeeDirectory/EmployeeDirectory';
 import Footer from './components/Footer/Footer';
-import { TasksContextProvider } from './context/tasksContext';
 import { EmployeesContext } from './context/employeesContext';
-import { EmployeesContextProvider } from './context/employeesContext';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import logo from './assets/issue-insight-logo.png';
 import React from 'react';
@@ -31,53 +29,35 @@ function App() {
           <img src={logo} alt="logo" id="logo" />
           <h1 id="application-title-heading">Issue Insight</h1>
         </div>
-
+        {console.log('Context: ', context)}
         <Routes>
-          <Route path="/" element={context !== undefined && Object.keys(context.userState.user).length !== 0 ? <Navigate to="/personal-tasks"/> : <LandingPage />} />
+          <Route path="/" element={Object.keys(context.userState.user).length !== 0 ? <Navigate to="/personal-tasks"/> : <LandingPage />} />
 
           <Route
             path="/tasks"
-            element={
-              <>
-                <EmployeesContextProvider>
-                  <TasksContextProvider>
+            element={ 
                     <TaskList />
-                  </TasksContextProvider>
-                </EmployeesContextProvider>
-              </>
             }
           />
 
           <Route
             path="/employee-directory"
             element={
-              <TasksContextProvider>
-                <EmployeesContextProvider>
                   <EmployeeDirectory />
-                </EmployeesContextProvider>
-              </TasksContextProvider>
             }
           />
 
           <Route
             path="/add-employee"
             element={
-              <>
-                <EmployeesContextProvider>
-                  <EmployeeForm />
-                </EmployeesContextProvider>
-              </>
+                <EmployeeForm />
             }
           />
 
           <Route
             path="/sign-up"
             element={
-              <>
-                <EmployeesContextProvider>
-                  <SignUpForm />
-                </EmployeesContextProvider>
-              </>
+                <SignUpForm />
             }
           />
         </Routes>
