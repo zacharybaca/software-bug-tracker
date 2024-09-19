@@ -33,7 +33,7 @@ employeeRouter
   .put(async (req, res, next) => {
     try {
       const id = req.params.id;
-      const user = await Employee.findOne({userID: req.body.user.userID})
+      const user = await Employee.findOne({"user.userID": req.body.userID})
       if (user) {
         res.status(403)
         return next(new Error('Username has already been taken'))
@@ -99,8 +99,8 @@ employeeRouter.route('/login')
         return next(new Error("Incorrect Username or Password"));
       }
 
-      res.status(200);
-      return res.send(employee);
+      const token = jwt.sign(employee.toObject(), process.env.SECRET);
+      return res.status(201).send({employee, token});
     } catch (error) {
       res.status(500);
       return next(error);
