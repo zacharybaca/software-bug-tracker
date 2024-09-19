@@ -8,7 +8,6 @@
     box-sizing: border-box;
     max-width: 100%;
     min-height: 100vh;
-    border: 2px solid black;
     background-image: url('./assets/signup-login-page-background.jpg');
     background-repeat: no-repeat;
     background-size: cover;
