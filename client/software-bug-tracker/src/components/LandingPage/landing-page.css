@@ -45,6 +45,7 @@ label, input {
     font-size: 25px;
     padding-bottom: 10%;
     font-weight: 800;
+    color: #EAB581;
 }
 
 #login-button:hover, #new-user-button:hover {
