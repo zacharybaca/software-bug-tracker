@@ -8,6 +8,7 @@
     max-height: 13vh;
     background-color: green;
     color: white;
+    opacity: 0.5;
 }
 
 #footer a {
