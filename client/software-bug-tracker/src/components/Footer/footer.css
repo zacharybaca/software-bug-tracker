@@ -1,6 +1,15 @@
 #footer {
     display: flex;
+    justify-content: space-around;
+    align-items: center;
     min-width: 100%;
     max-width: 100%;
-    border: 3px solid black;
+    min-height: 5vh;
+    max-height: 5vh;
+    background-color: green;
+    color: white;
+}
+
+#footer a {
+    color: white;
 }
