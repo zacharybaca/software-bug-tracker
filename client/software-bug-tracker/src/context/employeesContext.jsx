@@ -20,6 +20,14 @@ function EmployeesContextProvider(props) {
 
     const [userState, setUserState] = useState(initialState);
 
+    const findName = (username) => {
+      const foundEmployee = employees.find(employee => employee.user.userID === username);
+
+      if (foundEmployee) {
+        return `${foundEmployee.firstName} ${foundEmployee.lastName}`
+      }
+    }
+
     const login = async (credentials) => {
       try {
         const response = await fetch('/api/employees/login', {
@@ -179,6 +187,7 @@ function EmployeesContextProvider(props) {
             deleteEmployee: deleteEmployee,
             createLogin: createLoginAccount,
             login: login,
+            findName: findName,
             userState: {...userState}
         }}>
             {props.children}
