@@ -15,6 +15,7 @@
 
 #application-logo-container {
     display: flex;
+    flex-direction: column;
     align-items: center;
     gap: 20px;
     padding-top: 2%;
@@ -52,4 +53,10 @@
     font-size: 45px;
     color: #EAB581;
     padding-bottom: 2%;
+}
+
+#user-welcome-heading {
+    font-size: 25px;
+    font-weight: 800;
+    color: beige;
 }
