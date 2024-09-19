@@ -1,28 +1,57 @@
 import './landing-page.css';
 import { Link } from 'react-router-dom';
+import React from 'react';
+import { EmployeesContext } from '../../context/employeesContext';
 
 
-function LandingPage(props) {
+function LandingPage() {
+
+  const context = React.useContext(EmployeesContext);
+
+  const initialValues = {
+    userID: "",
+    password: ""
+  }
+
+  const [formData, setFormData] = React.useState(initialValues);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prevState => ({
+      ...prevState,
+      [name]: value
+    }))
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    context.login(formData);
+  }
+
     return (
       <div id="landing-page-container">
         <h1 id="form-header">Sign In To Access Your Account</h1>
-        <form id="login-form" name="loginForm">
-          <label htmlFor="loginUserName">Enter Username: </label>
+        <form id="login-form" name="loginForm" onSubmit={handleSubmit}>
+          <label htmlFor="username">Enter Username: </label>
           <input
             type="text"
             id="login-user-name"
-            name="loginUserName"
+            name="userID"
+            value={formData.userID}
+            onChange={handleChange}
             placeholder="Enter Username"
           />
           <label htmlFor="loginUserPassword">Enter Password: </label>
           <input
             type="password"
             id="login-user-password"
-            name="loginUserPassword"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
             placeholder="Enter Password"
           />
           <button type="submit" id="login-button">
-            {props.buttonText}
+            Sign In
           </button>
         </form>
         <Link to="/sign-up">

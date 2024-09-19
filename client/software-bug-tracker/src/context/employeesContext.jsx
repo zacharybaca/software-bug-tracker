@@ -11,6 +11,38 @@ function EmployeesContextProvider(props) {
     // State Responsible For All Employees
     const [employees, setEmployees] = useState([]);
 
+    // State Responsible For Tracking If a User is Logged In
+    const initialState = {
+      user: JSON.parse(localStorage.getItem("user")) || {},
+      token: localStorage.getItem("token") || "",
+      tasks: []
+    }
+
+    const [userState, setUserState] = useState(initialState);
+
+    const login = async (credentials) => {
+      try {
+        const response = await fetch('/api/employees/login', {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(credentials)
+        })
+        const data = await response.json();
+        const {user, token} = data;
+        localStorage.setItem("token", token);
+        localStorage.setItem("user", JSON.stringify(user));
+        setUserState(prevState => ({
+          ...prevState,
+          user: user,
+          token: token
+        }))
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
     const addEmployee = async (newEmployee) => {
         try {
             const response = await fetch('/api/employees', {
@@ -31,8 +63,8 @@ function EmployeesContextProvider(props) {
             }
         ]))
 
-        } catch {
-            throw new Error("Failed To Add New Employee")
+        } catch (error) {
+            throw new Error("Failed To Add New Employee", error)
         }
     }
 
@@ -145,7 +177,9 @@ function EmployeesContextProvider(props) {
             updateEmployee: updateEmployee,
             updateEmployeeProfile: updateEmployeeProfile,
             deleteEmployee: deleteEmployee,
-            createLogin: createLoginAccount
+            createLogin: createLoginAccount,
+            login: login,
+            userState: {...userState}
         }}>
             {props.children}
         </EmployeesContext.Provider>

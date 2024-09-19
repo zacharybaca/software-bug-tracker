@@ -2,6 +2,7 @@ import './task-list.css';
 import Task from '../Task/Task';
 import React from 'react';
 import { TasksContext } from '../../context/tasksContext';
+import { EmployeesContext } from '../../context/employeesContext';
 import TaskForm from '../TaskForm/TaskForm';
 import { Link } from 'react-router-dom';
 import { EmployeesContextProvider } from '../../context/employeesContext';
@@ -9,6 +10,7 @@ import { EmployeesContextProvider } from '../../context/employeesContext';
 
 const TaskList = () => {
   const context = React.useContext(TasksContext);
+  const employeesContext = React.useContext(EmployeesContext);
 
   const [selectFiltered, setSelectFiltered] = React.useState("");
 
@@ -31,6 +33,7 @@ const TaskList = () => {
 
     return (
       <>
+        {employeesContext.userState.user ? <h1>Welcome {employeesContext.userState.user}</h1> : ""}
         <EmployeesContextProvider>
           <TaskForm submitTask={context.addTask} buttonText="Add Task"/>
         </EmployeesContextProvider>
