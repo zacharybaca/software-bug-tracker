@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 
 const TasksContext = React.createContext();
 
-
-
 function TasksContextProvider(props) {
 
     // State Responsible For All Tasks
@@ -27,8 +25,8 @@ function TasksContextProvider(props) {
                 ...data
             }
         ]))
-        } catch {
-            throw new Error("Failed To Add Task")
+        } catch (error) {
+            console.error(error);
         }
     }
 
@@ -69,21 +67,40 @@ function TasksContextProvider(props) {
     }
 
     const getTasks = async () => {
-      const data = await fetch("/api/main/tasks");
-      const response = await data.json();
-      setTasks(response);
+      try {
+        const token = localStorage.getItem("token");
+        const data = await fetch("/api/main/tasks", {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json"
+            }
+        });
+        const response = await data.json();
+        setTasks(response);
+      } catch (error) {
+            console.error(error);
+      }
     };
 
     const getCompletedTasks = async () => {
-        const res = await fetch('/api/main/tasks/taskCompleted?taskCompleted=true');
-        const data = await res.json();
-        setTasks(data);
+        try {
+            const res = await fetch('/api/main/tasks/taskCompleted?taskCompleted=true');
+            const data = await res.json();
+            setTasks(data);
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     const getIncompleteTasks = async () => {
-        const res = await fetch('api/main/tasks/taskCompleted?taskCompleted=false');
-        const data = await res.json();
-        setTasks(data);
+        try {
+             const res = await fetch('api/main/tasks/taskCompleted?taskCompleted=false');
+            const data = await res.json();
+            setTasks(data);
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     useEffect(() => {

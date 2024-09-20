@@ -33,7 +33,7 @@ function App() {
         </div>
         
         <Routes>
-          <Route path="/" element={Object.keys(context.userState.user).length !== 0 ? <Navigate to="/personal-tasks"/> : <LandingPage />} />
+          <Route path="/" element={Object.keys(context.userState.user).length !== 0 ? <Navigate to="/tasks"/> : <LandingPage />} />
 
           <Route
             path="/tasks"
