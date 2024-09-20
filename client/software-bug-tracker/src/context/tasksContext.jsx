@@ -10,13 +10,29 @@ function TasksContextProvider(props) {
 
     const addTask = async (newTask) => {
         try {
+            const token = localStorage.getItem("token");
+
+            if (!token) {
+                throw new Error("No Token Present");
+            }
+
             const response = await fetch('/api/main/tasks', {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
             },
             body: JSON.stringify(newTask)
         })
+
+         if (!response.ok) {
+           throw new Error(
+             `${response.status} ${
+               response.statusText
+             } : ${await response.text()}`
+           );
+         }
+         
         const data = await response.json()
 
         setTasks(prevState => ([
@@ -69,15 +85,19 @@ function TasksContextProvider(props) {
     const getTasks = async () => {
       try {
         const token = localStorage.getItem("token");
-        const data = await fetch("/api/main/tasks", {
+        const response = await fetch("/api/main/tasks", {
             method: "GET",
             headers: {
                 Authorization: `Bearer ${token}`,
                 "Content-Type": "application/json"
             }
         });
-        const response = await data.json();
-        setTasks(response);
+
+        if (!response.ok) {
+            throw new Error(`${response.status} ${response.statusText} : ${await response.text()}`)
+        }
+        const data = await response.json();
+        setTasks(data);
       } catch (error) {
             console.error(error);
       }
