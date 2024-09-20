@@ -5,9 +5,13 @@ const Employee = require('../models/employee.js');
 
 
 // Endpoints To Provide Managers The Capability to View, Delete, Update, and Add Tasks to Any Employee
+// To Fix Auth ID Assignment Issue, Since assignedEmployee is Not Getting Assigned, I Need to Get The ID of The Employee
+// Currently Logged In, By Querying the Database to Find the Employee That Has the UserID Associated With Them That is Currently Stored 
+// On Local Storage
 taskRouter.route("/")
   .post(async (req, res, next) => {
     try {
+      console.log('Employee: ', req.body.assignedEmployee);
       req.body.assignedEmployee.user.userID = req.auth._id;
       const newTask = new Task(req.body);
       const savedTask = await newTask.save();

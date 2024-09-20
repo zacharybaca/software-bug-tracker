@@ -98,7 +98,7 @@ employeeRouter.route('/login')
         return next(new Error("Incorrect Username or Password"));
       }
 
-      const token = jwt.sign(employee.user.toObject(), process.env.SECRET);
+      const token = jwt.sign({_id: employee._id, userID: employee.user.userID}, process.env.SECRET);
       return res.status(201).send({user: employee.user, token});
     } catch (error) {
       res.status(500);
