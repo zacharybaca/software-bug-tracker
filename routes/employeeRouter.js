@@ -48,9 +48,8 @@ employeeRouter
       );
 
       if (employeeToBeUpdated.user) {
-        const newUser = employeeToBeUpdated.user;
-        const token = jwt.sign(newUser.toObject(), process.env.SECRET)
-        return res.status(201).send({user: newUser, token})
+        const token = jwt.sign(employeeToBeUpdated.user.toObject(), process.env.SECRET)
+        return res.status(201).send({user: employeeToBeUpdated.user, token})
       }
       return res.status(201).send(employeeToBeUpdated);
     } catch (error) {
