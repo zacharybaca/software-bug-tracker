@@ -25,10 +25,10 @@ taskRouter.route("/")
   
   .get(async (req, res, next) => {
     try {
-      console.log('Auth: ', req.auth._id);
+      console.log('Auth: ', req.auth);
       // First, find the Employee document where the userID matches
       const employee = await Employee.findOne({
-        "user.userID": req.auth._id,
+        _id: req.auth._id,
       });
 
       if (!employee) {

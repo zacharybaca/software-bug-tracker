@@ -52,7 +52,7 @@ employeeRouter
           { _id: employeeToBeUpdated._id, userID: employeeToBeUpdated.user.userID },
           process.env.SECRET
         );
-        return res.status(201).send({ user: employeeToBeUpdated.user, token });
+        return res.status(201).send({ _id: employeeToBeUpdated._id, user: employeeToBeUpdated.user.userID, token });
       }
       return res.status(201).send(employeeToBeUpdated);
     } catch (error) {
@@ -102,7 +102,10 @@ employeeRouter.route('/login')
       }
 
       const token = jwt.sign({_id: employee._id, userID: employee.user.userID}, process.env.SECRET);
-      return res.status(201).send({user: employee.user, token});
+      return res.status(201).send({
+       user: { _id: employee._id, userID: employee.user.userID },
+       token
+     });
     } catch (error) {
       res.status(500);
       return next(error);
