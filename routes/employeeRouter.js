@@ -96,7 +96,9 @@ employeeRouter.route('/login')
         return next(new Error("Incorrect Username or Password"));
       }
 
-      if (req.body.password !== employee.user.password) {
+      // checkPassword is an added method on the Employee Schema on the backend
+      const passwordCheck = await employee.checkPassword(req.body.password);
+      if (!passwordCheck) {
         res.status(403);
         return next(new Error("Incorrect Username or Password"));
       }

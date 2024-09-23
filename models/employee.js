@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const bcrypt = require('bcrypt');
 
 const employeeSchema = new Schema({
   firstName: {
@@ -55,6 +56,32 @@ employeeSchema.pre("save", function (next) {
   next();
 });
 
+// Pre-save hook to hash password before saving to DB
+employeeSchema.pre("save", async function(next) {
+  const user = this.user;
+  if (user.isModified('password')) {
+    try {
+      const hash = await bcrypt.hash(user.password, 10);
+      user.password = hash;
+    } catch (error) {
+      return next(error);
+    }
+  }
+})
 
+// Added method to check if hashed password equals plain-text password
+employeeSchema.methods.checkPassword = async function (passwordAttempt) {
+  try {
+    return bcrypt.compare(passwordAttempt, this.password);
+  } catch (error) {
+    throw (error);
+  }
+}
 
+// Added method that removes password from object before sending back to client
+employeeSchema.methods.withoutPassword = function() {
+  const user = this.toObject();
+  delete user.password;
+  return user;
+}
 module.exports = mongoose.model("Employee", employeeSchema);

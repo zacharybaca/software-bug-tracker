@@ -13,6 +13,7 @@ import './App.css'
 
 function App() {
   const context = React.useContext(EmployeesContext);
+  const { token } = context.userState;
   const taskContext = React.useContext(TasksContext);
   const {completed, incomplete} = taskContext.getTaskCounts();
   const [loading,setLoading] = React.useState(true);
@@ -62,7 +63,7 @@ function App() {
             }
           />
 
-          <Route path="/tasks" element={<TaskList />} />
+          <Route path="/tasks" element={token ? <TaskList /> : <Navigate to = '/' />} />
 
           <Route path="/employee-directory" element={<EmployeeDirectory />} />
 
