@@ -11,8 +11,9 @@ const Employee = require('../models/employee.js');
 taskRouter.route("/")
   .post(async (req, res, next) => {
     try {
-      console.log('Employee: ', req.body.assignedEmployee);
-      req.body.assignedEmployee.user.userID = req.auth._id;
+      console.log('Employee ID: ', req.body.assignedEmployee._id);
+      console.log('Auth ID: ', req.auth._id)
+      req.body.assignedEmployee._id = req.auth._id;
       const newTask = new Task(req.body);
       const savedTask = await newTask.save();
       return res.status(201).send(savedTask);
@@ -24,6 +25,7 @@ taskRouter.route("/")
   
   .get(async (req, res, next) => {
     try {
+      console.log('Auth: ', req.auth._id);
       // First, find the Employee document where the userID matches
       const employee = await Employee.findOne({
         "user.userID": req.auth._id,
