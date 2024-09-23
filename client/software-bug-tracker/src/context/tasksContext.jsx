@@ -7,6 +7,7 @@ function TasksContextProvider(props) {
     // State Responsible For All Tasks
     const [tasks, setTasks] = useState([]);
     
+    
 
     const addTask = async (newTask) => {
         try {
@@ -92,12 +93,15 @@ function TasksContextProvider(props) {
                 "Content-Type": "application/json"
             }
         });
+        const decodedToken = JSON.parse(atob(token.split(".")[1]));
+        console.log(decodedToken);
 
         if (!response.ok) {
             throw new Error(`${response.status} ${response.statusText} : ${await response.text()}`)
         }
         const data = await response.json();
         setTasks(data);
+        
       } catch (error) {
             console.error(error);
       }
@@ -123,6 +127,21 @@ function TasksContextProvider(props) {
         }
     }
 
+    const getTaskCounts = () => {
+      const completedTasks = tasks.filter(
+        (task) => task.taskCompleted === true
+      ).length;
+      const incompleteTasks = tasks.filter(
+        (task) => task.taskCompleted === false
+      ).length;
+
+      return {
+        completed: completedTasks,
+        incomplete: incompleteTasks,
+      };
+    };
+
+
     useEffect(() => {
         getTasks();
     }, [])
@@ -135,7 +154,8 @@ function TasksContextProvider(props) {
             deleteTask: deleteTask,
             updateTask: updateTask,
             completed: getCompletedTasks,
-            incomplete: getIncompleteTasks
+            incomplete: getIncompleteTasks,
+            getTaskCounts: getTaskCounts
         }}>
             {props.children}
         </TasksContext.Provider>

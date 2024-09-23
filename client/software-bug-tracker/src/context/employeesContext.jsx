@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 
+
 const EmployeesContext = React.createContext();
 
 
@@ -38,13 +39,27 @@ function EmployeesContextProvider(props) {
           body: JSON.stringify(credentials)
         })
         const data = await response.json();
-        const {user, token} = data;
+        const {_id, user, token} = data;
         localStorage.setItem("token", token);
-        localStorage.setItem("user", JSON.stringify(user));
+        localStorage.setItem("user", JSON.stringify({ _id: _id, userID: user.userID }));
         setUserState(prevState => ({
           ...prevState,
-          user: user,
+          user: { _id: user._id, userID: user.userID },
           token: token
+        }))
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    const logout = async () => {
+      try {
+        localStorage.removeItem("user");
+        localStorage.removeItem("token");
+        setUserState(prevState => ({
+          ...prevState,
+          token: "",
+          user: {}
         }))
       } catch (error) {
         console.log(error);
@@ -187,6 +202,7 @@ function EmployeesContextProvider(props) {
             deleteEmployee: deleteEmployee,
             createLogin: createLoginAccount,
             login: login,
+            logout: logout,
             findName: findName,
             userState: {...userState}
         }}>

@@ -32,8 +32,7 @@ const TaskList = () => {
 
     return (
       <>
-        
-          <TaskForm submitTask={context.addTask} buttonText="Add Task"/>
+        <TaskForm submitTask={context.addTask} buttonText="Add Task" />
         <div id="action-buttons">
           <Link to="/add-employee">
             <button type="button" id="add-employee-main-button">
@@ -42,17 +41,21 @@ const TaskList = () => {
           </Link>
         </div>
         <div id="filtered-container">
-          <select id="filterTasks" name="filterTasks" value={selectFiltered} onChange={handleFilter}>
+          <select
+            id="filterTasks"
+            name="filterTasks"
+            value={selectFiltered}
+            onChange={handleFilter}>
             <option value="">Select An Option To Filter Tasks</option>
             <option value="all">Show All Tasks</option>
             <option value="completed">Show Completed Tasks</option>
             <option value="incompleted">Show Incompleted Tasks</option>
           </select>
         </div>
-          <ul id="task-list">
-            {context.tasks.map((task) => (
-              
-              <><li key={task._id} className="task">
+        <ul id="task-list">
+          {context.tasks.map((task) => (
+            <React.Fragment key={task._id}>
+              <li className="task">
                 <Task
                   id={task._id}
                   title={task.taskTitle}
@@ -62,10 +65,12 @@ const TaskList = () => {
                   todos={task.taskTodos}
                   editTask={context.updateTask}
                   deleteTask={context.deleteTask}
-                   />
-              </li><hr /></>
-            ))}
-          </ul>
+                />
+              </li>
+              <hr />
+            </React.Fragment>
+          ))}
+        </ul>
       </>
     );
 }
