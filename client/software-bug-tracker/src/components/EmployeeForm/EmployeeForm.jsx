@@ -134,6 +134,7 @@ function EmployeeForm(props) {
         <button type="submit" id="add-employee-button">
           {props.bttnText || "Add Employee"}
         </button>
+        {props.userState.accessCode ? <p>Access Code: {props.userState.accessCode}</p> : ""}
       </form>
     );
 }

@@ -48,6 +48,7 @@ const TaskForm = (props) => {
 
     if (props.toggleForm) {
       props.toggleForm((prevState) => !prevState);
+      props.resetAuthErr();
     }
   }
 
@@ -110,6 +111,7 @@ const TaskForm = (props) => {
       <button type="submit" id="add-task-button">
         {props.buttonText}
       </button>
+      <p style = {{color: "red"}}>{props.errMsg}</p>
     </form>
   );
 };

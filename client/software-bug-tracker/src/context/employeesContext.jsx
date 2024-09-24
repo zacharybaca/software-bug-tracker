@@ -16,7 +16,9 @@ function EmployeesContextProvider(props) {
     const initialState = {
       user: JSON.parse(localStorage.getItem("user")) || {},
       token: localStorage.getItem("token") || "",
-      tasks: []
+      tasks: [],
+      errMsg: "",
+      accessCode: ""
     }
 
     const [userState, setUserState] = useState(initialState);
@@ -48,7 +50,7 @@ function EmployeesContextProvider(props) {
           token: token
         }))
       } catch (error) {
-        console.log(error);
+        handleAuthErr(error.response.data.errMsg);
       }
     }
 
@@ -62,8 +64,22 @@ function EmployeesContextProvider(props) {
           user: {}
         }))
       } catch (error) {
-        console.log(error);
+        handleAuthErr(error.response.data.errMsg);
       }
+    }
+
+    const handleAuthErr = (errMsg) => {
+      setUserState(prevState => ({
+        ...prevState,
+        errMsg
+      }))
+    }
+
+    const resetAuthErr = () => {
+      setUserState(prevState => ({
+        ...prevState,
+        errMsg: ""
+      }))
     }
 
     const addEmployee = async (newEmployee) => {
@@ -79,6 +95,11 @@ function EmployeesContextProvider(props) {
 
         alert(`Employee's Access Code is: ${data.accessCode}`)
 
+        setUserState(prevState => ({
+          ...prevState,
+          accessCode: data.accessCode
+        }))
+        
         setEmployees(prevState => ([
             ...prevState,
             {
@@ -87,7 +108,7 @@ function EmployeesContextProvider(props) {
         ]))
 
         } catch (error) {
-            throw new Error("Failed To Add New Employee", error)
+            handleAuthErr(error.response.data.errMsg);
         }
     }
 
@@ -102,7 +123,7 @@ function EmployeesContextProvider(props) {
           body: JSON.stringify(updatedEmployee),
         });
         if (!response.ok) {
-          throw new Error(`Failed to update employee: ${response.statusText}`);
+          handleAuthErr(response.statusText);
         }
         const data = await response.json();
         setEmployees((prevState) =>
@@ -111,7 +132,7 @@ function EmployeesContextProvider(props) {
           )
         );
       } catch (error) {
-        console.error("Error updating employee:", error);
+        handleAuthErr(error.response.data.errMsg);
       }
     };
 
@@ -135,7 +156,7 @@ function EmployeesContextProvider(props) {
           )
         );
       } catch (error) {
-        console.error('Error Updating Employee Profile: ', error)
+        handleAuthErr(error.response.data.errMsg);
       }
     }
 
@@ -154,7 +175,7 @@ function EmployeesContextProvider(props) {
 
         setEmployees(prevEmployees => prevEmployees.filter(employee => employee._id !== id));
       } catch (error) {
-        console.error('Error: ', error);
+        handleAuthErr(error.response.data.errMsg);
       }
     }
 
@@ -187,7 +208,7 @@ function EmployeesContextProvider(props) {
            const data = await response.json();
            setEmployees(data);
          } catch (error) {
-           console.error("Failed to fetch employees:", error);
+           handleAuthErr(error.response.data.errMsg);
          }
        };
         getEmployees();
@@ -204,6 +225,8 @@ function EmployeesContextProvider(props) {
             login: login,
             logout: logout,
             findName: findName,
+            handleAuthErr: handleAuthErr,
+            resetAuthErr: resetAuthErr,
             userState: {...userState}
         }}>
             {props.children}
