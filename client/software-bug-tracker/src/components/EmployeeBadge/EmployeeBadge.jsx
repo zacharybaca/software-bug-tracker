@@ -65,6 +65,7 @@ const EmployeeBadge = (props) => {
                     Edit Employee
                   </button>
                 </div>
+                {props.errMsg ? <p style={{color: "red"}}>{props.errMsg}</p> : ""}
               </div>
             </div>
           </>

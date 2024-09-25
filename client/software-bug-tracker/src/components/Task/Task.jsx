@@ -65,13 +65,15 @@ const Task = (props) => {
             <div id="buttons-container">
               <button
                 type="button"
+                id="edit-task-button"
                 onClick={() => setShowForm((prevState) => !prevState)}>
                 Edit
               </button>
-              <button type="button" onClick={() => props.deleteTask(props.id)}>
+              <button type="button" id="delete-task-button" onClick={() => props.deleteTask(props.id)}>
                 Delete
               </button>
             </div>
+            {props.errMsg ? <p style={{color: "red"}}>{props.errMsg}</p> : ""}
           </>
         ) : (
           <>

@@ -33,14 +33,18 @@ const TaskList = () => {
 
     return (
       <>
-        <TaskForm submitTask={context.addTask} buttonText="Add Task" errMsg={employeeContext.userState.errMsg}/>
-        <div id="action-buttons">
+        <TaskForm
+          submitTask={context.addTask}
+          buttonText="Add Task"
+          errMsg={employeeContext.userState.errMsg}
+        />
+        {employeeContext.hasAdminRights() ? <div id="action-buttons">
           <Link to="/add-employee">
             <button type="button" id="add-employee-main-button">
               Add Employee
             </button>
           </Link>
-        </div>
+        </div> : ""}
         <div id="filtered-container">
           <select
             id="filterTasks"
@@ -66,6 +70,7 @@ const TaskList = () => {
                   todos={task.taskTodos}
                   editTask={context.updateTask}
                   deleteTask={context.deleteTask}
+                  errMsg={employeeContext.userState.errMsg}
                 />
               </li>
               <hr />

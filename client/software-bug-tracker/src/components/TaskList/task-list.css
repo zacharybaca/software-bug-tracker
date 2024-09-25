@@ -5,6 +5,7 @@
     max-height: 25vh;
     width: 75%;
     overflow: auto;
+    margin-bottom: 2%;
 }
 
 hr {

@@ -12,7 +12,7 @@ const TaskForm = (props) => {
     taskCompleted: props.taskCompleted || false,
     taskDetails: props.taskDetails || "",
     taskTodos: props.taskTodos || "",
-    assignedEmployee: props.assignedEmployee || "",
+    assignedEmployee: props.assignedEmployee || ""
   };
 
 
@@ -48,13 +48,13 @@ const TaskForm = (props) => {
 
     if (props.toggleForm) {
       props.toggleForm((prevState) => !prevState);
-      props.resetAuthErr();
+      context.resetAuthErr();
     }
   }
 
   return (
     <form id="task-form" name="taskForm" onSubmit={handleSubmit}>
-      <label htmlFor="taskTitle">Task Title: </label>
+      <label htmlFor="task-title">Task Title: </label>
       <input
         type="text"
         id="task-title"
@@ -64,7 +64,7 @@ const TaskForm = (props) => {
         placeholder="Enter Title"
       />
 
-      <label htmlFor="taskDetails">Task Details: </label>
+      <label htmlFor="task-details">Task Details: </label>
       <input
         type="text"
         id="task-details"
@@ -74,7 +74,7 @@ const TaskForm = (props) => {
         placeholder="Enter Description"
       />
 
-      <label htmlFor="taskTodos">Task Todo Items: </label>
+      <label htmlFor="task-todos">Task Todo Items: </label>
       <textarea
         id="task-todos"
         name="taskTodos"
@@ -84,7 +84,7 @@ const TaskForm = (props) => {
       />
 
       {/* Employee Assignment */}
-      <label htmlFor="assignedEmployee">Assign Task: </label>
+      <label htmlFor="assigned-employee">Assign Task: </label>
       <select
         id="assigned-employee"
         name="assignedEmployee" // Use the employee's ID as the value
@@ -99,7 +99,7 @@ const TaskForm = (props) => {
       </select>
 
       {/* Task Completed Checkbox */}
-      <label htmlFor="taskCompleted">Task Completed: </label>
+      <label htmlFor="task-completed">Task Completed: </label>
       <input
         type="checkbox"
         id="task-completed"

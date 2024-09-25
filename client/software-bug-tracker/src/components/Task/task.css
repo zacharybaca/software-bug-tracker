@@ -14,9 +14,15 @@
     border-radius: 10px;
 }
 
-#buttons-container button:hover {
+#edit-task-button:hover {
     cursor: pointer;
     background-color: green;
+    color: white;
+}
+
+#delete-task-button:hover {
+    cursor: pointer;
+    background-color: red;
     color: white;
 }
 

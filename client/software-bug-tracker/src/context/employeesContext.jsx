@@ -68,6 +68,22 @@ function EmployeesContextProvider(props) {
       }
     }
 
+    const getLoggedInEmployee = () => {
+      const loggedIn = JSON.parse(localStorage.getItem("user"));
+      console.log("Logged In: ", loggedIn);
+
+      const loggedInEmployee = employees.find(
+        (employee) => employee.user.userID === loggedIn.userID
+      );
+
+      return loggedInEmployee;
+    }
+
+    const hasAdminRights = () => {
+      const signedInEmployee = getLoggedInEmployee();
+      return signedInEmployee.isAdmin;
+    }
+
     const handleAuthErr = (errMsg) => {
       setUserState(prevState => ({
         ...prevState,
@@ -221,7 +237,9 @@ function EmployeesContextProvider(props) {
             updateEmployee: updateEmployee,
             updateEmployeeProfile: updateEmployeeProfile,
             deleteEmployee: deleteEmployee,
+            getLoggedInEmployee: getLoggedInEmployee,
             createLogin: createLoginAccount,
+            hasAdminRights: hasAdminRights,
             login: login,
             logout: logout,
             findName: findName,

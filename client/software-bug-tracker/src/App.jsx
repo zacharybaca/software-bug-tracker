@@ -4,6 +4,7 @@ import SignUpForm from './components/SignUpForm/SignUpForm';
 import LandingPage from './components/LandingPage/LandingPage';
 import EmployeeDirectory from './components/EmployeeDirectory/EmployeeDirectory';
 import Footer from './components/Footer/Footer';
+import UnauthorizedPage from './components/UnauthorizedPage/UnauthorizedPage';
 import { EmployeesContext } from './context/employeesContext';
 import { TasksContext } from './context/tasksContext';
 import { Routes, Route, Navigate } from 'react-router-dom';
@@ -15,7 +16,7 @@ function App() {
   const context = React.useContext(EmployeesContext);
   const { token } = context.userState;
   const taskContext = React.useContext(TasksContext);
-  const {completed, incomplete} = taskContext.getTaskCounts();
+  const {completed, incomplete} = taskContext.getTaskCounts;
   const [loading,setLoading] = React.useState(true);
   const loader = document.getElementById('gear-loader');
 
@@ -70,6 +71,9 @@ function App() {
           <Route path="/add-employee" element={<EmployeeForm />} />
 
           <Route path="/sign-up" element={<SignUpForm />} />
+
+          <Route path="/unauthorized" element={<UnauthorizedPage />} />
+          
         </Routes>
         <Footer />
       </div>

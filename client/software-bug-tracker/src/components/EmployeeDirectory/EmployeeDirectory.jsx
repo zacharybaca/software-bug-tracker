@@ -25,6 +25,7 @@ const EmployeeDirectory = () => {
                 accessCode={employee.accessCode}
                 updateEmployeeProfile={context.updateEmployeeProfile}
                 deleteEmployee={context.deleteEmployee}
+                errMsg={context.userState.errMsg}
               />
             </li>
           ))}

@@ -72,7 +72,7 @@ function EmployeeForm(props) {
   }
     return (
       <form id="employee-form" name="employeeForm" onSubmit={handleSubmit}>
-        <label htmlFor="firstName">Employee First Name: </label>
+        <label htmlFor="employee-first-name">Employee First Name: </label>
         <input
           type="text"
           id="employee-first-name"
@@ -81,7 +81,7 @@ function EmployeeForm(props) {
           value={employee.firstName}
           placeholder="Enter Employee's First Name"
         />
-        <label htmlFor="lastName">Employee Last Name: </label>
+        <label htmlFor="employee-last-name">Employee Last Name: </label>
         <input
           type="text"
           id="employee-last-name"
@@ -90,7 +90,7 @@ function EmployeeForm(props) {
           value={employee.lastName}
           placeholder="Enter Employee's Last Name"
         />
-        <label htmlFor="userID">Employee UserID: </label>
+        <label htmlFor="employee-userid">Employee UserID: </label>
         <input 
           type="text"
           id="employee-userid"
@@ -98,7 +98,7 @@ function EmployeeForm(props) {
           onChange={handleChange}
           value={employee.user.userID}
         />
-        <label htmlFor="password">Employee Password: </label>
+        <label htmlFor="employee-password">Employee Password: </label>
         <input
           type="password"
           id="employee-password"
@@ -106,7 +106,7 @@ function EmployeeForm(props) {
           onChange={handleChange}
           value={employee.user.password}
         />
-        <label htmlFor="roleAtCompany">Assign Employee Role: </label>
+        <label htmlFor="employee-role">Assign Employee Role: </label>
         <select
           id="employee-role"
           name="roleAtCompany"
