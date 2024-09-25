@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Protest+Guerrilla&display=swap');
+
 #employee-directory-container {
     display: flex;
     flex-direction: column;
@@ -20,7 +22,11 @@
 }
 
 #employee-directory-heading {
-    text-align: center;
+    font-family: "Protest Guerrilla", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 45px;
+    color: black;
     padding-bottom: 2%;
-    font-weight: 800;
+    text-align: center;
 }

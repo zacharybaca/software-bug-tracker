@@ -25,7 +25,7 @@ const Task = (props) => {
                 <span className="heading">Details: </span>
                 {props.details}
               </h2>
-              <h2>
+              <h2 id="todos-list">
                 <span className="heading">Todos: </span>
                 {props.todos.split("\n").map((line, index) => (
                   <p

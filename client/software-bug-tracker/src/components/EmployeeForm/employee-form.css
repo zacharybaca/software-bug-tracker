@@ -24,6 +24,7 @@ label, input, select {
 #add-employee-button:hover {
     cursor: pointer;
     background-color: green;
+    color: white;
 }
 
 #access-code {
@@ -32,4 +33,8 @@ label, input, select {
 
 #admin-label {
     height: 8vh;
+}
+
+#access-code-container {
+    padding-bottom: 4%;
 }

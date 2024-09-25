@@ -70,7 +70,7 @@ const EmployeeBadge = (props) => {
             </div>
           </>
         ) : (
-            <>
+            <div id="form-update-container">
               <EmployeeForm
                 itemNumber={props.itemNumber}
                 employeeID={props.employeeID}
@@ -87,10 +87,11 @@ const EmployeeBadge = (props) => {
               />
               <button
                 type="button"
+                id="close-update-button"
                 onClick={() => setShowForm((prevState) => !prevState)}>
                 Close
               </button>
-            </>
+            </div>
         )}
       </>
     );

@@ -91,7 +91,7 @@ function EmployeeForm(props) {
           placeholder="Enter Employee's Last Name"
         />
         <label htmlFor="employee-userid">Employee UserID: </label>
-        <input 
+        <input
           type="text"
           id="employee-userid"
           name="userID"
@@ -120,7 +120,7 @@ function EmployeeForm(props) {
         </select>
         <label id="admin-label">
           Does Employee Have Admin Rights?{" "}
-            {employee.roleAtCompany === "manager" ? "✅" : "❌"}
+          {employee.roleAtCompany === "manager" ? "✅" : "❌"}
         </label>
         <label htmlFor="generateAccessCode">Generate Access Code?</label>
         <input
@@ -131,10 +131,12 @@ function EmployeeForm(props) {
           value={employee.generateAccessCode.checked}
           onChange={handleChange}
         />
+        <div id="access-code-container">
+          {employee.accessCode ? <p>Access Code: {employee.accessCode}</p> : ""}
+        </div>
         <button type="submit" id="add-employee-button">
           {props.bttnText || "Add Employee"}
         </button>
-        {props.userState.accessCode ? <p>Access Code: {props.userState.accessCode}</p> : ""}
       </form>
     );
 }

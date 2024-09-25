@@ -31,6 +31,16 @@ function EmployeesContextProvider(props) {
       }
     }
 
+    const findRoleAtCompany = (username) => {
+      const foundEmployee = employees.find(employee => employee.user.userID === username);
+
+      if (foundEmployee) {
+        return foundEmployee.roleAtCompany;
+      }
+
+      return "Employee Does Not Exist";
+    }
+
     const login = async (credentials) => {
       try {
         const response = await fetch('/api/employees/login', {
@@ -240,6 +250,7 @@ function EmployeesContextProvider(props) {
             getLoggedInEmployee: getLoggedInEmployee,
             createLogin: createLoginAccount,
             hasAdminRights: hasAdminRights,
+            findRoleAtCompany: findRoleAtCompany,
             login: login,
             logout: logout,
             findName: findName,
