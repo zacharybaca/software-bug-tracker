@@ -50,9 +50,21 @@ taskRouter.route("/")
 
  taskRouter.route("/taskCompleted").get(async (req, res, next) => {
    try {
-     const taskCompleted = req.query.taskCompleted;
+     const employee = await Employee.findOne({
+      _id: req.auth._id
+     });
 
-     const foundCompletedStatus = await Task.find({ taskCompleted });
+     if (!employee) {
+      return res.status(404).send("Employee not found");
+     }
+
+     const taskCompleted = req.query.taskCompleted === "true";
+
+     const foundTasks = await Task.find({
+      assignedEmployee: employee._id
+     });
+
+     const foundCompletedStatus = foundTasks.filter(task => task.taskCompleted === taskCompleted);
 
      return res.status(200).send(foundCompletedStatus);
    } catch (error) {

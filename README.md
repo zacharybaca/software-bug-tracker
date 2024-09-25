@@ -1,87 +1,179 @@
+# Software Bug Tracker
 
+This is a full-stack web application designed for managing software development tasks and tracking bugs. The application allows users to create, assign, and update tasks. It's particularly useful for teams, providing tools to manage tasks between employees and managers.
 
-# Bug Tracking System for Software Engineers
+## Table of Contents
 
-This web application allows employees, who are on the software engineering team of a software company, be able to update on how far along they are with completing tasks. In a future update, there will be a login system where managers will be able to assign tasks to certain employees, and those employees will be able to see only their tasks that are assigned to them.
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+- [Running the Application](#running-the-application)
+- [API Documentation](#api-documentation)
+- [Future Enhancements](#future-enhancements)
 
 ## Features
 
-- **Create Tasks**: Users can create new tasks to the system.
-- **View Tasks**: All tasks are displayed in a list.
-- **Delete Tasks**: Users can remove tasks from the system.
-- **Edit Tasks**: Users can update existing tasks with new information.
-- **View Tasks By Id**: Users can view tasks based on their ID.
-------------------------------------------------------------------------------------------------------------------------
-- **Create Employees**: Users with a role of "manager" can create a new employee in the system.
-- **View Employees**: Users with a role of "manager" can view a list of employees that are registered in the system.
-- **Delete Employees**: Users with a role of "manager" can remove an employee from the system.
-- **Edit Employees**: Users with a role of "manager" can edit an employee in the system.
-- **View Specific Employee**: Users with a role of "manager" can view a specific employee in the system.
+- **Task Management**: Users can create, view, edit, and delete tasks.
+- **Employee Management**: Managers can manage employee details.
+- **Authentication**: Secure login using JWT tokens.
+- **Role-Based Access**: Employees and managers have different access permissions.
+- **Task Filters**: View tasks based on their completion status (completed or incomplete).
 
 ## Technologies Used
 
-- **Frontend**: React
-- **Backend**: Node.js, Express
-- **Database**: MongoDB, Mongoose
+- **Frontend**: React.js
+- **Backend**: Node.js, Express.js
+- **Database**: MongoDB with Mongoose ORM
+- **Authentication**: JWT (JSON Web Tokens)
+- **Styling**: CSS
 
-## Getting Started
+## Prerequisites
 
-### Prerequisites
+Ensure you have the following installed on your machine:
 
-Ensure you have the following installed:
+- **Node.js**: v14.x or later
+- **npm**: v6.x or later
+- **MongoDB**: A running MongoDB instance, either local or cloud-based (e.g., MongoDB Atlas)
+- **Git**: To clone the repository
 
-- Node.js
-- npm
+## Installation
 
-### Installation
-
-1. Clone the repository:
-
+1. **Clone the repository**:
    ```bash
    git clone https://github.com/zacharybaca/software-bug-tracker.git
-   ```
 
-2. Navigate to the project directory:
-
+2. **Navigate to the project directory**:
    ```bash
    cd software-bug-tracker
-   ```
 
-3. Install dependencies for both the client and server:
-
+3. **Install backend dependencies**:
    ```bash
    npm install
-   ```
 
-### Running the Application
+4. **Navigate to the frontend directory**:
+   ```bash
+   cd client
 
-1. Start the server:
+5. **Install frontend dependencies**:
+   ```bash
+   npm install
 
+6. **Create a <code>.env</code> file in the root directory with the following contents**:
+   ```bash
+   MONGODB_URI=<your-mongodb-uri>
+   JWT_SECRET=<your-jwt-secret>
+   PORT=9000
+
+7. **Optional: If using MongoDB locally, ensure the service is running**:
+   ```bash
+   mongod
+
+## Running the Application
+
+1. **Start the backend server**:
    ```bash
    npm run start
-   ```
 
-2. Start the React development server:
-
+2. **Start the frontend development server**:
    ```bash
-   npm run start
-   ```
+   cd client
+   npm start
 
-The application will be running on `http://localhost:3000` by default, with the backend API available on `http://localhost:9000`.
+- The backend API will run at <code>http://localhost:9000</code>.
+- The frontend will be accessible at <code>http://localhost:3000</code>.
 
-## Task API Endpoints
 
-- **GET /api/tasks**: Retrieve a list of all tasks.
-- **POST /api/tasks**: Add a new task.
-- **DELETE /api/tasks/:id**: Delete a task by ID.
-- **PUT /api/tasks/:id**: Update a task by ID.
-- **GET /api/tasks/id**: Get a task by its ID.
+## API Documentation
 
-## Employee API Endpoints
+# Task Endpoints
 
-- **GET /api/employees**: Retrieve a list of all employees.
-- **POST /api/employees**: Add a new employee.
-- **DELETE /api/employees/:id**: Delete an employee by ID.
-- **PUT /api/employees/:id**: Update an employee by adding a UserID for Account Access.
-- **PUT /api/employees/employee/:id**: Update an employee by their ID.
-- **GET /api/employees/:id**: Get an employee by their ID.
+   1. Get All Tasks
+      - <code>GET /api/tasks</code>
+      - Retrieves a list of all tasks.
+      - Example Response:
+         ```bash
+         [
+            {
+               "_id": "taskId123",
+               "title": "Fix login issue",
+               "description": "Resolve authentication bug in login",
+               "assignedEmployee": "employeeId456",
+               "taskCompleted": false
+            }
+         ]
+
+   2. Get a Specific Task
+      - <code>GET /api/tasks/:id</code>
+      - Retrieves a task by its unique ID.
+
+   3. Create a New Task
+      - <code>POST /api/tasks</code>
+      - Requires the task data in the request body.
+      - Example Request Body:
+         ```bash
+         {
+            "title": "Fix CSS issue",
+            "description": "Resolve layout alignment",
+            "assignedEmployee": "employeeId456"
+         }
+
+   4. Update an Existing Task
+      - <code>PUT /api/tasks/:id</code>
+      - Updates the details of an existing task.
+
+
+   5. Delete a Task
+      - <code>DELETE /api/tasks/:id</code>
+      - Deletes a task by ID.
+
+
+# Employee Endpoints
+   
+   1. Get All Employees
+
+      - <code>GET /api/employees</code>
+      - Retrieves a list of all employees.
+
+   2. Get a Specific Employee
+
+      - <code>GET /api/employees/:id</code>
+      - Retrieves employee details by their unique ID.
+
+   3. Create a New Employee
+
+      - <code>POST /api/employees</code>
+      - Adds a new employee to the database.
+
+   4. Update an Employee's Information
+
+      - <code>PUT /api/employees/:id</code>
+      - Updates employee details by their unique ID.
+
+   5. Delete an Employee
+
+      - <code>DELETE /api/employees/:id</code>
+      - Deletes an employee from the system.
+
+# Authentication Endpoints
+
+   1. Login
+      - <code>POST /api/auth/login</code>
+      - Authenticates the user and returns a JWT token.
+      - Example Request Body:
+         ```bash
+         {
+            "email": "user@example.com",
+            "password": "password123"
+         }
+
+   2. Register
+      - <code>POST /api/auth/register</code>
+      - Registers a new user (employee or manager).
+
+
+# Future Enhancements
+   - Email Notifications: Notify users when tasks are assigned or updated.
+   - Improved Task Filters: Filter tasks by priority and due dates.
+   - Reporting: Generate reports on task completion and employee performance.
+   - Comments: Add a commenting system to tasks for better communication.
