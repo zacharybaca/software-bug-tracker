@@ -46,7 +46,7 @@ function App() {
             <h4 id="info-heading">You Have {completed} Completed {completed === 1 ? "Task" : "Tasks"} and {incomplete} Incompleted {incomplete === 1 ? "Task" : "Tasks"}.</h4>
             </>
           ) : (
-            <LandingPage />
+            ""
           )}
           {Object.keys(context.userState.user).length !== 0 && token ? (
             <div id="nav-button-container">
