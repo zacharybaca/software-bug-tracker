@@ -34,28 +34,38 @@ employeeRouter
   .put(async (req, res, next) => {
     try {
       const id = req.params.id;
-      const user = await Employee.findOne({"user.userID": req.body.user.userID})
+
+      // Check for duplicate userID
+      const user = await Employee.findOne({ "user.userID": req.body.user.userID });
       if (user && user._id.toString() !== id) {
         res.status(403);
         return next(new Error('Username has already been taken'));
       }
 
-      const employeeToBeUpdated = await Employee.findByIdAndUpdate(
-        id,
-        req.body,
-        {
-          new: true,
-        }
-      );
+      // Check if the request body contains a password
+      if (req.body.user && req.body.user.password) {
+        // Hash the new password before updating
+        const hashedPassword = await bcrypt.hash(req.body.user.password, 10);
+        req.body.user.password = hashedPassword; // Replace the plain text password with the hash
+      }
+
+      // Update employee with the new details
+      const employeeToBeUpdated = await Employee.findByIdAndUpdate(id, req.body, {
+        new: true, // Return the updated document
+      });
 
       if (employeeToBeUpdated.user) {
+        // Generate a new token after the update
         const token = jwt.sign(
           { _id: employeeToBeUpdated._id, userID: employeeToBeUpdated.user.userID },
           process.env.SECRET
         );
         return res.status(201).send({ _id: employeeToBeUpdated._id, user: employeeToBeUpdated.user.userID, token });
       }
+
+      // Send the updated employee back if no token is generated
       return res.status(201).send(employeeToBeUpdated);
+
     } catch (error) {
       res.status(500);
       return next(error);
@@ -78,8 +88,31 @@ employeeRouter.route('/employee/:id')
   .put(async (req,res,next) => {
     try {
       const id = req.params.id;
+
+      // Check if username is being updated
+      if (req.body.user && req.body.user.userID) {
+        const existingEmployee = await Employee.findOne({ "user.userID": req.body.user.userID });
+        
+        // If another employee has the same userID, throw an error
+        if (existingEmployee && existingEmployee._id.toString() !== id) {
+          res.status(403);
+          return next(new Error('Username has already been taken'));
+        }
+      }
+
+      // Check if the password is being updated
+      if (req.body.user && req.body.user.password) {
+        // Hash the new password before updating
+        const hashedPassword = await bcrypt.hash(req.body.user.password, 10);
+        req.body.user.password = hashedPassword; // Replace plain text password with the hash
+      }
+
+      // Update the employee with the new details
       const employeeToBeUpdated = await Employee.findByIdAndUpdate(id, req.body, { new: true });
+
+      // Send back the updated employee data
       return res.status(201).send(employeeToBeUpdated);
+
     } catch (error) {
       res.status(500);
       return next(error);
