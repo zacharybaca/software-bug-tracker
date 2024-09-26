@@ -115,8 +115,8 @@ function TasksContextProvider(props) {
                 "Authorization": `Bearer ${token}`
             }
         });
-        const decodedToken = JSON.parse(atob(token.split(".")[1]));
-        console.log('Decoded Token: ', decodedToken);
+        // const decodedToken = JSON.parse(atob(token.split(".")[1]));
+        // console.log('Decoded Token: ', decodedToken);
 
         if (!response.ok) {
             throw new Error(`${response.status} ${response.statusText} : ${await response.text()}`)
