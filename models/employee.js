@@ -72,9 +72,10 @@ employeeSchema.pre("save", async function(next) {
 // Added method to check if hashed password equals plain-text password
 employeeSchema.methods.checkPassword = async function (passwordAttempt) {
   try {
-    return bcrypt.compare(passwordAttempt, this.password);
+    const isMatch = await bcrypt.compare(passwordAttempt, this.user.password);
+    return isMatch;
   } catch (error) {
-    throw (error);
+    throw new Error('Error comparing passwords');
   }
 }
 
