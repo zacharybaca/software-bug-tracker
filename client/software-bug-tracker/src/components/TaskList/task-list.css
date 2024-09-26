@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Protest+Guerrilla&display=swap');
+
 #task-list {
     display: flex;
     flex-direction: column;
@@ -24,4 +26,13 @@ hr {
 
 #filtered-container {
     padding-top: 2%;
+}
+
+#heading-above-tasks {
+    font-family: "Protest Guerrilla", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 35px;
+    color: black;
+    padding-bottom: 2%;
 }

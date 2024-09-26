@@ -38,13 +38,17 @@ const TaskList = () => {
           buttonText="Add Task"
           errMsg={employeeContext.userState.errMsg}
         />
-        {employeeContext.hasAdminRights() ? <div id="action-buttons">
-          <Link to="/add-employee">
-            <button type="button" id="add-employee-main-button">
-              Add Employee
-            </button>
-          </Link>
-        </div> : ""}
+        {employeeContext.hasAdminRights() ? (
+          <div id="action-buttons">
+            <Link to="/add-employee">
+              <button type="button" id="add-employee-main-button">
+                Add Employee
+              </button>
+            </Link>
+          </div>
+        ) : (
+          ""
+        )}
         <div id="filtered-container">
           <select
             id="filterTasks"
@@ -57,6 +61,7 @@ const TaskList = () => {
             <option value="incompleted">Show Incompleted Tasks</option>
           </select>
         </div>
+        <h2 id="heading-above-tasks">Tasks That Are Assigned to You: </h2>
         <ul id="task-list">
           {context.tasks.map((task) => (
             <React.Fragment key={task._id}>

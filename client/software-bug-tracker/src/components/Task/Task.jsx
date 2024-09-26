@@ -90,6 +90,7 @@ const Task = (props) => {
             />
             <button
               type="button"
+              id="close-update-button"
               onClick={() => setShowForm((prevState) => !prevState)}>
               Close
             </button>

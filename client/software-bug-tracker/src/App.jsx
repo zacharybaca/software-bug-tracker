@@ -35,7 +35,7 @@ function App() {
         <div id="application-logo-container">
           <img src={logo} alt="logo" id="logo" />
           <h1 id="application-title-heading">Issue Insight</h1>
-          {Object.keys(context.userState.user).length !== 0 ? (
+          {Object.keys(context.userState.user).length !== 0 && token ? (
             <>
             <h2 id="user-welcome-heading">
               Welcome {context.findName(context.userState.user.userID)}
@@ -46,7 +46,7 @@ function App() {
             <h4 id="info-heading">You Have {completed} Completed {completed === 1 ? "Task" : "Tasks"} and {incomplete} Incompleted {incomplete === 1 ? "Task" : "Tasks"}.</h4>
             </>
           ) : (
-            ""
+            <LandingPage />
           )}
           {Object.keys(context.userState.user).length !== 0 && token ? (
             <div id="nav-button-container">
@@ -65,7 +65,7 @@ function App() {
           <Route
             exact path="/"
             element={
-              context.userState.user.userID ? (
+              context.userState.user.userID && token ? (
                 <Navigate to="/tasks" />
               ) : (
                 <LandingPage />
