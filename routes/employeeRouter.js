@@ -2,6 +2,7 @@ const express = require("express");
 const employeeRouter = express.Router();
 const Employee = require("../models/employee.js");
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 
 employeeRouter
   .route("/")
