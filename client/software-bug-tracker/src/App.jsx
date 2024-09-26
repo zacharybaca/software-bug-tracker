@@ -5,6 +5,7 @@ import LandingPage from './components/LandingPage/LandingPage';
 import EmployeeDirectory from './components/EmployeeDirectory/EmployeeDirectory';
 import Footer from './components/Footer/Footer';
 import UnauthorizedPage from './components/UnauthorizedPage/UnauthorizedPage';
+import PageDoesNotExist from './components/PageDoesNotExist/PageDoesNotExist';
 import { EmployeesContext } from './context/employeesContext';
 import { TasksContext } from './context/tasksContext';
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
@@ -62,7 +63,7 @@ function App() {
 
         <Routes>
           <Route
-            path="/"
+            exact path="/"
             element={
               context.userState.user.userID ? (
                 <Navigate to="/tasks" />
@@ -82,6 +83,7 @@ function App() {
 
           <Route path="/unauthorized" element={<UnauthorizedPage />} />
           
+          <Route path="*" element={<PageDoesNotExist />} />
         </Routes>
         <Footer />
       </div>
