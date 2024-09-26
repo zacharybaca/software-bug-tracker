@@ -141,16 +141,22 @@ function EmployeesContextProvider(props) {
 
     const updateEmployee = async (updatedEmployee, employeeID) => {
       try {
+        const token = localStorage.getItem("token"); // Assuming you're storing the token in localStorage
         const response = await fetch(`/api/employees/${employeeID}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`, // Add the token in the Authorization header
           },
           body: JSON.stringify(updatedEmployee),
         });
+        console.log('Updated Employee: ', updatedEmployee);
+        
         if (!response.ok) {
           handleAuthErr(response.statusText);
+          console.log(response.statusText);
         }
+    
         const data = await response.json();
         setEmployees((prevState) =>
           prevState.map((employee) =>
@@ -158,9 +164,11 @@ function EmployeesContextProvider(props) {
           )
         );
       } catch (error) {
-        handleAuthErr(error.response.data.errMsg);
+        handleAuthErr(error.response?.data?.errMsg || error.message);
+        console.log(error.response?.data?.errMsg || error.message);
       }
     };
+    
 
     const updateEmployeeProfile = async (updatedEmployee, id) => {
       try {
