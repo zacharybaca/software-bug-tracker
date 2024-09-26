@@ -33,10 +33,10 @@ employeeRouter
   .put(async (req, res, next) => {
     try {
       const id = req.params.id;
-      const user = await Employee.findOne({"user.userID": req.body.userID})
-      if (user) {
-        res.status(403)
-        return next(new Error('Username has already been taken'))
+      const user = await Employee.findOne({"user.userID": req.body.user.userID})
+      if (user && user._id.toString() !== id) {
+        res.status(403);
+        return next(new Error('Username has already been taken'));
       }
 
       const employeeToBeUpdated = await Employee.findByIdAndUpdate(
