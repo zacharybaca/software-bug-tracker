@@ -61,6 +61,21 @@
     font-size: 45px;
     color: #EAB581;
     padding-bottom: 2%;
+    text-shadow: 1px 1px 2px brown;
+    animation-duration: 3s;
+    animation-name: slidein;
+}
+
+@keyframes slidein {
+  from {
+    translate: 150vw 0;
+    scale: 200% 1;
+  }
+
+  to {
+    translate: 0 0;
+    scale: 100% 1;
+  }
 }
 
 #user-welcome-heading {

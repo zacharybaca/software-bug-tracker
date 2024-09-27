@@ -12,9 +12,8 @@ const TaskForm = (props) => {
     taskCompleted: props.taskCompleted || false,
     taskDetails: props.taskDetails || "",
     taskTodos: props.taskTodos || "",
-    assignedEmployee: props.assignedEmployee || ""
+    assignedEmployee: props.assignedEmployee || context.getLoggedInEmployee() || "",
   };
-
 
   const [task, setTask] = React.useState(initialValues);
 
@@ -27,22 +26,20 @@ const TaskForm = (props) => {
     }));
   }
 
- 
-  
   // Handle form submission
   function handleSubmit(e) {
     e.preventDefault();
 
     const formattedTodos = task.taskTodos
-    .split(".")
-    .map((todo) => todo.trim())
-    .filter((todo) => todo)
-    .join(".\n");
+      .split(".")
+      .map((todo) => todo.trim())
+      .filter((todo) => todo)
+      .join(".\n");
 
-  const updatedTask = {
-    ...task,
-    taskTodos: formattedTodos
-  };
+    const updatedTask = {
+      ...task,
+      taskTodos: formattedTodos,
+    };
     props.submitTask(updatedTask, task.id); // Submit the updated task object
     setTask(initialValues); // Reset the form
 
@@ -51,6 +48,7 @@ const TaskForm = (props) => {
       context.resetAuthErr();
     }
   }
+
 
   return (
     <form id="task-form" name="taskForm" onSubmit={handleSubmit}>
@@ -84,19 +82,32 @@ const TaskForm = (props) => {
       />
 
       {/* Employee Assignment */}
-      <label htmlFor="assigned-employee">Assign Task: </label>
-      <select
-        id="assigned-employee"
-        name="assignedEmployee" // Use the employee's ID as the value
-        value={task.assignedEmployee}
-        onChange={handleChange}>
-        <option value="">Select An Employee</option>
-        {context.employees.map((employee) => (
-          <option value={employee._id} key={employee._id}>
-            {employee.firstName} {employee.lastName}
-          </option>
-        ))}
-      </select>
+      {context.hasAdminRights() ? (
+        <>
+          <label htmlFor="assigned-employee">Assign Task: </label>
+          <select
+            id="assigned-employee"
+            name="assignedEmployee" // Use the employee's ID as the value
+            value={task.assignedEmployee}
+            onChange={handleChange}>
+            <option value="">Select An Employee</option>
+            {context.employees.map((employee) => (
+              <option value={employee._id} key={employee._id}>
+                {employee.firstName} {employee.lastName}
+              </option>
+            ))}
+          </select>
+        </>
+      ) : (
+        <>
+          <h3 id="assigned-employee-heading">
+            Assigned Employee:{" "}
+            {task.assignedEmployee
+              ? `${task.assignedEmployee.firstName} ${task.assignedEmployee.lastName}`
+              : "None"}
+          </h3>
+        </>
+      )}
 
       {/* Task Completed Checkbox */}
       <label htmlFor="task-completed">Task Completed: </label>
@@ -111,7 +122,7 @@ const TaskForm = (props) => {
       <button type="submit" id="add-task-button">
         {props.buttonText}
       </button>
-      <p style = {{color: "red"}}>{props.errMsg}</p>
+      <p style={{ color: "red" }}>{props.errMsg}</p>
     </form>
   );
 };

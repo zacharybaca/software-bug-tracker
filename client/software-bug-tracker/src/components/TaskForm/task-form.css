@@ -28,3 +28,8 @@ label, input, select, textarea {
     background-color: green;
     color: white;
 }
+
+#assigned-employee-heading {
+    font-weight: 800;
+    padding-bottom: 5%;
+}

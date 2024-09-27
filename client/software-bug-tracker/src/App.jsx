@@ -77,7 +77,7 @@ function App() {
 
           <Route path="/employee-directory" element={context.hasAdminRights() ? <EmployeeDirectory /> : <UnauthorizedPage />} />
 
-          <Route path="/add-employee" element={<EmployeeForm />} />
+          <Route path="/add-employee" element={context.hasAdminRights() ? <EmployeeForm /> : <UnauthorizedPage />} />
 
           <Route path="/sign-up" element={<SignUpForm />} />
 
