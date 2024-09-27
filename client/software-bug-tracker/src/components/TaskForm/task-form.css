@@ -31,5 +31,8 @@ label, input, select, textarea {
 
 #assigned-employee-heading {
     font-weight: 800;
-    padding-bottom: 5%;
+}
+
+#employee-heading-container {
+    padding-bottom: 20%;
 }

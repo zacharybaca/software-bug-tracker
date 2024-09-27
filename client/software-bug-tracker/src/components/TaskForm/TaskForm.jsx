@@ -78,7 +78,7 @@ const TaskForm = (props) => {
         name="taskTodos"
         value={task.taskTodos}
         onChange={handleChange}
-        placeholder="Enter Todo Items"
+        placeholder="Enter Each Todo Item Followed By a Period"
       />
 
       {/* Employee Assignment */}
@@ -100,11 +100,13 @@ const TaskForm = (props) => {
         </>
       ) : (
         <>
-          <h3 id="assigned-employee-heading">
+          <h3 id="employee-heading-container">
             Assigned Employee:{" "}
-            {task.assignedEmployee
-              ? `${task.assignedEmployee.firstName} ${task.assignedEmployee.lastName}`
-              : "None"}
+            <span id="assigned-employee-heading">
+              {task.assignedEmployee
+                ? `${task.assignedEmployee.firstName} ${task.assignedEmployee.lastName}`
+                : "None"}
+            </span>
           </h3>
         </>
       )}
