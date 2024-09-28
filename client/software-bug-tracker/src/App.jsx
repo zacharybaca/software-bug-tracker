@@ -55,6 +55,7 @@ function App() {
               </button>
               <button type="button" id="my-tasks-button" onClick={() => navigate('/tasks')}>My Tasks</button>
               {context.hasAdminRights() ? <button type="button" id="employee-directory-button" onClick={() => navigate('/employee-directory')}>Employee Directory</button> : ""}
+              <button type="button" id="unassigned-tasks-button">Un-Assigned Tasks</button>
             </div>
           ) : (
             ""

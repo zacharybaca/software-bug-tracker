@@ -111,6 +111,11 @@
     height: 7vh;
 }
 
+#unassigned-tasks-button {
+    width: 100%;
+    height: 7vh;
+}
+
 #logout-button:hover {
     cursor: pointer;
     background-color: green;
@@ -126,6 +131,13 @@
 }
 
 #employee-directory-button:hover {
+    cursor: pointer;
+    background-color: green;
+    border-radius: 5px;
+    color: white;
+}
+
+#unassigned-tasks-button:hover {
     cursor: pointer;
     background-color: green;
     border-radius: 5px;
