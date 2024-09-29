@@ -1,12 +1,14 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState, useMemo } from 'react';
+import { EmployeesContext } from './employeesContext';
 
 const TasksContext = React.createContext();
 
 function TasksContextProvider(props) {
-
+    const context = React.useContext(EmployeesContext);
     // State Responsible For All Tasks
     const [tasks, setTasks] = useState([]);
-    
+    const loggedInEmployee = context.getLoggedInEmployee();
     const getToken = () => {
       const token = localStorage.getItem("token");
       if (!token) throw new Error("No Token Present");
@@ -107,7 +109,12 @@ function TasksContextProvider(props) {
 
     const getTasks = async () => {
       try {
-        const token = localStorage.getItem("token");
+        const token = getToken();
+
+        if (!token || !loggedInEmployee) {
+          return;
+        }
+
         const response = await fetch("/api/main/tasks", {
             method: "GET",
             headers: {

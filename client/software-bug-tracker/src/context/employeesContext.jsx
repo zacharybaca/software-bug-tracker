@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 
 
+
 const EmployeesContext = React.createContext();
 
 
@@ -60,7 +61,7 @@ function EmployeesContextProvider(props) {
           token: token
         }))
       } catch (error) {
-        handleAuthErr(error.response.data.errMsg);
+        handleAuthErr(error.response.errMsg);
       }
     }
 
@@ -80,18 +81,21 @@ function EmployeesContextProvider(props) {
 
     const getLoggedInEmployee = () => {
       const loggedIn = JSON.parse(localStorage.getItem("user"));
-      console.log("Logged In: ", loggedIn);
+
+      if (!loggedIn) {
+        return null;
+      }
 
       const loggedInEmployee = employees.find(
         (employee) => employee.user.userID === loggedIn.userID
       );
 
-      return loggedInEmployee;
+      return loggedInEmployee ? loggedInEmployee : null
     }
 
     const hasAdminRights = () => {
       const signedInEmployee = getLoggedInEmployee();
-      return signedInEmployee.isAdmin;
+      return signedInEmployee ? signedInEmployee.isAdmin : false
     }
 
     const handleAuthErr = (errMsg) => {

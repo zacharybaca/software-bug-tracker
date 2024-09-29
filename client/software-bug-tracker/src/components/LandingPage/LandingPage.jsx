@@ -53,6 +53,7 @@ function LandingPage() {
           <button type="submit" id="login-button">
             Sign In
           </button>
+          {context.userState.errMsg ? <p>{context.userState.errMsg}</p> : ""}
         </form>
         <Link to="/sign-up">
           <button type="button" id="new-user-button">

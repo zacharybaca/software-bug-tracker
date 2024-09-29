@@ -62,7 +62,7 @@
     color: #EAB581;
     padding-bottom: 2%;
     text-shadow: 1px 1px 2px brown;
-    animation-duration: 3s;
+    animation-duration: 5s;
     animation-name: slidein;
 }
 
@@ -82,18 +82,24 @@
     font-size: 25px;
     font-weight: 800;
     color: beige;
+    animation-duration: 5s;
+    animation-name: slidein;
 }
 
 #position-at-company-heading {
      font-size: 25px;
      font-weight: 800;
      color: beige;
+     animation-duration: 5s;
+     animation-name: slidein;
 }
 
 #info-heading {
     font-size: 18px;
     font-weight: 800;
     color: green;
+    animation-duration: 5s;
+    animation-name: slidein;
 }
 
 #logout-button {

@@ -8,13 +8,12 @@ import './index.css'
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <EmployeesContextProvider>
-      <TasksContextProvider>
-        <Router>
-          <App />
-        </Router>
-      </TasksContextProvider>
-    </EmployeesContextProvider>
-    
+      <EmployeesContextProvider>
+        <TasksContextProvider>
+          <Router>
+            <App />
+          </Router>
+        </TasksContextProvider>
+      </EmployeesContextProvider>
   </StrictMode>
 );

@@ -76,7 +76,7 @@ function App() {
 
           <Route path="/tasks" element={token ? <TaskList /> : <Navigate to = '/' />} />
 
-          <Route path="/employee-directory" element={context.hasAdminRights() ? <EmployeeDirectory /> : <UnauthorizedPage />} />
+          <Route path="/employee-directory" element={() => context.hasAdminRights() ? <EmployeeDirectory /> : <UnauthorizedPage />} />
 
           <Route path="/add-employee" element={context.hasAdminRights() ? <EmployeeForm /> : <UnauthorizedPage />} />
 
