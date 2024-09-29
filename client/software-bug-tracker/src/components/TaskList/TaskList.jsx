@@ -39,7 +39,7 @@ const TaskList = () => {
           errMsg={employeeContext.userState.errMsg}
         />
         {employeeContext.hasAdminRights() ? (
-          <div id="action-buttons">
+          <div id="add-employee-button-container">
             <Link to="/add-employee">
               <button type="button" id="add-employee-main-button">
                 Add Employee

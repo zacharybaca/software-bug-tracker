@@ -4,7 +4,7 @@ import React from 'react';
 
 const EmployeeBadge = (props) => {
     const [showForm, setShowForm] = React.useState(false);
-
+    
     return (
       <>
         {!showForm ? (
@@ -14,7 +14,7 @@ const EmployeeBadge = (props) => {
                 id="badge-header"
                 style={{
                   backgroundColor:
-                    Number(props.itemNumber) % 2 === 0 ? "blue" : "red",
+                    props.isAdmin ? "red" : "blue"
                 }}>
                 Badge:
               </header>

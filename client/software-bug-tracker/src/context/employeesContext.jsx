@@ -1,15 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
-
-
-
 const EmployeesContext = React.createContext();
 
-
 function EmployeesContextProvider(props) {
-
-    
-
     // State Responsible For All Employees
     const [employees, setEmployees] = useState([]);
 
@@ -100,7 +93,6 @@ function EmployeesContextProvider(props) {
         : false;
     };
 
-
     const handleAuthErr = (errMsg) => {
       setUserState(prevState => ({
         ...prevState,
@@ -141,10 +133,9 @@ function EmployeesContextProvider(props) {
         ]))
 
         } catch (error) {
-            handleAuthErr(error.response.data.errMsg);
+            handleAuthErr(error.data.errMsg);
         }
     }
-
 
     const updateEmployee = async (updatedEmployee, employeeID) => {
       try {
@@ -176,7 +167,6 @@ function EmployeesContextProvider(props) {
       }
     };
     
-
     const updateEmployeeProfile = async (updatedEmployee, id) => {
       try {
         const response = await fetch(`/api/employees/employee/${id}`, {
@@ -219,7 +209,6 @@ function EmployeesContextProvider(props) {
         handleAuthErr(error.response.data.errMsg);
       }
     }
-
 
     const createLoginAccount = (loginData, employeeID, accessToken) => {
         const foundEmployee = employees.find(employee => employee._id === employeeID);

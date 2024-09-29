@@ -2,12 +2,9 @@ import './employee-form.css';
 import React from 'react';
 import { EmployeesContext } from '../../context/employeesContext';
 
-
-
 function EmployeeForm(props) {
   const context = React.useContext(EmployeesContext);
 
-  
   const initialValues = {
     firstName: props.firstName || "",
     lastName: props.lastName || "",
@@ -21,10 +18,7 @@ function EmployeeForm(props) {
     isAdmin: props.isAdmin || false,
   };
 
-
   const [employee, setEmployee] = React.useState(initialValues);
-
-   
 
   function handleChange(e) {
     const { name, value, type, checked } = e.target;
@@ -56,11 +50,6 @@ function EmployeeForm(props) {
     }
   }
   
-
-   
-
-  
-
   function handleSubmit(e) {
     e.preventDefault();
     props.submitEmployee ? props.submitEmployee(employee, props.employeeID) : context.addEmployee(employee);
@@ -90,6 +79,8 @@ function EmployeeForm(props) {
           value={employee.lastName}
           placeholder="Enter Employee's Last Name"
         />
+        {employee.accessCode ? 
+        <>
         <label htmlFor="employee-userid">Employee UserID: </label>
         <input
           type="text"
@@ -106,6 +97,8 @@ function EmployeeForm(props) {
           onChange={handleChange}
           value={employee.user.password}
         />
+        </>
+        : ""}
         <label htmlFor="employee-role">Assign Employee Role: </label>
         <select
           id="employee-role"

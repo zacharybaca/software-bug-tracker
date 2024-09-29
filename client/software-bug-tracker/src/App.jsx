@@ -6,6 +6,7 @@ import EmployeeDirectory from './components/EmployeeDirectory/EmployeeDirectory'
 import Footer from './components/Footer/Footer';
 import UnauthorizedPage from './components/UnauthorizedPage/UnauthorizedPage';
 import PageDoesNotExist from './components/PageDoesNotExist/PageDoesNotExist';
+import UnAssignedTasks from './components/UnAssignedTasks/UnAssignedTasks';
 import { EmployeesContext } from './context/employeesContext';
 import { TasksContext } from './context/tasksContext';
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
@@ -125,7 +126,10 @@ function App() {
             }
           />
 
-          <Route path="/sign-up" element={<SignUpForm />} />
+          <Route path="/sign-up" element={!context.userState.user.userID && !token ? <SignUpForm /> : <TaskList />} />
+
+          <Route path="/unassigned-tasks" element={<UnAssignedTasks />}
+          />
 
           <Route path="/unauthorized" element={<UnauthorizedPage />} />
 

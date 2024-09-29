@@ -111,10 +111,8 @@ function TasksContextProvider(props) {
       try {
         const token = getToken();
         if (!token || !loggedInEmployee) {
-          return;
+          return false;
         }
-
-        console.log("Fetching tasks...");
 
         const response = await fetch("/api/main/tasks", {
           method: "GET",
@@ -133,10 +131,10 @@ function TasksContextProvider(props) {
         }
 
         const data = await response.json();
-        console.log("Tasks fetched:", data);
         setTasks(data);
       } catch (error) {
         console.error("Error fetching tasks:", error);
+        context.handleAuthError(error);
       }
     }, [loggedInEmployee]); 
 
@@ -164,13 +162,13 @@ function TasksContextProvider(props) {
             setTasks(data);
         } catch (error) {
             console.error(error);
+            context.handleAuthError(error);
         }
     }
 
     const getIncompleteTasks = async () => {
         try {
           const token = getToken();
-
 
              const res = await fetch('api/main/tasks/taskCompleted?taskCompleted=false', {
                 method: "GET",
@@ -192,6 +190,7 @@ function TasksContextProvider(props) {
             setTasks(data);
         } catch (error) {
             console.error(error);
+            context.handleAuthError(error);
         }
     }
 
@@ -203,8 +202,6 @@ function TasksContextProvider(props) {
 
       return { completed: completedTasks, incomplete: incompleteTasks };
     }, [tasks]);
-
-
 
      useEffect(() => {
        if (loggedInEmployee) {

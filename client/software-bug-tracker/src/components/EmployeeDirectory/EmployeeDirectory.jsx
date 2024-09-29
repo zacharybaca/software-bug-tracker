@@ -6,7 +6,6 @@ import React from 'react';
 const EmployeeDirectory = () => {
   const context = React.useContext(EmployeesContext);
 
-
     return (
       <div id="employee-directory-container">
         <h2 id="employee-directory-heading">Employee Directory</h2>

@@ -36,24 +36,6 @@
     border-radius: 10px;
 }
 
-#action-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    width: 100%;
-}
-
-#action-buttons button {
-    width: 100%;
-    height: 5vh;
-    border-radius: 10px;
-}
-
-#action-buttons button:hover {
-    background-color: gold;
-    cursor: pointer;
-}
-
 #application-title-heading {
     font-family: "Protest Guerrilla", sans-serif;
     font-weight: 400;
