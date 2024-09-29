@@ -95,8 +95,11 @@ function EmployeesContextProvider(props) {
 
     const hasAdminRights = () => {
       const signedInEmployee = getLoggedInEmployee();
-      return signedInEmployee ? signedInEmployee.isAdmin : false
-    }
+      return signedInEmployee && typeof signedInEmployee.isAdmin === "boolean"
+        ? signedInEmployee.isAdmin
+        : false;
+    };
+
 
     const handleAuthErr = (errMsg) => {
       setUserState(prevState => ({
@@ -246,7 +249,7 @@ function EmployeesContextProvider(props) {
            const data = await response.json();
            setEmployees(data);
          } catch (error) {
-           handleAuthErr(error.response.data.errMsg);
+           handleAuthErr(error.message);
          }
        };
         getEmployees();

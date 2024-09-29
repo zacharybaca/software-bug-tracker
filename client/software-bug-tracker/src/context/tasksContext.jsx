@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import { EmployeesContext } from './employeesContext';
 
 const TasksContext = React.createContext();
@@ -107,34 +107,38 @@ function TasksContextProvider(props) {
         }
     }
 
-    const getTasks = async () => {
+    const getTasks = useCallback(async () => {
       try {
         const token = getToken();
-
         if (!token || !loggedInEmployee) {
           return;
         }
 
+        console.log("Fetching tasks...");
+
         const response = await fetch("/api/main/tasks", {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`
-            }
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
         });
-        // const decodedToken = JSON.parse(atob(token.split(".")[1]));
-        // console.log('Decoded Token: ', decodedToken);
 
         if (!response.ok) {
-            throw new Error(`${response.status} ${response.statusText} : ${await response.text()}`)
+          throw new Error(
+            `${response.status} ${
+              response.statusText
+            } : ${await response.text()}`
+          );
         }
+
         const data = await response.json();
+        console.log("Tasks fetched:", data);
         setTasks(data);
-        
       } catch (error) {
-            console.error(error);
+        console.error("Error fetching tasks:", error);
       }
-    };
+    }, [loggedInEmployee]); 
 
     const getCompletedTasks = async () => {
         try {
@@ -202,9 +206,11 @@ function TasksContextProvider(props) {
 
 
 
-    useEffect(() => {
-        getTasks();
-    }, [])
+     useEffect(() => {
+       if (loggedInEmployee) {
+         getTasks();
+       }
+     }, [loggedInEmployee, getTasks]);
 
     return (
         <TasksContext.Provider value={{

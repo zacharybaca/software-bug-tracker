@@ -37,13 +37,25 @@ function App() {
           <h1 id="application-title-heading">Issue Insight</h1>
           {Object.keys(context.userState.user).length !== 0 && token ? (
             <>
-            <h2 id="user-welcome-heading">
-              Welcome {context.findName(context.userState.user.userID)}
-            </h2>
-            <h2 id="position-at-company-heading">
-              We Are Glad to Have You As a {context.findRoleAtCompany(context.userState.user.userID).charAt(0).toUpperCase() + context.findRoleAtCompany(context.userState.user.userID).slice(1)}!
-            </h2>
-            <h4 id="info-heading">You Have {completed} Completed {completed === 1 ? "Task" : "Tasks"} and {incomplete} Incompleted {incomplete === 1 ? "Task" : "Tasks"}.</h4>
+              <h2 id="user-welcome-heading">
+                Welcome {context.findName(context.userState.user.userID)}
+              </h2>
+              <h2 id="position-at-company-heading">
+                We Are Glad to Have You As a{" "}
+                {context
+                  .findRoleAtCompany(context.userState.user.userID)
+                  .charAt(0)
+                  .toUpperCase() +
+                  context
+                    .findRoleAtCompany(context.userState.user.userID)
+                    .slice(1)}
+                !
+              </h2>
+              <h4 id="info-heading">
+                You Have {completed} Completed{" "}
+                {completed === 1 ? "Task" : "Tasks"} and {incomplete}{" "}
+                Incompleted {incomplete === 1 ? "Task" : "Tasks"}.
+              </h4>
             </>
           ) : (
             ""
@@ -53,9 +65,24 @@ function App() {
               <button type="button" id="logout-button" onClick={context.logout}>
                 Logout
               </button>
-              <button type="button" id="my-tasks-button" onClick={() => navigate('/tasks')}>My Tasks</button>
-              {context.hasAdminRights() ? <button type="button" id="employee-directory-button" onClick={() => navigate('/employee-directory')}>Employee Directory</button> : ""}
-              <button type="button" id="unassigned-tasks-button">Un-Assigned Tasks</button>
+              <button
+                type="button"
+                id="my-tasks-button"
+                onClick={() => navigate("/tasks")}>
+                My Tasks
+              </button>
+              {context.employees.length > 0 && context.hasAdminRights() ? (
+                <button
+                  type="button"
+                  id="employee-directory-button"
+                  onClick={() => navigate("/employee-directory")}>
+                  Employee Directory
+                </button>
+              ) : null}
+
+              <button type="button" id="unassigned-tasks-button">
+                Un-Assigned Tasks
+              </button>
             </div>
           ) : (
             ""
@@ -64,7 +91,8 @@ function App() {
 
         <Routes>
           <Route
-            exact path="/"
+            exact
+            path="/"
             element={
               context.userState.user.userID && token ? (
                 <Navigate to="/tasks" />
@@ -74,16 +102,33 @@ function App() {
             }
           />
 
-          <Route path="/tasks" element={token ? <TaskList /> : <Navigate to = '/' />} />
+          <Route
+            path="/tasks"
+            element={token ? <TaskList /> : <Navigate to="/" />}
+          />
 
-          <Route path="/employee-directory" element={() => context.hasAdminRights() ? <EmployeeDirectory /> : <UnauthorizedPage />} />
+          <Route
+            path="/employee-directory"
+            element={
+              context.hasAdminRights() ? (
+                <EmployeeDirectory />
+              ) : (
+                <UnauthorizedPage />
+              )
+            }
+          />
 
-          <Route path="/add-employee" element={context.hasAdminRights() ? <EmployeeForm /> : <UnauthorizedPage />} />
+          <Route
+            path="/add-employee"
+            element={
+              context.hasAdminRights() ? <EmployeeForm /> : <UnauthorizedPage />
+            }
+          />
 
           <Route path="/sign-up" element={<SignUpForm />} />
 
           <Route path="/unauthorized" element={<UnauthorizedPage />} />
-          
+
           <Route path="*" element={<PageDoesNotExist />} />
         </Routes>
         <Footer />
