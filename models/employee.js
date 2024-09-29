@@ -26,12 +26,6 @@ const employeeSchema = new Schema({
       required: function () {
         return !!this.user.userID; // Dynamically require password if userID exists
       },
-    },
-    associatedEmployee: {
-      type: String,
-      required: function () {
-        return !!this.user.userID;
-      }
     }
   },
   accessCode: {
