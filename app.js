@@ -11,7 +11,7 @@ const path = require('path');
 app.use(express.json());
 
 // Middleware That Will Help With Debugging Server Requests
-app.use(morgan('combined'));
+app.use(morgan('dev'));
 
 // Middleware That Will Serve Our Static Files
 app.use(express.static(path.join(__dirname, "client", "dist")));

@@ -13,7 +13,9 @@ taskRouter.route("/")
     try {
       console.log('Employee ID: ', req.body.assignedEmployee._id);
       console.log('Auth ID: ', req.auth._id)
-      req.body.assignedEmployee._id = req.auth._id;
+      if (!req.body.assignedEmployee._id) {
+        req.body.assignedEmployee._id = req.auth._id;
+      }
       const newTask = new Task(req.body);
       const savedTask = await newTask.save();
       return res.status(201).send(savedTask);
@@ -40,6 +42,7 @@ taskRouter.route("/")
         assignedEmployee: employee._id,
       });
       console.log("Employee: ", employee._id);
+      console.log("Found Tasks: ", foundTasks)
       return res.status(200).send(foundTasks);
     } catch (error) {
       res.status(500);
@@ -73,26 +76,64 @@ taskRouter.route("/")
    }
  });
 
-taskRouter.route('/:id')
+  taskRouter.route('/:id')
     .put(async (req, res, next) => {
-        try {
-            const id = req.params.id;
-            const taskToBeUpdated = await Task.findByIdAndUpdate(
-                id,
-                req.body,
-                { new: true }
-            )
-            return res.status(201).send(taskToBeUpdated);
-        } catch (error) {
-            res.status(500);
-            return next(error);
+      try {
+        const employee = await Employee.findOne({ _id: req.auth._id });
+
+        if (!employee) {
+          return res.status(404).send("Employee not found");
         }
+
+        const id = req.params.id;
+        const task = await Task.findById(id);
+
+        if (!task) {
+          return res.status(404).send("Task not found");
+        }
+
+        // Check if the employee is assigned to this task
+        if (!employee._id.equals(task.assignedEmployee)) {
+          return res.status(403).json({
+            message: "You do not have permission to update this task."
+          });
+        }
+
+        // Proceed with the update
+        const updatedTask = await Task.findByIdAndUpdate(id, req.body, {
+          new: true,
+        });
+
+        return res.status(200).send(updatedTask);
+
+      } catch (error) {
+        res.status(500);
+        return next(error);
+      }
     })
     .delete(async (req, res, next) => {
         try {
+            const employee = await Employee.findOne({ _id: req.auth._id });
+
+            if (!employee) {
+              return res.status(404).send("Employee Not Found")
+            }
             const id = req.params.id;
+            const task = await Task.findById(id);
+
+            if (!task) {
+              return res.status(404).send("Task Not Found")
+            }
+
+            if (!employee._id.equals(task.assignedEmployee)) {
+              return res.status(403).json({
+                message: "You do not have permission to delete this task."
+              })
+            }
+
             const taskToBeDeleted = await Task.findOneAndDelete({ _id: id });
             return res.status(200).send(`You Have Successfully Deleted ${taskToBeDeleted.taskTitle}`);
+
         } catch (error) {
             res.status(500);
             return next(error);
