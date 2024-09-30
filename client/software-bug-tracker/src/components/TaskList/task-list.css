@@ -32,6 +32,11 @@ hr {
     padding-top: 2%;
 }
 
+#filterTasks {
+    background-color: green;
+    font-size: 15px;
+}
+
 #heading-above-tasks {
     font-family: "Protest Guerrilla", sans-serif;
     font-weight: 400;

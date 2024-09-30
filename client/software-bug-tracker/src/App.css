@@ -18,6 +18,7 @@
     flex-direction: column;
     align-items: center;
     gap: 20px;
+    min-width: 50%;
     padding-top: 2%;
     padding-bottom: 2%;
 }
@@ -79,55 +80,55 @@
 #info-heading {
     font-size: 18px;
     font-weight: 800;
-    color: green;
+    color: #EAB581;
     animation-duration: 5s;
     animation-name: slidein;
 }
 
 #logout-button {
     width: 100%;
+    border-radius: 5px;
     height: 7vh;
 }
 
 #my-tasks-button {
     width: 100%;
+    border-radius: 5px;
     height: 7vh;
 }
 
 #employee-directory-button {
     width: 100%;
+    border-radius: 5px;
     height: 7vh;
 }
 
 #unassigned-tasks-button {
     width: 100%;
+    border-radius: 5px;
     height: 7vh;
 }
 
 #logout-button:hover {
     cursor: pointer;
     background-color: green;
-    border-radius: 5px;
     color: white;
 }
 
 #my-tasks-button:hover {
     cursor: pointer;
     background-color: green;
-    border-radius: 5px;
     color: white;
 }
 
 #employee-directory-button:hover {
     cursor: pointer;
     background-color: green;
-    border-radius: 5px;
     color: white;
 }
 
 #unassigned-tasks-button:hover {
     cursor: pointer;
     background-color: green;
-    border-radius: 5px;
     color: white;
 }
