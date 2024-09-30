@@ -18,7 +18,7 @@ function TasksContextProvider(props) {
 
     const addTask = async (newTask) => {
         try {
-
+            const loggedInEmployee = context.getLoggedInEmployee();
             const token = getToken();
 
             const response = await fetch('/api/main/tasks', {
@@ -39,13 +39,29 @@ function TasksContextProvider(props) {
          }
          
         const data = await response.json()
-
-        setTasks(prevState => ([
+         console.log(`Logged In Employee ID: ${loggedInEmployee._id}`);
+         console.log(`Assigned Employee: ${data.assignedEmployee}`);
+        const hasUserID = context.hasUserID(data.assignedEmployee);
+         console.log('Has User ID: ', hasUserID);
+        if (!hasUserID) {
+          throw new Error(
+            `${data.assignedEmployee} Does Not Have a User ID Associated With It.`
+          );
+        }
+         
+        if (loggedInEmployee._id !== data.assignedEmployee) {
+          setTasks((prevState) => [
+            ...prevState
+          ])
+        } 
+        else {
+          setTasks((prevState) => [
             ...prevState,
             {
-                ...data
-            }
-        ]))
+              ...data,
+            },
+          ]);
+        }
         } catch (error) {
             console.error(error);
         }

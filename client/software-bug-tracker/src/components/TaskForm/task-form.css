@@ -36,3 +36,7 @@ label, input, select, textarea {
 #employee-heading-container {
     padding-bottom: 20%;
 }
+
+#assigned-employee {
+    overflow: auto;
+}

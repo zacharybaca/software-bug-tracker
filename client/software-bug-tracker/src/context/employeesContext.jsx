@@ -92,6 +92,15 @@ function EmployeesContextProvider(props) {
         ? signedInEmployee.isAdmin
         : false;
     };
+    
+    const hasUserID = (id) => {
+      const employee = employees.find((employee) => employee._id === id);
+
+      if (employee.user.userID) {
+        return true;
+      }
+      return false;
+    }
 
     const handleAuthErr = (errMsg) => {
       setUserState(prevState => ({
@@ -254,6 +263,7 @@ function EmployeesContextProvider(props) {
             getLoggedInEmployee: getLoggedInEmployee,
             createLogin: createLoginAccount,
             hasAdminRights: hasAdminRights,
+            hasUserID: hasUserID,
             findRoleAtCompany: findRoleAtCompany,
             login: login,
             logout: logout,

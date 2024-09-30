@@ -125,7 +125,7 @@ function EmployeeForm(props) {
           onChange={handleChange}
         />
         <div id="access-code-container">
-          {employee.accessCode ? <p>Access Code: {employee.accessCode}</p> : ""}
+          {context.userState.accessCode ? <p>Access Code: {context.userState.accessCode}</p> : ""}
         </div>
         <button type="submit" id="add-employee-button">
           {props.bttnText || "Add Employee"}
