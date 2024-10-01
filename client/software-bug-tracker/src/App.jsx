@@ -57,6 +57,9 @@ function App() {
                 {completed === 1 ? "Task" : "Tasks"} and {incomplete}{" "}
                 Incompleted {incomplete === 1 ? "Task" : "Tasks"}.
               </h4>
+              <h4 id="unassigned-tasks-info-heading">
+                There {taskContext.unassignedTasks.length === 1 ? "Is" : "Are"} Currently {taskContext.unassignedTasks.length} Unassigned {taskContext.unassignedTasks.length === 1 ? "Task" : "Tasks"}
+              </h4>
             </>
           ) : (
             ""
@@ -81,7 +84,7 @@ function App() {
                 </button>
               ) : null}
 
-              <button type="button" id="unassigned-tasks-button">
+              <button type="button" id="unassigned-tasks-button" onClick={() => navigate("/unassigned-tasks")}>
                 Un-Assigned Tasks
               </button>
             </div>
@@ -128,7 +131,7 @@ function App() {
 
           <Route path="/sign-up" element={!context.userState.user.userID && !token ? <SignUpForm /> : <TaskList />} />
 
-          <Route path="/unassigned-tasks" element={<UnAssignedTasks />}
+          <Route path="/unassigned-tasks" element={token ?<UnAssignedTasks /> : <Navigate to="/" />}
           />
 
           <Route path="/unauthorized" element={<UnauthorizedPage />} />

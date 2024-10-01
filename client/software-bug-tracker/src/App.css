@@ -85,6 +85,14 @@
     animation-name: slidein;
 }
 
+#unassigned-tasks-info-heading {
+    font-size: 18px;
+    font-weight: 800;
+    color: #EAB581;
+    animation-duration: 5s;
+    animation-name: slidein;
+}
+
 #logout-button {
     width: 100%;
     border-radius: 5px;

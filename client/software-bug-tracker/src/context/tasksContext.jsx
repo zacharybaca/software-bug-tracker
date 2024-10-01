@@ -8,6 +8,7 @@ function TasksContextProvider(props) {
     const context = React.useContext(EmployeesContext);
     // State Responsible For All Tasks
     const [tasks, setTasks] = useState([]);
+    const [unassignedTasks, setunassignedTasks] = useState([]);
     const loggedInEmployee = context.getLoggedInEmployee();
     const getToken = () => {
       const token = localStorage.getItem("token");
@@ -150,9 +151,35 @@ function TasksContextProvider(props) {
         setTasks(data);
       } catch (error) {
         console.error("Error fetching tasks:", error);
-        context.handleAuthError(error);
+        context.handleAuthErr(error);
       }
-    }, [loggedInEmployee]); 
+    }, [loggedInEmployee]);
+    
+    const getUnassignedTasks = async () => {
+      try {
+        const token = getToken();
+
+        const res = await fetch('/api/main/tasks/unassigned-tasks', {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+          }
+        });
+
+        if (!res.ok) {
+              throw new Error(
+                `${res.status} ${
+                  res.statusText
+                } : ${await res.text()}`
+              );
+            }
+        const data = await res.json();
+        setunassignedTasks(data);
+      } catch (error) {
+        context.handleAuthErr(error);
+      }
+    }
 
     const getCompletedTasks = async () => {
         try {
@@ -178,7 +205,7 @@ function TasksContextProvider(props) {
             setTasks(data);
         } catch (error) {
             console.error(error);
-            context.handleAuthError(error);
+            context.handleAuthErr(error);
         }
     }
 
@@ -206,7 +233,7 @@ function TasksContextProvider(props) {
             setTasks(data);
         } catch (error) {
             console.error(error);
-            context.handleAuthError(error);
+            context.handleAuthErr(error);
         }
     }
 
@@ -222,19 +249,22 @@ function TasksContextProvider(props) {
      useEffect(() => {
        if (loggedInEmployee) {
          getTasks();
+         getUnassignedTasks();
        }
      }, [loggedInEmployee, getTasks]);
 
     return (
         <TasksContext.Provider value={{
             tasks: tasks,
+            unassignedTasks: unassignedTasks,
             getTasks: getTasks,
             addTask: addTask,
             deleteTask: deleteTask,
             updateTask: updateTask,
             completed: getCompletedTasks,
             incomplete: getIncompleteTasks,
-            getTaskCounts: getTaskCounts
+            getTaskCounts: getTaskCounts,
+            getUnassignedTasks: getUnassignedTasks
         }}>
             {props.children}
         </TasksContext.Provider>
