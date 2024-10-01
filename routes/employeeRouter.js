@@ -107,6 +107,11 @@ employeeRouter.route('/employee/:id')
         req.body.user.password = hashedPassword; // Replace plain text password with the hash
       }
 
+      // Check if the accessCode is being reissued
+      if (req.body.generateAccessCode && req.body.accessCode) {
+        req.body.accessCode = Math.floor(Math.random() * 5000) + 1;
+      }
+      
       // Update the employee with the new details
       const employeeToBeUpdated = await Employee.findByIdAndUpdate(id, req.body, { new: true });
 

@@ -145,8 +145,14 @@ taskRouter.route("/")
     .get(async (req, res, next) => {
       try {
         const unassignedTasks = await Task.find({
-          assignedEmployee: null
+          $or: [{ assignedEmployee: null }, { assignedEmployee: undefined }],
         });
+        console.log('Unassigned: ', unassignedTasks);
+        if (!unassignedTasks.length) {
+          return res.status(200).json({ message: "No unassigned tasks found" });
+        }
+
+
         return res.status(200).send(unassignedTasks);
       } catch (error) {
         res.status(500);
