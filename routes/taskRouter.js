@@ -141,7 +141,18 @@ taskRouter.route("/")
     })
 
     
-
+  taskRouter.route('/unassigned-tasks')
+    .get(async (req, res, next) => {
+      try {
+        const unassignedTasks = await Task.find({
+          assignedEmployee: null
+        });
+        return res.status(200).send(unassignedTasks);
+      } catch (error) {
+        res.status(500);
+        return next(error);
+      }
+    });
    
 
 
