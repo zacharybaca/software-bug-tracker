@@ -36,6 +36,12 @@ taskRouter.route("/")
       if (!employee) {
         return res.status(404).send("Employee not found");
       }
+      
+      // If Employee has Admin Rights, This Endpoint Will Send Them All Tasks in the DB
+      if (employee.isAdmin) {
+        const allTasks = await Task.find();
+        return res.status(200).send(allTasks);
+      }
 
       // Then, use the employee's _id to find tasks assigned to that employee
       const foundTasks = await Task.find({
