@@ -58,7 +58,7 @@ function App() {
                 Incompleted {incomplete === 1 ? "Task" : "Tasks"}.
               </h4>
               <h4 id="unassigned-tasks-info-heading">
-                There {taskContext.unassignedTasks.length === 1 ? "Is" : "Are"} Currently {taskContext.unassignedTasks.length} Unassigned {taskContext.unassignedTasks.length === 1 ? "Task" : "Tasks"}
+                There {taskContext.unassignedTasks.length === 1 ? "Is" : "Are"} Currently {taskContext.unassignedTasks.length || 0} Unassigned {taskContext.unassignedTasks.length === 1 ? "Task" : "Tasks"}
               </h4>
             </>
           ) : (

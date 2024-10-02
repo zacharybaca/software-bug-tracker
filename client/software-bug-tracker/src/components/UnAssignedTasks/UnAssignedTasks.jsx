@@ -10,7 +10,8 @@ const UnAssignedTasks = () => {
     return (
       <div id="unassigned-task-list-container">
         <h1 id="unassigned-header">Un-Assigned Tasks:</h1>
-        <ul id="unassigned-task-list">
+        {context.unassignedTasks.length > 0 ? (
+          <ul id="unassigned-task-list">
           {context.unassignedTasks.map((task) => (
             <React.Fragment key={task._id}>
               <li className="unassigned-task">
@@ -29,6 +30,9 @@ const UnAssignedTasks = () => {
             </React.Fragment>
           ))}
         </ul>
+        )
+        : <h2 id="no-unassigned-tasks-heading">There Are No Un-Assigned Tasks to Display</h2>
+      }
       </div>
     );
 }

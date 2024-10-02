@@ -41,3 +41,13 @@
     text-align: center;
     padding-bottom: 2%;
 }
+
+#no-unassigned-tasks-heading {
+    font-family: "Protest Guerrilla", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 20px;
+    color: black;
+    text-align: center;
+    padding-bottom: 2%;
+}
