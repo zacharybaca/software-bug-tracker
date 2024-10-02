@@ -7,7 +7,8 @@ const taskSchema = new Schema({
         required: true
     },
     taskCompleted: {
-        type: Boolean
+        type: Boolean,
+        default: false
     },
     taskDetails: {
         type: String,
@@ -18,7 +19,8 @@ const taskSchema = new Schema({
     },
     assignedEmployee: {
         type: Schema.Types.ObjectId,
-        ref: "Employee"
+        ref: "Employee",
+        default: null
     }
 })
 
