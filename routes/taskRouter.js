@@ -92,12 +92,22 @@ taskRouter.route("/")
           return res.status(404).send("Task not found");
         }
 
+        if (task.assignedEmployee == null) {
+          const updatedTask = await Task.findByIdAndUpdate(id, req.body, {
+            new: true,
+          });
+
+          return res.status(200).send(updatedTask);
+        }
+
         // Check if the employee is assigned to this task
-        if (!employee._id.equals(task.assignedEmployee)) {
+        if (task.assignedEmployee != null && !employee._id.equals(task.assignedEmployee)) 
+          {
           return res.status(403).json({
-            message: "You do not have permission to update this task."
+            message: "You do not have permission to update this task.",
           });
         }
+
 
         // Proceed with the update
         const updatedTask = await Task.findByIdAndUpdate(id, req.body, {
@@ -125,6 +135,8 @@ taskRouter.route("/")
               return res.status(404).send("Task Not Found")
             }
 
+            
+
             if (!employee._id.equals(task.assignedEmployee)) {
               return res.status(403).json({
                 message: "You do not have permission to delete this task."
@@ -140,7 +152,6 @@ taskRouter.route("/")
         }
     })
 
-    
   taskRouter.route('/unassigned-tasks')
     .get(async (req, res, next) => {
       try {
@@ -151,15 +162,10 @@ taskRouter.route("/")
         if (!unassignedTasks.length) {
           return res.status(200).json({ message: "No unassigned tasks found" });
         }
-
-
         return res.status(200).send(unassignedTasks);
       } catch (error) {
         res.status(500);
         return next(error);
       }
     });
-   
-
-
 module.exports = taskRouter;
