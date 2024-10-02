@@ -92,9 +92,7 @@ function TasksContextProvider(props) {
 
             const data = await response.json();
             setTasks(prevTasks => prevTasks.map((task => task._id !== id ? task : {...data})))
-            // Fix Issue With Updating Unassigned Tasks After Assigning
-            // When Setting the Unassigned Tasks, Call Filter on Tasks to See if They Are UnAssigned
-            setunassignedTasks(prevTasks => prevTasks.map((task => task.assignedEmployee == null ? task : {...data.map((task => task.assignedEmployee == null ? task : ""))})))
+            setunassignedTasks(tasks.filter(task => task.associatedEmployee == null))
         } catch (error) {
             console.error("Error: ", error);
         }
