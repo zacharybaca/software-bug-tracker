@@ -54,7 +54,15 @@ function TasksContextProvider(props) {
           setTasks((prevState) => [
             ...prevState
           ])
-        } 
+        }
+        else if (data.assignedEmployee == null) {
+          setunassignedTasks((prevState) => [
+            ...prevState,
+            {
+              ...data
+            }
+          ]);
+        }
         else {
           setTasks((prevState) => [
             ...prevState,
@@ -92,7 +100,7 @@ function TasksContextProvider(props) {
 
             const data = await response.json();
             setTasks(prevTasks => prevTasks.map((task => task._id !== id ? task : {...data})))
-            setunassignedTasks(tasks.filter(task => task.associatedEmployee == null))
+            setunassignedTasks(prevTasks => prevTasks.map((task => task._id !== id ? task : {...data})))
         } catch (error) {
             console.error("Error: ", error);
         }
@@ -120,6 +128,7 @@ function TasksContextProvider(props) {
            }
 
             setTasks(prevTasks => prevTasks.filter(task => task._id !== id))
+            setunassignedTasks(prevTasks => prevTasks.filter(task => task._id == id))
         } catch (error) {
             console.error('Error: ', error);
         }
