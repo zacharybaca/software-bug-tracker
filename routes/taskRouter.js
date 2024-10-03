@@ -74,6 +74,13 @@ taskRouter.route("/taskCompleted").get(async (req, res, next) => {
 
     const taskCompleted = req.query.taskCompleted === "true";
 
+    // If Employee is an Admin, Enable Them to View All Incomplete/Completed Tasks From Other Users
+    if (employee.isAdmin) {
+      const foundTasks = await Task.find();
+      const foundCompletedStatus = foundTasks.filter((task) => task.taskCompleted === taskCompleted);
+      return res.status(200).send(foundCompletedStatus);
+    }
+
     const foundTasks = await Task.find({ assignedEmployee: employee._id });
     const foundCompletedStatus = foundTasks.filter(
       (task) => task.taskCompleted === taskCompleted
@@ -106,6 +113,14 @@ taskRouter
 
       // Check if task is unassigned
       if (task.assignedEmployee == null) {
+        const updatedTask = await Task.findByIdAndUpdate(id, req.body, {
+          new: true,
+        });
+        return res.status(200).send(updatedTask);
+      }
+
+      // Check if Employee is An Admin
+      if (employee.isAdmin) {
         const updatedTask = await Task.findByIdAndUpdate(id, req.body, {
           new: true,
         });
@@ -168,6 +183,11 @@ taskRouter
           message: "You do not have permission to delete this task.",
         });
       }
+
+      // Delete Task If User Owns the Task
+      const taskToBeDeleted = await Task.findOneAndDelete({ _id: id });
+      return res.status(200).send(`You Have Successfully Deleted ${taskToBeDeleted.taskTitle}`);
+      
     } catch (error) {
       res.status(500);
       return next(error);
