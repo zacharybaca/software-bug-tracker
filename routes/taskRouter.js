@@ -49,7 +49,8 @@ taskRouter
       // Admins can view all tasks
       if (employee.isAdmin) {
         const allTasks = await Task.find();
-        return res.status(200).send(allTasks);
+        const filteredUnassigned = allTasks.filter(task => task.assignedEmployee != null);
+        return res.status(200).send(filteredUnassigned);
       }
 
       // Non-admins can only view their own tasks
