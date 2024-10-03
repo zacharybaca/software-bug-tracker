@@ -8,10 +8,10 @@ const TaskForm = (props) => {
   // State for Individual Tasks
   const initialValues = {
     id: props.id || "",
-    taskTitle: props.taskTitle || "",
-    taskCompleted: props.taskCompleted || false,
-    taskDetails: props.taskDetails || "",
-    taskTodos: props.taskTodos || "",
+    taskTitle: props.title || "",
+    taskCompleted: props.completed || false,
+    taskDetails: props.details || "",
+    taskTodos: props.todos || "",
     assignedEmployee: props.assignedEmployee || context.getLoggedInEmployee() || "",
   };
 

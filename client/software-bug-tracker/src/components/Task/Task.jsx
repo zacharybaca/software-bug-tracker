@@ -80,10 +80,10 @@ const Task = (props) => {
             <TaskForm
               buttonText="Update"
               id={props.id}
-              taskTitle={props.title}
-              taskCompleted={props.completed}
-              taskDetails={props.details}
-              taskTodos={props.todos}
+              title={props.title}
+              completed={props.completed}
+              details={props.details}
+              todos={props.todos}
               assignedEmployee={props.assignedEmployee}
               toggleForm={setShowForm}
               submitTask={props.editTask}

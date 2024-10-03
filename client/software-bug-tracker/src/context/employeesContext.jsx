@@ -1,280 +1,236 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 
 const EmployeesContext = React.createContext();
 
 function EmployeesContextProvider(props) {
-    // State Responsible For All Employees
-    const [employees, setEmployees] = useState([]);
+  // State Responsible For All Employees
+  const [employees, setEmployees] = useState([]);
 
-    // State Responsible For Tracking If a User is Logged In
-    const initialState = {
-      user: JSON.parse(localStorage.getItem("user")) || {},
-      token: localStorage.getItem("token") || "",
-      tasks: [],
-      errMsg: "",
-      accessCode: ""
-    }
+  // State Responsible For Tracking If a User is Logged In
+  const initialState = {
+    user: JSON.parse(localStorage.getItem("user")) || {},
+    token: localStorage.getItem("token") || "",
+    tasks: [],
+    errMsg: "",
+    accessCode: "",
+  };
 
-    const [userState, setUserState] = useState(initialState);
+  const [userState, setUserState] = useState(initialState);
 
-    const findName = (username) => {
-      const foundEmployee = employees.find(employee => employee.user.userID === username);
+  const getToken = () => {
+    const token = localStorage.getItem("token");
+    if (!token) throw new Error("No Token Present");
+    return token;
+  };
 
-      if (foundEmployee) {
-        return `${foundEmployee.firstName} ${foundEmployee.lastName}`
-      }
-    }
+  const findName = (username) => {
+    const foundEmployee = employees.find(
+      (employee) => employee.user?.userID === username
+    );
+    return foundEmployee
+      ? `${foundEmployee.firstName} ${foundEmployee.lastName}`
+      : undefined;
+  };
 
-    const findRoleAtCompany = (username) => {
-      const foundEmployee = employees.find(employee => employee.user.userID === username);
+  const findRoleAtCompany = (username) => {
+    const foundEmployee = employees.find(
+      (employee) => employee.user?.userID === username
+    );
+    return foundEmployee?.roleAtCompany || "Employee Does Not Exist";
+  };
 
-      if (foundEmployee) {
-        return foundEmployee.roleAtCompany;
-      }
+  const login = async (credentials) => {
+    try {
+      const response = await fetch("/api/employees/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(credentials),
+      });
 
-      return "Employee Does Not Exist";
-    }
-
-    const login = async (credentials) => {
-      try {
-        const response = await fetch('/api/employees/login', {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(credentials)
-        })
-        const data = await response.json();
-        const {_id, user, token} = data;
-        localStorage.setItem("token", token);
-        localStorage.setItem("user", JSON.stringify({ _id: _id, userID: user.userID }));
-        setUserState(prevState => ({
-          ...prevState,
-          user: { _id: user._id, userID: user.userID },
-          token: token
-        }))
-      } catch (error) {
-        handleAuthErr(error.response.errMsg);
-      }
-    }
-
-    const logout = async () => {
-      try {
-        localStorage.removeItem("user");
-        localStorage.removeItem("token");
-        setUserState(prevState => ({
-          ...prevState,
-          token: "",
-          user: {}
-        }))
-      } catch (error) {
-        handleAuthErr(error.response.data.errMsg);
-      }
-    }
-
-    const getLoggedInEmployee = () => {
-      const loggedIn = JSON.parse(localStorage.getItem("user"));
-
-      if (!loggedIn) {
-        return null;
+      if (!response.ok) {
+        throw new Error(`Login failed: ${response.statusText}`);
       }
 
-      const loggedInEmployee = employees.find(
-        (employee) => employee.user.userID === loggedIn.userID
+      const data = await response.json();
+      const { _id, user, token } = data;
+
+      localStorage.setItem("token", token);
+      localStorage.setItem(
+        "user",
+        JSON.stringify({ _id: _id, userID: user.userID })
       );
 
-      return loggedInEmployee ? loggedInEmployee : null
-    }
-
-    const hasAdminRights = () => {
-      const signedInEmployee = getLoggedInEmployee();
-      return signedInEmployee && typeof signedInEmployee.isAdmin === "boolean"
-        ? signedInEmployee.isAdmin
-        : false;
-    };
-    
-    const hasUserID = (id) => {
-      const employee = employees.find((employee) => employee._id === id);
-
-      if (employee.user.userID) {
-        return true;
-      }
-      return false;
-    }
-
-    const handleAuthErr = (errMsg) => {
-      setUserState(prevState => ({
+      setUserState((prevState) => ({
         ...prevState,
-        errMsg
-      }))
+        user: { _id, userID: user.userID },
+        token,
+      }));
+    } catch (error) {
+      handleAuthErr(error.message);
     }
+  };
 
-    const resetAuthErr = () => {
-      setUserState(prevState => ({
-        ...prevState,
-        errMsg: ""
-      }))
-    }
+  const logout = () => {
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    setUserState({ ...initialState });
+  };
 
-    const addEmployee = async (newEmployee) => {
-        try {
-            const response = await fetch('/api/employees', {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(newEmployee)
-        })
-        const data = await response.json()
-
-        alert(`Employee's Access Code is: ${data.accessCode}`)
-
-        setUserState(prevState => ({
-          ...prevState,
-          accessCode: data.accessCode
-        }))
-        
-        setEmployees(prevState => ([
-            ...prevState,
-            {
-                ...data
-            }
-        ]))
-
-        } catch (error) {
-            handleAuthErr(error.data.errMsg);
-        }
-    }
-
-    const updateEmployee = async (updatedEmployee, employeeID) => {
-      try {
-        const token = localStorage.getItem("token"); // Assuming you're storing the token in localStorage
-        const response = await fetch(`/api/employees/${employeeID}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`, // Add the token in the Authorization header
-          },
-          body: JSON.stringify(updatedEmployee),
-        });
-        console.log('Updated Employee: ', updatedEmployee);
-        
-        if (!response.ok) {
-          handleAuthErr(response.statusText);
-          console.log(response.statusText);
-        }
-    
-        const data = await response.json();
-        setEmployees((prevState) =>
-          prevState.map((employee) =>
-            employee._id !== employeeID ? employee : { ...data }
-          )
-        );
-      } catch (error) {
-        handleAuthErr(error.response?.data?.errMsg || error.message);
-        console.log(error.response?.data?.errMsg || error.message);
-      }
-    };
-    
-    const updateEmployeeProfile = async (updatedEmployee, id) => {
-      try {
-        const response = await fetch(`/api/employees/employee/${id}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(updatedEmployee)
-        });
-
-        if (!response.ok) {
-          throw new Error(`Failed to Update Employee Profile: ${response.statusText}`);
-        }
-        const data = await response.json();
-        setEmployees((prevState) =>
-          prevState.map((employee) =>
-            employee._id !== id ? employee : { ...data }
-          )
-        );
-      } catch (error) {
-        handleAuthErr(error.response.data.errMsg);
-      }
-    }
-
-    const deleteEmployee = async (id) => {
-      try {
-        const response = await fetch(`api/employees/${id}`, {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json"
-          }
-        })
-        
-        if (!response.ok) {
-          throw new Error ('Failed to delete Employee')
-        }
-
-        setEmployees(prevEmployees => prevEmployees.filter(employee => employee._id !== id));
-      } catch (error) {
-        handleAuthErr(error.response.data.errMsg);
-      }
-    }
-
-    const createLoginAccount = (loginData, employeeID, accessToken) => {
-        const foundEmployee = employees.find(employee => employee._id === employeeID);
-
-        if (foundEmployee) {
-            if (foundEmployee.accessCode) {
-                if (foundEmployee.accessCode === accessToken) {
-                   updateEmployee(loginData, foundEmployee._id)
-                } else {
-                    throw new Error("Access Code is Incorrect. Please Try Again.");
-                }
-            } else {
-                throw new Error("Employee Does Not Have Access To Create An Account. Contact A Manager To Set Up.");
-            }
-        } else {
-            throw new Error("Employee ID Does Not Exist");
-        }
-    }
-
-    useEffect(() => {
-       const getEmployees = async () => {
-         try {
-           const response = await fetch("/api/employees");
-           if (!response.ok) {
-             throw new Error(`Error: ${response.statusText}`);
-           }
-           const data = await response.json();
-           setEmployees(data);
-         } catch (error) {
-           handleAuthErr(error.message);
-         }
-       };
-        getEmployees();
-    }, [])
-
+  const getLoggedInEmployee = () => {
+    const loggedIn = JSON.parse(localStorage.getItem("user"));
     return (
-        <EmployeesContext.Provider value={{
-            employees: employees,
-            addEmployee: addEmployee,
-            updateEmployee: updateEmployee,
-            updateEmployeeProfile: updateEmployeeProfile,
-            deleteEmployee: deleteEmployee,
-            getLoggedInEmployee: getLoggedInEmployee,
-            createLogin: createLoginAccount,
-            hasAdminRights: hasAdminRights,
-            hasUserID: hasUserID,
-            findRoleAtCompany: findRoleAtCompany,
-            login: login,
-            logout: logout,
-            findName: findName,
-            handleAuthErr: handleAuthErr,
-            resetAuthErr: resetAuthErr,
-            userState: {...userState}
-        }}>
-            {props.children}
-        </EmployeesContext.Provider>
-    )
+      employees.find(
+        (employee) => employee.user?.userID === loggedIn?.userID
+      ) || null
+    );
+  };
+
+  const hasAdminRights = () => {
+    const signedInEmployee = getLoggedInEmployee();
+    return signedInEmployee?.isAdmin ?? false;
+  };
+
+  const hasUserID = (id) => {
+    const employee = employees.find((employee) => employee._id === id);
+    return !!employee?.user?.userID;
+  };
+
+  const handleAuthErr = (errMsg) => {
+    setUserState((prevState) => ({
+      ...prevState,
+      errMsg,
+    }));
+  };
+
+  const resetAuthErr = () => {
+    setUserState((prevState) => ({ ...prevState, errMsg: "" }));
+  };
+
+  const addEmployee = async (newEmployee) => {
+    try {
+      const response = await fetch("/api/employees", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newEmployee),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to add employee: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      alert(`Employee's Access Code is: ${data.accessCode}`);
+
+      setEmployees((prevState) => [...prevState, data]);
+      setUserState((prevState) => ({
+        ...prevState,
+        accessCode: data.accessCode,
+      }));
+    } catch (error) {
+      handleAuthErr(error.message);
+    }
+  };
+
+  const updateEmployee = async (updatedEmployee, employeeID) => {
+    try {
+      const token = getToken();
+      const response = await fetch(`/api/employees/${employeeID}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(updatedEmployee),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to update employee: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      setEmployees((prevState) =>
+        prevState.map((employee) =>
+          employee._id !== employeeID ? employee : data
+        )
+      );
+    } catch (error) {
+      handleAuthErr(error.message);
+    }
+  };
+
+  const deleteEmployee = async (id) => {
+    try {
+      const response = await fetch(`api/employees/${id}`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to delete employee");
+      }
+
+      setEmployees((prevState) =>
+        prevState.filter((employee) => employee._id !== id)
+      );
+    } catch (error) {
+      handleAuthErr(error.message);
+    }
+  };
+
+  const createLoginAccount = (loginData, employeeID, accessToken) => {
+    const foundEmployee = employees.find(
+      (employee) => employee._id === employeeID
+    );
+
+    if (foundEmployee) {
+      if (foundEmployee.accessCode === accessToken) {
+        updateEmployee(loginData, foundEmployee._id);
+      } else {
+        throw new Error("Access Code is Incorrect. Please Try Again.");
+      }
+    } else {
+      throw new Error("Employee ID Does Not Exist");
+    }
+  };
+
+  useEffect(() => {
+    const getEmployees = async () => {
+      try {
+        const response = await fetch("/api/employees");
+        if (!response.ok) {
+          throw new Error(`Error: ${response.statusText}`);
+        }
+        const data = await response.json();
+        setEmployees(data);
+      } catch (error) {
+        handleAuthErr(error.message);
+      }
+    };
+    getEmployees();
+  }, []);
+
+  return (
+    <EmployeesContext.Provider
+      value={{
+        employees,
+        addEmployee,
+        updateEmployee,
+        deleteEmployee,
+        getLoggedInEmployee,
+        createLoginAccount,
+        hasAdminRights,
+        hasUserID,
+        findRoleAtCompany,
+        login,
+        logout,
+        findName,
+        handleAuthErr,
+        resetAuthErr,
+        userState,
+      }}>
+      {props.children}
+    </EmployeesContext.Provider>
+  );
 }
 
-export { EmployeesContext, EmployeesContextProvider }
+export { EmployeesContext, EmployeesContextProvider };
