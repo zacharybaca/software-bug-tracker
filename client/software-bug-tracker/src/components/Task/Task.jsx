@@ -48,7 +48,7 @@ const Task = (props) => {
               </h2>
               <h3>
                 <span className="heading">Completed: </span>
-                {props.completed ? "✅" : "❌"}
+                {props.completed && props.assignedEmployee ? "✅" : "❌"}
               </h3>
               <h3>
                 <span className="heading">Assigned: </span>
