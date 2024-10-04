@@ -78,7 +78,7 @@ taskRouter.route("/taskCompleted").get(async (req, res, next) => {
     // If Employee is an Admin, Enable Them to View All Incomplete/Completed Tasks From Other Users
     if (employee.isAdmin) {
       const foundTasks = await Task.find();
-      const foundCompletedStatus = foundTasks.filter((task) => task.taskCompleted === taskCompleted);
+      const foundCompletedStatus = foundTasks.filter((task) => task.taskCompleted === taskCompleted && task.assignedEmployee != null);
       return res.status(200).send(foundCompletedStatus);
     }
 
