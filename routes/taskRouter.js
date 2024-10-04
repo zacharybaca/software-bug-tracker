@@ -16,8 +16,15 @@ taskRouter
       );
       console.log("Auth ID: ", req.auth._id);
 
-      // If no assignedEmployee is provided, assign the task to the logged-in user
-      if (!req.body.assignedEmployee) {
+      // If User has Admin Rights, make assignedEmployee null
+      const employee = await Employee.findOne({ _id: req.auth._id });
+
+      if (employee.isAdmin) {
+        req.body.assignedEmployee = null;
+      }
+      
+      // If no assignedEmployee is provided and User does not have Admin rights, assign the task to the logged-in user
+      if (!req.body.assignedEmployee && !employee.isAdmin) {
         req.body.assignedEmployee = req.auth._id;
       }
 
