@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
-    "build": "cd client && npm install && npm run build",  // Optional if you want to build frontend from backend
-    "start": "node server.js",  // or whatever command starts your backend server
+    "build": "cd client && npm install && npm run build", 
+    "start": "node app.js",  
     "dev": "nodemon server.js"
   },
   "keywords": [],
