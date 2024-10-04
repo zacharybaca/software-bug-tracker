@@ -40,7 +40,7 @@ function TasksContextProvider(props) {
       const data = await response.json();
       const hasUserID = context.hasUserID(data.assignedEmployee);
 
-      if (!hasUserID) {
+      if (!hasUserID && !loggedInEmployee.isAdmin) {
         throw new Error(
           `${data.assignedEmployee} Does Not Have a User ID Associated With It.`
         );
@@ -82,6 +82,9 @@ function TasksContextProvider(props) {
       setUnassignedTasks((prevTasks) =>
         prevTasks.map((task) => (task._id !== id ? task : { ...data }))
       );
+
+      await getTasks();
+      await getUnassignedTasks();
     } catch (error) {
       console.error("Error: ", error);
       context.handleAuthErr(error);
@@ -229,7 +232,7 @@ function TasksContextProvider(props) {
       context.handleAuthErr(error);
     }
   };
-
+ 
   const unAssignTask = async (id) => {
     try {
       // Find the task to unassign
