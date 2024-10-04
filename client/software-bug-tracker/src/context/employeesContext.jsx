@@ -12,7 +12,7 @@ function EmployeesContextProvider(props) {
     token: localStorage.getItem("token") || "",
     tasks: [],
     errMsg: "",
-    accessCode: "",
+    accessCode: ""
   };
 
   const [userState, setUserState] = useState(initialState);
