@@ -20,9 +20,10 @@ const EmployeeDirectory = () => {
                 roleAtCompany={employee.roleAtCompany}
                 userID={employee.user.userID}
                 password={employee.user.password}
+                associatedEmployee={employee._id}
                 isAdmin={employee.isAdmin}
                 accessCode={employee.accessCode}
-                updateEmployeeProfile={context.updateEmployeeProfile}
+                updateEmployeeProfile={context.updateEmployee}
                 deleteEmployee={context.deleteEmployee}
                 errMsg={context.userState.errMsg}
               />
