@@ -14,7 +14,7 @@ app.use(express.json());
 app.use(morgan('dev'));
 
 // Middleware That Will Serve Our Static Files
-app.use(express.static(path.join(__dirname, "client", "dist")));
+app.use(express.static(path.join(__dirname, "client", "software-bug-tracker", "dist")));
 
 // Middleware That Will Help With Routing To The Appropriate Routes
 app.use('/api/main', expressjwt({secret: process.env.SECRET, algorithms: ['HS256']}))
@@ -43,7 +43,7 @@ app.use((err, req, res, next) => {
     return res.send({errMsg: err.message});
 });
 
-app.get('*', (req, res) => res.sendFile(path.join(__dirname, "client", "dist", "index.html")));
+app.get('*', (req, res) => res.sendFile(path.join(__dirname, "client", "software-bug-tracker", "dist", "index.html")));
 
 // Initiates Connection to Server
 app.listen(process.env.PORT, () => {
