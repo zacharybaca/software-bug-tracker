@@ -53,7 +53,7 @@ function App() {
                 !
               </h2>
               <h4 id="info-heading">
-                You Have {completed} Completed{" "}
+                {context.hasAdminRights() ? "There Are " : "You Have "}{completed} Completed{" "}
                 {completed === 1 ? "Task" : "Tasks"} and {incomplete}{" "}
                 Incompleted {incomplete === 1 ? "Task" : "Tasks"}.
               </h4>
@@ -73,7 +73,7 @@ function App() {
                 type="button"
                 id="my-tasks-button"
                 onClick={() => navigate("/tasks")}>
-                My Tasks
+                {context.hasAdminRights() ? "Employee Tasks" : "My Tasks"}
               </button>
               {context.employees.length > 0 && context.hasAdminRights() ? (
                 <button

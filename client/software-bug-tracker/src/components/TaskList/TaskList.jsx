@@ -59,27 +59,35 @@ const TaskList = () => {
         </select>
       </div>
 
-      <h2 id="heading-above-tasks">Tasks That Are Assigned to You: </h2>
+      <h2 id="heading-above-tasks">
+        {employeesContext.hasAdminRights()
+          ? "All Employee Assigned Tasks: "
+          : "Tasks That Are Assigned to You: "}
+      </h2>
 
       <ul id="task-list">
-        {tasksContext.tasks.map((task) => (
-          <React.Fragment key={task._id}>
-            <li className="task">
-              <Task
-                id={task._id}
-                title={task.taskTitle}
-                completed={task.taskCompleted}
-                details={task.taskDetails}
-                assignedEmployee={task.assignedEmployee}
-                todos={task.taskTodos}
-                editTask={tasksContext.updateTask}
-                deleteTask={tasksContext.deleteTask}
-                errMsg={employeesContext.userState.errMsg}
-              />
-            </li>
-            <hr />
-          </React.Fragment>
-        ))}
+        {Array.isArray(tasksContext.tasks) ? (
+          tasksContext.tasks.map((task) => (
+            <React.Fragment key={task._id}>
+              <li className="task">
+                <Task
+                  id={task._id}
+                  title={task.taskTitle}
+                  completed={task.taskCompleted}
+                  details={task.taskDetails}
+                  assignedEmployee={task.assignedEmployee}
+                  todos={task.taskTodos}
+                  editTask={tasksContext.updateTask}
+                  deleteTask={tasksContext.deleteTask}
+                  errMsg={employeesContext.userState.errMsg}
+                />
+              </li>
+              <hr />
+            </React.Fragment>
+          ))
+        ) : (
+          <p>No tasks available</p>
+        )}
       </ul>
     </>
   );

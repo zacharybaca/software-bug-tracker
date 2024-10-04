@@ -146,7 +146,7 @@ function TasksContextProvider(props) {
     }
   }, [loggedInEmployee]);
 
-  const getUnassignedTasks = async () => {
+  const getUnassignedTasks = useCallback(async () => {
     try {
       const token = getToken();
 
@@ -170,7 +170,7 @@ function TasksContextProvider(props) {
       console.error("Error fetching unassigned tasks:", error);
       context.handleAuthErr(error);
     }
-  };
+  }, [unassignedTasks]);
 
   const getCompletedTasks = async () => {
     try {
@@ -230,12 +230,39 @@ function TasksContextProvider(props) {
     }
   };
 
-  const getTaskCounts = useMemo(() => {
-    const completedTasks = tasks.filter((task) => task.taskCompleted).length;
-    const incompleteTasks = tasks.filter((task) => !task.taskCompleted).length;
+  const unAssignTask = async (id) => {
+    try {
+      // Find the task to unassign
+      const taskToUnassign = tasks.find((task) => task._id === id);
 
-    return { completed: completedTasks, incomplete: incompleteTasks };
-  }, [tasks]);
+      if (!taskToUnassign) return;
+
+      // Update the task with null assignedEmployee
+      const updatedTask = { ...taskToUnassign, assignedEmployee: null };
+
+      // Call updateTask to sync the change with the server
+      await updateTask(updatedTask, id);
+
+      // After updating the task, refetch the latest tasks to ensure the UI is updated
+      await getTasks(); // Refetch tasks to ensure the UI reflects the latest changes
+      await getUnassignedTasks(); // Refetch unassigned tasks if needed
+    } catch (error) {
+      console.error("Error unassigning task:", error);
+    }
+  };
+
+
+ const getTaskCounts = useMemo(() => {
+   const completedTasks = Array.isArray(tasks)
+     ? tasks.filter((task) => task.taskCompleted).length
+     : 0;
+   const incompleteTasks = Array.isArray(tasks)
+     ? tasks.filter((task) => !task.taskCompleted).length
+     : 0;
+
+   return { completed: completedTasks, incomplete: incompleteTasks };
+ }, [tasks]);
+
 
   useEffect(() => {
     if (loggedInEmployee) {
@@ -253,6 +280,7 @@ function TasksContextProvider(props) {
         addTask,
         deleteTask,
         updateTask,
+        unAssignTask,
         completed: getCompletedTasks,
         incomplete: getIncompleteTasks,
         getTaskCounts,

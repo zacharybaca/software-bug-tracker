@@ -2,6 +2,7 @@ import './task.css';
 import TaskForm from '../TaskForm/TaskForm';
 import React from 'react';
 import { EmployeesContext } from '../../context/employeesContext';
+import { TasksContext } from '../../context/tasksContext';
 
 
 const Task = (props) => {
@@ -10,7 +11,7 @@ const Task = (props) => {
       new Array(props.todos.split("\n").length).fill(false)
     );
     const employees = React.useContext(EmployeesContext);
-    
+    const tasks = React.useContext(TasksContext);
 
     return (
       <>
@@ -72,6 +73,9 @@ const Task = (props) => {
               <button type="button" id="delete-task-button" onClick={() => props.deleteTask(props.id)}>
                 Delete
               </button>
+              {props.assignedEmployee ? <button type="button" id="unassign-task-button" onClick={() => tasks.unAssignTask(props.id)}>
+                Un-Assign Task
+              </button> : null}
             </div>
             {props.errMsg ? <p style={{color: "red"}}>{props.errMsg}</p> : ""}
           </>
