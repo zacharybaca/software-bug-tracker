@@ -70,10 +70,20 @@ function EmployeesContextProvider(props) {
     }
   };
 
-  const logout = () => {
-    localStorage.removeItem("user");
-    localStorage.removeItem("token");
-    setUserState({ ...initialState });
+  const logout = async () => {
+    try {
+      localStorage.removeItem('user');
+      localStorage.removeItem('token');
+      setUserState(prevUserState => {
+        return {
+          ...prevUserState,
+          token: "",
+          user: {}
+        }
+      })
+    } catch (error) {
+      handleAuthErr(error.message);
+    }
   };
 
   const getLoggedInEmployee = () => {
