@@ -39,6 +39,7 @@ function LandingPage() {
             name="userID"
             value={formData.userID}
             onChange={handleChange}
+            required
             placeholder="Enter Username"
           />
           <label htmlFor="login-user-password">Enter Password: </label>
@@ -48,6 +49,7 @@ function LandingPage() {
             name="password"
             value={formData.password}
             onChange={handleChange}
+            required
             placeholder="Enter Password"
           />
           <button type="submit" id="login-button">

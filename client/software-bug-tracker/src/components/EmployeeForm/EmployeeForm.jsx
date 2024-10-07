@@ -68,6 +68,7 @@ function EmployeeForm(props) {
           name="firstName"
           onChange={handleChange}
           value={employee.firstName}
+          required
           placeholder="Enter Employee's First Name"
         />
         <label htmlFor="employee-last-name">Employee Last Name: </label>
@@ -77,6 +78,7 @@ function EmployeeForm(props) {
           name="lastName"
           onChange={handleChange}
           value={employee.lastName}
+          required
           placeholder="Enter Employee's Last Name"
         />
         {employee.accessCode ? 
@@ -104,7 +106,9 @@ function EmployeeForm(props) {
           id="employee-role"
           name="roleAtCompany"
           onChange={handleChange}
-          value={employee.roleAtCompany}>
+          value={employee.roleAtCompany}
+          required
+          >
           <option defaultValue>Select A Role</option>
           <option value="softwareEngineer">Software Engineer I</option>
           <option value="softwareEngineer2">Software Engineer II</option>

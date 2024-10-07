@@ -59,6 +59,7 @@ const TaskForm = (props) => {
         name="taskTitle"
         value={task.taskTitle}
         onChange={handleChange}
+        required
         placeholder="Enter Title"
       />
 
@@ -69,6 +70,7 @@ const TaskForm = (props) => {
         name="taskDetails"
         value={task.taskDetails}
         onChange={handleChange}
+        required
         placeholder="Enter Description"
       />
 
