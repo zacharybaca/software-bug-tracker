@@ -22,7 +22,7 @@ const EmployeeBadge = (props) => {
                 <div id="badge-name-container">
                   <p>
                     <span className="label">Name:</span>{" "}
-                    {`${props.firstName} ${props.lastName}`}
+                    {props.firstName} {props.lastName}
                   </p>
                 </div>
                 <div id="badge-personal-info-container">
@@ -61,7 +61,9 @@ const EmployeeBadge = (props) => {
                     onClick={() => props.deleteEmployee(props.employeeID)}>
                     Remove Employee
                   </button>
-                  <button type="button" id="edit-employee-button" onClick={() => setShowForm((prevState) => !prevState)}>
+                  <button type="button" id="edit-employee-button" onClick={(e) => {
+                    e.stopPropagation();
+                    setShowForm((prevState) => !prevState)}}>
                     Edit Employee
                   </button>
                 </div>
@@ -85,12 +87,12 @@ const EmployeeBadge = (props) => {
                 submitEmployee={props.updateEmployeeProfile}
                 bttnText="Update"
               />
-              <button
-                type="button"
-                id="close-update-button"
-                onClick={() => setShowForm((prevState) => !prevState)}>
-                Close
-              </button>
+                <button
+                  type="button"
+                  id="close-update-button"
+                  onClick={() => setShowForm((prevState) => !prevState)}>
+                  Close
+                </button>
             </div>
         )}
       </>

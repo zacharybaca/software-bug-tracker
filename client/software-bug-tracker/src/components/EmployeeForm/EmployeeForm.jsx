@@ -115,10 +115,10 @@ function EmployeeForm(props) {
           <option value="uxSpecialist">UX Specialist</option>
           <option value="manager">Manager</option>
         </select>
-        <label id="admin-label">
+        <span id="admin-label">
           Does Employee Have Admin Rights?{" "}
           {employee.roleAtCompany === "manager" ? "✅" : "❌"}
-        </label>
+        </span>
         <label htmlFor="generateAccessCode">Generate Access Code?</label>
         <input
           type="checkbox"

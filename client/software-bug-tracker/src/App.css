@@ -16,6 +16,7 @@
 #application-logo-container {
     display: flex;
     flex-direction: column;
+    text-align: center;
     align-items: center;
     gap: 20px;
     min-width: 50%;
@@ -62,17 +63,21 @@
 }
 
 #user-welcome-heading {
+    font-family: "Protest Guerrilla", sans-serif;
+    font-style: normal;
     font-size: 25px;
     font-weight: 800;
-    color: beige;
+    color: green;
     animation-duration: 5s;
     animation-name: slidein;
 }
 
 #position-at-company-heading {
+     font-family: "Protest Guerrilla", sans-serif;
      font-size: 25px;
      font-weight: 800;
-     color: beige;
+     font-style: normal;
+     color: green;
      animation-duration: 5s;
      animation-name: slidein;
 }

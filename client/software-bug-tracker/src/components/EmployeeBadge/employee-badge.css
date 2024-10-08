@@ -1,25 +1,52 @@
 #badge-container {
     display: flex;
+    flex-wrap: wrap;
     flex-direction: column;
+    align-content: center;
+    box-sizing: border-box;
+    min-width: 100%;
     padding-left: 6%;
     padding-right: 6%;
-    padding-bottom: 2%;
+    max-height: fit-content;
+    /* Dynamically fit to content */
+    min-height: fit-content;
+    /* Collapse when form is hidden */
 }
 
 #form-update-container {
     display: flex;
+    flex-wrap: wrap;
     flex-direction: column;
+    min-width: fit-content;
+    min-height: fit-content;
     border: 3px solid red;
+    align-items: center;
 }
 
 #all-badges-container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    min-width: fit-content;
     border: 2px solid green;
+    box-sizing: border-box;
     border-radius: 1px;
+    max-height: fit-content;
+    /* Dynamically fit to content */
+    min-height: fit-content;
+    /* Collapse when form is hidden */
 }
 
 #access-code-container {
     display: flex;
+    flex-wrap: wrap;
+    min-width: fit-content;
+    min-height: fit-content;
     justify-content: center;
+}
+
+#access-code-container p {
+    padding-bottom: 4%;
 }
 
 #close-update-button {
@@ -34,36 +61,61 @@
 
 #badge-name-container {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
+    padding-top: 3%;
+    min-width: fit-content;
+    min-height: fit-content;
+}
+
+#badge-name-container p {
     padding-bottom: 4%;
-    padding-top: 1%;
 }
 
 #badge-personal-info-container {
     display: flex;
-    justify-content: space-evenly;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding-bottom: 4%;
+    min-width: fit-content;
+    min-height: fit-content;
+}
+
+#badge-personal-info-container p {
     padding-bottom: 4%;
 }
 
 #badge-other-info-container {
     display: flex;
-    justify-content: space-evenly;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding-bottom: 4%;
+    min-width: fit-content;
+    min-height: fit-content;
+}
+
+#badge-other-info-container p {
     padding-bottom: 4%;
 }
 
 #badge-button-container {
     display: flex;
+    gap: 10px;
     justify-content: space-between;
+    min-width: 100%;
+    min-height: fit-content;
+    padding-bottom: 3%;
 }
 
 #badge-header {
     display: flex;
+    flex-wrap: wrap;
     justify-content: flex-start;
     align-items: center;
     background-color: grey;
     color: white;
     padding-left: 3%;
-    height: 3vh;
+    min-height: fit-content;
 }
 
 .label {
@@ -71,7 +123,8 @@
 }
 
 #remove-employee-button {
-    height: 5vh;
+    min-height: fit-content;
+    min-width: fit-content;
     border-radius: 10px;
 }
 
@@ -82,7 +135,8 @@
 }
 
 #edit-employee-button {
-    height: 5vh;
+    min-height: 5vh;
+    min-width: fit-content;
     border-radius: 10px;
 }
 

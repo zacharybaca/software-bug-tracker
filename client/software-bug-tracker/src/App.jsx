@@ -65,29 +65,32 @@ function App() {
             ""
           )}
           {Object.keys(context.userState.user).length !== 0 && token ? (
-            <div id="nav-button-container">
-              <button type="button" id="logout-button" onClick={context.logout}>
-                Logout
-              </button>
-              <button
-                type="button"
-                id="my-tasks-button"
-                onClick={() => navigate("/tasks")}>
-                {context.hasAdminRights() ? "Employee Tasks" : "My Tasks"}
-              </button>
-              {context.employees.length > 0 && context.hasAdminRights() ? (
+            <>
+              <div id="nav-button-container">
+                <button type="button" id="logout-button" onClick={context.logout}>
+                  Logout
+                </button>
                 <button
                   type="button"
-                  id="employee-directory-button"
-                  onClick={() => navigate("/employee-directory")}>
-                  Employee Directory
+                  id="my-tasks-button"
+                  onClick={() => navigate("/tasks")}>
+                  {context.hasAdminRights() ? "Employee Tasks" : "My Tasks"}
                 </button>
-              ) : null}
+                {context.employees.length > 0 && context.hasAdminRights() ? (
+                  <button
+                    type="button"
+                    id="employee-directory-button"
+                    onClick={() => navigate("/employee-directory")}>
+                    Employee Directory
+                  </button>
+                ) : null}
 
-              <button type="button" id="unassigned-tasks-button" onClick={() => navigate("/unassigned-tasks")}>
-                Un-Assigned Tasks
-              </button>
-            </div>
+                <button type="button" id="unassigned-tasks-button" onClick={() => navigate("/unassigned-tasks")}>
+                  Un-Assigned Tasks
+                </button>
+              </div>
+                <hr />
+            </>
           ) : (
             ""
           )}
