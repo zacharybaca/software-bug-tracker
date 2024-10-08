@@ -12,7 +12,7 @@ function EmployeesContextProvider(props) {
     token: localStorage.getItem("token") || "",
     tasks: [],
     errMsg: "",
-    accessCode: ""
+    accessCode: "",
   };
 
   const [userState, setUserState] = useState(initialState);
@@ -72,15 +72,15 @@ function EmployeesContextProvider(props) {
 
   const logout = async () => {
     try {
-      localStorage.removeItem('user');
-      localStorage.removeItem('token');
-      setUserState(prevUserState => {
+      localStorage.removeItem("user");
+      localStorage.removeItem("token");
+      setUserState((prevUserState) => {
         return {
           ...prevUserState,
           token: "",
-          user: {}
-        }
-      })
+          user: {},
+        };
+      });
     } catch (error) {
       handleAuthErr(error.message);
     }
@@ -168,9 +168,12 @@ function EmployeesContextProvider(props) {
     }
   };
 
-  const assignEmployeeCredentials = async (updatedEmployee, employeeID, accessToken) => {
+  const assignEmployeeCredentials = async (
+    updatedEmployee,
+    employeeID,
+    accessToken
+  ) => {
     try {
-      
       const foundEmployee = employees.find(
         (employee) => employee._id === employeeID
       );
@@ -180,13 +183,13 @@ function EmployeesContextProvider(props) {
       }
 
       if (foundEmployee.accessCode !== accessToken) {
-        throw new Error("Access Code is Incorrect. Please Try Again.")
+        throw new Error("Access Code is Incorrect. Please Try Again.");
       }
 
       const response = await fetch(`/api/employees/${employeeID}`, {
         method: "PUT",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(updatedEmployee),
       });
