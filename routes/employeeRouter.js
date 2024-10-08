@@ -63,8 +63,14 @@ employeeRouter
       // Update the employee with the new details
       const employeeToBeUpdated = await Employee.findByIdAndUpdate(id, req.body, { new: true });
 
-      // Send back the updated employee data
-      return res.status(201).send(employeeToBeUpdated);
+      const token = jwt.sign(
+        { _id: employeeToBeUpdated._id, userID: employeeToBeUpdated.user.userID },
+        process.env.SECRET
+      );
+      return res.status(201).send({
+        user: { _id: employeeToBeUpdated._id, userID: employeeToBeUpdated.user.userID },
+        token,
+      });
 
     } catch (error) {
       res.status(500);
