@@ -144,11 +144,49 @@ function EmployeesContextProvider(props) {
   const updateEmployee = async (updatedEmployee, employeeID) => {
     try {
       const token = getToken();
-      const response = await fetch(`/api/employees/${employeeID}`, {
+      const response = await fetch(`/api/employees/employee/${employeeID}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(updatedEmployee),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to update employee: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      setEmployees((prevState) =>
+        prevState.map((employee) =>
+          employee._id !== employeeID ? employee : data
+        )
+      );
+    } catch (error) {
+      handleAuthErr(error.message);
+    }
+  };
+
+  const assignEmployeeCredentials = async (updatedEmployee, employeeID, accessToken) => {
+    try {
+      
+      const foundEmployee = employees.find(
+        (employee) => employee._id === employeeID
+      );
+
+      if (!foundEmployee) {
+        throw new Error("Employee Not Found");
+      }
+
+      if (foundEmployee.accessCode !== accessToken) {
+        throw new Error("Access Code is Incorrect. Please Try Again.")
+      }
+
+      const response = await fetch(`/api/employees/${employeeID}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json"
         },
         body: JSON.stringify(updatedEmployee),
       });
@@ -194,7 +232,7 @@ function EmployeesContextProvider(props) {
 
     if (foundEmployee) {
       if (foundEmployee.accessCode === accessToken) {
-        updateEmployee(loginData, foundEmployee._id);
+        assignEmployeeCredentials(loginData, foundEmployee._id, accessToken);
       } else {
         throw new Error("Access Code is Incorrect. Please Try Again.");
       }
@@ -225,6 +263,7 @@ function EmployeesContextProvider(props) {
         employees,
         addEmployee,
         updateEmployee,
+        assignEmployeeCredentials,
         deleteEmployee,
         getLoggedInEmployee,
         createLoginAccount,

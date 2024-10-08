@@ -76,7 +76,7 @@ function SignUpForm() {
        e.preventDefault();
        const cleanedEmployee = removeEmptyFields(employee);
        try {
-        context.createLogin(cleanedEmployee, cleanedEmployee.associatedEmployee, cleanedEmployee.accessCode);
+        context.createLoginAccount(cleanedEmployee, cleanedEmployee.associatedEmployee, cleanedEmployee.accessCode);
        } catch (error) {
         console.error("Error creating login: ", error.message);
        }
