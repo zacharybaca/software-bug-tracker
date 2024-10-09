@@ -13,16 +13,15 @@ const EmployeeBadge = (props) => {
               <header
                 id="badge-header"
                 style={{
-                  backgroundColor:
-                    props.isAdmin ? "red" : "blue"
+                  backgroundColor: props.isAdmin ? "red" : "blue",
                 }}>
                 Badge:
               </header>
               <div id="badge-container">
                 <div id="badge-name-container">
                   <p>
-                    <span className="label">Name:</span>{" "}
-                    {props.firstName} {props.lastName}
+                    <span className="label">Name:</span> {props.firstName}{" "}
+                    {props.lastName}
                   </p>
                 </div>
                 <div id="badge-personal-info-container">
@@ -61,17 +60,26 @@ const EmployeeBadge = (props) => {
                     onClick={() => props.deleteEmployee(props.employeeID)}>
                     Remove Employee
                   </button>
-                  <button type="button" id="edit-employee-button" onClick={(e) => {
-                    e.stopPropagation();
-                    setShowForm((prevState) => !prevState)}}>
+                  <button
+                    type="button"
+                    id="edit-employee-button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setShowForm((prevState) => !prevState);
+                    }}>
                     Edit Employee
                   </button>
                 </div>
-                {props.errMsg ? <p style={{color: "red"}}>{props.errMsg}</p> : ""}
+                {props.errMsg ? (
+                  <p style={{ color: "red" }}>{props.errMsg}</p>
+                ) : (
+                  ""
+                )}
               </div>
             </div>
           </>
         ) : (
+          <div id="form-and-button-container">
             <div id="form-update-container">
               <EmployeeForm
                 itemNumber={props.itemNumber}
@@ -87,13 +95,14 @@ const EmployeeBadge = (props) => {
                 submitEmployee={props.updateEmployeeProfile}
                 bttnText="Update"
               />
-                <button
-                  type="button"
-                  id="close-update-button"
-                  onClick={() => setShowForm((prevState) => !prevState)}>
-                  Close
-                </button>
             </div>
+            <button
+              type="button"
+              id="close-update-button"
+              onClick={() => setShowForm((prevState) => !prevState)}>
+              Close
+            </button>
+          </div>
         )}
       </>
     );
