@@ -26,13 +26,9 @@ label, input {
     
 }
 
-#login-button, #new-user-button {
+#new-user-button {
     width: 100%;
     border-radius: 5px;
-}
-
-#login-button {
-    height: 5vh;
 }
 
 #new-user-button {
@@ -48,8 +44,69 @@ label, input {
     color: #EAB581;
 }
 
-#login-button:hover, #new-user-button:hover {
+#new-user-button:hover {
     cursor: pointer;
     background-color: green;
     color: white;
 }
+
+.btn {  
+    font-family: Arial, Helvetica, sans-serif;  text-transform: uppercase;
+}  
+
+.btn:hover .btn-slide-show-text1 {  
+    margin-left: 65px;
+}  
+
+.btn-layered-3d > ::before {  
+    box-sizing: border-box;
+}  
+
+.btn-layered-3d {  
+    width: 180px;  
+    position: relative;  
+    display: inline-block;  
+    cursor: pointer;  
+    outline: none;  
+    border: 0px;  
+    vertical-align: middle;  
+    text-decoration: none;  
+    font-size: inherit;  
+    font-family: inherit;  
+    font-weight: 600;  
+    text-transform: uppercase;  
+    padding: 1.15em 2em;  
+    border-radius: 0.75em;  
+    transform-style: preserve-3d;  
+    transition: transform 0.15s ease-out, background 0.15s ease-out;
+}  
+
+.btn-layered-3d::before {  
+    position: absolute;  
+    content: "";  
+    width: 100%;  
+    height: 100%;  
+    inset: 0px;  
+    border-radius: inherit;  
+    transform: translate3d(0px, 0.75em, -1em);  
+    transition: transform 0.15s ease-out, box-shadow 0.15s ease-out;
+}  
+
+.btn-layered-3d:hover {  
+    transform: translateY(0.25em);
+}  
+
+.btn-layered-3d:hover::before {  
+    transform: translate3d(0px, 0.5em, -1em);
+}  
+
+.btn-layered-3d--green {  
+    color: white;  
+    background: green;  
+    border: 2px solid rgb(59, 165, 84);
+}
+  
+.btn-layered-3d--green::before {  
+    background: rgb(158, 220, 172);  
+    box-shadow: rgb(59, 165, 84) 0px 0px 0px 2px, rgb(233, 247, 236) 0px 0.625em 0px 0px;
+}  
