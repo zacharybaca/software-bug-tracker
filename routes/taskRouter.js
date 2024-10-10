@@ -6,41 +6,31 @@ const Employee = require("../models/employee.js");
 // Endpoints for Managers to View, Delete, Update, and Add Tasks to Any Employee
 
 // POST: Add a new task, assigning the task to the logged-in employee if not explicitly assigned
-taskRouter
-  .route("/")
-  .post(async (req, res, next) => {
-    try {
-      console.log(
-        "Employee ID (before assignment): ",
-        req.body.assignedEmployee
-      );
-      console.log("Auth ID: ", req.auth._id);
+taskRouter.route("/").post(async (req, res, next) => {
+  try {
+    const employee = await Employee.findOne({ _id: req.auth._id });
 
-      // If User has Admin Rights, make assignedEmployee null
-      const employee = await Employee.findOne({ _id: req.auth._id });
-
-      if (employee.isAdmin) {
+    // Check if the user is an admin
+    if (employee.isAdmin) {
+      // Only set assignedEmployee to null if it was not provided by the admin
+      if (!req.body.assignedEmployee) {
         req.body.assignedEmployee = null;
       }
-      
-      // If no assignedEmployee is provided and User does not have Admin rights, assign the task to the logged-in user
-      if (!req.body.assignedEmployee && !employee.isAdmin) {
-        req.body.assignedEmployee = req.auth._id;
-      }
-
-      console.log(
-        "Employee ID (after assignment): ",
-        req.body.assignedEmployee
-      );
-
-      const newTask = new Task(req.body);
-      const savedTask = await newTask.save();
-      return res.status(201).send(savedTask);
-    } catch (error) {
-      res.status(500);
-      return next(error);
+    } else {
+      // For non-admins, always assign the task to the logged-in user
+      req.body.assignedEmployee = req.auth._id;
     }
-  })
+
+    console.log("Final Assigned Employee:", req.body.assignedEmployee); // Debug log
+
+    const newTask = new Task(req.body);
+    const savedTask = await newTask.save();
+    return res.status(201).send(savedTask);
+  } catch (error) {
+    res.status(500);
+    return next(error);
+  }
+})
 
   // GET: Retrieve all tasks for the logged-in employee or all tasks if the employee is an admin
   .get(async (req, res, next) => {
