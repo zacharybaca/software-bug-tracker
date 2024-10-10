@@ -90,13 +90,11 @@ function App() {
                 </button>
 
                 {context.hasAdminRights() && (
-                  <div id="add-employee-button-container">
                     <Link to="/add-employee">
                       <button type="button" id="add-employee-main-button">
                         Add Employee
                       </button>
                     </Link>
-                  </div>
                 )}
               </div>
                 <hr />
