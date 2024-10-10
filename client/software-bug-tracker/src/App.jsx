@@ -9,7 +9,7 @@ import PageDoesNotExist from './components/PageDoesNotExist/PageDoesNotExist';
 import UnAssignedTasks from './components/UnAssignedTasks/UnAssignedTasks';
 import { EmployeesContext } from './context/employeesContext';
 import { TasksContext } from './context/tasksContext';
-import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useNavigate, Link } from 'react-router-dom';
 import logo from './assets/issue-insight-logo.png';
 import React from 'react';
 import './App.css'
@@ -88,6 +88,16 @@ function App() {
                 <button type="button" id="unassigned-tasks-button" onClick={() => navigate("/unassigned-tasks")}>
                   Un-Assigned Tasks
                 </button>
+
+                {context.hasAdminRights() && (
+                  <div id="add-employee-button-container">
+                    <Link to="/add-employee">
+                      <button type="button" id="add-employee-main-button">
+                        Add Employee
+                      </button>
+                    </Link>
+                  </div>
+                )}
               </div>
                 <hr />
             </>
