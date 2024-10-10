@@ -19,8 +19,7 @@ const taskSchema = new Schema({
     },
     assignedEmployee: {
         type: Schema.Types.ObjectId,
-        ref: "Employee",
-        default: null
+        ref: "Employee"
     }
 })
 
