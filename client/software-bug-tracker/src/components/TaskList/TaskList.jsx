@@ -4,7 +4,6 @@ import React from "react";
 import { TasksContext } from "../../context/tasksContext";
 import { EmployeesContext } from "../../context/employeesContext";
 import TaskForm from "../TaskForm/TaskForm";
-import { Link } from "react-router-dom";
 
 const TaskList = () => {
   const tasksContext = React.useContext(TasksContext);
@@ -35,16 +34,6 @@ const TaskList = () => {
         buttonText="Add Task"
         errMsg={employeesContext.userState.errMsg}
       />
-
-      {employeesContext.hasAdminRights() && (
-        <div id="add-employee-button-container">
-          <Link to="/add-employee">
-            <button type="button" id="add-employee-main-button">
-              Add Employee
-            </button>
-          </Link>
-        </div>
-      )}
 
       <div id="task-list-filter-container">
         <select
