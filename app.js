@@ -14,14 +14,19 @@ wss.on('connection', (ws) => {
     console.log('A new client Connected!');
     ws.send('Welcome!');
     ws.on('message', (message) => {
-        console.log('Received: %s', message);
+        console.log(`Received Message: ${message}`);
         wss.clients.forEach((client) => {
             if (client !== ws && client.readyState === webSocket.OPEN) {
                 client.send(message);
             }
-        })
+        });
     });
 });
+
+wss.on('close', () => {
+    console.log('Client disconnected');
+});
+
 
 // Middleware For Reading Requests From Body
 app.use(express.json());
@@ -62,6 +67,6 @@ app.use((err, req, res, next) => {
 app.get('*', (req, res) => res.sendFile(path.join(__dirname, "client", "software-bug-tracker", "dist", "index.html")));
 
 // Initiates Connection to Server
-app.listen(process.env.PORT, () => {
+server.listen(process.env.PORT, () => {
     console.log(`Server Listening on ${process.env.PORT}`);
 });
