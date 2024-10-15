@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 const chatMessageSchema = new Schema({
     user: {
         type: Schema.Types.ObjectId,
-        ref: 'user'
+        ref: 'Employee'
     },
     message: String,
     createdAt: {
