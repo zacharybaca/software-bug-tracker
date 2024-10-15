@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Protest+Guerrilla&display=swap');
+
+#chat-container {
+    display: flex;
+    justify-content: center;
+    max-width: 100%;
+    min-width: 100%;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+#messages-container {
+    display: flex;
+    flex-direction: column;
+    max-width: 75%;
+    min-width: 75%;
+    overflow: scroll;
+    scrollbar-color: beige green;
+    scrollbar-width: auto;
+    background-image: url('../../assets/wooden-desk-background-image.jpg');
+    background-repeat: no-repeat;
+    background-size: auto auto;
+    opacity: 0.5;
+    color: white;
+    box-sizing: border-box;
+}
+
+#users-online-container {
+    max-width: 25%;
+    min-width: 25%;
+    height: 100vh;
+    box-sizing: border-box;
+    overflow: scroll;
+    scrollbar-color: beige green;
+    scrollbar-width: auto;
+    background-image: url('../../assets/online-users-background.jpg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position-y: center;
+    mix-blend-mode: multiply;
+}
+
+#users-online-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2%;
+}
+
+.online-user {
+    font-family: "Protest Guerrilla", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    padding: 2%;
+}
+
+#users-online-heading {
+    text-align: center;
+    font-family: "Protest Guerrilla", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 45px;
+}
+
+#support-heading {
+    font-family: "Protest Guerrilla", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 45px;
+    padding: 2%;
+}
+
+#form-container {
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+    box-sizing: border-box;
+}
+
+#message-input-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50vw;
+    padding-bottom: 35%;
+    box-sizing: border-box;
+}
+
+#submit-button {
+    border-radius: 5px;
+    height: 5vh;
+    width: 50%;
+}
+
+#submit-button:hover {
+    cursor: pointer;
+    background-color: green;
+}
+
+#text {
+    width: 50%;
+}
