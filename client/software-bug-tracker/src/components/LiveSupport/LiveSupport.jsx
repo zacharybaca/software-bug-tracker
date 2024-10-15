@@ -1,54 +1,47 @@
 // 
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
+import io from "socket.io-client";
+
+const username = localStorage.getItem(JSON.parse("user"));
+const socket = io("http://localhost:9000", {
+  transports: ["websocket", "polling"]
+});
 
 const LiveSupport = () => {
-  const socketRef = useRef(null);
-  const [isConnected, setIsConnected] = useState(false);
+  const [users, setUsers] = React.useState([]);
+  const [message, setMessage] = React.useState("");
+  const [messages, setMessages] = React.useState([]);
 
-  useEffect(() => {
-    const token = localStorage.getItem("token"); // replace with your token logic
-    const websocket = new WebSocket(`ws://localhost:9000/?token=${token}`);
+  React.useEffect(() => {
+    socket.on("connect", () => {
+      socket.emit("username", username);
+    });
 
-    socketRef.current = websocket;
+    socket.on("message", message => {
+      setMessages(messages => [...messages, message]);
+    });
 
-    websocket.onopen = () => {
-      console.log("WebSocket connection established");
-      setIsConnected(true);
-    };
+    socket.on("connected", user => {
+      setUsers(users => [...users, user]);
+    });
 
-    websocket.onmessage = (message) => {
-      console.log("Message from server:", message.data);
-    };
-
-    websocket.onerror = (error) => {
-      console.error("WebSocket Error:", error);
-    };
-
-    websocket.onclose = (event) => {
-      console.log("WebSocket Closed:", event);
-      setIsConnected(false);
-    };
-
-    return () => {
-      if (socketRef.current) {
-        socketRef.current.close();
-      }
-    };
+    socket.on("disconnected", id => {
+      setUsers(users => {
+        return users.filter(user => user.id !== id);
+      });
+    });
   }, []);
 
-  const sendMessage = (msg) => {
-    if (socketRef.current && isConnected) {
-      socketRef.current.send(msg);
-    } else {
-      console.warn("WebSocket is not open. Cannot send message.");
-    }
+  const submit = (e) => {
+    e.preventDefault();
+    socket.emit("send", message);
+    setMessage("");
   };
 
   return (
     <div>
       <h1>Live Support</h1>
       {/* Your chat UI here */}
-      <button onClick={() => sendMessage("Hello, World!")}>Send Message</button>
     </div>
   );
 };

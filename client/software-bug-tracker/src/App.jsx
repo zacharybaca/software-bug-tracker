@@ -90,6 +90,8 @@ function App() {
                   Un-Assigned Tasks
                 </button>
 
+                <button type="button" id="live-support-button" onClick={() => navigate("/messages")}>Connect With Other Employees</button>
+                
                 {context.hasAdminRights() && (
                     <Link to="/add-employee">
                       <button type="button" id="add-employee-main-button">
