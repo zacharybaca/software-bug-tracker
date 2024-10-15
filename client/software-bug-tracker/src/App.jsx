@@ -6,6 +6,7 @@ import EmployeeDirectory from './components/EmployeeDirectory/EmployeeDirectory'
 import Footer from './components/Footer/Footer';
 import UnauthorizedPage from './components/UnauthorizedPage/UnauthorizedPage';
 import PageDoesNotExist from './components/PageDoesNotExist/PageDoesNotExist';
+import LiveSupport from './components/LiveSupport/LiveSupport';
 import UnAssignedTasks from './components/UnAssignedTasks/UnAssignedTasks';
 import { EmployeesContext } from './context/employeesContext';
 import { TasksContext } from './context/tasksContext';
@@ -117,6 +118,11 @@ function App() {
             }
           />
 
+          <Route
+            path="/messages"
+            element={token ? <LiveSupport /> : <Navigate to="/" />}
+          />
+          
           <Route
             path="/tasks"
             element={token ? <TaskList /> : <Navigate to="/" />}

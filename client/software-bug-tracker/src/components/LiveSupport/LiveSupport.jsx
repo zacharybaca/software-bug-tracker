@@ -1,43 +1,56 @@
-import './live-support.css';
-import React from 'react';
+// 
+import React, { useEffect, useRef, useState } from "react";
 
 const LiveSupport = () => {
-    const [messages, setMessages] = React.useState([]);
-    const [input, setInput] = React.useState('');
-    const socket = new WebSocket('ws://localhost:8000');
+  const socketRef = useRef(null);
+  const [isConnected, setIsConnected] = useState(false);
 
-    React.useEffect(() => {
-        socket.onmessage = (event) => {
-            const newMessage = event.data;
-            setMessages((prevMessages) => [...prevMessages, newMessage]);
-        };
+  useEffect(() => {
+    const token = localStorage.getItem("token"); // replace with your token logic
+    const websocket = new WebSocket(`ws://localhost:9000/?token=${token}`);
 
-        return () => {
-            socket.close();
-        };
-    }, []);
+    socketRef.current = websocket;
 
-    const handleSend = () => {
-        socket.send(input);
-        setInput('');
+    websocket.onopen = () => {
+      console.log("WebSocket connection established");
+      setIsConnected(true);
     };
 
+    websocket.onmessage = (message) => {
+      console.log("Message from server:", message.data);
+    };
 
-    return (
-        <div>
-            <div id="chat-box">
-                {messages.map((msg, index) => (
-                    <div key={index}>{msg}</div>
-                ))}
-            </div>
-            <input
-                type="text"
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-            />
-            <button type="button" onClick={handleSend}>Send</button>
-        </div>
-    );
+    websocket.onerror = (error) => {
+      console.error("WebSocket Error:", error);
+    };
+
+    websocket.onclose = (event) => {
+      console.log("WebSocket Closed:", event);
+      setIsConnected(false);
+    };
+
+    return () => {
+      if (socketRef.current) {
+        socketRef.current.close();
+      }
+    };
+  }, []);
+
+  const sendMessage = (msg) => {
+    if (socketRef.current && isConnected) {
+      socketRef.current.send(msg);
+    } else {
+      console.warn("WebSocket is not open. Cannot send message.");
+    }
+  };
+
+  return (
+    <div>
+      <h1>Live Support</h1>
+      {/* Your chat UI here */}
+      <button onClick={() => sendMessage("Hello, World!")}>Send Message</button>
+    </div>
+  );
 };
 
 export default LiveSupport;
