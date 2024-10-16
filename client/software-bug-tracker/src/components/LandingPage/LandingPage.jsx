@@ -32,7 +32,6 @@ function LandingPage() {
       <div id="landing-page-container">
         <h1 id="form-header">Sign In To Access Your Account</h1>
         <form id="login-form" name="loginForm" onSubmit={handleSubmit}>
-          <label htmlFor="login-user-name">Enter Username: </label>
           <input
             type="text"
             id="login-user-name"
@@ -42,7 +41,6 @@ function LandingPage() {
             required
             placeholder="Enter Username"
           />
-          <label htmlFor="login-user-password">Enter Password: </label>
           <input
             type="password"
             id="login-user-password"

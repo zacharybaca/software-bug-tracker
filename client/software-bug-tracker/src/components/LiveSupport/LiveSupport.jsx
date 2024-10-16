@@ -1,19 +1,28 @@
 import './live-support.css';
 import React from "react";
+import { useNavigate } from 'react-router-dom';
 import io from "socket.io-client";
 
-const user = localStorage.getItem('user');
-const username = JSON.parse(user);
-const usernameVal = username.userID;
-console.log("User: ", usernameVal);
-const socket = io("http://localhost:9000", {
-  transports: ["websocket", "polling"]
-});
+
 
 const LiveSupport = () => {
   const [users, setUsers] = React.useState([]);
   const [message, setMessage] = React.useState("");
   const [messages, setMessages] = React.useState([]);
+
+  const navigate = useNavigate();
+  const user = localStorage.getItem("user");
+  const username = JSON.parse(user);
+  const usernameVal = username.userID;
+
+  if (!usernameVal) {
+    navigate('/login');
+  }
+  
+  console.log("User: ", usernameVal);
+  const socket = io("http://localhost:9000", {
+    transports: ["websocket", "polling"],
+  });
 
   React.useEffect(() => {
     socket.on("connect", () => {
