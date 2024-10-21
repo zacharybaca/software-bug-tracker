@@ -1,50 +1,62 @@
-import './live-support.css';
+import "./live-support.css";
 import React from "react";
-import { useNavigate } from 'react-router-dom';
+import moment from "moment";
+import { Navigate } from "react-router-dom";
 import io from "socket.io-client";
-
-
+let socket;
 
 const LiveSupport = () => {
   const [users, setUsers] = React.useState([]);
   const [message, setMessage] = React.useState("");
   const [messages, setMessages] = React.useState([]);
 
-  const navigate = useNavigate();
-  const user = localStorage.getItem("user");
-  const username = JSON.parse(user);
-  const usernameVal = username.userID;
-
-  if (!usernameVal) {
-    navigate('/login');
-  }
-  
-  console.log("User: ", usernameVal);
-  const socket = io("http://localhost:9000", {
-    transports: ["websocket", "polling"],
-  });
+  // Retrieve the user outside of any conditional logic
+  const user = JSON.parse(localStorage.getItem("user"))?.userID;
 
   React.useEffect(() => {
-    socket.on("connect", () => {
-      console.log('Connected Successfully to Web Socket Connection');
-      socket.emit("username", usernameVal);
-      
-    });
-
-    socket.on("message", message => {
-      setMessages(messages => [...messages, message]);
-    });
-
-    socket.on("connected", user => {
-      setUsers(users => [...users, user]);
-    });
-
-    socket.on("disconnected", id => {
-      setUsers(users => {
-        return users.filter(user => user.id !== id);
+    // Only initialize socket and listeners if user exists
+    if (user) {
+      socket = io("http://localhost:9000", {
+        transports: ["websocket", "polling"],
       });
-    });
-  }, []);
+
+      socket.on("connect", () => {
+        console.log("Connected Successfully to Web Socket Connection");
+        socket.emit("username", user);
+      });
+
+      socket.on("users", (users) => {
+        setUsers(users);
+      });
+
+      socket.on("message", (message) => {
+        setMessages((prevMessages) => [...prevMessages, message]);
+      });
+
+      socket.on("connected", (user) => {
+        setUsers((prevUsers) => [...prevUsers, user]);
+      });
+
+      socket.on("disconnected", (id) => {
+        setUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));
+      });
+
+      // Clean up the socket connections and listeners on component unmount
+      return () => {
+        socket.off("connect");
+        socket.off("users");
+        socket.off("message");
+        socket.off("connected");
+        socket.off("disconnected");
+        socket.disconnect(); // Close the socket connection
+      };
+    }
+  }, [user]);
+
+  // Check if user is not found and redirect
+  if (!user) {
+    return <Navigate to="/login" />;
+  }
 
   const submit = (e) => {
     e.preventDefault();
@@ -54,19 +66,30 @@ const LiveSupport = () => {
 
   return (
     <>
-      <h1 id="support-heading">Live Support</h1>
+      <h1 id="support-heading">Welcome to Live Support {user}!</h1>
+      <h2 id="support-heading-subtext">
+        This is the Place to Receive and Give Help to Your Fellow Co-Workers!!
+      </h2>
       <div id="chat-container">
-        <div id="messages-container"></div>
+        <div id="messages-container">
+          {messages.map(({ user, date, text }, index) => (
+            <div key={index} className="message-container">
+              <div className="message-time">
+                {moment(date).format("h:mm:ss a")}
+              </div>
+              <div className="user-id-container">{user.name}</div>
+              <div className="message-content">{text}</div>
+            </div>
+          ))}
+        </div>
         <div id="users-online-container">
           <h1 id="users-online-heading">Users Online</h1>
           <ul id="users-online-list">
-            {users.map((user) => {
-              return (
-                <li key={user.id} className="online-user">
-                  {user.name}
-                </li>
-              );
-            })}
+            {users.map(({ name, id }) => (
+              <li key={id} className="online-user">
+                {name}
+              </li>
+            ))}
           </ul>
         </div>
       </div>
