@@ -77,7 +77,7 @@ const LiveSupport = () => {
               <div className="message-time">
                 {moment(date).format("h:mm:ss a")}
               </div>
-              <div className="user-id-container">{user.name}</div>
+              <div className="user-id-container">{user.name} says: </div>
               <div className="message-content">{text}</div>
             </div>
           ))}

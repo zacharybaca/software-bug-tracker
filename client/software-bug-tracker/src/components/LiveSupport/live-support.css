@@ -14,6 +14,7 @@
     flex-direction: column;
     max-width: 75%;
     min-width: 75%;
+    padding: 0.5%;
     overflow: scroll;
     scrollbar-color: beige green;
     scrollbar-width: auto;
@@ -23,6 +24,24 @@
     opacity: 0.5;
     color: white;
     box-sizing: border-box;
+}
+
+.message-container {
+    display: flex;
+    padding: 1%;
+    font-size: 2rem;
+}
+
+.message-time {
+    padding-right: 2%;
+}
+
+.user-id-container {
+    padding-right: 0.5%;
+}
+
+.message-content {
+    color: yellow;
 }
 
 #users-online-container {
@@ -81,7 +100,7 @@
 #form-container {
     display: flex;
     justify-content: center;
-    width: 100vw;
+    width: 100%;
     box-sizing: border-box;
 }
 
@@ -90,13 +109,13 @@
     flex-direction: column;
     align-items: center;
     width: 50vw;
-    padding-bottom: 35%;
+    padding-bottom: 2%;
     box-sizing: border-box;
 }
 
 #submit-button {
     border-radius: 5px;
-    height: 5vh;
+    height: 10vh;
     width: 50%;
 }
 
@@ -106,5 +125,6 @@
 }
 
 #text {
+    height: 5vh;
     width: 50%;
 }

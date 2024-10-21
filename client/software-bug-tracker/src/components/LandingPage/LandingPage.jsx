@@ -50,8 +50,8 @@ function LandingPage() {
             required
             placeholder="Enter Password"
           />
-          <button className="btn btn-layered-3d btn-layered-3d--green" control-id="ControlID-43">Sign In</button>
-          {context.userState.errMsg ? <p>{context.userState.errMsg}</p> : ""}
+          <button className="btn btn-layered-3d btn-layered-3d--green">Sign In</button>
+          {context.userState.errMsg ? <p className="error-message">{context.userState.errMsg}</p> : ""}
         </form>
         <Link to="/sign-up">
           <button type="button" id="new-user-button">
