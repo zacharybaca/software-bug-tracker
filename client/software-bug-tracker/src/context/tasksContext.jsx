@@ -232,6 +232,23 @@ function TasksContextProvider(props) {
     }
   };
 
+  const unAssignTasksForDeletedEmployee = (employeeID) => {
+    try {
+      const tasksToUnassign = tasks.filter(task => task.assignedEmployee._id !== employeeID);
+
+      if (tasksToUnassign.length === 0) {
+        return context.deleteEmployee(employeeID);
+      }
+      
+     tasksToUnassign.map(task => {
+        return unAssignTask(task._id);
+      });
+
+    } catch (error) {
+      console.error("Error unassigning tasks for deleted employee: ", error);
+    }
+  }
+
   const getTaskCounts = useMemo(() => {
     const completedTasks = Array.isArray(tasks) ? tasks.filter((task) => task.taskCompleted).length : 0;
     const incompleteTasks = Array.isArray(tasks) ? tasks.filter((task) => !task.taskCompleted).length : 0;
@@ -260,6 +277,7 @@ function TasksContextProvider(props) {
         incomplete: getIncompleteTasks,
         getTaskCounts,
         getUnassignedTasks,
+        unAssignTasksForDeletedEmployee
       }}>
       {props.children}
     </TasksContext.Provider>
