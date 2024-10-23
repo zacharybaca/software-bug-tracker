@@ -11,29 +11,31 @@ taskRouter.route("/").post(async (req, res, next) => {
   try {
     const employee = await Employee.findOne({ _id: req.auth._id });
 
-    const foundEmployee = await Employee.findOne({ _id: req.body.assignedEmployee });
+    // Check if assignedEmployee is provided
+    let foundEmployee;
+    if (req.body.assignedEmployee) {
+      foundEmployee = await Employee.findOne({ _id: req.body.assignedEmployee });
 
-    if (
-      foundEmployee.user?.userID == null
-    ) {
-      return res
-        .status(404)
-        .send("Cannot Assign Tasks to Employees Who Are Not Registered");
+      // Ensure the assigned employee is registered
+      if (!foundEmployee || !foundEmployee.user || !foundEmployee.user.userID) {
+        return res
+          .status(404)
+          .send("Cannot Assign Tasks to Employees Who Are Not Registered");
+      }
     }
-    // Check if the user is an admin
+
+    // Admin logic
     if (employee.isAdmin) {
-      
-      // Only set assignedEmployee to null if it was not provided by the admin
+      // If admin does not provide an assigned employee, set to null
       if (!req.body.assignedEmployee) {
         req.body.assignedEmployee = null;
       }
     } else {
-      // For non-admins, always assign the task to the logged-in user
+      // Non-admins can only assign tasks to themselves
       req.body.assignedEmployee = req.auth._id;
     }
 
-    console.log("Final Assigned Employee:", foundEmployee); // Debug log
-
+    // Create and save new task
     const newTask = new Task(req.body);
     const savedTask = await newTask.save();
     return res.status(201).send(savedTask);
@@ -42,6 +44,43 @@ taskRouter.route("/").post(async (req, res, next) => {
     return next(error);
   }
 })
+
+
+// taskRouter.route("/").post(async (req, res, next) => {
+//   try {
+//     const employee = await Employee.findOne({ _id: req.auth._id });
+
+//     const foundEmployee = await Employee.findOne({ _id: req.body.assignedEmployee });
+
+//     if (
+//       foundEmployee.user.userID == null
+//     ) {
+//       return res
+//         .status(404)
+//         .send("Cannot Assign Tasks to Employees Who Are Not Registered");
+//     }
+//     // Check if the user is an admin
+//     if (employee.isAdmin) {
+      
+//       // Only set assignedEmployee to null if it was not provided by the admin
+//       if (!req.body.assignedEmployee) {
+//         req.body.assignedEmployee = null;
+//       }
+//     } else {
+//       // For non-admins, always assign the task to the logged-in user
+//       req.body.assignedEmployee = req.auth._id;
+//     }
+
+//     console.log("Final Assigned Employee:", foundEmployee); // Debug log
+
+//     const newTask = new Task(req.body);
+//     const savedTask = await newTask.save();
+//     return res.status(201).send(savedTask);
+//   } catch (error) {
+//     res.status(500);
+//     return next(error);
+//   }
+// })
 
   // GET: Retrieve all tasks for the logged-in employee or all tasks if the employee is an admin
   .get(async (req, res, next) => {
