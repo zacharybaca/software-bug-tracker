@@ -6,12 +6,23 @@ const Employee = require("../models/employee.js");
 // Endpoints for Managers to View, Delete, Update, and Add Tasks to Any Employee
 
 // POST: Add a new task, assigning the task to the logged-in employee if not explicitly assigned
+
 taskRouter.route("/").post(async (req, res, next) => {
   try {
     const employee = await Employee.findOne({ _id: req.auth._id });
 
+    const foundEmployee = await Employee.findOne({ _id: req.body.assignedEmployee });
+
+    if (
+      foundEmployee.user?.userID == null
+    ) {
+      return res
+        .status(404)
+        .send("Cannot Assign Tasks to Employees Who Are Not Registered");
+    }
     // Check if the user is an admin
     if (employee.isAdmin) {
+      
       // Only set assignedEmployee to null if it was not provided by the admin
       if (!req.body.assignedEmployee) {
         req.body.assignedEmployee = null;
@@ -21,7 +32,7 @@ taskRouter.route("/").post(async (req, res, next) => {
       req.body.assignedEmployee = req.auth._id;
     }
 
-    console.log("Final Assigned Employee:", req.body.assignedEmployee); // Debug log
+    console.log("Final Assigned Employee:", foundEmployee); // Debug log
 
     const newTask = new Task(req.body);
     const savedTask = await newTask.save();
