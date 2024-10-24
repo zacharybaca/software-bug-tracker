@@ -16,7 +16,7 @@ const LiveSupport = () => {
   React.useEffect(() => {
     // Only initialize socket and listeners if user exists
     if (user) {
-      socket = io("http://localhost:9000", {
+      socket = io("wss://https://software-bug-tracker.onrender.com", {
         transports: ["websocket", "polling"],
       });
 
