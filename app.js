@@ -7,6 +7,10 @@ require("dotenv").config();
 const server = require('http').createServer(app);
 const { expressjwt } = require("express-jwt");
 const io = require("socket.io")(server, {
+    cors: {
+        origin: "https://software-bug-tracker.onrender.com",
+        methods: ["GET", "POST"]
+    },
     transports: ["websocket", "polling"]
 });
 const users = {};
