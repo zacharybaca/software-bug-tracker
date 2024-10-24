@@ -8,6 +8,7 @@
     padding-top: 20%;
     padding-bottom: 20%;
     border-radius: 10px;
+    gap: 30px;
     background-color: beige;
     width: 75%;
     height: 50vh;
@@ -18,12 +19,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-label, input {
-    margin-bottom: 20%;
-    padding: 5%;
-    
 }
 
 #new-user-button {
@@ -110,3 +105,11 @@ label, input {
     background: rgb(158, 220, 172);  
     box-shadow: rgb(59, 165, 84) 0px 0px 0px 2px, rgb(233, 247, 236) 0px 0.625em 0px 0px;
 }  
+
+.error-message {
+    text-align: center;
+    width: 200px;
+    color: red;
+    font-size: 15px;
+    font-weight: 800;
+}

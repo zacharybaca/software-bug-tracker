@@ -32,7 +32,6 @@ function LandingPage() {
       <div id="landing-page-container">
         <h1 id="form-header">Sign In To Access Your Account</h1>
         <form id="login-form" name="loginForm" onSubmit={handleSubmit}>
-          <label htmlFor="login-user-name">Enter Username: </label>
           <input
             type="text"
             id="login-user-name"
@@ -42,7 +41,6 @@ function LandingPage() {
             required
             placeholder="Enter Username"
           />
-          <label htmlFor="login-user-password">Enter Password: </label>
           <input
             type="password"
             id="login-user-password"
@@ -52,8 +50,8 @@ function LandingPage() {
             required
             placeholder="Enter Password"
           />
-          <button class="btn btn-layered-3d btn-layered-3d--green" control-id="ControlID-43">Sign In</button>
-          {context.userState.errMsg ? <p>{context.userState.errMsg}</p> : ""}
+          <button className="btn btn-layered-3d btn-layered-3d--green">Sign In</button>
+          {context.userState.errMsg ? <p className="error-message">{context.userState.errMsg}</p> : ""}
         </form>
         <Link to="/sign-up">
           <button type="button" id="new-user-button">

@@ -15,7 +15,7 @@ function EmployeeForm(props) {
     },
     generateAccessCode: false,
     accessCode: props.accessCode || "",
-    isAdmin: props.isAdmin || false,
+    isAdmin: props.roleAtCompany === 'manager',
   };
 
   const [employee, setEmployee] = React.useState(initialValues);

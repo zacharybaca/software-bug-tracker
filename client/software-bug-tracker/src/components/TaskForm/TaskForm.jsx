@@ -127,7 +127,7 @@ const TaskForm = (props) => {
       <button type="submit" id="add-task-button">
         {props.buttonText}
       </button>
-      <p style={{ color: "red" }}>{props.errMsg}</p>
+      {props.errMsg ? <p className="error-message">{props.errMsg}</p> : ""}
     </form>
   );
 };

@@ -1,10 +1,12 @@
 import "./employee-directory.css";
 import { EmployeesContext } from "../../context/employeesContext";
+import { TasksContext } from "../../context/tasksContext";
 import EmployeeBadge from "../EmployeeBadge/EmployeeBadge";
 import React from "react";
 
 const EmployeeDirectory = () => {
   const context = React.useContext(EmployeesContext);
+  const taskContext = React.useContext(TasksContext);
 
   return (
     <div id="employee-directory-container">
@@ -25,6 +27,7 @@ const EmployeeDirectory = () => {
               accessCode={employee.accessCode}
               updateEmployeeProfile={context.updateEmployee}
               deleteEmployee={context.deleteEmployee}
+              unAssignTasksForDeletedEmployee={taskContext.unAssignTasksForDeletedEmployee}
               errMsg={context.userState.errMsg}
             />
           </li>

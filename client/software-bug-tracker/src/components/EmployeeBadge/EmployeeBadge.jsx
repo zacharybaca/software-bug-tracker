@@ -57,7 +57,7 @@ const EmployeeBadge = (props) => {
                   <button
                     type="button"
                     id="remove-employee-button"
-                    onClick={() => props.deleteEmployee(props.employeeID)}>
+                    onClick={() => props.unAssignTasksForDeletedEmployee(props.employeeID)}>
                     Remove Employee
                   </button>
                   <button

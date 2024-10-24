@@ -42,8 +42,8 @@ function TasksContextProvider(props) {
 
       const data = await response.json();
       const hasUserID = context.hasUserID(data.assignedEmployee);
-
-      if (!hasUserID && !loggedInEmployee.isAdmin) {
+      
+      if (!hasUserID && loggedInEmployee.isAdmin) {
         throw new Error(`${data.assignedEmployee} Does Not Have a User ID Associated With It.`);
       }
 
@@ -221,16 +221,53 @@ function TasksContextProvider(props) {
 
       if (!taskToUnassign) return;
 
-      const updatedTask = { ...taskToUnassign, assignedEmployee: null };
+      const updatedTask = {
+        ...taskToUnassign,
+        taskCompleted: false,
+        assignedEmployee: null,
+      };
 
       await updateTask(updatedTask, id);
 
-      await getTasks(); // Refetch tasks
-      await getUnassignedTasks(); // Refetch unassigned tasks if needed
+      // Update local state
+      setTasks((prevTasks) => prevTasks.filter((task) => task._id !== id)); // Remove task from tasks list
+      setUnassignedTasks((prevUnassignedTasks) => [
+        ...prevUnassignedTasks,
+        updatedTask,
+      ]); // Add task to unassignedTasks list
+      // await getTasks(); // Refetch tasks
+      // await getUnassignedTasks(); // Refetch unassigned tasks if needed
     } catch (error) {
       console.error("Error unassigning task:", error);
     }
   };
+
+  const unAssignTasksForDeletedEmployee = async (employeeID) => {
+    try {
+      const tasksToUnassign = tasks.filter(
+        (task) => task.assignedEmployee._id === employeeID
+      );
+
+      if (tasksToUnassign.length === 0) {
+        return context.deleteEmployee(employeeID);
+      }
+
+      // Unassign all tasks and wait for all of them to complete
+      await Promise.all(
+        tasksToUnassign.map(async (task) => {
+          await unAssignTask(task._id); // Ensure state gets updated for each task
+        })
+      );
+
+      // Refetch tasks to ensure the state is fully updated
+      await getTasks();
+      await getUnassignedTasks();
+
+      await context.deleteEmployee(employeeID);
+    } catch (error) {
+      console.error("Error unassigning tasks for deleted employee: ", error);
+    }
+  }
 
   const getTaskCounts = useMemo(() => {
     const completedTasks = Array.isArray(tasks) ? tasks.filter((task) => task.taskCompleted).length : 0;
@@ -260,6 +297,7 @@ function TasksContextProvider(props) {
         incomplete: getIncompleteTasks,
         getTaskCounts,
         getUnassignedTasks,
+        unAssignTasksForDeletedEmployee
       }}>
       {props.children}
     </TasksContext.Provider>
