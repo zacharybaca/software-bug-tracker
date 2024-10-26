@@ -3,16 +3,30 @@ const app = express();
 const path = require("path");
 const mongoose = require('mongoose');
 const morgan = require('morgan');
-require("dotenv").config();
+require("dotenv").config({ path: `.env.${process.env.NODE_ENV}` });
 const server = require('http').createServer(app);
 const { expressjwt } = require("express-jwt");
-const io = require("socket.io")(server, {
-    cors: {
+let io;
+
+if (process.env.NODE_ENV === "production") {
+    io = require("socket.io")(server, {
+      cors: {
         origin: "https://software-bug-tracker.onrender.com",
-        methods: ["GET", "POST"]
-    },
-    transports: ["websocket", "polling"]
-});
+        methods: ["GET", "POST"],
+      },
+      transports: ["websocket", "polling"],
+    });
+}
+else {
+    io = require("socket.io")(server, {
+      cors: {
+        origin: "http://localhost:9000",
+        methods: ["GET", "POST"],
+      },
+      transports: ["websocket", "polling"],
+    });
+}
+
 const users = {};
 
 
