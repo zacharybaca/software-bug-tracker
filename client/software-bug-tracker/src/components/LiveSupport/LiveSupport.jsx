@@ -5,7 +5,7 @@ import moment from "moment";
 import { Navigate } from "react-router-dom";
 
 const LiveSupport = () => {
-  const socketRef = useRef(null); // Socket reference
+  const socketRef = useRef(null);
   const [users, setUsers] = useState([]);
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
@@ -13,43 +13,52 @@ const LiveSupport = () => {
   const nodeEnv = import.meta.env.VITE_NODE_ENV;
   const user = JSON.parse(localStorage.getItem("user"))?.userID;
 
-  // Initialize socket connection if it hasn’t been created yet
-  if (!socketRef.current && user) {
-    const url =
-      nodeEnv === "production"
-        ? "wss://software-bug-tracker.onrender.com"
-        : "http://localhost:9000";
-
-    socketRef.current = io(url, { transports: ["websocket", "polling"] });
-
-    socketRef.current.on("connect", () => {
-      console.log("Connected Successfully to Web Socket Connection");
-      socketRef.current.emit("username", user);
-    });
-
-    socketRef.current.on("users", (users) => setUsers(users));
-    socketRef.current.on("message", (message) =>
-      setMessages((prevMessages) => [...prevMessages, message])
-    );
-    socketRef.current.on("connected", (newUser) =>
-      setUsers((prevUsers) => [...prevUsers, newUser])
-    );
-    socketRef.current.on("disconnected", (id) =>
-      setUsers((prevUsers) => prevUsers.filter((user) => user.id !== id))
-    );
-  }
-
   useEffect(() => {
-    // Cleanup on component unmount
-    return () => {
-      if (socketRef.current) {
-        socketRef.current.disconnect();
-        socketRef.current = null;
-      }
-    };
-  }, []);
+    if (user) {
+      const url =
+        nodeEnv === "production"
+          ? "wss://software-bug-tracker.onrender.com"
+          : "http://localhost:9000";
 
-  // Handle sending message
+      socketRef.current = io(url, {
+        transports: ["websocket", "polling"],
+        reconnectionAttempts: 5, // Attempt to reconnect up to 5 times
+      });
+
+      socketRef.current.on("connect", () => {
+        console.log("Connected Successfully to Web Socket Connection");
+        socketRef.current.emit("username", user);
+      });
+
+      socketRef.current.on("connect_error", (error) => {
+        console.error("Connection Error:", error);
+      });
+
+      socketRef.current.on("reconnect_attempt", (attempt) => {
+        console.log(`Reconnect attempt ${attempt}`);
+      });
+
+      socketRef.current.on("users", (users) => setUsers(users));
+      socketRef.current.on("message", (message) =>
+        setMessages((prevMessages) => [...prevMessages, message])
+      );
+      socketRef.current.on("connected", (newUser) =>
+        setUsers((prevUsers) => [...prevUsers, newUser])
+      );
+      socketRef.current.on("disconnected", (id) =>
+        setUsers((prevUsers) => prevUsers.filter((user) => user.id !== id))
+      );
+
+      // Clean up the socket connection on component unmount
+      return () => {
+        if (socketRef.current) {
+          socketRef.current.disconnect();
+          socketRef.current = null;
+        }
+      };
+    }
+  }, [nodeEnv, user]);
+
   const submit = (e) => {
     e.preventDefault();
     if (socketRef.current) {
