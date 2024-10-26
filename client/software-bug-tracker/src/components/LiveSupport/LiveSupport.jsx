@@ -4,60 +4,62 @@ import moment from "moment";
 import { Navigate } from "react-router-dom";
 import io from "socket.io-client";
 const nodeEnv = import.meta.env.VITE_NODE_ENV;
-let socket;
 
 const LiveSupport = () => {
   const [users, setUsers] = React.useState([]);
   const [message, setMessage] = React.useState("");
   const [messages, setMessages] = React.useState([]);
 
+  const socketRef = React.useRef(null);
+
   // Retrieve the user outside of any conditional logic
   const user = JSON.parse(localStorage.getItem("user"))?.userID;
 
   React.useEffect(() => {
     // Only initialize socket and listeners if user exists
-    if (user) {
+    if (user && !socketRef.current) {
       if (nodeEnv === "production") {
-        socket = io("wss://software-bug-tracker.onrender.com", {
+        socketRef.current = io("wss://software-bug-tracker.onrender.com", {
           transports: ["websocket", "polling"],
         });
       }
       
       if (nodeEnv === "development") {
-        socket = io("http://localhost:9000", {
+        socketRef.current = io("http://localhost:9000", {
           transports: ["websocket", "polling"],
         });
       }
       
-      socket.on("connect", () => {
+      socketRef.current.on("connect", () => {
         console.log("Connected Successfully to Web Socket Connection");
-        socket.emit("username", user);
+        socketRef.current.emit("username", user);
       });
 
-      socket.on("users", (users) => {
+      socketRef.current.on("users", (users) => {
         setUsers(users);
       });
 
-      socket.on("message", (message) => {
+      socketRef.current.on("message", (message) => {
         setMessages((prevMessages) => [...prevMessages, message]);
       });
 
-      socket.on("connected", (user) => {
+      socketRef.current.on("connected", (user) => {
         setUsers((prevUsers) => [...prevUsers, user]);
       });
 
-      socket.on("disconnected", (id) => {
+      socketRef.current.on("disconnected", (id) => {
         setUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));
       });
 
-      // Clean up the socket connections and listeners on component unmount
+      socketRef.current.on("connect_error", (error) => {
+        console.error("Socket connection error:", error);
+      });
+
       return () => {
-        socket.off("connect");
-        socket.off("users");
-        socket.off("message");
-        socket.off("connected");
-        socket.off("disconnected");
-        socket.disconnect(); // Close the socket connection
+        if (socketRef.current) {
+          socketRef.current.disconnect();
+          socketRef.current = null;
+        }
       };
     }
   }, [user]);
@@ -69,7 +71,7 @@ const LiveSupport = () => {
 
   const submit = (e) => {
     e.preventDefault();
-    socket.emit("send", message);
+    socketRef.current.emit("send", message);
     setMessage("");
   };
 
