@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useRef, useEffect, useState } from "react";
+import "./live-support.css";
 import io from "socket.io-client";
 import moment from "moment";
 import { Navigate } from "react-router-dom";
