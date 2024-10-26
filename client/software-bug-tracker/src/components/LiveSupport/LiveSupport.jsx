@@ -3,6 +3,7 @@ import React from "react";
 import moment from "moment";
 import { Navigate } from "react-router-dom";
 import io from "socket.io-client";
+const nodeEnv = import.meta.env.VITE_NODE_ENV;
 let socket;
 
 const LiveSupport = () => {
@@ -16,10 +17,18 @@ const LiveSupport = () => {
   React.useEffect(() => {
     // Only initialize socket and listeners if user exists
     if (user) {
-      socket = io("wss://software-bug-tracker.onrender.com", {
-        transports: ["websocket", "polling"],
-      });
-
+      if (nodeEnv === "production") {
+        socket = io("wss://software-bug-tracker.onrender.com", {
+          transports: ["websocket", "polling"],
+        });
+      }
+      
+      if (nodeEnv === "development") {
+        socket = io("http://localhost:9000", {
+          transports: ["websocket", "polling"],
+        });
+      }
+      
       socket.on("connect", () => {
         console.log("Connected Successfully to Web Socket Connection");
         socket.emit("username", user);
