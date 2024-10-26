@@ -1,86 +1,69 @@
-import "./live-support.css";
-import React from "react";
+/* eslint-disable no-unused-vars */
+import React, { useRef, useEffect, useState } from "react";
+import io from "socket.io-client";
 import moment from "moment";
 import { Navigate } from "react-router-dom";
-import io from "socket.io-client";
-const nodeEnv = import.meta.env.VITE_NODE_ENV;
 
 const LiveSupport = () => {
-  const [users, setUsers] = React.useState([]);
-  const [message, setMessage] = React.useState("");
-  const [messages, setMessages] = React.useState([]);
+  const socketRef = useRef(null); // Socket reference
+  const [users, setUsers] = useState([]);
+  const [message, setMessage] = useState("");
+  const [messages, setMessages] = useState([]);
 
-  const socketRef = React.useRef(null);
-
-  // Retrieve the user outside of any conditional logic
+  const nodeEnv = import.meta.env.VITE_NODE_ENV;
   const user = JSON.parse(localStorage.getItem("user"))?.userID;
 
-  React.useEffect(() => {
-    // Only initialize socket and listeners if user exists
-    if (user && !socketRef.current) {
-      if (nodeEnv === "production") {
-        socketRef.current = io("wss://software-bug-tracker.onrender.com", {
-          transports: ["websocket", "polling"],
-        });
-      }
-      
-      if (nodeEnv === "development") {
-        socketRef.current = io("http://localhost:9000", {
-          transports: ["websocket", "polling"],
-        });
-      }
-      
-      socketRef.current.on("connect", () => {
-        console.log("Connected Successfully to Web Socket Connection");
-        socketRef.current.emit("username", user);
-      });
+  // Initialize socket connection if it hasn’t been created yet
+  if (!socketRef.current && user) {
+    const url =
+      nodeEnv === "production"
+        ? "wss://software-bug-tracker.onrender.com"
+        : "http://localhost:9000";
 
-      socketRef.current.on("users", (users) => {
-        setUsers(users);
-      });
+    socketRef.current = io(url, { transports: ["websocket", "polling"] });
 
-      socketRef.current.on("message", (message) => {
-        setMessages((prevMessages) => [...prevMessages, message]);
-      });
+    socketRef.current.on("connect", () => {
+      console.log("Connected Successfully to Web Socket Connection");
+      socketRef.current.emit("username", user);
+    });
 
-      socketRef.current.on("connected", (user) => {
-        setUsers((prevUsers) => [...prevUsers, user]);
-      });
-
-      socketRef.current.on("disconnected", (id) => {
-        setUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));
-      });
-
-      socketRef.current.on("connect_error", (error) => {
-        console.error("Socket connection error:", error);
-      });
-
-      return () => {
-        if (socketRef.current) {
-          socketRef.current.disconnect();
-          socketRef.current = null;
-        }
-      };
-    }
-  }, [user]);
-
-  // Check if user is not found and redirect
-  if (!user) {
-    return <Navigate to="/login" />;
+    socketRef.current.on("users", (users) => setUsers(users));
+    socketRef.current.on("message", (message) =>
+      setMessages((prevMessages) => [...prevMessages, message])
+    );
+    socketRef.current.on("connected", (newUser) =>
+      setUsers((prevUsers) => [...prevUsers, newUser])
+    );
+    socketRef.current.on("disconnected", (id) =>
+      setUsers((prevUsers) => prevUsers.filter((user) => user.id !== id))
+    );
   }
 
+  useEffect(() => {
+    // Cleanup on component unmount
+    return () => {
+      if (socketRef.current) {
+        socketRef.current.disconnect();
+        socketRef.current = null;
+      }
+    };
+  }, []);
+
+  // Handle sending message
   const submit = (e) => {
     e.preventDefault();
-    socketRef.current.emit("send", message);
-    setMessage("");
+    if (socketRef.current) {
+      socketRef.current.emit("send", message);
+      setMessage("");
+    }
   };
+
+  // Redirect to login if user is not found
+  if (!user) return <Navigate to="/login" />;
 
   return (
     <>
-      <h1 id="support-heading">Welcome to Live Support {user}!</h1>
-      <h2 id="support-heading-subtext">
-        This is the Place to Receive and Give Help to Your Fellow Co-Workers!!
-      </h2>
+      <h1 id="support-heading">Welcome to Live Support, {user}!</h1>
       <div id="chat-container">
         <div id="messages-container">
           {messages.map(({ user, date, text }, index) => (
@@ -88,7 +71,7 @@ const LiveSupport = () => {
               <div className="message-time">
                 {moment(date).format("h:mm:ss a")}
               </div>
-              <div className="user-id-container">{user.name} says: </div>
+              <div className="user-id-container">{user.name} says:</div>
               <div className="message-content">{text}</div>
             </div>
           ))}
@@ -109,7 +92,7 @@ const LiveSupport = () => {
           <div id="message-input-container">
             <input
               type="text"
-              placeholder="Enter A Message To Send"
+              placeholder="Enter a message"
               value={message}
               id="text"
               onChange={(e) => setMessage(e.currentTarget.value)}
