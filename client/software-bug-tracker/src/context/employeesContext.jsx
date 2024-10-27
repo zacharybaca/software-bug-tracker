@@ -183,6 +183,8 @@ function EmployeesContextProvider(props) {
       }
 
       if (foundEmployee.accessCode !== accessToken) {
+        console.log("Access Code: ", foundEmployee.accessCode);
+        console.log("Access Token: ", accessToken);
         throw new Error("Access Code is Incorrect. Please Try Again.");
       }
 

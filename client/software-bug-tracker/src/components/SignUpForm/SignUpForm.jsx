@@ -38,7 +38,7 @@ function SignUpForm() {
           }));
         }
 
-        if (name === "userID" || name === "password" || name === "associatedEmployee") {
+        if (name === "userID" || name === "password") {
           setEmployee((prevState) => ({
             ...prevState,
             user: {
