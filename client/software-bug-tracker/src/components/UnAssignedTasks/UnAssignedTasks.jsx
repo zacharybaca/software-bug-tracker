@@ -7,7 +7,7 @@ import React from "react";
 const UnAssignedTasks = () => {
   const tasksContext = React.useContext(TasksContext); // Clearer variable name
   const employeesContext = React.useContext(EmployeesContext);
-
+  console.log('UnAssigned Tasks: ', tasksContext.unassignedTasks);
   return (
     <div id="unassigned-task-list-container">
       <h1 id="unassigned-header">Un-Assigned Tasks:</h1>
@@ -15,8 +15,7 @@ const UnAssignedTasks = () => {
       {tasksContext.unassignedTasks.length > 0 ? (
         <ul id="unassigned-task-list">
           {tasksContext.unassignedTasks.map((task) => (
-            <React.Fragment key={task._id}>
-              <li className="unassigned-task">
+              <li key={task._id} className="unassigned-task">
                 <Task
                   id={task._id}
                   title={task.taskTitle}
@@ -29,7 +28,6 @@ const UnAssignedTasks = () => {
                   errMsg={employeesContext.userState.errMsg} // Passing error message for task
                 />
               </li>
-            </React.Fragment>
           ))}
         </ul>
       ) : (
