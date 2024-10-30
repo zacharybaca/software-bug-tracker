@@ -5,8 +5,10 @@
     justify-content: center;
     max-width: 100%;
     min-width: 100%;
-    min-height: 100vh;
+    min-height: 50vh;
+    max-height: 50vh;
     box-sizing: border-box;
+    padding: 2%;
 }
 
 #messages-container {
@@ -47,7 +49,7 @@
 #users-online-container {
     max-width: 25%;
     min-width: 25%;
-    height: 100vh;
+    height: 42vh;
     box-sizing: border-box;
     overflow: scroll;
     scrollbar-color: beige green;

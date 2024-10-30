@@ -16,8 +16,8 @@ const Task = (props) => {
     return (
       <>
         {!showForm ? (
-          <>
-            <div className="task">
+          <div id="main-task-container">
+            <div className="task-item">
               <h1>
                 <span className="heading">Title: </span>
                 {props.title}
@@ -78,7 +78,7 @@ const Task = (props) => {
               </button> : null}
             </div>
             {props.errMsg ? <p style={{color: "red"}}>{props.errMsg}</p> : ""}
-          </>
+          </div>
         ) : (
           <>
             <TaskForm
