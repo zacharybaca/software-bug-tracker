@@ -22,7 +22,6 @@
 .task {
     min-width: 50%;
     max-width: 50%;
-    border: 2px solid blue;
 }
 hr {
     width: 50%;

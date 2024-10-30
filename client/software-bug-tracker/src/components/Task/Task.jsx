@@ -18,15 +18,15 @@ const Task = (props) => {
         {!showForm ? (
           <div id="main-task-container">
             <div className="task-item">
-              <h1>
+              <div className="task-info">
                 <span className="heading">Title: </span>
-                {props.title}
-              </h1>
-              <h2>
+                <span className="task-details">{props.title}</span>
+              </div>
+              <div className="task-info">
                 <span className="heading">Details: </span>
-                {props.details}
-              </h2>
-              <h2 id="todos-list">
+                <span className="task-details">{props.details}</span>
+              </div>
+              <div id="todos-list" className="task-info">
                 <span className="heading">Todos: </span>
                 {props.todos.split("\n").map((line, index) => (
                   <p
@@ -46,22 +46,26 @@ const Task = (props) => {
                     {line}
                   </p>
                 ))}
-              </h2>
-              <h3>
+              </div>
+              <div className="task-info">
                 <span className="heading">Completed: </span>
-                {props.completed && props.assignedEmployee ? "✅" : "❌"}
-              </h3>
-              <h3>
+                <span className="task-details">
+                  {props.completed && props.assignedEmployee ? "✅" : "❌"}
+                </span>
+              </div>
+              <div className="task-info">
                 <span className="heading">Assigned: </span>
-                {(() => {
-                  const assignedEmployee = employees.employees.find(
-                    (employee) => employee._id === props.assignedEmployee
-                  );
-                  return assignedEmployee
-                    ? `${assignedEmployee.firstName} ${assignedEmployee.lastName}`
-                    : "Not Assigned";
-                })()}
-              </h3>
+                <span className="task-details">
+                  {(() => {
+                    const assignedEmployee = employees.employees.find(
+                      (employee) => employee._id === props.assignedEmployee
+                    );
+                    return assignedEmployee
+                      ? `${assignedEmployee.firstName} ${assignedEmployee.lastName}`
+                      : "Not Assigned";
+                  })()}
+                </span>
+              </div>
             </div>
             <div id="buttons-container">
               <button
@@ -70,14 +74,22 @@ const Task = (props) => {
                 onClick={() => setShowForm((prevState) => !prevState)}>
                 Edit
               </button>
-              <button type="button" id="delete-task-button" onClick={() => props.deleteTask(props.id)}>
+              <button
+                type="button"
+                id="delete-task-button"
+                onClick={() => props.deleteTask(props.id)}>
                 Delete
               </button>
-              {props.assignedEmployee ? <button type="button" id="unassign-task-button" onClick={() => tasks.unAssignTask(props.id)}>
-                Un-Assign Task
-              </button> : null}
+              {props.assignedEmployee ? (
+                <button
+                  type="button"
+                  id="unassign-task-button"
+                  onClick={() => tasks.unAssignTask(props.id)}>
+                  Un-Assign Task
+                </button>
+              ) : null}
             </div>
-            {props.errMsg ? <p style={{color: "red"}}>{props.errMsg}</p> : ""}
+            {props.errMsg ? <p style={{ color: "red" }}>{props.errMsg}</p> : ""}
           </div>
         ) : (
           <>

@@ -61,6 +61,8 @@
     flex-wrap: wrap;
     align-content: center;
     border-radius: 10px;
+    padding-top: 2%;
+    padding-bottom: 2%;
     background-color: green;
     min-width: 100%;
     max-width: 100%;
