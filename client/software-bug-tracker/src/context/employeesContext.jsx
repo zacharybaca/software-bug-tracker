@@ -74,6 +74,8 @@ function EmployeesContextProvider(props) {
     try {
       localStorage.removeItem("user");
       localStorage.removeItem("token");
+      localStorage.removeItem("messageHistory");
+      localStorage.removeItem("font");
       setUserState((prevUserState) => {
         return {
           ...prevUserState,

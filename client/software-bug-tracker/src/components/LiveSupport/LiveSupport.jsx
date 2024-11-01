@@ -36,6 +36,15 @@ const LiveSupport = () => {
     } else if (messages.length > 0 && !localStorage.getItem("messageHistory")) {
       localStorage.setItem("messageHistory", JSON.stringify(messages));
     }
+
+    if (localStorage.getItem("font")) {
+      const savedFont = localStorage.getItem("font");
+      setFont(savedFont);
+    }
+    else if (!localStorage.getItem("font")) {
+      localStorage.setItem("font", font);
+    }
+
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -43,7 +52,11 @@ const LiveSupport = () => {
     if (messages.length > 0) {
       localStorage.setItem("messageHistory", JSON.stringify(messages));
     }
-  }, [messages]);
+
+    if (font) {
+      localStorage.setItem("font", font);
+    }
+  }, [messages, font]);
 
 
   const handleFont = (e) => {
