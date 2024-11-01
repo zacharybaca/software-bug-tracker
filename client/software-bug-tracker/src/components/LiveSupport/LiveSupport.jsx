@@ -10,9 +10,15 @@ const LiveSupport = () => {
   const [users, setUsers] = useState([]);
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
+  const [font, setFont] = useState("");
 
   const nodeEnv = import.meta.env.VITE_NODE_ENV;
   const user = JSON.parse(localStorage.getItem("user"))?.userID;
+
+  const handleFont = (e) => {
+    const { value } = e.target;
+    setFont(value);
+  };
 
   useEffect(() => {
     if (user) {
@@ -82,7 +88,7 @@ const LiveSupport = () => {
                 {moment(date).format("h:mm:ss a")}
               </div>
               <div className="user-id-container">{user.name} says:</div>
-              <div className="message-content">{text}</div>
+              <div className={font}>{text}</div>
             </div>
           ))}
         </div>
@@ -97,6 +103,21 @@ const LiveSupport = () => {
           </ul>
         </div>
       </div>
+      <div id="select-font-container">
+        <select
+          id="font"
+          name="font"
+          value={font}
+          onChange={handleFont}
+        >
+          <option value="">Select A Font To Style Your Message</option>
+          <option value="message-content">Default Style</option>
+          <option value="handwriting-font">Handwriting Style Font</option>
+          <option value="cursive-font">Cursive Style Font</option>
+          <option value="terminal-font">Terminal Style Font</option>
+          <option value="colorful-font">Colorful Style Font</option>
+        </select>
+      </div>
       <div id="form-container">
         <form onSubmit={submit} id="form">
           <div id="message-input-container">
@@ -106,6 +127,9 @@ const LiveSupport = () => {
               value={message}
               id="text"
               onChange={(e) => setMessage(e.currentTarget.value)}
+              size="100"
+              maxLength="100"
+              autoFocus
             />
             <button type="submit" id="submit-button">
               Send
