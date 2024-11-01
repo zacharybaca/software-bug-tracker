@@ -11,6 +11,7 @@ const LiveSupport = () => {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const [font, setFont] = useState("");
+  const [background, setBackground] = useState("");
 
   const nodeEnv = import.meta.env.VITE_NODE_ENV;
   const user = JSON.parse(localStorage.getItem("user"))?.userID;
@@ -22,6 +23,16 @@ const LiveSupport = () => {
       return JSON.parse(value);
     } catch {
       return [];
+    }
+  };
+
+  const clearMessages = () => {
+    if (localStorage.getItem("messageHistory")) {
+      localStorage.removeItem("messageHistory");
+      setMessages([]);
+    }
+    else {
+      return null;
     }
   };
 
@@ -126,15 +137,17 @@ const LiveSupport = () => {
       <h1 id="support-heading">Welcome to Live Support, {user}!</h1>
       <div id="chat-container">
         <div id="messages-container">
-          {messages.length > 0 ? messages.map(({ user, date, text }, index) => (
-            <div key={index} className="message-container">
-              <div className="message-time">
-                {moment(date).format("h:mm:ss a")}
-              </div>
-              <div className="user-id-container">{user.name} says:</div>
-              <div className={font}>{text}</div>
-            </div>
-          )) : ""}
+          {messages.length > 0
+            ? messages.map(({ user, date, text }, index) => (
+                <div key={index} className="message-container">
+                  <div className="message-time">
+                    {moment(date).format("h:mm:ss a")}
+                  </div>
+                  <div className="user-id-container">{user.name} says:</div>
+                  <div className={font}>{text}</div>
+                </div>
+              ))
+            : ""}
         </div>
         <div id="users-online-container">
           <h1 id="users-online-heading">Users Online</h1>
@@ -147,20 +160,35 @@ const LiveSupport = () => {
           </ul>
         </div>
       </div>
-      <div id="select-font-container">
-        <select
-          id="font"
-          name="font"
-          value={font}
-          onChange={handleFont}
-        >
-          <option value="">Select A Font To Style Your Message</option>
-          <option value="message-content">Default Style</option>
-          <option value="handwriting-font">Handwriting Style Font</option>
-          <option value="cursive-font">Cursive Style Font</option>
-          <option value="terminal-font">Terminal Style Font</option>
-          <option value="colorful-font">Colorful Style Font</option>
-        </select>
+      <div id="message-options-container">
+        <div id="select-font-container">
+          <select id="font" name="font" value={font} onChange={handleFont}>
+            <option value="">Select A Font To Style Your Message</option>
+            <option value="message-content">Default Style</option>
+            <option value="handwriting-font">Handwriting Style Font</option>
+            <option value="cursive-font">Cursive Style Font</option>
+            <option value="terminal-font">Terminal Style Font</option>
+            <option value="colorful-font">Colorful Style Font</option>
+          </select>
+        </div>
+        <div id="upload-form-image-container">
+          <form id="upload-image-container">
+            <label htmlFor="background">
+              Customize Chat Window With Your Own Background
+            </label>
+            <input
+              type="file"
+              id="background"
+              name="background"
+              value={background}
+              onChange={(e) => setBackground(e.currentTarget.value)}
+              accept="image/*"
+            />
+          </form>
+        </div>
+        <div id="clear-button-container">
+          <button type="button" id="clear-messages-button" onClick={clearMessages}disabled={messages.length === 0}>Clear Messages</button>
+        </div>
       </div>
       <div id="form-container">
         <form onSubmit={submit} id="form">
