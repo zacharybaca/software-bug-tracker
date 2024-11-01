@@ -15,6 +15,37 @@ const LiveSupport = () => {
   const nodeEnv = import.meta.env.VITE_NODE_ENV;
   const user = JSON.parse(localStorage.getItem("user"))?.userID;
 
+  // Function That Returns Parsed JSON
+  // Returns An Empty Array If Value is Un-Parsable
+  const parseJSON = (value) => {
+    try {
+      return JSON.parse(value);
+    } catch {
+      return [];
+    }
+  };
+
+  // Gets Saved Message History From Local Storage
+  // Creates Local Storage Item if One Doesn't Exist, Then Initiates it With State of Messages
+  useEffect(() => {
+    if (localStorage.getItem("messageHistory")) {
+      const savedMessages = parseJSON(localStorage.getItem("messageHistory"));
+      if (savedMessages.length > 0) {
+        setMessages(savedMessages);
+      }
+    } else if (messages.length > 0 && !localStorage.getItem("messageHistory")) {
+      localStorage.setItem("messageHistory", JSON.stringify(messages));
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    if (messages.length > 0) {
+      localStorage.setItem("messageHistory", JSON.stringify(messages));
+    }
+  }, [messages]);
+
+
   const handleFont = (e) => {
     const { value } = e.target;
     setFont(value);
@@ -82,7 +113,7 @@ const LiveSupport = () => {
       <h1 id="support-heading">Welcome to Live Support, {user}!</h1>
       <div id="chat-container">
         <div id="messages-container">
-          {messages.map(({ user, date, text }, index) => (
+          {messages.length > 0 ? messages.map(({ user, date, text }, index) => (
             <div key={index} className="message-container">
               <div className="message-time">
                 {moment(date).format("h:mm:ss a")}
@@ -90,7 +121,7 @@ const LiveSupport = () => {
               <div className="user-id-container">{user.name} says:</div>
               <div className={font}>{text}</div>
             </div>
-          ))}
+          )) : ""}
         </div>
         <div id="users-online-container">
           <h1 id="users-online-heading">Users Online</h1>
