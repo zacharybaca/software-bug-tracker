@@ -2,12 +2,12 @@
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
-    align-content: center;
+    justify-content: space-between;
+    align-content: space-evenly;
     box-sizing: border-box;
     min-width: fit-content;
     min-height: fit-content;
-    padding-left: 6%;
-    padding-right: 6%;
+    box-sizing: border-box;
 }
 
 #form-update-container {
@@ -25,10 +25,8 @@
     flex-wrap: nowrap;
     min-width: fit-content;
     box-sizing: border-box;
-    border-radius: 1px;
     padding-bottom: 1%;
-    min-height: fit-content;
-    border: 2px solid green;
+    min-height: 100%;
 }
 
 #access-code-container {
@@ -52,7 +50,6 @@
 }
 
 #close-update-button {
-    width: 40%;
     border-radius: 5px;
 }
 

@@ -1,8 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Protest+Guerrilla&display=swap');
 
-* {
-    box-sizing: border-box;
-}
+
 
 #app-container {
     display: flex;
@@ -10,8 +8,7 @@
     align-items: center;
     justify-content: space-around;
     box-sizing: border-box;
-    max-width: 100%;
-    min-height: 100vh;
+    min-height: 100%;
     background-image: url('./assets/signup-login-page-background.jpg');
     background-repeat: no-repeat;
     background-size: cover;
@@ -23,18 +20,21 @@
     text-align: center;
     align-items: center;
     gap: 20px;
-    min-width: 50%;
     padding-top: 2%;
     padding-bottom: 2%;
+    box-sizing: border-box;
 }
 
 #nav-button-container {
     display: flex;
-    justify-content: space-between;
-    gap: 4%;
-    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
     min-height: 8vh;
-    padding: 2%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    box-sizing: border-box;
 }
 
 #logo {
@@ -104,38 +104,43 @@
 }
 
 #logout-button {
-    width: 100%;
     border-radius: 5px;
     height: 11vh;
     background-color: #f5f5dc;
+    font-size: 1rem;
+    font-weight: 600;
 }
 
 #live-support-button {
-    width: 100%;
     border-radius: 5px;
     height: 11vh;
     background-color: #f5f5dc;
+    font-size: 1rem;
+    font-weight: 600;
 }
 
 #my-tasks-button {
-    width: 100%;
     border-radius: 5px;
     height: 11vh;
     background-color: #f5f5dc;
+    font-size: 1rem;
+    font-weight: 600;
 }
 
 #employee-directory-button {
-    width: 100%;
     border-radius: 5px;
     height: 11vh;
     background-color: #f5f5dc;
+    font-size: 1rem;
+    font-weight: 600;
 }
 
 #unassigned-tasks-button {
-    width: 100%;
     border-radius: 5px;
     height: 11vh;
     background-color: #f5f5dc;
+    font-size: 1rem;
+    font-weight: 600;
 }
 
 #logout-button:hover {
@@ -169,14 +174,20 @@
 }
 
 #add-employee-main-button {
-    width: 100%;
     height: 11vh;
     border-radius: 5px;
     background-color: #f5f5dc;
+    font-size: 1rem;
+    font-weight: 600;
 }
 
 #add-employee-main-button:hover {
     cursor: pointer;
     background-color: green;
     color: white;
+}
+
+#nav-button-container button {
+    min-width: 25%;
+    max-width: 25%;
 }

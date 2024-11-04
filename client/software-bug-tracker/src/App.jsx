@@ -66,7 +66,7 @@ function App() {
             ""
           )}
           {Object.keys(context.userState.user).length !== 0 && token ? (
-            <>
+            <div id="nav-main-container">
               <div id="nav-button-container">
                 <button type="button" id="logout-button" onClick={context.logout}>
                   Logout
@@ -93,15 +93,13 @@ function App() {
                 <button type="button" id="live-support-button" onClick={() => navigate("/messages")}>Connect With Other Employees</button>
                 
                 {context.hasAdminRights() && (
-                    <Link to="/add-employee">
-                      <button type="button" id="add-employee-main-button">
+                      <button type="button" id="add-employee-main-button" onClick={() => navigate("/add-employee")}>
                         Add Employee
                       </button>
-                    </Link>
                 )}
               </div>
                 <hr />
-            </>
+            </div>
           ) : (
             ""
           )}

@@ -46,3 +46,10 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+
+html {
+	cursor: pointer;
+	cursor: help;
+	cursor: progress;
+	cursor: url("./assets/cursor.png"), auto;
+}
