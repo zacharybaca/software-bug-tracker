@@ -184,30 +184,45 @@ function EmployeesContextProvider(props) {
         throw new Error("Employee Not Found");
       }
 
-      if (foundEmployee.accessCode !== accessToken) {
-        console.log("Access Code: ", foundEmployee.accessCode);
-        console.log("Access Token: ", accessToken);
-        throw new Error("Access Code is Incorrect. Please Try Again.");
+      if (foundEmployee.user.userID) {
+        const userDecision = prompt("An Account Has Already Been Created For This User. If You Would Like to Override The Existing Credentials With Updated Credentials, Please Enter 'Y' or 'Yes'.").toLowerCase();
+
+        if (userDecision !== 'y' || userDecision !== 'yes') {
+          return;
+        }
+        
+        if (foundEmployee.accessCode !== accessToken) {
+          console.log("Access Code: ", foundEmployee.accessCode);
+          console.log("Access Token: ", accessToken);
+          throw new Error("Access Code is Incorrect. Please Try Again.");
+        }
       }
+      else {
+        if (foundEmployee.accessCode !== accessToken) {
+          console.log("Access Code: ", foundEmployee.accessCode);
+          console.log("Access Token: ", accessToken);
+          throw new Error("Access Code is Incorrect. Please Try Again.");
+        }
 
-      const response = await fetch(`/api/employees/${employeeID}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(updatedEmployee),
-      });
+        const response = await fetch(`/api/employees/${employeeID}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(updatedEmployee),
+        });
 
-      if (!response.ok) {
-        throw new Error(`Failed to update employee: ${response.statusText}`);
+        if (!response.ok) {
+          throw new Error(`Failed to update employee: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        setEmployees((prevState) =>
+          prevState.map((employee) =>
+            employee._id !== employeeID ? employee : data
+          )
+        );
       }
-
-      const data = await response.json();
-      setEmployees((prevState) =>
-        prevState.map((employee) =>
-          employee._id !== employeeID ? employee : data
-        )
-      );
     } catch (error) {
       handleAuthErr(error.message);
     }

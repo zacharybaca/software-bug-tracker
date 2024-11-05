@@ -16,7 +16,8 @@
 #existing-user-button {
     height: 8vh;
     border-radius: 10px;
-    margin-top: 2%;
+    margin-top: 6%;
+    margin-bottom: 6%;
 }
 
 #existing-user-button:hover {
@@ -31,10 +32,14 @@
     color: #EAB581;
 }
 
-label, input, select {
+input, select {
     margin-bottom: 20%;
     padding: 5%;
+}
+
+label, ::placeholder {
     font-weight: 800;
+    font-size: 0.85rem;
 }
 
 #sign-up-form-button {
@@ -44,6 +49,16 @@ label, input, select {
 }
 
 #sign-up-form-button:hover {
+    cursor: pointer;
+    background-color: green;
+    color: white;
+}
+
+#avatar {
+    padding-left: 50%;
+}
+
+input[type="file"]:hover {
     cursor: pointer;
     background-color: green;
     color: white;

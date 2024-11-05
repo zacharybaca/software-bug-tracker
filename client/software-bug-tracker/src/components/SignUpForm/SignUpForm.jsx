@@ -17,6 +17,7 @@ function SignUpForm() {
         userID: "",
         password: "",
       },
+      avatar: "",
       generateAccessCode: "",
       accessCode: "",
       isAdmin: "",
@@ -95,6 +96,7 @@ function SignUpForm() {
           password: "",
           associatedEmployee: ""
         },
+        avatar: "",
         generateAccessCode: false,
         accessCode: "",
         isAdmin: false,
@@ -129,6 +131,8 @@ function SignUpForm() {
             </select>
             <label htmlFor="accessCode">Please Enter Access Code To Create An Account: </label>
             <input type="text" id="accessCode" name="accessCode" value={employee.accessCode} onChange={handleChange} aria-required="true" placeholder="Access Code"/>
+            <label htmlFor="avatar">Upload A Profile Image</label>
+            <input type="file" id="avatar" name="avatar" value={employee.avatar} onChange={handleChange} accept="image/*"/>
             <button type="submit" id="sign-up-form-button">Sign Up!</button>
         </form>
         <Link to='/'><button type="button" id="existing-user-button">Already A User? Click Here to Login</button></Link>

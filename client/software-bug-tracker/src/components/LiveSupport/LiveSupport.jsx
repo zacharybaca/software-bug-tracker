@@ -171,21 +171,6 @@ const LiveSupport = () => {
             <option value="colorful-font">Colorful Style Font</option>
           </select>
         </div>
-        <div id="upload-form-image-container">
-          <form id="upload-image-container">
-            <label htmlFor="background">
-              Customize Chat Window With Your Own Background
-            </label>
-            <input
-              type="file"
-              id="background"
-              name="background"
-              value={background}
-              onChange={(e) => setBackground(e.currentTarget.value)}
-              accept="image/*"
-            />
-          </form>
-        </div>
         <div id="clear-button-container">
           <button type="button" id="clear-messages-button" onClick={clearMessages}disabled={messages.length === 0}>Clear Messages</button>
         </div>
