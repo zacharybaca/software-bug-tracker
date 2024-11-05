@@ -40,6 +40,10 @@ const employeeSchema = new Schema({
       return !!this.user.userID; // Dynamically require accessCode if userID exists
     },
   },
+  avatar: {
+    type: String,
+    required: false
+  },
   generateAccessCode: {
     type: Boolean,
   },

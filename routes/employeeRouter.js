@@ -1,8 +1,25 @@
 const express = require("express");
 const employeeRouter = express.Router();
 const Employee = require("../models/employee.js");
+const fs = require('fs');
+const path = require('path');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+
+
+const multer = require('multer');
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'uploads')
+  },
+  filename: (req, file, cb) => {
+    const uniqueName = `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`;
+    cb(null, uniqueName);
+  }
+});
+
+const upload = multer({ storage: storage });
 
 employeeRouter
   .route("/")
@@ -29,7 +46,52 @@ employeeRouter
     }
   });
 
-  employeeRouter
+employeeRouter
+  .route("/upload/:id", upload.single("avatar"))
+  .post(async (req, res, next) => {
+    try {
+      const id = req.params.id;
+      const employee = await Employee.findById(id);
+
+      if (!employee) {
+        return res.status(404).send("Employee not found");
+      }
+
+      employee.avatar = req.file.filename;
+      await employee.save();
+
+      res
+        .status(200)
+        .send({
+          message: "Profile image uploaded successfully",
+          file: req.file,
+        });
+    } catch (error) {
+      res.status(500);
+      next(error);
+    }
+  })
+  .get(async (req, res, next) => {
+    try {
+      const id = req.params.id;
+      const employee = await Employee.findById(id);
+
+      if (!employee) {
+        return res.status(400).send("Employee Does Not Exist");
+      }
+
+      const employeeAvatarImage = {
+        ...employee.toObject(),
+        avatarUrl: employee.avatar ? `/uploads/${employee.avatar}` : null,
+      };
+      return res.status(200).send(employeeAvatarImage.avatarUrl);
+    } catch (error) {
+      res.status(500);
+      return next(error);
+    }
+  });
+
+employeeRouter
   .route("/:id")
   .put(async (req, res, next) => {
     try {

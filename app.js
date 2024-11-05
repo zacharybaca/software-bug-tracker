@@ -39,6 +39,9 @@ app.use(morgan('dev'));
 // Middleware That Will Serve Our Static Files
 app.use(express.static(path.join(__dirname, "client", "software-bug-tracker", "dist")));
 
+// Middleware That Will Serve Static Files from Uploads Folder
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 // Middleware That Will Help With Routing To The Appropriate Routes
 app.use('/api/main', expressjwt({secret: process.env.SECRET, algorithms: ['HS256']}));
 app.use("/api/main/tasks", require("./routes/taskRouter.js"));
