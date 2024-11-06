@@ -11,7 +11,11 @@ const multer = require('multer');
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'uploads')
+    const dir = 'uploads';
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir);
+    }
+    cb(null, dir);
   },
   filename: (req, file, cb) => {
     const uniqueName = `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`;
@@ -47,8 +51,8 @@ employeeRouter
   });
 
 employeeRouter
-  .route("/upload/:id", upload.single("avatar"))
-  .post(async (req, res, next) => {
+  .route("/upload/:id")
+  .post(upload.single("avatar"), async (req, res, next) => {
     try {
       const id = req.params.id;
       const employee = await Employee.findById(id);
@@ -57,15 +61,17 @@ employeeRouter
         return res.status(404).send("Employee not found");
       }
 
-      employee.avatar = req.file.filename;
-      await employee.save();
-
-      res
-        .status(200)
-        .send({
+      if (req.file) {
+        employee.avatar = req.file.filename;
+        await employee.save();
+        res.status(200).send({
           message: "Profile image uploaded successfully",
           file: req.file,
         });
+      }
+      else {
+        return res.status(400).send("No file uploaded");
+      }  
     } catch (error) {
       res.status(500);
       next(error);
