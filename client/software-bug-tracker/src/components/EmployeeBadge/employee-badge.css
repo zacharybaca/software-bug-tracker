@@ -43,7 +43,8 @@
     min-width: fit-content;
     min-height: fit-content;
     justify-content: center;
-    border: 2px solid black;
+    padding-top: 1%;
+    padding-bottom: 1%;
 }
 
 #profile-image img {

@@ -5,7 +5,7 @@ import React from 'react';
 
 const EmployeeBadge = (props) => {
     const [showForm, setShowForm] = React.useState(false);
-    
+    console.log('Avatar URL: ', props.avatarUrl);
     return (
       <>
         {!showForm ? (
