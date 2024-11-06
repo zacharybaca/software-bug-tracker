@@ -159,9 +159,10 @@ employeeRouter
   });
 
 employeeRouter.route('/employee/:id')
-  .put(async (req,res,next) => {
+  .put(upload.single("avatar"), async (req,res,next) => {
     try {
       const id = req.params.id;
+      const avatarPath = req.file ? `/uploads/${req.file.filename}` : null;
 
       // Check if username is being updated
       if (req.body.user && req.body.user.userID) {
@@ -186,9 +187,17 @@ employeeRouter.route('/employee/:id')
         req.body.accessCode = Math.floor(Math.random() * 5000) + 1;
       }
       
+      if (avatarPath) {
+        req.body.avatar = avatarPath;
+      }
+
       // Update the employee with the new details
       const employeeToBeUpdated = await Employee.findByIdAndUpdate(id, req.body, { new: true });
 
+      if (!employeeToBeUpdated) {
+        return res.status(404).json({ error: "Employee Not Found" });
+      }
+      
       // Send back the updated employee data
       return res.status(201).send(employeeToBeUpdated);
 
