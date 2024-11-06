@@ -1,5 +1,6 @@
 import './employee-badge.css';
 import EmployeeForm from '../EmployeeForm/EmployeeForm';
+import DefaultPic from '../../../../../uploads/default-profile-pic.jpg';
 import React from 'react';
 
 const EmployeeBadge = (props) => {
@@ -18,6 +19,19 @@ const EmployeeBadge = (props) => {
                 Badge:
               </header>
               <div id="badge-container">
+                <div id="profile-image">
+                  {props.avatar ? (
+                    <img
+                      src={props.avatarUrl}
+                      alt="User avatar"
+                    />
+                  ) : (
+                    <img
+                      src={DefaultPic}
+                      alt="Default avatar"
+                    />
+                  )}
+                </div>
                 <div id="badge-name-container">
                   <p>
                     <span className="label">Name:</span> {props.firstName}{" "}
@@ -57,7 +71,9 @@ const EmployeeBadge = (props) => {
                   <button
                     type="button"
                     id="remove-employee-button"
-                    onClick={() => props.unAssignTasksForDeletedEmployee(props.employeeID)}>
+                    onClick={() =>
+                      props.unAssignTasksForDeletedEmployee(props.employeeID)
+                    }>
                     Remove Employee
                   </button>
                   <button
@@ -90,6 +106,8 @@ const EmployeeBadge = (props) => {
                 userID={props.userID}
                 password={props.password}
                 isAdmin={props.isAdmin}
+                avatar={props.avatar}
+                avatarUrl={props.avatarUrl}
                 accessCode={props.accessCode}
                 toggleForm={setShowForm}
                 submitEmployee={props.updateEmployeeProfile}

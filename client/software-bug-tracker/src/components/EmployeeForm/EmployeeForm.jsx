@@ -13,6 +13,7 @@ function EmployeeForm(props) {
       userID: props.userID || "",
       password: props.password || "",
     },
+    avatar: props.avatar || "",
     generateAccessCode: false,
     accessCode: props.accessCode || "",
     isAdmin: props.roleAtCompany === 'manager',
@@ -131,6 +132,18 @@ function EmployeeForm(props) {
         <div id="access-code-container">
           {context.userState.accessCode ? <p>Access Code: {context.userState.accessCode}</p> : ""}
         </div>
+        {employee.user.userID ? 
+          <div id="avatar-or-upload-container">
+            {employee.avatar ? 
+              <div id="avatar-pic">
+                <h1>Avatar</h1>
+              </div>
+              :
+              <div id="upload-container">
+              <label htmlFor="avatar">Upload A Profile Image</label><input type="file" id="avatar" name="avatar" value={employee.avatar} onChange={handleChange} accept="image/*" />
+              </div>
+            }
+          </div> : null}
         <button type="submit" id="add-employee-button">
           {props.bttnText || "Add Employee"}
         </button>

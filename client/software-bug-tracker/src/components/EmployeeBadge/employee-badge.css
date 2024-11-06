@@ -37,6 +37,20 @@
     justify-content: center;
 }
 
+#profile-image {
+    display: flex;
+    flex-wrap: wrap;
+    min-width: fit-content;
+    min-height: fit-content;
+    justify-content: center;
+    border: 2px solid black;
+}
+
+#profile-image img {
+    width: 200px;
+    height: 200px;
+}
+
 #form-and-button-container {
     display: flex;
     flex-direction: column;

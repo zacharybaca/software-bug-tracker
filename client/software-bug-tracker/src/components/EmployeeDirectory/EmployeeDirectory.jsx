@@ -25,6 +25,7 @@ const EmployeeDirectory = () => {
               associatedEmployee={employee._id}
               isAdmin={employee.isAdmin}
               accessCode={employee.accessCode}
+              avatar={employee.avatar}
               avatarUrl={`/uploads/${employee.avatar}`}
               updateEmployeeProfile={context.updateEmployee}
               deleteEmployee={context.deleteEmployee}

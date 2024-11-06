@@ -13,9 +13,21 @@
     border: 2px solid black;
 }
 
-label, input, select {
+input, select {
     margin-bottom: 20%;
     padding: 5%;
+}
+
+#upload-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#avatar-pic {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 #add-employee-button {
