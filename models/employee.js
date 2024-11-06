@@ -29,9 +29,7 @@ const employeeSchema = new Schema({
     },
     associatedEmployee: {
       type: String,
-      required: function () {
-        return !!this.user.userID && !!this.user.password
-      }
+      required: false
     }
   },
   accessCode: {
