@@ -28,10 +28,10 @@ function EmployeeForm(props) {
       if (employee.avatar) { // Only send request if there's a file to upload
         const formData = new FormData();
         formData.append('avatar', employee.avatar); // Assuming avatar is a file
-  
+        console.log('Form Data: ', formData);
         try {
-          const response = await fetch(`/api/employees/upload/${props.employeeID}`, {
-            method: "POST",
+          const response = await fetch(`/api/employees/employee/${props.employeeID}`, {
+            method: "PUT",
             body: formData,
           });
   
@@ -177,7 +177,7 @@ function EmployeeForm(props) {
         <div id="avatar-or-upload-container">
           {employee.avatar ? (
             <div id="avatar-pic">
-              <h1>Avatar Placeholder</h1>
+              <img src={`/uploads/${employee.avatar}`} />
             </div>
           ) : (
             <div id="upload-container">
