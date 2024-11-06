@@ -88,7 +88,7 @@ employeeRouter
 
       const employeeAvatarImage = {
         ...employee.toObject(),
-        avatarUrl: employee.avatar ? `/uploads/${employee.avatar}` : null,
+        avatarUrl: employee.avatar ? `/uploads/avatar-${employee.avatar}` : null,
       };
       return res.status(200).send(employeeAvatarImage.avatarUrl);
     } catch (error) {
