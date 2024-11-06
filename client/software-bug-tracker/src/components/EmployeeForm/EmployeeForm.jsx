@@ -13,6 +13,7 @@ function EmployeeForm(props) {
     user: {
       userID: props.userID || "",
       password: props.password || "",
+      associatedEmployee: props.associatedEmployee || ""
     },
     avatar: props.avatar || "",
     generateAccessCode: false,
@@ -24,48 +25,65 @@ function EmployeeForm(props) {
 
   React.useEffect(() => {
     const fetchData = async () => {
-      try {
-        const response = await fetch(
-          `/api/employees/upload/${props.employeeID}`
-        );
-        // Handle the response data here if necessary
-      } catch (error) {
-        console.error("Error fetching employee data:", error);
+      if (employee.avatar) { // Only send request if there's a file to upload
+        const formData = new FormData();
+        formData.append('avatar', employee.avatar); // Assuming avatar is a file
+  
+        try {
+          const response = await fetch(`/api/employees/upload/${props.employeeID}`, {
+            method: "POST",
+            body: formData,
+          });
+  
+          if (!response.ok) {
+            throw new Error("Unable to upload file");
+          }
+  
+          const data = await response.json();
+          setEmployee((prevState) => ({
+            ...prevState,
+            avatar: data.file.filename, // Update state with uploaded file's name
+          }));
+        } catch (error) {
+          console.error("Error uploading file:", error);
+        }
       }
     };
-
+  
     fetchData();
-  }, [props.employeeID]); // Add props.employeeID to the dependency array
+  }, [props.employeeID, employee.avatar]); // Re-run if employee.avatar changes
+  
 
   function handleChange(e) {
-    const { name, value, type, checked } = e.target;
-
-    // If the role is "manager", set the employee as an admin
-    if (name === "roleAtCompany" && value === "manager") {
+    const { name, value, type, checked, files } = e.target;
+  
+    if (type === "file" && files.length > 0) {
+      setEmployee((prevState) => ({
+        ...prevState,
+        [name]: files[0], // Directly store the file object
+      }));
+    } else if (name === "roleAtCompany" && value === "manager") {
       setEmployee((prevState) => ({
         ...prevState,
         roleAtCompany: value,
         isAdmin: true,
       }));
-    }
-    // Check if name belongs to the user object (like userID or password)
-    else if (name === "userID" || name === "password") {
+    } else if (name === "userID" || name === "password") {
       setEmployee((prevState) => ({
         ...prevState,
         user: {
           ...prevState.user,
-          [name]: value, // Update the user field (userID or password)
+          [name]: value,
         },
       }));
-    }
-    // Handle other input fields
-    else {
+    } else {
       setEmployee((prevState) => ({
         ...prevState,
         [name]: type === "checkbox" ? checked : value,
       }));
     }
   }
+  
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -168,7 +186,6 @@ function EmployeeForm(props) {
                 type="file"
                 id="avatar"
                 name="avatar"
-                value={employee.avatar}
                 onChange={handleChange}
                 accept="image/*"
               />
