@@ -24,36 +24,39 @@ function SignUpForm() {
     });
 
     function handleChange(e) {
-      const { name, value, type, checked } = e.target;
-      
-        if (name === "roleAtCompany" && value === "manager") {
-          setEmployee((prevState) => ({
-            ...prevState,
-            isAdmin: true,
-          }));
-        }
-        else if (name === "roleAtCompany") {
-          setEmployee((prevState) => ({
-            ...prevState,
-            isAdmin: false
-          }));
-        }
-
-        if (name === "userID" || name === "password") {
-          setEmployee((prevState) => ({
-            ...prevState,
-            user: {
-              ...prevState.user,
-              [name]: type === "checkbox" ? checked : value,
-            },
-          }));
-        } else {
-          setEmployee((prevState) => ({
-            ...prevState,
-            [name]: type === "checkbox" ? checked : value,
-          }));
-        }
+      const { name, value, type, checked, files } = e.target;
+    
+      if (type === "file" && files.length > 0) {
+        setEmployee((prevState) => ({
+          ...prevState,
+          [name]: files[0], // Store the file object directly
+        }));
+      } else if (name === "roleAtCompany" && value === "manager") {
+        setEmployee((prevState) => ({
+          ...prevState,
+          isAdmin: true,
+        }));
+      } else if (name === "roleAtCompany") {
+        setEmployee((prevState) => ({
+          ...prevState,
+          isAdmin: false,
+        }));
+      } else if (name === "userID" || name === "password") {
+        setEmployee((prevState) => ({
+          ...prevState,
+          user: {
+            ...prevState.user,
+            [name]: value,
+          },
+        }));
+      } else {
+        setEmployee((prevState) => ({
+          ...prevState,
+          [name]: type === "checkbox" ? checked : value,
+        }));
+      }
     }
+    
      
      function removeEmptyFields(obj) {
        const cleanedObj = {};
@@ -94,7 +97,7 @@ function SignUpForm() {
         user: {
           userID: "",
           password: "",
-          associatedEmployee: ""
+          associatedEmployee: null
         },
         avatar: "",
         generateAccessCode: false,
@@ -132,7 +135,7 @@ function SignUpForm() {
             <label htmlFor="accessCode">Please Enter Access Code To Create An Account: </label>
             <input type="text" id="accessCode" name="accessCode" value={employee.accessCode} onChange={handleChange} aria-required="true" placeholder="Access Code"/>
             <label htmlFor="avatar">Upload A Profile Image</label>
-            <input type="file" id="avatar" name="avatar" value={employee.avatar} onChange={handleChange} accept="image/*"/>
+            <input type="file" id="avatar" name="avatar" onChange={handleChange} accept="image/*"/>
             <button type="submit" id="sign-up-form-button">Sign Up!</button>
         </form>
         <Link to='/'><button type="button" id="existing-user-button">Already A User? Click Here to Login</button></Link>
