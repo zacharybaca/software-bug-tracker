@@ -247,21 +247,58 @@ function EmployeesContextProvider(props) {
     }
   };
 
-  const createLoginAccount = (loginData, employeeID, accessToken) => {
-    const foundEmployee = employees.find(
-      (employee) => employee._id === employeeID
-    );
-
-    if (foundEmployee) {
-      if (foundEmployee.accessCode === accessToken) {
-        assignEmployeeCredentials(loginData, foundEmployee._id, accessToken);
-      } else {
+  const createLoginAccount = async (loginData, employeeID, accessToken) => {
+    try {
+      const foundEmployee = employees.find(
+        (employee) => employee._id === employeeID
+      );
+  
+      if (!foundEmployee) {
+        throw new Error("Employee ID Does Not Exist");
+      }
+  
+      if (foundEmployee.accessCode !== accessToken) {
         throw new Error("Access Code is Incorrect. Please Try Again.");
       }
-    } else {
-      throw new Error("Employee ID Does Not Exist");
+  
+      // Prepare FormData to include the file and other data
+      const formData = new FormData();
+      Object.keys(loginData).forEach((key) => {
+        if (key === "avatar" && loginData.avatar) {
+          // Append the file if it exists
+          formData.append(key, loginData.avatar);
+        } else if (typeof loginData[key] === "object" && loginData[key] !== null) {
+          Object.keys(loginData[key]).forEach((subKey) => {
+            formData.append(`${key}.${subKey}`, loginData[key][subKey]);
+          });
+        } else {
+          formData.append(key, loginData[key]);
+        }
+      });
+  
+      const response = await fetch(`/api/employees/${employeeID}`, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${getToken()}`, // Only set Authorization, FormData manages Content-Type
+        },
+        body: formData, // Send FormData instead of JSON
+      });
+  
+      if (!response.ok) {
+        throw new Error(`Failed to update employee: ${response.statusText}`);
+      }
+  
+      const data = await response.json();
+      setEmployees((prevState) =>
+        prevState.map((employee) =>
+          employee._id !== employeeID ? employee : data
+        )
+      );
+    } catch (error) {
+      handleAuthErr(error.message);
     }
   };
+  
 
   useEffect(() => {
     const getEmployees = async () => {
