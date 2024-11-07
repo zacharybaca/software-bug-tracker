@@ -79,7 +79,9 @@
 }
 
 .user-id-container {
-    padding-right: 0.5%;
+    display: flex;
+    gap: 25px;
+    padding-right: 3%;
 }
 
 .message-content {
@@ -224,4 +226,18 @@
     font-variation-settings:
         "MORF" 15,
         "SHLN" 50;
+}
+
+#profile-thumbnail {
+    display: flex;
+}
+
+#username-container {
+    display: flex;
+}
+
+#profile-thumbnail img {
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
 }
