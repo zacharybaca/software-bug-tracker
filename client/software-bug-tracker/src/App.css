@@ -195,4 +195,6 @@
 #main-profile-pic img {
     width: 200px;
     height: 200px;
+    animation-duration: 5s;
+    animation-name: slidein;
 }
