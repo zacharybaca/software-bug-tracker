@@ -23,6 +23,7 @@ function App() {
   const [loading,setLoading] = React.useState(true);
   const loader = document.getElementById('gear-loader');
   const navigate = useNavigate();
+  const loggedInEmployee = context.getLoggedInEmployee();
 
   if (loader) {
     setTimeout(() => {
@@ -30,7 +31,7 @@ function App() {
       setLoading(false);
     }, 3000)
   }
-
+  console.log('Avatar: ', context);
   return (
     !loading && (
       <div id="app-container">
@@ -39,6 +40,9 @@ function App() {
           <h1 id="application-title-heading">Issue Insight</h1>
           {Object.keys(context.userState.user).length !== 0 && token ? (
             <>
+              <div id="main-profile-pic">
+                <img src={loggedInEmployee.avatar || "/uploads/default-profile-pic.jpg"} alt="profile pic" />
+              </div>
               <h2 id="user-welcome-heading">
                 Welcome {context.findName(context.userState.user.userID)}
               </h2>
