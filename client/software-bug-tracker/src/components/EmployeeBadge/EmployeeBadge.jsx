@@ -20,7 +20,7 @@ const EmployeeBadge = (props) => {
               <div id="badge-container">
                 <div id="profile-image">
                   <img
-                    src={props.avatar}
+                    src={props.avatar || "/uploads/default-profile-pic.jpg"}
                     alt="profile pic"
                   />
                 </div>
@@ -37,7 +37,7 @@ const EmployeeBadge = (props) => {
                   </p>
                   <p>
                     <span className="label">Position:</span>{" "}
-                    {props.roleAtCompany.charAt(0).toUpperCase() +
+                    {props.roleAtCompany && props.roleAtCompany.charAt(0).toUpperCase() +
                       props.roleAtCompany.slice(1)}
                   </p>
                 </div>
