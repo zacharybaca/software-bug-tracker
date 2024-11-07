@@ -1,9 +1,10 @@
 /* eslint-disable no-unused-vars */
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState, useContext } from "react";
 import "./live-support.css";
 import io from "socket.io-client";
 import moment from "moment";
 import { Navigate } from "react-router-dom";
+import { EmployeesContext } from "../../context/employeesContext";
 
 const LiveSupport = () => {
   const socketRef = useRef(null);
@@ -11,10 +12,11 @@ const LiveSupport = () => {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const [font, setFont] = useState("");
-  const [background, setBackground] = useState("");
 
+  const context = useContext(EmployeesContext);
   const nodeEnv = import.meta.env.VITE_NODE_ENV;
   const user = JSON.parse(localStorage.getItem("user"))?.userID;
+  const loggedInEmployee = context.getLoggedInEmployee();
 
   // Function That Returns Parsed JSON
   // Returns An Empty Array If Value is Un-Parsable
@@ -143,7 +145,14 @@ const LiveSupport = () => {
                   <div className="message-time">
                     {moment(date).format("h:mm:ss a")}
                   </div>
-                  <div className="user-id-container">{user.name} says:</div>
+                  <div className="user-id-container">
+                    <div id="profile-thumbnail">
+                      <img src={loggedInEmployee.avatar} alt="profile pic" />
+                    </div>
+                    <div id="username-container">
+                      {user.name} says:
+                    </div>
+                  </div>
                   <div className={font}>{text}</div>
                 </div>
               ))
