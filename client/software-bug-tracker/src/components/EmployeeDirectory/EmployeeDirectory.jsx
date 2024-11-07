@@ -26,7 +26,7 @@ const EmployeeDirectory = () => {
               isAdmin={employee.isAdmin}
               accessCode={employee.accessCode}
               avatar={employee.avatar}
-              avatarUrl={`/uploads/${employee.avatar}`}
+              avatarUrl={employee.avatar}
               updateEmployeeProfile={context.updateEmployee}
               deleteEmployee={context.deleteEmployee}
               unAssignTasksForDeletedEmployee={taskContext.unAssignTasksForDeletedEmployee}

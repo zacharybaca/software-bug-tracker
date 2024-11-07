@@ -146,7 +146,7 @@ function EmployeesContextProvider(props) {
   const updateEmployee = async (updatedEmployee, employeeID) => {
     try {
       const token = getToken();
-      const response = await fetch(`/api/employees/employee/${employeeID}`, {
+      const response = await fetch(`/api/employees/${employeeID}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

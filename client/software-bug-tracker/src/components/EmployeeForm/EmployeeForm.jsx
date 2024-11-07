@@ -20,7 +20,7 @@ function EmployeeForm(props) {
     accessCode: props.accessCode || "",
     isAdmin: props.roleAtCompany === "manager",
   };
-
+  
   const [employee, setEmployee] = React.useState(initialValues);
 
   React.useEffect(() => {
@@ -177,7 +177,7 @@ function EmployeeForm(props) {
         <div id="avatar-or-upload-container">
           {employee.avatar ? (
             <div id="avatar-pic">
-              <img src={`/uploads/${employee.avatar}`} />
+              <img src={props.avatarUrl} />
             </div>
           ) : (
             <div id="upload-container">

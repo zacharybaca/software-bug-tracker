@@ -1,11 +1,10 @@
 import './employee-badge.css';
 import EmployeeForm from '../EmployeeForm/EmployeeForm';
-import DefaultPic from '../../../../../uploads/default-profile-pic.jpg';
 import React from 'react';
 
 const EmployeeBadge = (props) => {
     const [showForm, setShowForm] = React.useState(false);
-    console.log('Avatar URL: ', props.avatarUrl);
+    
     return (
       <>
         {!showForm ? (
@@ -20,17 +19,10 @@ const EmployeeBadge = (props) => {
               </header>
               <div id="badge-container">
                 <div id="profile-image">
-                  {props.avatar ? (
-                    <img
-                      src={props.avatarUrl}
-                      alt="User avatar"
-                    />
-                  ) : (
-                    <img
-                      src={DefaultPic}
-                      alt="Default avatar"
-                    />
-                  )}
+                  <img
+                    src={props.avatar}
+                    alt="profile pic"
+                  />
                 </div>
                 <div id="badge-name-container">
                   <p>
@@ -107,7 +99,7 @@ const EmployeeBadge = (props) => {
                 password={props.password}
                 isAdmin={props.isAdmin}
                 avatar={props.avatar}
-                avatarUrl={props.avatarUrl}
+                avatarUrl={props.avatar}
                 accessCode={props.accessCode}
                 toggleForm={setShowForm}
                 submitEmployee={props.updateEmployeeProfile}
