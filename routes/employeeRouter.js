@@ -36,9 +36,17 @@ employeeRouter
       return next(error);
     }
   })
-  .post(async (req, res, next) => {
+  .post(upload.single("avatar"), async (req, res, next) => {
     try {
       const newEmployee = new Employee(req.body);
+      const avatar = req.file
+        ? `/uploads/${req.file.filename}`
+        : "/uploads/default-avatar.jpg";
+
+      if (avatar) {
+        newEmployee.avatar = avatar;
+      }
+
       if (newEmployee.generateAccessCode) {
         newEmployee.accessCode = Math.floor(Math.random() * 5000) + 1;
       }
@@ -51,32 +59,7 @@ employeeRouter
   });
 
 employeeRouter
-  .route("/upload/:id")
-  .post(upload.single("avatar"), async (req, res, next) => {
-    try {
-      const id = req.params.id;
-      const employee = await Employee.findById(id);
-
-      if (!employee) {
-        return res.status(404).send("Employee not found");
-      }
-
-      if (req.file) {
-        employee.avatar = req.file.filename;
-        await employee.save();
-        res.status(200).send({
-          message: "Profile image uploaded successfully",
-          file: req.file,
-        });
-      }
-      else {
-        return res.status(400).send("No file uploaded");
-      }  
-    } catch (error) {
-      res.status(500);
-      next(error);
-    }
-  })
+  .route("/:id")
   .get(async (req, res, next) => {
     try {
       const id = req.params.id;
@@ -86,22 +69,18 @@ employeeRouter
         return res.status(400).send("Employee Does Not Exist");
       }
 
-      const employeeAvatarImage = {
-        ...employee.toObject(),
-        avatarUrl: employee.avatar ? `/uploads/avatar-${employee.avatar}` : null,
-      };
-      return res.status(200).send(employeeAvatarImage.avatarUrl);
+      return res.status(200).send(employee);
     } catch (error) {
       res.status(500);
       return next(error);
     }
-  });
-
-employeeRouter
-  .route("/:id")
-  .put(async (req, res, next) => {
+  })
+  .put(upload.single("avatar"), async (req, res, next) => {
     try {
       const id = req.params.id;
+      const avatar = req.file
+        ? `/uploads/${req.file.filename}`
+        : "/uploads/default-avatar.jpg";
 
       // Get the current employee
       const currentEmployee = await Employee.findById(id);
@@ -112,12 +91,14 @@ employeeRouter
 
       // Check if the username is being updated
       if (req.body.user && req.body.user.userID) {
-        const existingEmployee = await Employee.findOne({ "user.userID": req.body.user.userID });
-        
+        const existingEmployee = await Employee.findOne({
+          "user.userID": req.body.user.userID,
+        });
+
         // If another employee has the same userID, and it's not the current employee, throw an error
         if (existingEmployee && existingEmployee._id.toString() !== id) {
           res.status(403);
-          return next(new Error('Username has already been taken'));
+          return next(new Error("Username has already been taken"));
         }
       }
 
@@ -128,18 +109,40 @@ employeeRouter
         req.body.user.password = hashedPassword; // Replace the plain text password with the hash
       }
 
+      // Check if the accessCode is being reissued
+      if (req.body.generateAccessCode && req.body.accessCode) {
+        req.body.accessCode = Math.floor(Math.random() * 5000) + 1;
+      }
+
+      if (avatar) {
+        req.body.avatar = avatar;
+      }
+
       // Update the employee with the new details
-      const employeeToBeUpdated = await Employee.findByIdAndUpdate(id, req.body, { new: true });
+      const employeeToBeUpdated = await Employee.findByIdAndUpdate(
+        id,
+        req.body,
+        { new: true }
+      );
+
+      if (!employeeToBeUpdated) {
+        return res.status(404).json({ error: "Employee Not Found" });
+      }
 
       const token = jwt.sign(
-        { _id: employeeToBeUpdated._id, userID: employeeToBeUpdated.user.userID },
+        {
+          _id: employeeToBeUpdated._id,
+          userID: employeeToBeUpdated.user.userID,
+        },
         process.env.SECRET
       );
       return res.status(201).send({
-        user: { _id: employeeToBeUpdated._id, userID: employeeToBeUpdated.user.userID },
+        user: {
+          _id: employeeToBeUpdated._id,
+          userID: employeeToBeUpdated.user.userID,
+        },
         token,
       });
-
     } catch (error) {
       res.status(500);
       return next(error);
@@ -157,56 +160,6 @@ employeeRouter
       return next(error);
     }
   });
-
-employeeRouter.route('/employee/:id')
-  .put(upload.single("avatar"), async (req,res,next) => {
-    try {
-      const id = req.params.id;
-      const avatarPath = req.file ? `/uploads/${req.file.filename}` : null;
-
-      // Check if username is being updated
-      if (req.body.user && req.body.user.userID) {
-        const existingEmployee = await Employee.findOne({ "user.userID": req.body.user.userID });
-        
-        // If another employee has the same userID, throw an error
-        if (existingEmployee && existingEmployee._id.toString() !== id) {
-          res.status(403);
-          return next(new Error('Username has already been taken'));
-        }
-      }
-
-      // Check if the password is being updated
-      if (req.body.user && req.body.user.password) {
-        // Hash the new password before updating
-        const hashedPassword = await bcrypt.hash(req.body.user.password, 10);
-        req.body.user.password = hashedPassword; // Replace plain text password with the hash
-      }
-
-      // Check if the accessCode is being reissued
-      if (req.body.generateAccessCode && req.body.accessCode) {
-        req.body.accessCode = Math.floor(Math.random() * 5000) + 1;
-      }
-      
-      if (avatarPath) {
-        req.body.avatar = avatarPath;
-      }
-
-      // Update the employee with the new details
-      const employeeToBeUpdated = await Employee.findByIdAndUpdate(id, req.body, { new: true });
-
-      if (!employeeToBeUpdated) {
-        return res.status(404).json({ error: "Employee Not Found" });
-      }
-      
-      // Send back the updated employee data
-      return res.status(201).send(employeeToBeUpdated);
-
-    } catch (error) {
-      res.status(500);
-      return next(error);
-    }
-    
-  })
 
 employeeRouter.route('/login')
   .post(async (req,res,next) => {

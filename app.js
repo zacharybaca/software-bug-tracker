@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const path = require("path");
+const cors = require("cors");
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 require("dotenv").config({ path: `.env.${process.env.NODE_ENV}` });
@@ -29,6 +30,17 @@ else {
 
 const users = {};
 
+
+app.use(
+  cors({
+    origin:
+      process.env.NODE_ENV === "production"
+        ? "https://software-bug-tracker.onrender.com"
+        : "http://localhost:5173",
+    methods: ["GET", "POST"],
+    credentials: true,
+  })
+);
 
 // Middleware For Reading Requests From Body
 app.use(express.json());
