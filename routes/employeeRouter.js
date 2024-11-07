@@ -41,7 +41,7 @@ employeeRouter
       const newEmployee = new Employee(req.body);
       const avatar = req.file
         ? `/uploads/${req.file.filename}`
-        : "/uploads/default-avatar.jpg";
+        : "/uploads/default-profile-pic.jpg";
 
       if (avatar) {
         newEmployee.avatar = avatar;
