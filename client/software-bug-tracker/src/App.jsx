@@ -31,7 +31,7 @@ function App() {
       setLoading(false);
     }, 3000)
   }
-  console.log('Avatar: ', context);
+  
   return (
     !loading && (
       <div id="app-container">
