@@ -180,7 +180,10 @@ function EmployeeForm(props) {
               <div id="avatar-pic">
                 <img src={props.avatarUrl} />
               </div>
-            ) : null}
+            ) : (
+                <div id="avatar-pic">
+                  <img src="/uploads/default-profile-pic.jpg" />
+                </div>)}
           </div>
           <div id="upload-container">
             {props.avatarUrl ? (
