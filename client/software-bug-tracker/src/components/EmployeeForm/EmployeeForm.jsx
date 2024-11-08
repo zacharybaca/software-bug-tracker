@@ -174,23 +174,28 @@ function EmployeeForm(props) {
         )}
       </div>
       {employee.user.userID ? (
-        <div id="avatar-or-upload-container">
-          {employee.avatar ? (
-            <div id="avatar-pic">
-              <img src={props.avatarUrl} />
-            </div>
-          ) : (
-            <div id="upload-container">
+        <div id="profile-pic-and-upload-container">
+          <div id="avatar-or-upload-container">
+            {employee.avatar ? (
+              <div id="avatar-pic">
+                <img src={props.avatarUrl} />
+              </div>
+            ) : null}
+          </div>
+          <div id="upload-container">
+            {props.avatarUrl ? (
+              <label htmlFor="avatar">Update Your Profile Image</label>
+            ) : (
               <label htmlFor="avatar">Upload A Profile Image</label>
-              <input
-                type="file"
-                id="avatar"
-                name="avatar"
-                onChange={handleChange}
-                accept="image/*"
-              />
-            </div>
-          )}
+            )}
+            <input
+              type="file"
+              id="avatar"
+              name="avatar"
+              onChange={handleChange}
+              accept="image/*"
+            />
+          </div>
         </div>
       ) : null}
       <button type="submit" id="add-employee-button">

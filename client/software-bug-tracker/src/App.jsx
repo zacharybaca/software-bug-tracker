@@ -71,6 +71,7 @@ function App() {
           )}
           {Object.keys(context.userState.user).length !== 0 && token ? (
             <div id="nav-main-container">
+              <hr />
               <div id="nav-button-container">
                 <button type="button" id="logout-button" onClick={context.logout}>
                   Logout
