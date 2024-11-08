@@ -97,7 +97,7 @@ function SignUpForm() {
         user: {
           userID: "",
           password: "",
-          associatedEmployee: null
+          associatedEmployee: ""
         },
         avatar: "",
         generateAccessCode: false,
