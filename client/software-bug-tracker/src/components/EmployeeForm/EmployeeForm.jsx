@@ -15,7 +15,7 @@ function EmployeeForm(props) {
       password: props.password || "",
       associatedEmployee: props.associatedEmployee || ""
     },
-    avatar: props.avatar || "",
+    avatar: props.avatar || "/uploads/default-profile-pic.jpg",
     generateAccessCode: false,
     accessCode: props.accessCode || "",
     isAdmin: props.roleAtCompany === "manager",
@@ -28,7 +28,6 @@ function EmployeeForm(props) {
       if (employee.avatar) { // Only send request if there's a file to upload
         const formData = new FormData();
         formData.append('avatar', employee.avatar); // Assuming avatar is a file
-        console.log('Form Data: ', formData);
         try {
           const response = await fetch(`/api/employees/employee/${props.employeeID}`, {
             method: "PUT",
@@ -40,6 +39,7 @@ function EmployeeForm(props) {
           }
   
           const data = await response.json();
+          console.log('Data: ', data);
           setEmployee((prevState) => ({
             ...prevState,
             avatar: data.file.filename, // Update state with uploaded file's name
