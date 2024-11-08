@@ -260,7 +260,7 @@ function EmployeesContextProvider(props) {
       if (foundEmployee.accessCode !== accessToken) {
         throw new Error("Access Code is Incorrect. Please Try Again.");
       }
-  
+      console.log('Login Data: ', loginData);
       // Prepare FormData to include the file and other data
       const formData = new FormData();
       Object.keys(loginData).forEach((key) => {
@@ -275,12 +275,12 @@ function EmployeesContextProvider(props) {
           formData.append(key, loginData[key]);
         }
       });
-  
+      
+      for (const pair of formData.entries()) {
+        console.log(`${pair[0]}: ${pair[1]}`);
+      }
       const response = await fetch(`/api/employees/${employeeID}`, {
         method: "PUT",
-        headers: {
-          Authorization: `Bearer ${getToken()}`, // Only set Authorization, FormData manages Content-Type
-        },
         body: formData, // Send FormData instead of JSON
       });
   
@@ -289,6 +289,7 @@ function EmployeesContextProvider(props) {
       }
   
       const data = await response.json();
+      console.log('Data: ', data);
       setEmployees((prevState) =>
         prevState.map((employee) =>
           employee._id !== employeeID ? employee : data
