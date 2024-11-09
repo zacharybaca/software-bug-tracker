@@ -5,6 +5,9 @@ import io from "socket.io-client";
 import moment from "moment";
 import { Navigate } from "react-router-dom";
 import { EmployeesContext } from "../../context/employeesContext";
+import SpeechBubble from '../../assets/speech-bubble.png';
+import SettingsLogo from '../../assets/settings.png';
+
 
 const LiveSupport = () => {
   const socketRef = useRef(null);
@@ -149,9 +152,7 @@ const LiveSupport = () => {
                     <div id="profile-thumbnail">
                       <img src={loggedInEmployee.avatar} alt="profile pic" />
                     </div>
-                    <div id="username-container">
-                      {user.name} says:
-                    </div>
+                    <div id="username-container">{user.name} says:</div>
                   </div>
                   <div className={font}>{text}</div>
                 </div>
@@ -171,6 +172,7 @@ const LiveSupport = () => {
       </div>
       <div id="message-options-container">
         <div id="select-font-container">
+          <img src={SettingsLogo} alt="settings logo" />
           <select id="font" name="font" value={font} onChange={handleFont}>
             <option value="">Select A Font To Style Your Message</option>
             <option value="message-content">Default Style</option>
@@ -181,7 +183,14 @@ const LiveSupport = () => {
           </select>
         </div>
         <div id="clear-button-container">
-          <button type="button" id="clear-messages-button" onClick={clearMessages}disabled={messages.length === 0}>Clear Messages</button>
+          <img src={SpeechBubble} alt="speech-icon" />
+          <button
+            type="button"
+            id="clear-messages-button"
+            onClick={clearMessages}
+            disabled={messages.length === 0}>
+            Clear Messages
+          </button>
         </div>
       </div>
       <div id="form-container">

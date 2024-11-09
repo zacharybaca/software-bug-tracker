@@ -20,7 +20,7 @@ const EmployeeBadge = (props) => {
               <div id="badge-container">
                 <div id="profile-image">
                   <img
-                    src={props.avatar || "/uploads/default-profile-pic.jpg"}
+                    src={props.avatar}
                     alt="profile pic"
                   />
                 </div>

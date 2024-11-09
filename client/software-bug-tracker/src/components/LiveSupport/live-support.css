@@ -41,20 +41,24 @@
     justify-content: space-evenly;
     width: 100%;
     padding-top: 1%;
-    border: 2px solid black;
 }
 
 #clear-button-container {
     display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
     padding-top: 1%;
-    min-width: 20%;
-    max-width: 20%;
+    min-width: 25%;
+    max-width: 25%;
+}
+
+#clear-button-container img {
+    padding-right: 8%;
+    padding-top: 2%;
+    width: 32px;
+    height: 32px;
 }
 
 #clear-messages-button {
-    height: 30%;
+    height: 40%;
     max-width: 100%;
     background-color: beige;
     border-radius: 5px;
@@ -160,9 +164,16 @@
 
 #select-font-container {
     display: flex;
-    flex-direction: column;
+    align-items: center;
     width: 25vw;
     box-sizing: border-box;
+}
+
+#select-font-container img {
+    width: 32px;
+    height: 32px;
+    padding-bottom: 15%;
+    padding-right: 5%;
 }
 
 #font {

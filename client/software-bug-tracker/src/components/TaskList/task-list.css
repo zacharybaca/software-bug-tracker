@@ -12,6 +12,7 @@
     scrollbar-width: auto;
     padding: 2%;
     margin-bottom: 2%;
+    gap: 5px;
     background-image: url('../../assets/green-ribbons.jpg');
     background-repeat: no-repeat;
     background-size: cover;

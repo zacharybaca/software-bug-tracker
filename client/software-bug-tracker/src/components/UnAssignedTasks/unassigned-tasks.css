@@ -17,7 +17,9 @@
     max-width: 100%;
     min-width: 100%;
     max-height: 50vh;
-    gap: 10px;
+    gap: 30px;
+    padding-top: 2%;
+    padding-bottom: 2%;
     overflow: auto;
     scrollbar-color: beige green;
     scrollbar-width: auto;
