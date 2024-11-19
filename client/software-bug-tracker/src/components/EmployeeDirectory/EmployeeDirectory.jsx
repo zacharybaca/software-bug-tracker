@@ -25,8 +25,16 @@ const EmployeeDirectory = () => {
               associatedEmployee={employee._id}
               isAdmin={employee.isAdmin}
               accessCode={employee.accessCode}
-              avatar={employee.avatar || "/uploads/default-profile-pic.jpg"}
-              avatarUrl={employee.avatar || "/uploads/default-profile-pic.jpg"}
+              avatar={
+                employee.avatar
+                  ? employee.avatar
+                  : "/uploads/default-profile-pic.jpg"
+              }
+              avatarUrl={
+                employee.avatar
+                  ? employee.avatar
+                  : "/uploads/default-profile-pic.jpg"
+              }
               updateEmployeeProfile={employeesContext.updateEmployee}
               deleteEmployee={employeesContext.deleteEmployee}
               unAssignTasksForDeletedEmployee={

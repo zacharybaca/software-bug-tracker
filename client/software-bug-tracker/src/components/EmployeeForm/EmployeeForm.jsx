@@ -178,7 +178,7 @@ function EmployeeForm(props) {
           <div id="avatar-or-upload-container">
             {employee.avatar ? (
               <div id="avatar-pic">
-                <img src={props.avatarUrl} />
+                <img src={props.avatar} />
               </div>
             ) : (
                 <div id="avatar-pic">

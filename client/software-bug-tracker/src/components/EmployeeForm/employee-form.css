@@ -24,6 +24,11 @@ input, select {
     align-items: center;
 }
 
+#upload-container label {
+    padding-top: 4%;
+    padding-bottom: 1%;
+}
+
 #avatar-pic {
     display: flex;
     flex-direction: column;
