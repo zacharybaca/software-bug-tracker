@@ -18,7 +18,7 @@ const storage = multer.diskStorage({
     cb(null, dir);
   },
   filename: (req, file, cb) => {
-    const uniqueName = `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`;
+    const uniqueName = req.body.firstName && req.body.lastName ? `${req.body.firstName}-${req.body.lastName}-${Date.now()}${path.extname(file.originalname)}` : `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`;
     cb(null, uniqueName);
   }
 });
@@ -78,9 +78,9 @@ employeeRouter
   .put(upload.single("avatar"), async (req, res, next) => {
     try {
       const id = req.params.id;
-      const avatar = req.file
+      let avatar = req.file
         ? `/uploads/${req.file.filename}`
-        : "/uploads/default-avatar.jpg";
+        : "/uploads/default-profile-pic.jpg";
 
       // Get the current employee
       const currentEmployee = await Employee.findById(id);
@@ -114,7 +114,10 @@ employeeRouter
         req.body.accessCode = Math.floor(Math.random() * 5000) + 1;
       }
 
-      if (avatar) {
+      if (req.body.avatar) {
+        avatar = req.body.avatar;
+      }
+      else {
         req.body.avatar = avatar;
       }
 
@@ -132,7 +135,7 @@ employeeRouter
       const token = jwt.sign(
         {
           _id: employeeToBeUpdated._id,
-          userID: employeeToBeUpdated.user.userID,
+          userID: employeeToBeUpdated.user.userID
         },
         process.env.SECRET
       );
@@ -140,6 +143,7 @@ employeeRouter
         user: {
           _id: employeeToBeUpdated._id,
           userID: employeeToBeUpdated.user.userID,
+          avatar: employeeToBeUpdated.avatar
         },
         token,
       });
