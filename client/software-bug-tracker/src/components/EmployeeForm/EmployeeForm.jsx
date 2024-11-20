@@ -25,6 +25,13 @@ function EmployeeForm(props) {
   const [employee, setEmployee] = React.useState(initialValues);
 
   React.useEffect(() => {
+    setEmployee({
+      ...initialValues,
+      avatar: props.avatar || "/uploads/default-profile-pic.jpg",
+    });
+  }, [props]);  
+
+  React.useEffect(() => {
     const fetchData = async () => {
       if (employee.avatar instanceof File) {
         // Ensure avatar is a file before uploading
@@ -89,18 +96,27 @@ function EmployeeForm(props) {
     }
   }
   
-
   function handleSubmit(e) {
     e.preventDefault();
-    props.submitEmployee
-      ? props.submitEmployee(employee, props.employeeID)
-      : context.addEmployee(employee);
+  
+    const updateProcess = async () => {
+      try {
+        await props.submitEmployee(employee, props.employeeID);
+        context.updateEmployee(employee, props.employeeID); // Ensure this updates the global context
+      } catch (error) {
+        console.error("Error updating employee:", error);
+      }
+    };
+  
+    updateProcess();
     setEmployee(initialValues);
-
+  
     if (props.toggleForm) {
       props.toggleForm((prevState) => !prevState);
     }
   }
+  
+  
   return (
     <form id="employee-form" name="employeeForm" onSubmit={handleSubmit}>
       <label htmlFor="employee-first-name">Employee First Name: </label>
