@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import './employee-form.css';
 import React from 'react';
 import { EmployeesContext } from '../../context/employeesContext';
@@ -25,41 +26,37 @@ function EmployeeForm(props) {
 
   React.useEffect(() => {
     const fetchData = async () => {
-      if (employee.avatar) { // Only send request if there's a file to upload
-        const updatedEmployee = {
-          ...employee,
-          avatar: employee.avatar
-        }
-        
-        setEmployee(prevState => ({
-          ...prevState,
-          ...updatedEmployee
-        }))
+      if (employee.avatar instanceof File) {
+        // Ensure avatar is a file before uploading
+        const formData = new FormData();
+        formData.append("avatar", employee.avatar);
 
         try {
           const response = await fetch(`/api/employees/${props.employeeID}`, {
             method: "PUT",
-            body: updatedEmployee,
+            body: formData,
           });
-  
+
           if (!response.ok) {
             throw new Error("Unable to upload file");
           }
-  
+
           const data = await response.json();
-          console.log('Data: ', data);
+          console.log("Data:", data);
+
           setEmployee((prevState) => ({
             ...prevState,
-            avatar: data.avatar, // Update state with uploaded file's name
+            avatar: data.avatar, // Update state with the uploaded file's URL
           }));
         } catch (error) {
           console.error("Error uploading file:", error);
         }
       }
     };
-  
+
     fetchData();
-  }, [props.employeeID, employee.avatar, employee]); // Re-run if employee.avatar changes
+  }, [employee.avatar, props.employeeID]);
+
   
 
   function handleChange(e) {
@@ -155,7 +152,7 @@ function EmployeeForm(props) {
         onChange={handleChange}
         value={employee.roleAtCompany}
         required>
-        <option defaultValue>Select A Role</option>
+        <option disabled>Select A Role</option>
         <option value="softwareEngineer">Software Engineer I</option>
         <option value="softwareEngineer2">Software Engineer II</option>
         <option value="uxSpecialist">UX Specialist</option>
@@ -171,27 +168,19 @@ function EmployeeForm(props) {
         id="generateAccessCode"
         name="generateAccessCode"
         checked={employee.generateAccessCode}
-        value={employee.generateAccessCode.checked}
         onChange={handleChange}
       />
       <div id="access-code-container">
-        {context.userState.accessCode ? (
+        {context.userState?.accessCode && (
           <p>Access Code: {context.userState.accessCode}</p>
-        ) : (
-          ""
         )}
       </div>
       {employee.user.userID ? (
         <div id="profile-pic-and-upload-container">
           <div id="avatar-or-upload-container">
-            {employee.avatar ? (
               <div id="avatar-pic">
-                <img src={props.avatar} />
+                <img src={employee.avatar || "/uploads/default-profile-pic.jpg"} />
               </div>
-            ) : (
-                <div id="avatar-pic">
-                  <img src="/uploads/default-profile-pic.jpg" />
-                </div>)}
           </div>
           <div id="upload-container">
             {props.avatarUrl ? (

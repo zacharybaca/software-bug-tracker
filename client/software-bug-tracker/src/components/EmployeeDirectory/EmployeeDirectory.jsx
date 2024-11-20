@@ -13,7 +13,7 @@ const EmployeeDirectory = () => {
       <h2 id="employee-directory-heading">Employee Directory</h2>
       <ul id="employee-directory-list">
         {employeesContext?.employees?.map((employee, index) => (
-          <li key={employee._id} className="employee">
+          <li key={index} className="employee">
             <EmployeeBadge
               itemNumber={index}
               employeeID={employee._id}
