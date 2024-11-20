@@ -15,6 +15,7 @@ const EmployeeDirectory = () => {
         {employeesContext?.employees?.map((employee, index) => (
           <li key={index} className="employee">
             <EmployeeBadge
+              key={employee._id}
               itemNumber={index}
               employeeID={employee._id}
               firstName={employee.firstName}
