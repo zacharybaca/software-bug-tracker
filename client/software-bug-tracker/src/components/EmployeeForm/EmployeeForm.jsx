@@ -26,12 +26,20 @@ function EmployeeForm(props) {
   React.useEffect(() => {
     const fetchData = async () => {
       if (employee.avatar) { // Only send request if there's a file to upload
-        const formData = new FormData();
-        formData.append('avatar', employee.avatar); // Assuming avatar is a file
+        const updatedEmployee = {
+          ...employee,
+          avatar: employee.avatar
+        }
+        
+        setEmployee(prevState => ({
+          ...prevState,
+          ...updatedEmployee
+        }))
+
         try {
-          const response = await fetch(`/api/employees/employee/${props.employeeID}`, {
+          const response = await fetch(`/api/employees/${props.employeeID}`, {
             method: "PUT",
-            body: formData,
+            body: updatedEmployee,
           });
   
           if (!response.ok) {
@@ -42,7 +50,7 @@ function EmployeeForm(props) {
           console.log('Data: ', data);
           setEmployee((prevState) => ({
             ...prevState,
-            avatar: data.file.filename, // Update state with uploaded file's name
+            avatar: data.avatar, // Update state with uploaded file's name
           }));
         } catch (error) {
           console.error("Error uploading file:", error);
@@ -51,7 +59,7 @@ function EmployeeForm(props) {
     };
   
     fetchData();
-  }, [props.employeeID, employee.avatar]); // Re-run if employee.avatar changes
+  }, [props.employeeID, employee.avatar, employee]); // Re-run if employee.avatar changes
   
 
   function handleChange(e) {
