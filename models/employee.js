@@ -40,6 +40,7 @@ const employeeSchema = new Schema({
   },
   avatar: {
     type: String,
+    default: '/uploads/default-profile-pic.jpg',
     required: false
   },
   generateAccessCode: {
