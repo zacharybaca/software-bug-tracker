@@ -111,7 +111,7 @@ function EmployeesContextProvider(props) {
   const hasAdminRights = () => {
     const signedInEmployee = getLoggedInEmployee();
     const roleAtCompany = findRoleAtCompany(signedInEmployee.user.userID);
-    return roleAtCompany === "manager" ?? false;
+    return roleAtCompany === "manager";
   };
 
   const hasUserID = (id) => {
