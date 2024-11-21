@@ -48,6 +48,7 @@ const employeeSchema = new Schema({
   },
   isAdmin: {
     type: Boolean,
+    default: false
   },
 });
 
