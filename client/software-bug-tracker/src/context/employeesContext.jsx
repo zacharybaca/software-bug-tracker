@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 const EmployeesContext = React.createContext();
 
 function EmployeesContextProvider(props) {
   // State Responsible For All Employees
   const [employees, setEmployees] = useState([]);
-  const navigate = useNavigate();
 
   // State Responsible For Tracking If a User is Logged In
   const initialState = {
@@ -100,7 +99,7 @@ function EmployeesContextProvider(props) {
         });
       }
       else {
-        navigate("/sign-up");
+        <Navigate to="/sign-up" />
       }
     } catch (error) {
       handleAuthErr(error.message);
