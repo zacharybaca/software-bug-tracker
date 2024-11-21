@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 
 const EmployeesContext = React.createContext();
 
 function EmployeesContextProvider(props) {
   // State Responsible For All Employees
   const [employees, setEmployees] = useState([]);
+  const navigate = useNavigate();
 
   // State Responsible For Tracking If a User is Logged In
   const initialState = {
@@ -82,18 +84,24 @@ function EmployeesContextProvider(props) {
   };
 
   const logout = async () => {
+    const haveToken = getToken();
     try {
-      localStorage.removeItem("user");
-      localStorage.removeItem("token");
-      localStorage.removeItem("messageHistory");
-      localStorage.removeItem("font");
-      setUserState((prevUserState) => {
-        return {
-          ...prevUserState,
-          token: "",
-          user: {},
-        };
-      });
+      if (haveToken) {
+        localStorage.removeItem("user");
+        localStorage.removeItem("token");
+        localStorage.removeItem("messageHistory");
+        localStorage.removeItem("font");
+        setUserState((prevUserState) => {
+          return {
+            ...prevUserState,
+            token: "",
+            user: {},
+          };
+        });
+      }
+      else {
+        navigate("/sign-up");
+      }
     } catch (error) {
       handleAuthErr(error.message);
     }
