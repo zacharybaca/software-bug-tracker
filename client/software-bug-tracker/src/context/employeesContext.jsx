@@ -12,8 +12,7 @@ function EmployeesContextProvider(props) {
     token: localStorage.getItem("token") || "",
     tasks: [],
     errMsg: "",
-    accessCode: "",
-    isAdmin: props.isAdmin || props.roleAtCompany === "manager"
+    accessCode: ""
   };
 
   const [userState, setUserState] = useState(initialState);
@@ -22,6 +21,17 @@ function EmployeesContextProvider(props) {
     const token = localStorage.getItem("token");
     if (!token) throw new Error("No Token Present");
     return token;
+  };
+
+  const fetchEmployees = async () => {
+    try {
+      const response = await fetch("/api/employees");
+      if (!response.ok) throw new Error("Failed to fetch employees");
+      const data = await response.json();
+      setEmployees(data);
+    } catch (error) {
+      handleAuthErr(error.message);
+    }
   };
 
   const findName = (username) => {
@@ -100,7 +110,8 @@ function EmployeesContextProvider(props) {
 
   const hasAdminRights = () => {
     const signedInEmployee = getLoggedInEmployee();
-    return signedInEmployee?.isAdmin ?? false;
+    const roleAtCompany = findRoleAtCompany(signedInEmployee.user.userID);
+    return roleAtCompany === "manager" ?? false;
   };
 
   const hasUserID = (id) => {
@@ -144,25 +155,25 @@ function EmployeesContextProvider(props) {
     }
   };
 
-  async function updateEmployee(updatedEmployee, employeeID) {
+  const updateEmployee = async (updatedEmployee, employeeID) => {
     try {
+      const token = getToken();
       const response = await fetch(`/api/employees/${employeeID}`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
         body: JSON.stringify(updatedEmployee),
       });
-      if (response.ok) {
-        const data = await response.json();
-        setEmployees((prevEmployees) =>
-          prevEmployees.map((emp) =>
-            emp.id === employeeID ? { ...emp, ...data } : emp
-          )
-        );
-      }
+  
+      if (!response.ok) throw new Error(`Failed to update employee: ${response.statusText}`);
+  
+      await fetchEmployees(); // Refetch employees to update the state
     } catch (error) {
-      console.error("Error updating employee:", error);
+      handleAuthErr(error.message);
     }
-  }  
+  };
 
   const assignEmployeeCredentials = async (updatedEmployee, employeeID, accessToken) => {
     try {
@@ -220,58 +231,28 @@ function EmployeesContextProvider(props) {
 
   const createLoginAccount = async (loginData, employeeID, accessToken) => {
     try {
-      const foundEmployee = employees.find(
-        (employee) => employee._id === employeeID
-      );
-  
-      if (!foundEmployee) {
-        throw new Error("Employee ID Does Not Exist");
-      }
-  
-      if (foundEmployee.accessCode !== accessToken) {
-        throw new Error("Access Code is Incorrect. Please Try Again.");
-      }
-      console.log('Login Data: ', loginData);
-      // Prepare FormData to include the file and other data
       const formData = new FormData();
       Object.keys(loginData).forEach((key) => {
         if (key === "avatar" && loginData.avatar) {
-          // Append the file if it exists
           formData.append(key, loginData.avatar);
-        } else if (typeof loginData[key] === "object" && loginData[key] !== null) {
-          Object.keys(loginData[key]).forEach((subKey) => {
-            formData.append(`${key}.${subKey}`, loginData[key][subKey]);
-          });
         } else {
           formData.append(key, loginData[key]);
         }
       });
-      
-      for (const pair of formData.entries()) {
-        console.log(`${pair[0]}: ${pair[1]}`);
-      }
+  
       const response = await fetch(`/api/employees/${employeeID}`, {
         method: "PUT",
-        body: formData, // Send FormData instead of JSON
+        body: formData,
       });
   
-      if (!response.ok) {
-        throw new Error(`Failed to update employee: ${response.statusText}`);
-      }
+      if (!response.ok) throw new Error(`Failed to create login account: ${response.statusText}`);
   
-      const data = await response.json();
-      console.log('Data: ', data);
-      setEmployees((prevState) =>
-        prevState.map((employee) =>
-          employee._id !== employeeID ? employee : data
-        )
-      );
+      await fetchEmployees(); // Refetch employees to update the state
     } catch (error) {
       handleAuthErr(error.message);
     }
   };
   
-
   useEffect(() => {
     const getEmployees = async () => {
       try {
