@@ -19,7 +19,7 @@ function EmployeeForm(props) {
     avatar: props.avatar || "/uploads/default-profile-pic.jpg",
     generateAccessCode: false,
     accessCode: props.accessCode || "",
-    isAdmin: props.roleAtCompany === "manager",
+    isAdmin: props.isAdmin || props.roleAtCompany === "manager",
   };
   
   const [employee, setEmployee] = React.useState(initialValues);

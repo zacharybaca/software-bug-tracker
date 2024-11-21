@@ -24,7 +24,7 @@ const EmployeeDirectory = () => {
               userID={employee.user?.userID}
               password={employee.user?.password}
               associatedEmployee={employee._id}
-              isAdmin={employee.isAdmin}
+              isAdmin={employee.hasAdminRights}
               accessCode={employee.accessCode}
               avatar={
                 employee.avatar

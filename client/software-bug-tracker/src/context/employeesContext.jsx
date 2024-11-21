@@ -13,6 +13,7 @@ function EmployeesContextProvider(props) {
     tasks: [],
     errMsg: "",
     accessCode: "",
+    isAdmin: props.isAdmin || props.roleAtCompany === "manager"
   };
 
   const [userState, setUserState] = useState(initialState);
