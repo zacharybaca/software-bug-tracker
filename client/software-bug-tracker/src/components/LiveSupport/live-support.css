@@ -8,6 +8,8 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Honk&family=Playwrite+FR+Trad:wght@100..400&family=Tiny5&display=swap');
 
+@import url('https://fonts.googleapis.com/css2?family=Vast+Shadow&display=swap');
+
 #chat-container {
     display: flex;
     justify-content: center;
@@ -41,6 +43,14 @@
     justify-content: space-evenly;
     width: 100%;
     padding-top: 1%;
+}
+
+.not-allowed:hover {
+    cursor: not-allowed;
+}
+
+.allowed:hover {
+    cursor: url('../../assets/click.png'), pointer;
 }
 
 #clear-button-container {
@@ -115,9 +125,10 @@
 }
 
 .online-user {
-    font-family: "Protest Guerrilla", sans-serif;
+    font-family: "Vast Shadow", serif;
     font-weight: 400;
     font-style: normal;
+    font-size: 1.95rem;
     padding: 2%;
 }
 
