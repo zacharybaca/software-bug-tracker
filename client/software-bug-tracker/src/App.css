@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Protest+Guerrilla&display=swap');
 
-
+@import url('https://fonts.googleapis.com/css2?family=Vast+Shadow&display=swap');
 
 #app-container {
     display: flex;
@@ -35,6 +35,18 @@
     padding-top: 1%;
     padding-bottom: 1%;
     box-sizing: border-box;
+}
+
+#nav-button-container button {
+    font-family: "Vast Shadow", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 1.25rem;
+}
+
+.stand-out {
+    color: black;
+    font-weight: 800;
 }
 
 #logo {
@@ -90,7 +102,7 @@
 #info-heading {
     font-size: 18px;
     font-weight: 800;
-    color: #EAB581;
+    color: green;
     animation-duration: 5s;
     animation-name: slidein;
 }
@@ -98,7 +110,7 @@
 #unassigned-tasks-info-heading {
     font-size: 18px;
     font-weight: 800;
-    color: #EAB581;
+    color: green;
     animation-duration: 5s;
     animation-name: slidein;
 }

@@ -26,7 +26,7 @@ const EmployeeBadge = (props) => {
                 </div>
                 <div id="badge-name-container">
                   <p>
-                    <span className="label">Name:</span> {props.firstName}{" "}
+                    {props.firstName}{" "}
                     {props.lastName}
                   </p>
                 </div>

@@ -58,12 +58,12 @@ function App() {
                 !
               </h2>
               <h4 id="info-heading">
-                {context.hasAdminRights() ? "There Are " : "You Have "}{completed} Completed{" "}
-                {completed === 1 ? "Task" : "Tasks"} and {incomplete}{" "}
+                {context.hasAdminRights() ? "There Are " : "You Have "}<strong className="stand-out">{completed}</strong> Completed{" "}
+                {completed === 1 ? "Task" : "Tasks"} and <strong className="stand-out">{incomplete}</strong>{" "}
                 Incompleted {incomplete === 1 ? "Task" : "Tasks"}.
               </h4>
               <h4 id="unassigned-tasks-info-heading">
-                There {taskContext.unassignedTasks.length === 1 ? "Is" : "Are"} Currently {taskContext.unassignedTasks.length || 0} Unassigned {taskContext.unassignedTasks.length === 1 ? "Task" : "Tasks"} In The Queue
+                There {taskContext.unassignedTasks.length === 1 ? "Is" : "Are"} Currently <strong className="stand-out">{taskContext.unassignedTasks.length || 0}</strong> Unassigned {taskContext.unassignedTasks.length === 1 ? "Task" : "Tasks"} In The Queue
               </h4>
             </>
           ) : (

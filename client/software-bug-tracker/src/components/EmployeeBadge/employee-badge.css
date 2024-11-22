@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Vast+Shadow&display=swap');
+
 #badge-container {
     display: flex;
     flex-wrap: wrap;
@@ -48,9 +50,10 @@
 }
 
 #profile-image img {
+    vertical-align: middle;
+    border-radius: 50%;
     width: 200px;
     height: 200px;
-    border-radius: 5px;
 }
 
 #form-and-button-container {
@@ -85,7 +88,11 @@
 }
 
 #badge-name-container p {
-    padding-bottom: 4%;
+    font-family: "Vast Shadow", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 1.95rem;
+    padding-bottom: 9%;
 }
 
 #badge-personal-info-container {

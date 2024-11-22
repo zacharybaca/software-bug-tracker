@@ -117,8 +117,11 @@ function EmployeesContextProvider(props) {
 
   const hasAdminRights = () => {
     const signedInEmployee = getLoggedInEmployee();
-    const roleAtCompany = findRoleAtCompany(signedInEmployee.user.userID);
-    return roleAtCompany === "manager";
+    if (signedInEmployee) {
+      const roleAtCompany = findRoleAtCompany(signedInEmployee.user.userID);
+      return roleAtCompany === "manager" ? "manager" : false;
+    }
+    return false;
   };
 
   const hasUserID = (id) => {
@@ -237,6 +240,17 @@ function EmployeesContextProvider(props) {
   };
 
   const createLoginAccount = async (loginData, employeeID, accessToken) => {
+    const employee = employees.find(employee => employee._id === employeeID);
+
+    if (employee) {
+      if (accessToken !== employee.accessCode) {
+        throw new Error("The Access Code You Have Entered is Invalid");
+      }
+    }
+    else {
+      throw new Error("That Employee Does Not Exist in Our Database");
+    }
+
     try {
       const formData = new FormData();
       Object.keys(loginData).forEach((key) => {
