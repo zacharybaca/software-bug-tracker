@@ -45,12 +45,12 @@
     padding-top: 1%;
 }
 
-.not-allowed:hover {
-    cursor: not-allowed;
+.not-allowed {
+    cursor: not-allowed; /* Standard "forbidden" cursor */
 }
 
-.allowed:hover {
-    cursor: url('../../assets/click.png'), pointer;
+.allowed {
+    cursor: url('../../assets/click.png'), pointer; /* Custom cursor with fallback */
 }
 
 #clear-button-container {
