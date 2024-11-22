@@ -77,7 +77,7 @@
 }
 
 #clear-messages-button:hover {
-    cursor: pointer;
+    cursor: url('../../assets/click.png');
     background-color: green;
     color: white;
 }
