@@ -188,7 +188,9 @@ const LiveSupport = () => {
             type="button"
             id="clear-messages-button"
             onClick={clearMessages}
-            disabled={messages.length === 0}>
+            disabled={messages.length === 0}
+            className={messages.length === 0 ? "not-allowed" : "allowed"}
+            >
             Clear Messages
           </button>
         </div>
