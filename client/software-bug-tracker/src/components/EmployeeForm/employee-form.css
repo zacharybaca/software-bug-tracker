@@ -16,6 +16,7 @@
 input, select {
     margin-bottom: 20%;
     padding: 5%;
+    width: 90%;
 }
 
 #upload-container {
@@ -47,7 +48,7 @@ input, select {
 }
 
 #add-employee-button:hover {
-    cursor: pointer;
+    cursor: url("../../assets/click.png");
     background-color: green;
     color: white;
 }
@@ -62,4 +63,8 @@ input, select {
 
 #access-code-container {
     padding-bottom: 4%;
+}
+
+#employee-role {
+    width: 100%;
 }
