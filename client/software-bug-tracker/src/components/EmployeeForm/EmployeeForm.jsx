@@ -118,106 +118,109 @@ function EmployeeForm(props) {
   
   
   return (
-    <form id="employee-form" name="employeeForm" onSubmit={handleSubmit}>
-      <label htmlFor="employee-first-name">Employee First Name: </label>
-      <input
-        type="text"
-        id="employee-first-name"
-        name="firstName"
-        onChange={handleChange}
-        value={employee.firstName}
-        required
-        placeholder="Enter Employee's First Name"
-      />
-      <label htmlFor="employee-last-name">Employee Last Name: </label>
-      <input
-        type="text"
-        id="employee-last-name"
-        name="lastName"
-        onChange={handleChange}
-        value={employee.lastName}
-        required
-        placeholder="Enter Employee's Last Name"
-      />
-      {employee.accessCode ? (
-        <>
-          <label htmlFor="employee-userid">Employee UserID: </label>
-          <input
-            type="text"
-            id="employee-userid"
-            name="userID"
-            onChange={handleChange}
-            value={employee.user.userID}
-          />
-          <label htmlFor="employee-password">Employee Password: </label>
-          <input
-            type="password"
-            id="employee-password"
-            name="password"
-            onChange={handleChange}
-            value={employee.user.password}
-          />
-        </>
-      ) : (
-        ""
-      )}
-      <label htmlFor="employee-role">Assign Employee Role: </label>
-      <select
-        id="employee-role"
-        name="roleAtCompany"
-        onChange={handleChange}
-        value={employee.roleAtCompany}
-        required>
-        <option disabled>Select A Role</option>
-        <option value="softwareEngineer">Software Engineer I</option>
-        <option value="softwareEngineer2">Software Engineer II</option>
-        <option value="uxSpecialist">UX Specialist</option>
-        <option value="manager">Manager</option>
-      </select>
-      <span id="admin-label">
-        Does Employee Have Admin Rights?{" "}
-        {employee.roleAtCompany === "manager" ? "✅" : "❌"}
-      </span>
-      <label htmlFor="generateAccessCode">Generate Access Code?</label>
-      <input
-        type="checkbox"
-        id="generateAccessCode"
-        name="generateAccessCode"
-        checked={employee.generateAccessCode}
-        onChange={handleChange}
-      />
-      <div id="access-code-container">
-        {context.userState?.accessCode && (
-          <p>Access Code: {context.userState.accessCode}</p>
-        )}
-      </div>
-      {employee.user.userID ? (
-        <div id="profile-pic-and-upload-container">
-          <div id="avatar-or-upload-container">
-              <div id="avatar-pic">
-                <img src={employee.avatar || "/uploads/default-profile-pic.jpg"} />
-              </div>
-          </div>
-          <div id="upload-container">
-            {props.avatarUrl ? (
-              <label htmlFor="avatar">Update Your Profile Image</label>
-            ) : (
-              <label htmlFor="avatar">Upload A Profile Image</label>
-            )}
+    <>
+      <h1 id="add-employee-title">Add Employee</h1>
+      <form id="employee-form" name="employeeForm" onSubmit={handleSubmit}>
+        <label htmlFor="employee-first-name">Employee First Name: </label>
+        <input
+          type="text"
+          id="employee-first-name"
+          name="firstName"
+          onChange={handleChange}
+          value={employee.firstName}
+          required
+          placeholder="Enter Employee's First Name"
+        />
+        <label htmlFor="employee-last-name">Employee Last Name: </label>
+        <input
+          type="text"
+          id="employee-last-name"
+          name="lastName"
+          onChange={handleChange}
+          value={employee.lastName}
+          required
+          placeholder="Enter Employee's Last Name"
+        />
+        {employee.accessCode ? (
+          <>
+            <label htmlFor="employee-userid">Employee UserID: </label>
             <input
-              type="file"
-              id="avatar"
-              name="avatar"
+              type="text"
+              id="employee-userid"
+              name="userID"
               onChange={handleChange}
-              accept="image/*"
+              value={employee.user.userID}
             />
-          </div>
+            <label htmlFor="employee-password">Employee Password: </label>
+            <input
+              type="password"
+              id="employee-password"
+              name="password"
+              onChange={handleChange}
+              value={employee.user.password}
+            />
+          </>
+        ) : (
+          ""
+        )}
+        <label htmlFor="employee-role">Assign Employee Role: </label>
+        <select
+          id="employee-role"
+          name="roleAtCompany"
+          onChange={handleChange}
+          value={employee.roleAtCompany}
+          required>
+          <option disabled>Select A Role</option>
+          <option value="softwareEngineer">Software Engineer I</option>
+          <option value="softwareEngineer2">Software Engineer II</option>
+          <option value="uxSpecialist">UX Specialist</option>
+          <option value="manager">Manager</option>
+        </select>
+        <span id="admin-label">
+          Does Employee Have Admin Rights?{" "}
+          {employee.roleAtCompany === "manager" ? "✅" : "❌"}
+        </span>
+        <label htmlFor="generateAccessCode">Generate Access Code?</label>
+        <input
+          type="checkbox"
+          id="generateAccessCode"
+          name="generateAccessCode"
+          checked={employee.generateAccessCode}
+          onChange={handleChange}
+        />
+        <div id="access-code-container">
+          {context.userState?.accessCode && (
+            <p>Access Code: {context.userState.accessCode}</p>
+          )}
         </div>
-      ) : null}
-      <button type="submit" id="add-employee-button">
-        {props.bttnText || "Add Employee"}
-      </button>
-    </form>
+        {employee.user.userID ? (
+          <div id="profile-pic-and-upload-container">
+            <div id="avatar-or-upload-container">
+                <div id="avatar-pic">
+                  <img src={employee.avatar || "/uploads/default-profile-pic.jpg"} />
+                </div>
+            </div>
+            <div id="upload-container">
+              {props.avatarUrl ? (
+                <label htmlFor="avatar">Update Your Profile Image</label>
+              ) : (
+                <label htmlFor="avatar">Upload A Profile Image</label>
+              )}
+              <input
+                type="file"
+                id="avatar"
+                name="avatar"
+                onChange={handleChange}
+                accept="image/*"
+              />
+            </div>
+          </div>
+        ) : null}
+        <button type="submit" id="add-employee-button">
+          {props.bttnText || "Add Employee"}
+        </button>
+      </form>
+    </>
   );
 }
 

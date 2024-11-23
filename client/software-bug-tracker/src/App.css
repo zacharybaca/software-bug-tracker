@@ -116,40 +116,59 @@
 }
 
 #logout-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border-radius: 5px;
-    height: 11vh;
+    height: 15vh;
     background-color: #f5f5dc;
     font-size: 1rem;
     font-weight: 600;
 }
 
 #live-support-button {
+    display: flex;
+    justify-content:center;
+    align-items: center;
     border-radius: 5px;
-    height: 11vh;
+    height: 15vh;
     background-color: #f5f5dc;
     font-size: 1rem;
     font-weight: 600;
 }
 
+#networking-image {
+    margin-left: -1%;
+}
+
 #my-tasks-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border-radius: 5px;
-    height: 11vh;
+    height: 15vh;
     background-color: #f5f5dc;
     font-size: 1rem;
     font-weight: 600;
 }
 
 #employee-directory-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border-radius: 5px;
-    height: 11vh;
+    height: 15vh;
     background-color: #f5f5dc;
     font-size: 1rem;
     font-weight: 600;
 }
 
 #unassigned-tasks-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border-radius: 5px;
-    height: 11vh;
+    height: 15vh;
     background-color: #f5f5dc;
     font-size: 1rem;
     font-weight: 600;
@@ -186,7 +205,10 @@
 }
 
 #add-employee-main-button {
-    height: 11vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 15vh;
     border-radius: 5px;
     background-color: #f5f5dc;
     font-size: 1rem;

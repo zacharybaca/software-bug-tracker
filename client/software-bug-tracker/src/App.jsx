@@ -12,6 +12,12 @@ import { EmployeesContext } from './context/employeesContext';
 import { TasksContext } from './context/tasksContext';
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import logo from './assets/issue-insight-logo.png';
+import LogOut from './assets/logout.gif';
+import AssignTask from './assets/assign-task.gif';
+import Directory from './assets/directory.gif';
+import UnassignedTask from './assets/unassigned-tasks.gif';
+import Networking from './assets/networking.gif';
+import AddEmployee from './assets/add-user.gif';
 import React from 'react';
 import './App.css'
 
@@ -74,12 +80,14 @@ function App() {
               <hr />
               <div id="nav-button-container">
                 <button type="button" id="logout-button" onClick={context.logout}>
+                  <img src={LogOut} />
                   Logout
                 </button>
                 <button
                   type="button"
                   id="my-tasks-button"
                   onClick={() => navigate("/tasks")}>
+                  <img src={AssignTask} />
                   {context.hasAdminRights() ? "Employee Tasks" : "My Tasks"}
                 </button>
                 {context.employees.length > 0 && context.hasAdminRights() ? (
@@ -87,18 +95,24 @@ function App() {
                     type="button"
                     id="employee-directory-button"
                     onClick={() => navigate("/employee-directory")}>
+                    <img src={Directory} />
                     Employee Directory
                   </button>
                 ) : null}
 
                 <button type="button" id="unassigned-tasks-button" onClick={() => navigate("/unassigned-tasks")}>
+                  <img src={UnassignedTask} />
                   Un-Assigned Tasks
                 </button>
 
-                <button type="button" id="live-support-button" onClick={() => navigate("/messages")}>Connect With Other Employees</button>
+                <button type="button" id="live-support-button" onClick={() => navigate("/messages")}>
+                  <img src={Networking} id="networking-image"/>
+                  Connect With Other Employees
+                  </button>
                 
                 {context.hasAdminRights() && (
                       <button type="button" id="add-employee-main-button" onClick={() => navigate("/add-employee")}>
+                        <img src={AddEmployee} />
                         Add Employee
                       </button>
                 )}
