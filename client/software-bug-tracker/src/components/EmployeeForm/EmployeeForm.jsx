@@ -118,8 +118,8 @@ function EmployeeForm(props) {
   
   
   return (
-    <>
-      <h1 id="add-employee-title">Add Employee</h1>
+    <div id="employee-form-wrapper">
+      <h1 id="add-employee-title">{props.bttnText ? props.bttnText : "Add Employee"}</h1>
       <form id="employee-form" name="employeeForm" onSubmit={handleSubmit}>
         <label htmlFor="employee-first-name">Employee First Name: </label>
         <input
@@ -180,7 +180,7 @@ function EmployeeForm(props) {
           Does Employee Have Admin Rights?{" "}
           {employee.roleAtCompany === "manager" ? "✅" : "❌"}
         </span>
-        <label htmlFor="generateAccessCode">Generate Access Code?</label>
+        <label htmlFor="generateAccessCode" id="generate-access-code-label">Generate Access Code?</label>
         <input
           type="checkbox"
           id="generateAccessCode"
@@ -220,7 +220,7 @@ function EmployeeForm(props) {
           {props.bttnText || "Add Employee"}
         </button>
       </form>
-    </>
+    </div>
   );
 }
 
