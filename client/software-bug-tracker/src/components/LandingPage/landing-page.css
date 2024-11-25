@@ -40,7 +40,7 @@
 }
 
 #new-user-button:hover {
-    cursor: pointer;
+    cursor: url("../../assets/click.png"), pointer;
     background-color: green;
     color: white;
 }
@@ -89,6 +89,7 @@
 
 .btn-layered-3d:hover {  
     transform: translateY(0.25em);
+    cursor: url("../../assets/click.png"), pointer;
 }  
 
 .btn-layered-3d:hover::before {  
