@@ -39,7 +39,8 @@ hr {
 
 #filterTasks {
     background-color: green;
-    font-size: 15px;
+    font-size: 1rem;
+    min-width: fit-content;
 }
 
 #heading-above-tasks {

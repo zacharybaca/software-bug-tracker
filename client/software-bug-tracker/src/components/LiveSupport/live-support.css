@@ -32,7 +32,7 @@
     scrollbar-width: auto;
     background-image: url('../../assets/wooden-desk-background-image.jpg');
     background-repeat: no-repeat;
-    background-size: auto auto;
+    background-size: 100% 100%;
     opacity: 0.5;
     color: white;
     box-sizing: border-box;
@@ -47,6 +47,7 @@
 
 .not-allowed {
     cursor: not-allowed; /* Standard "forbidden" cursor */
+    opacity: 0.5;
 }
 
 .allowed {
@@ -63,16 +64,17 @@
 #clear-button-container img {
     padding-right: 8%;
     padding-top: 2%;
-    width: 32px;
-    height: 32px;
+    width: 50px;
+    height: 50px;
 }
 
 #clear-messages-button {
     height: 40%;
     max-width: 100%;
+    min-width: 50%;
     background-color: beige;
     border-radius: 5px;
-    font-size: 15px;
+    font-size: 1rem;
     font-weight: 600;
 }
 
@@ -132,6 +134,11 @@
     padding: 2%;
 }
 
+.online-user img {
+    width: 50px;
+    height: 50px;
+}
+
 #users-online-heading {
     text-align: center;
     font-family: "Protest Guerrilla", sans-serif;
@@ -159,6 +166,7 @@
 #form-container {
     display: flex;
     justify-content: center;
+    align-content: center;
     min-width: 100%;
     max-width: 100%;
     box-sizing: border-box;
@@ -167,57 +175,55 @@
 #message-input-container {
     display: flex;
     flex-direction: column;
-    align-items: center;
     width: 50vw;
-    padding-bottom: 2%;
-    box-sizing: border-box;
+    box-sizing: content-box;
 }
 
 #select-font-container {
     display: flex;
     align-items: center;
-    width: 25vw;
+    min-width: fit-content;
     box-sizing: border-box;
 }
 
 #select-font-container img {
-    width: 32px;
-    height: 32px;
+    width: 50px;
+    height: 50px;
     padding-bottom: 15%;
     padding-right: 5%;
 }
 
 #font {
     background-color: green;
+    min-width: fit-content;
 }
 
 #text {
+    width: 100%;
     background-color: beige;
+    box-sizing: border-box;
 }
 
 #select-font-container option {
-    font-size: 15px;
-    font-weight: 600;
+    font-size: 1rem;
 }
 
 #submit-button {
     border-radius: 5px;
-    height: 10vh;
-    width: 50%;
+    height: 5vh;
+    width: 100%;
     background-color: beige;
-    font-size: 15px;
+    font-size: 1rem;
     font-weight: 600;
 }
 
 #submit-button:hover {
-    cursor: pointer;
+    cursor: url("../../assets/click.png"), pointer;
+    background-image: url("../../assets/resend.gif");
+    background-repeat: no-repeat;
+    background-size: contain;
     background-color: green;
     color: white;
-}
-
-#text {
-    height: 5vh;
-    width: 50%;
 }
 
 .handwriting-font {

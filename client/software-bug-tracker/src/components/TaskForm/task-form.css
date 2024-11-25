@@ -12,6 +12,9 @@
 }
 
 label, input, select, textarea {
+    max-width: 100%;
+    min-width: 50%;
+    font-size: 1rem;
     margin-top: 5%;
     margin-bottom: 20%;
     padding: 5%;
@@ -24,7 +27,7 @@ label, input, select, textarea {
 }
 
 #add-task-button:hover {
-    cursor: pointer;
+    cursor: url("../../assets/click.png"), pointer;
     background-color: green;
     color: white;
 }
@@ -38,7 +41,9 @@ label, input, select, textarea {
 }
 
 #assigned-employee {
-    overflow: auto;
+    min-width: fit-content;
+    font-weight: 800;
+    overflow: scroll;
 }
 
 .error-message {
@@ -46,5 +51,18 @@ label, input, select, textarea {
     width: 200px;
     color: red;
     font-size: 15px;
+    font-weight: 800;
+}
+
+.disabled-task-complete {
+    cursor: not-allowed;
+}
+
+.enabled-task-complete {
+    cursor: url("../../assets/click.png"), pointer;
+}
+
+textarea::placeholder {
+    font-size: 1rem;
     font-weight: 800;
 }

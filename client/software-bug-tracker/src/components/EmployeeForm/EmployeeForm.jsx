@@ -119,7 +119,7 @@ function EmployeeForm(props) {
   
   return (
     <div id="employee-form-wrapper">
-      <h1 id="add-employee-title">{props.bttnText ? props.bttnText : "Add Employee"}</h1>
+      <h1 id="add-employee-title">{props.formHeading ? props.formHeading : "Add Employee"}</h1>
       <form id="employee-form" name="employeeForm" onSubmit={handleSubmit}>
         <label htmlFor="employee-first-name">Employee First Name: </label>
         <input

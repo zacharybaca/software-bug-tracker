@@ -103,6 +103,7 @@ const EmployeeBadge = (props) => {
                 accessCode={props.accessCode}
                 toggleForm={setShowForm}
                 submitEmployee={props.updateEmployeeProfile}
+                formHeading={`Update Information for ${props.firstName} ${props.lastName}`}
                 bttnText="Update"
               />
             </div>

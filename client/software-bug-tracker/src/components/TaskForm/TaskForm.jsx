@@ -122,6 +122,7 @@ const TaskForm = (props) => {
         checked={task.taskCompleted} // Checkbox uses checked, not value
         onChange={handleChange}
         disabled={!props.assignedEmployee}
+        className={!props.assignedEmployee ? "disabled-task-complete" : "enabled-task-complete"}
       />
 
       <button type="submit" id="add-task-button">

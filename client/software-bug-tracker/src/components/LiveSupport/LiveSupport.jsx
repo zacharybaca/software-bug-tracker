@@ -5,8 +5,9 @@ import io from "socket.io-client";
 import moment from "moment";
 import { Navigate } from "react-router-dom";
 import { EmployeesContext } from "../../context/employeesContext";
-import SpeechBubble from '../../assets/speech-bubble.png';
-import SettingsLogo from '../../assets/settings.png';
+import SpeechBubble from '../../assets/speech-bubble.gif';
+import SettingsLogo from '../../assets/settings.gif';
+import ChatListAvatar from '../../assets/developer.png';
 
 
 const LiveSupport = () => {
@@ -164,6 +165,7 @@ const LiveSupport = () => {
           <ul id="users-online-list">
             {users.map(({ name, id }) => (
               <li key={id} className="online-user">
+                <img src={ChatListAvatar} alt="chat list avatar" />
                 {name}
               </li>
             ))}
@@ -204,8 +206,6 @@ const LiveSupport = () => {
               value={message}
               id="text"
               onChange={(e) => setMessage(e.currentTarget.value)}
-              size="100"
-              maxLength="100"
               autoFocus
             />
             <button type="submit" id="submit-button">
