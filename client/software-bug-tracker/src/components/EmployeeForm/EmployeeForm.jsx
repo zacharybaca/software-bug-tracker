@@ -169,6 +169,7 @@ function EmployeeForm(props) {
           name="roleAtCompany"
           onChange={handleChange}
           value={employee.roleAtCompany}
+          disabled={!employee.firstName || !employee.lastName}
           required>
           <option disabled>Select A Role</option>
           <option value="softwareEngineer">Software Engineer I</option>
@@ -216,7 +217,7 @@ function EmployeeForm(props) {
             </div>
           </div>
         ) : null}
-        <button type="submit" id="add-employee-button">
+        <button type="submit" id="add-employee-button" disabled={!employee.roleAtCompany}>
           {props.bttnText || "Add Employee"}
         </button>
       </form>

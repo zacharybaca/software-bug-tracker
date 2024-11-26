@@ -21,7 +21,7 @@
 }
 
 #existing-user-button:hover {
-    cursor: pointer;
+    cursor: url("../../assets/click.png"), pointer;
     background-color: green;
     color: white;
 }
@@ -49,7 +49,7 @@ label, ::placeholder {
 }
 
 #sign-up-form-button:hover {
-    cursor: pointer;
+    cursor: url("../../assets/click.png"), pointer;
     background-color: green;
     color: white;
 }

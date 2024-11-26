@@ -108,11 +108,16 @@ function EmployeesContextProvider(props) {
 
   const getLoggedInEmployee = () => {
     const loggedIn = JSON.parse(localStorage.getItem("user"));
-    return (
-      employees.find(
+    console.log('Logged In: ', employees.find((employee) => employee.user?.userID === loggedIn?.userID));
+    const foundEmployee =  employees.find(
         (employee) => employee.user?.userID === loggedIn?.userID
-      ) || null
-    );
+      );
+    if (foundEmployee) {
+      return foundEmployee;
+    }
+    else {
+      return null;
+    }
   };
 
   const hasAdminRights = () => {

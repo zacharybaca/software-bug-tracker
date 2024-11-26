@@ -75,6 +75,10 @@ input::placeholder {
     color: white;
 }
 
+#add-employee-button:disabled {
+    cursor: not-allowed;
+}
+
 #access-code {
     font-weight: 800;
 }

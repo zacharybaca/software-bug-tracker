@@ -49,7 +49,13 @@ const TaskForm = (props) => {
     }
   }
 
+  const assigned = context.employees.find((employee) =>
+    typeof task.assignedEmployee === "string"
+      ? employee._id === task.assignedEmployee
+      : employee._id === task.assignedEmployee?._id
+  );
 
+  
   return (
     <form id="task-form" name="taskForm" onSubmit={handleSubmit}>
       <label htmlFor="task-title">Task Title: </label>
@@ -105,9 +111,13 @@ const TaskForm = (props) => {
           <h3 id="employee-heading-container">
             Assigned Employee:{" "}
             <span id="assigned-employee-heading">
-              {task.assignedEmployee
-                ? `${task.assignedEmployee.firstName} ${task.assignedEmployee.lastName}`
-                : "None"}
+              {assigned && assigned.firstName && assigned.lastName ? (
+                <p>
+                  {assigned.firstName} {assigned.lastName}
+                </p>
+              ) : (
+                <p>None</p>
+              )}
             </span>
           </h3>
         </>
@@ -122,10 +132,17 @@ const TaskForm = (props) => {
         checked={task.taskCompleted} // Checkbox uses checked, not value
         onChange={handleChange}
         disabled={!props.assignedEmployee}
-        className={!props.assignedEmployee ? "disabled-task-complete" : "enabled-task-complete"}
+        className={
+          !props.assignedEmployee
+            ? "disabled-task-complete"
+            : "enabled-task-complete"
+        }
       />
 
-      <button type="submit" id="add-task-button">
+      <button
+        type="submit"
+        id="add-task-button"
+        disabled={!task.taskTitle || !task.taskDetails}>
         {props.buttonText}
       </button>
       {props.errMsg ? <p className="error-message">{props.errMsg}</p> : ""}

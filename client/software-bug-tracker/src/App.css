@@ -177,31 +177,31 @@
 }
 
 #logout-button:hover {
-    cursor: pointer;
+    cursor: url("./assets/click.png"), pointer;
     background-color: green;
     color: white;
 }
 
 #live-support-button:hover {
-    cursor: pointer;
+    cursor: url("./assets/click.png"), pointer;
     background-color: green;
     color: white;
 }
 
 #my-tasks-button:hover {
-    cursor: pointer;
+    cursor: url("./assets/click.png"), pointer;
     background-color: green;
     color: white;
 }
 
 #employee-directory-button:hover {
-    cursor: pointer;
+    cursor: url("./assets/click.png"), pointer;
     background-color: green;
     color: white;
 }
 
 #unassigned-tasks-button:hover {
-    cursor: pointer;
+    cursor: url("./assets/click.png"), pointer;
     background-color: green;
     color: white;
 }
@@ -218,7 +218,7 @@
 }
 
 #add-employee-main-button:hover {
-    cursor: pointer;
+    cursor: url("./assets/click.png"), pointer;
     background-color: green;
     color: white;
 }

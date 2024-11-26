@@ -37,13 +37,13 @@
 }
 
 #edit-task-button:hover {
-    cursor: pointer;
+    cursor: url("../../assets/click.png"), pointer;
     background-color: green;
     color: white;
 }
 
 #delete-task-button:hover {
-    cursor: pointer;
+    cursor: url("../../assets/click.png"), pointer;
     background-color: red;
     color: white;
 }
@@ -75,7 +75,7 @@
 }
 
 #unassign-task-button:hover {
-    cursor: pointer;
+    cursor: url("../../assets/click.png"), pointer;
     background-color: green;
     color: white;
 }
