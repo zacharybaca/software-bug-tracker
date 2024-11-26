@@ -36,20 +36,25 @@ Ensure you have the following installed on your machine:
 - **npm**: v6.x or later
 - **MongoDB**: A running MongoDB instance, either local or cloud-based (e.g., MongoDB Atlas)
 - **Git**: To clone the repository
+- **Vite**: For Frontend Development
+- **Render**: Hosting For Deployment
 
 ## Installation
 
 1. **Clone the repository**:
    ```bash
    git clone https://github.com/zacharybaca/software-bug-tracker.git
+   ```
 
 2. **Navigate to the project directory**:
    ```bash
    cd software-bug-tracker
+   ```
 
 3. **Install backend dependencies**:
    ```bash
    npm install
+   ```
 
 4. **Navigate to the frontend directory**:
    ```bash
@@ -58,35 +63,41 @@ Ensure you have the following installed on your machine:
 5. **Install frontend dependencies**:
    ```bash
    npm install
+   ```
 
 6. **Create a <code>.env</code> file in the root directory with the following contents**:
    ```bash
    MONGODB_URI=<your-mongodb-uri>
    JWT_SECRET=<your-jwt-secret>
    PORT=9000
+   NODE_ENV=development
+   ```
 
 7. **Optional: If using MongoDB locally, ensure the service is running**:
    ```bash
    mongod
+   ```
 
 ## Running the Application
 
 1. **Start the backend server**:
    ```bash
    npm run start
+   ```
 
 2. **Start the frontend development server**:
    ```bash
    cd client
    npm start
-
+   ```
+   
 - The backend API will run at <code>http://localhost:9000</code>.
 - The frontend will be accessible at <code>http://localhost:3000</code>.
 
 
-## API Documentation
+# API Documentation
 
-# Task Endpoints
+## Task Management
 
    1. Get All Tasks
       - <code>GET /api/tasks</code>
@@ -122,40 +133,33 @@ Ensure you have the following installed on your machine:
       - <code>PUT /api/tasks/:id</code>
       - Updates the details of an existing task.
 
-
    5. Delete a Task
       - <code>DELETE /api/tasks/:id</code>
       - Deletes a task by ID.
 
+   6. Retrieve Unassigned Tasks
+      - <code>GET /api/tasks/unassigned</code>
+      - Retrieves All Tasks That Hasn't Been Assigned An Employee
 
-# Employee Endpoints
+## Employee Management
    
    1. Get All Employees
-
       - <code>GET /api/employees</code>
       - Retrieves a list of all employees.
 
    2. Get a Specific Employee
-
       - <code>GET /api/employees/:id</code>
       - Retrieves employee details by their unique ID.
 
-   3. Create a New Employee
-
-      - <code>POST /api/employees</code>
-      - Adds a new employee to the database.
-
-   4. Update an Employee's Information
-
+   3. Update an Employee's Information
       - <code>PUT /api/employees/:id</code>
       - Updates employee details by their unique ID.
 
-   5. Delete an Employee
-
+   4. Delete an Employee
       - <code>DELETE /api/employees/:id</code>
-      - Deletes an employee from the system.
+      - Deletes an employee from the system, as well as unassign the tasks that employee was assigned.
 
-# Authentication Endpoints
+## Authentication
 
    1. Login
       - <code>POST /api/auth/login</code>
@@ -167,10 +171,30 @@ Ensure you have the following installed on your machine:
             "password": "password123"
          }
 
-   2. Register
-      - <code>POST /api/auth/register</code>
-      - Registers a new user (employee or manager).
+   2. Register A New Employee in the System
+      - <code>POST /api/employees/signup</code>
+      - Adds a new employee to the database.
 
+## WebSocket Messaging
+   1. Server That Provides Real Time Communication for the Built-In Messaging System
+      - <code>ws://localhost:9000</code>
+      - Real-time chat communication and user online status updates.
+
+# Project Structure
+  - Structure of How Project File System is Set Up
+   ```bash
+   software-bug-tracker/
+   ├── client/               # Frontend (React with Vite)
+   ├── server/               # Backend (Node.js + Express)
+   ├── models/               # Mongoose schemas for tasks and employees
+   ├── routes/               # API route definitions
+   ├── utils/                # Helper functions and middlewares
+   └── README.md             # Project documentation
+   ```
+
+# Deployment
+   1. The application is deployed on Render.
+      - Configure the environment variables on Render to match your <code>.env</code> file.
 
 # Future Enhancements
    - Email Notifications: Notify users when tasks are assigned or updated.
