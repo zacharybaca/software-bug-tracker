@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Protest+Guerrilla&display=swap');
 
+@import url('https://fonts.googleapis.com/css2?family=Vast+Shadow&display=swap');
+
 #task-list {
     display: flex;
     flex-direction: column;
@@ -50,4 +52,12 @@ hr {
     font-size: 35px;
     color: black;
     padding-bottom: 2%;
+}
+
+#no-tasks-assigned-heading {
+    font-family: "Vast Shadow", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 2rem;
+    padding-bottom: 3%;
 }
