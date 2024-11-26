@@ -23,6 +23,36 @@ const storage = multer.diskStorage({
   }
 });
 
+employeeRouter.route("/login").post(async (req, res, next) => {
+  try {
+    const employee = await Employee.findOne({ "user.userID": req.body.userID });
+
+    if (!employee) {
+      res.status(403);
+      return next(new Error("Incorrect Username or Password"));
+    }
+
+    // checkPassword is an added method on the Employee Schema on the backend
+    const passwordCheck = await employee.checkPassword(req.body.password);
+    if (!passwordCheck) {
+      res.status(403);
+      return next(new Error("Incorrect Username or Password"));
+    }
+
+    const token = jwt.sign(
+      { _id: employee._id, userID: employee.user.userID },
+      process.env.SECRET
+    );
+    return res.status(201).send({
+      user: { _id: employee._id, userID: employee.user.userID },
+      token,
+    });
+  } catch (error) {
+    res.status(500);
+    return next(error);
+  }
+});
+
 const upload = multer({ storage: storage });
 
 employeeRouter
@@ -164,33 +194,5 @@ employeeRouter
       return next(error);
     }
   });
-
-employeeRouter.route('/login')
-  .post(async (req,res,next) => {
-    try {
-      const employee = await Employee.findOne({ "user.userID": req.body.userID });
-
-      if (!employee) {
-        res.status(403);
-        return next(new Error("Incorrect Username or Password"));
-      }
-
-      // checkPassword is an added method on the Employee Schema on the backend
-      const passwordCheck = await employee.checkPassword(req.body.password);
-      if (!passwordCheck) {
-        res.status(403);
-        return next(new Error("Incorrect Username or Password"));
-      }
-
-      const token = jwt.sign({_id: employee._id, userID: employee.user.userID}, process.env.SECRET);
-      return res.status(201).send({
-       user: { _id: employee._id, userID: employee.user.userID },
-       token
-     });
-    } catch (error) {
-      res.status(500);
-      return next(error);
-    }
-  })
 
 module.exports = employeeRouter;
