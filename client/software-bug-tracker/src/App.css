@@ -85,8 +85,8 @@
     font-family: "Protest Guerrilla", sans-serif;
     font-style: normal;
     font-size: 25px;
-    font-weight: 800;
-    color: green;
+    font-weight: 500;
+    color: #e6b17e;
     animation-duration: 5s;
     animation-name: slidein;
 }
@@ -94,9 +94,9 @@
 #position-at-company-heading {
      font-family: "Protest Guerrilla", sans-serif;
      font-size: 25px;
-     font-weight: 800;
+     font-weight: 500;
      font-style: normal;
-     color: green;
+     color: #e6b17e;
      animation-duration: 5s;
      animation-name: slidein;
 }
@@ -104,7 +104,7 @@
 #info-heading {
     font-size: 18px;
     font-weight: 800;
-    color: green;
+    color: #e6b17e;
     animation-duration: 5s;
     animation-name: slidein;
 }
@@ -112,7 +112,7 @@
 #unassigned-tasks-info-heading {
     font-size: 18px;
     font-weight: 800;
-    color: green;
+    color: #e6b17e;
     animation-duration: 5s;
     animation-name: slidein;
 }

@@ -99,7 +99,7 @@ function EmployeesContextProvider(props) {
         });
       }
       else {
-        <Navigate to="/sign-up" />
+        <Navigate to="/" />
       }
     } catch (error) {
       handleAuthErr(error.message);

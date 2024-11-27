@@ -120,7 +120,7 @@ function App() {
                 <hr />
             </div>
           ) : (
-            ""
+            <Navigate to="/" />
           )}
         </div>
 
