@@ -108,7 +108,6 @@ function EmployeesContextProvider(props) {
 
   const getLoggedInEmployee = () => {
     const loggedIn = JSON.parse(localStorage.getItem("user"));
-    console.log('Logged In: ', employees.find((employee) => employee.user?.userID === loggedIn?.userID));
     const foundEmployee =  employees.find(
         (employee) => employee.user?.userID === loggedIn?.userID
       );

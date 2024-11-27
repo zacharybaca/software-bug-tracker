@@ -165,7 +165,7 @@ function App() {
             }
           />
 
-          <Route path="/sign-up" element={!context.userState.user.userID && !token ? <SignUpForm /> : <TaskList />} />
+          <Route path="/sign-up" element={!context.userState.user.userID || !token ? <SignUpForm /> : <TaskList />} />
 
           <Route path="/unassigned-tasks" element={token ?<UnAssignedTasks /> : <Navigate to="/" />}
           />
