@@ -1,12 +1,12 @@
 import './landing-page.css';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { EmployeesContext } from '../../context/employeesContext';
 
 
 function LandingPage() {
   const context = React.useContext(EmployeesContext);
-
+  const navigate = useNavigate();
   const initialValues = {
     userID: "",
     password: ""
@@ -52,11 +52,9 @@ function LandingPage() {
           <button className="btn btn-layered-3d btn-layered-3d--green">Sign In</button>
           {context.userState.errMsg ? <p className="error-message">{context.userState.errMsg}</p> : ""}
         </form>
-          <Link to="/sign-up">
-            <button type="button" id="new-user-button">
-              New User? Click Here
-            </button>
-          </Link>
+          <button type="button" id="new-user-button" onClick={() => navigate("/sign-up")}>
+            New User? Click Here
+          </button>
       </div>
     );
 }
