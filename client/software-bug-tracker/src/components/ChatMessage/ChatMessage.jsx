@@ -1,9 +1,24 @@
-
+import React, { useContext } from 'react';
+import { EmployeesContext } from '../../context/employeesContext';
 import './chat-message.css';
 
 
 
-function ChatMessage() {
+function ChatMessage(props) {
+  
+    const context = useContext(EmployeesContext);
+
+    const initialValues = {
+      text: props.text ? props.text : "",
+      font: props.font ? props.font : "",
+      user: props.user ? props.user : null,
+      date: props.date ? props.date : "",
+      loggedInEmployee: props.loggedInEmployee ? props.loggedInEmployee : null,
+      avatar: props.loggedInEmployee ? props.loggedInEmployee.avatar : null
+    };
+
+    const [chatMessage, setChatMessage] = React.useState(initialValues);
+
 
     return (
       <>
