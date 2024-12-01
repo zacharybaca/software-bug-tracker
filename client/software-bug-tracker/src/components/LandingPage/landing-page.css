@@ -111,3 +111,12 @@
     font-size: 15px;
     font-weight: 800;
 }
+
+#landing-page-avatar img {
+    width: 150px;
+    height: 150px;
+}
+
+#landing-page-avatar {
+    border-radius: 10px;
+}

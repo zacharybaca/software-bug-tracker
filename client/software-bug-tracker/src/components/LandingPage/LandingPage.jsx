@@ -9,8 +9,10 @@ function LandingPage() {
   const navigate = useNavigate();
   const initialValues = {
     userID: "",
-    password: ""
-  }
+    password: "",
+    avatarPic:
+      "https://api.dicebear.com/9.x/fun-emoji/svg?radius=20&size=130&backgroundColor=c0aede,ffd5dc,ffdfbf&eyes=glasses,shades,closed&mouth=smileTeeth,smileLol,wideSmile"
+  };
 
   const [formData, setFormData] = React.useState(initialValues);
 
@@ -31,6 +33,9 @@ function LandingPage() {
       <div id="landing-page-container">
         <h1 id="form-header">Sign In To Access Your Account</h1>
         <form id="login-form" name="loginForm" onSubmit={handleSubmit}>
+          <div id="landing-page-avatar">
+            <img src={formData.avatarPic ? formData.avatarPic : "/uploads/landing-page-avatar.png"} alt="landing page avatar" />
+          </div>
           <input
             type="text"
             id="login-user-name"
