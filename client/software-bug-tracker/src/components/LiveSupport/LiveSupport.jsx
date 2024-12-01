@@ -140,11 +140,11 @@ const LiveSupport = () => {
 
   return (
     <>
-      <h1 id="support-heading">Welcome to Live Support, {user}!</h1>
+      <h1 id="support-heading">Welcome to Live Support, {loggedInEmployee.firstName} {loggedInEmployee.lastName}!</h1>
       <div id="chat-container">
         <div id="messages-container">
           {messages.length > 0
-            ? messages.map(({ user, date, text }, index) => (
+            ? messages.map(({ date, text }, index) => (
                 <div key={index} className="message-container">
                   <div className="message-time">
                     {moment(date).format("h:mm:ss a")}
@@ -153,7 +153,7 @@ const LiveSupport = () => {
                     <div id="profile-thumbnail">
                       <img src={loggedInEmployee.avatar} alt="profile pic" />
                     </div>
-                    <div id="username-container">{user.name} says:</div>
+                    <div id="username-container">{loggedInEmployee.firstName} {loggedInEmployee.lastName} says:</div>
                   </div>
                   <div className={font}>{text}</div>
                 </div>
@@ -163,10 +163,10 @@ const LiveSupport = () => {
         <div id="users-online-container">
           <h1 id="users-online-heading">Users Online</h1>
           <ul id="users-online-list">
-            {users.map(({ name, id }) => (
+            {users.map(({ id }) => (
               <li key={id} className="online-user">
                 <img src={ChatListAvatar} alt="chat list avatar" />
-                {name}
+                {loggedInEmployee.firstName} {loggedInEmployee.lastName}
               </li>
             ))}
           </ul>

@@ -11,7 +11,7 @@ function LandingPage() {
     userID: "",
     password: "",
     avatarPic:
-      "https://api.dicebear.com/9.x/fun-emoji/svg?radius=20&size=130&backgroundColor=c0aede,ffd5dc,ffdfbf&eyes=glasses,shades,closed&mouth=smileTeeth,smileLol,wideSmile"
+      "https://api.dicebear.com/9.x/icons/svg?icon=bug,display,globe,globe2,hdd,keyboard,laptop,mouse,mouse2,printer,router,search&backgroundType=gradientLinear&backgroundColor=ffdfbf&size=130&radius=50"
   };
 
   const [formData, setFormData] = React.useState(initialValues);
@@ -31,7 +31,7 @@ function LandingPage() {
 
     return (
       <div id="landing-page-container">
-        <h1 id="form-header">Sign In To Access Your Account</h1>
+        <h1 id="form-header">Sign In To Access Your Assigned Tasks</h1>
         <form id="login-form" name="loginForm" onSubmit={handleSubmit}>
           <div id="landing-page-avatar">
             <img src={formData.avatarPic ? formData.avatarPic : "/uploads/landing-page-avatar.png"} alt="landing page avatar" />
