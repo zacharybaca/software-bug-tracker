@@ -11,16 +11,18 @@ import ChatListAvatar from '../../assets/developer.png';
 
 
 const LiveSupport = () => {
+  let typingTimeout;
   const socketRef = useRef(null);
   const [users, setUsers] = useState([]);
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
+  const [usersTyping, setUsersTyping] = useState([]);
   const [font, setFont] = useState("");
-
   const context = useContext(EmployeesContext);
   const nodeEnv = import.meta.env.VITE_NODE_ENV;
   const user = JSON.parse(localStorage.getItem("user"))?.userID;
   const loggedInEmployee = context.getLoggedInEmployee();
+
 
   // Function That Returns Parsed JSON
   // Returns An Empty Array If Value is Un-Parsable
@@ -107,15 +109,27 @@ const LiveSupport = () => {
       });
 
       socketRef.current.on("users", (users) => setUsers(users));
+
       socketRef.current.on("message", (message) =>
         setMessages((prevMessages) => [...prevMessages, message])
       );
+
       socketRef.current.on("connected", (newUser) =>
         setUsers((prevUsers) => [...prevUsers, newUser])
       );
+
       socketRef.current.on("disconnected", (id) =>
         setUsers((prevUsers) => prevUsers.filter((user) => user.id !== id))
       );
+
+      socketRef.current.on("typing start", (user) => {
+        console.log("Typing event received from server:", user);
+        setUsersTyping((prevUsers) => [...prevUsers, user]);
+      });
+
+      socketRef.current.on("typing stop", (id) => {
+        setUsersTyping((prevUsers) => prevUsers.filter((user) => user.id !== id))
+      });
 
       // Clean up the socket connection on component unmount
       return () => {
@@ -135,30 +149,77 @@ const LiveSupport = () => {
     }
   };
 
+  const handleInputChange = (event) => {
+    setMessage(event.target.value);
+
+    if (socketRef.current) {
+      const typer = `${loggedInEmployee.firstName} ${loggedInEmployee.lastName}`;
+
+      console.log("Emitting typing event");
+
+      socketRef.current.emit(
+        "typing start",
+        typer
+      );
+
+      setUsersTyping(prevUsers => [...prevUsers, typer]);
+
+      clearTimeout(typingTimeout);
+
+      typingTimeout = setTimeout(() => {
+        if (socketRef.current) {
+          socketRef.current.emit("typing stop", loggedInEmployee._id);
+          setUsersTyping((prevUsers) => prevUsers.filter((user) => user.id !== loggedInEmployee._id));
+        }
+      }, 1000);
+
+    }
+
+  };
+
   // Redirect to login if user is not found
   if (!user) return <Navigate to="/login" />;
 
   return (
     <>
-      <h1 id="support-heading">Welcome to Live Support, {loggedInEmployee.firstName} {loggedInEmployee.lastName}!</h1>
+      <h1 id="support-heading">
+        Welcome to Live Support, {loggedInEmployee.firstName}{" "}
+        {loggedInEmployee.lastName}!
+      </h1>
       <div id="chat-container">
         <div id="messages-container">
           {messages.length > 0
             ? messages.map(({ date, text }, index) => (
-                <div key={index} className="message-container">
-                  <div className="message-time">
-                    {moment(date).format("h:mm:ss a")}
-                  </div>
-                  <div className="user-id-container">
-                    <div id="profile-thumbnail">
-                      <img src={loggedInEmployee.avatar} alt="profile pic" />
+                <>
+                  <div key={index} className="message-container">
+                    <div className="message-time">
+                      {moment(date).format("h:mm:ss a")}
                     </div>
-                    <div id="username-container">{loggedInEmployee.firstName} {loggedInEmployee.lastName} says:</div>
+                    <div className="user-id-container">
+                      <div id="profile-thumbnail">
+                        <img src={loggedInEmployee.avatar} alt="profile pic" />
+                      </div>
+                      <div id="username-container">
+                        {loggedInEmployee.firstName} {loggedInEmployee.lastName}{" "}
+                        says:
+                      </div>
+                    </div>
+                    <div className={font}>{text}</div>
                   </div>
-                  <div className={font}>{text}</div>
-                </div>
+                </>
               ))
             : ""}
+          <div id="typing-indicator">
+            {usersTyping ? (
+              <ul>
+                {usersTyping.map((user, index) => (
+                  <li key={index}>{user.name}</li>
+                ))}
+              </ul>
+            ) : (
+              <p>No one is typing.</p>
+            )}
+          </div>
         </div>
         <div id="users-online-container">
           <h1 id="users-online-heading">Users Online</h1>
@@ -191,8 +252,7 @@ const LiveSupport = () => {
             id="clear-messages-button"
             onClick={clearMessages}
             disabled={messages.length === 0}
-            className={messages.length === 0 ? "not-allowed" : "allowed"}
-            >
+            className={messages.length === 0 ? "not-allowed" : "allowed"}>
             Clear Messages
           </button>
         </div>
@@ -205,7 +265,7 @@ const LiveSupport = () => {
               placeholder="Enter a message"
               value={message}
               id="text"
-              onChange={(e) => setMessage(e.currentTarget.value)}
+              onChange={handleInputChange}
               autoFocus
             />
             <button type="submit" id="submit-button">
