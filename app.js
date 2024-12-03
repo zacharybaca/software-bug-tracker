@@ -32,6 +32,7 @@ else {
 }
 
 const users = {};
+const usersTyping = {};
 
 app.use(
   cors({
@@ -86,10 +87,25 @@ io.on("connection", client => {
         });
     });
 
+    client.on('typing start', (typingUser) => {
+        console.log("Broadcasting typing event with username:", typingUser);
+        const user = {
+            name: typingUser,
+            id: client.id
+        };
+        usersTyping[client.id] = user;
+        io.emit('typingUser', user);
+    });
+
+    client.on('typing stop', () => {
+        delete usersTyping[client.id];
+        io.emit("userStoppedTyping", client.id);
+    });
+
     client.on("disconnect", () => {
-        const username = users[client.id];
-        delete users[client.id];
-        io.emit("disconnected", client.id);
+      const username = users[client.id];
+      delete users[client.id];
+      io.emit("disconnected", client.id);
     });
 });
 
