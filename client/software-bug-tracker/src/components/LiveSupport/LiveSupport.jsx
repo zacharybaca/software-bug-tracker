@@ -1,5 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useRef, useEffect, useState, useContext } from "react";
+import Lottie from 'react-lottie';
+import typingAnimation from '../../animations/typing-animation.json';
 import "./live-support.css";
 import io from "socket.io-client";
 import moment from "moment";
@@ -11,7 +13,7 @@ import ChatListAvatar from '../../assets/developer.png';
 
 
 const LiveSupport = () => {
-  let typingTimeout;
+  const typingTimeoutRef = useRef(null);
   const socketRef = useRef(null);
   const [users, setUsers] = useState([]);
   const [message, setMessage] = useState("");
@@ -23,6 +25,28 @@ const LiveSupport = () => {
   const user = JSON.parse(localStorage.getItem("user"))?.userID;
   const loggedInEmployee = context.getLoggedInEmployee();
 
+
+  const TypingIndicator = () => {
+    const defaultOptions = {
+      loop: true,
+      autoplay: true,
+      animationData: typingAnimation,
+    };
+    return (
+      <div id="typing-indicator-animation">
+        {usersTyping ? (
+          <Lottie
+            options={defaultOptions}
+            height={50}
+            width={200}
+            style={{ marginRight: "70%", marginBottom: "10px" }}
+          />
+        ) : (
+          <div></div>
+        )}
+      </div>
+    );
+  };
 
   // Function That Returns Parsed JSON
   // Returns An Empty Array If Value is Un-Parsable
@@ -121,17 +145,7 @@ const LiveSupport = () => {
       socketRef.current.on("disconnected", (id) =>
         setUsers((prevUsers) => prevUsers.filter((user) => user.id !== id))
       );
-
-      socketRef.current.on("typing start", (user) => {
-        console.log("Typing event received from server:", user);
-        setUsersTyping((prevUsers) => [...prevUsers, user]);
-      });
-
-      socketRef.current.on("typing stop", (id) => {
-        setUsersTyping((prevUsers) => prevUsers.filter((user) => user.id !== id))
-      });
-
-      // Clean up the socket connection on component unmount
+      
       return () => {
         if (socketRef.current) {
           socketRef.current.disconnect();
@@ -140,6 +154,20 @@ const LiveSupport = () => {
       };
     }
   }, [nodeEnv, user]);
+
+  useEffect(() => {
+    if (socketRef.current) {
+      socketRef.current.on("typingUsers", (typingUsers) => {
+        console.log("Typing event received from server:", typingUsers);
+        setUsersTyping(typingUsers);
+      });
+    }
+    return () => {
+      if (socketRef.current) {
+        socketRef.current.off("typingUsers");
+      }
+    };
+  }, []);
 
   const submit = (e) => {
     e.preventDefault();
@@ -153,28 +181,17 @@ const LiveSupport = () => {
     setMessage(event.target.value);
 
     if (socketRef.current) {
-      const typer = `${loggedInEmployee.firstName} ${loggedInEmployee.lastName}`;
+      const employeeName = `${loggedInEmployee.firstName} ${loggedInEmployee.lastName}`;
+      socketRef.current.emit("typingStart", employeeName);
 
-      console.log("Emitting typing event");
+      if (typingTimeoutRef.current) {
+        clearTimeout(typingTimeoutRef.current);
+      }
 
-      socketRef.current.emit(
-        "typing start",
-        typer
-      );
-
-      setUsersTyping(prevUsers => [...prevUsers, typer]);
-
-      clearTimeout(typingTimeout);
-
-      typingTimeout = setTimeout(() => {
-        if (socketRef.current) {
-          socketRef.current.emit("typing stop", loggedInEmployee._id);
-          setUsersTyping((prevUsers) => prevUsers.filter((user) => user.id !== loggedInEmployee._id));
-        }
+      typingTimeoutRef.current = setTimeout(() => {
+        socketRef.current.emit("typingStop");
       }, 1000);
-
     }
-
   };
 
   // Redirect to login if user is not found
@@ -209,17 +226,6 @@ const LiveSupport = () => {
                 </>
               ))
             : ""}
-          <div id="typing-indicator">
-            {usersTyping ? (
-              <ul>
-                {usersTyping.map((user, index) => (
-                  <li key={index}>{user.name}</li>
-                ))}
-              </ul>
-            ) : (
-              <p>No one is typing.</p>
-            )}
-          </div>
         </div>
         <div id="users-online-container">
           <h1 id="users-online-heading">Users Online</h1>
@@ -232,6 +238,28 @@ const LiveSupport = () => {
             ))}
           </ul>
         </div>
+      </div>
+      <div id="typing-indicator">
+        {usersTyping.length > 0 && usersTyping.length < 3 ? (
+          <>
+            <ul>
+              {usersTyping.map((user, index) => (
+                <li key={index}>
+                  {usersTyping.length === 1
+                    ? `${user.name} is currently typing a message`
+                    : `${usersTyping[0].name} and ${usersTyping[1].name} are currently typing a message`}
+                </li>
+              ))}
+            </ul>
+            <TypingIndicator />
+          </>
+        ) : (
+          <p>
+            {usersTyping.length >= 3
+              ? "There are many people typing a message...."
+              : "Nobody is typing a message...."}
+          </p>
+        )}
       </div>
       <div id="message-options-container">
         <div id="select-font-container">
