@@ -87,19 +87,19 @@ io.on("connection", client => {
         });
     });
 
-    client.on('typing start', (typingUser) => {
-        console.log("Broadcasting typing event with username:", typingUser);
-        const user = {
-            name: typingUser,
-            id: client.id
-        };
-        usersTyping[client.id] = user;
-        io.emit('typingUser', user);
+    client.on("typingStart", (typingUser) => {
+      console.log("Broadcasting typing event with username:", typingUser);
+      const currentTyper = {
+        name: typingUser,
+        id: client.id,
+      };
+      usersTyping[client.id] = currentTyper;
+      io.emit("typingUsers", Object.values(usersTyping));
     });
 
-    client.on('typing stop', () => {
-        delete usersTyping[client.id];
-        io.emit("userStoppedTyping", client.id);
+    client.on("typingStop", () => {
+      delete usersTyping[client.id];
+      io.emit("typingUsers", Object.values(usersTyping));
     });
 
     client.on("disconnect", () => {
