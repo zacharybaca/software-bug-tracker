@@ -68,7 +68,7 @@ Ensure you have the following installed on your machine:
 6. **Create a <code>.env</code> file in the root directory with the following contents**:
    ```bash
    MONGODB_URI=<your-mongodb-uri>
-   JWT_SECRET=<your-jwt-secret>
+   SECRET=<your-jwt-secret>
    PORT=9000
    NODE_ENV=development
    ```
@@ -179,6 +179,7 @@ Ensure you have the following installed on your machine:
    1. Server That Provides Real Time Communication for the Built-In Messaging System
       - <code>ws://localhost:9000</code>
       - Real-time chat communication and user online status updates.
+      - Typing indicator feature that shows which user is currently typing a message.
 
 # Project Structure
   - Structure of How Project File System is Set Up
