@@ -153,10 +153,11 @@
 
 #users-online-heading {
     text-align: center;
-    font-family: "Protest Guerrilla", sans-serif;
+    font-family: "Vast Shadow", serif;
     font-weight: 400;
     font-style: normal;
-    font-size: 45px;
+    font-size: 1.95rem;
+    padding: 4%;
 }
 
 #support-heading {
