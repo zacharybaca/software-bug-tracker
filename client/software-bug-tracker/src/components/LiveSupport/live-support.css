@@ -10,6 +10,14 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Vast+Shadow&display=swap');
 
+@import url('https://fonts.googleapis.com/css2?family=Macondo+Swash+Caps&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Fontdiner+Swanky&family=Macondo+Swash+Caps&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Fontdiner+Swanky&family=Gloria+Hallelujah&family=Macondo+Swash+Caps&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Fontdiner+Swanky&family=Gloria+Hallelujah&family=Macondo+Swash+Caps&family=Noto+Sans+Egyptian+Hieroglyphs&display=swap');
+
 #chat-container {
     display: flex;
     justify-content: center;
@@ -224,6 +232,30 @@
     background-size: contain;
     background-color: green;
     color: white;
+}
+
+.egyptian-hieroglyphs-font {
+    font-family: "Noto Sans Egyptian Hieroglyphs", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.handwriting-font {
+    font-family: "Gloria Hallelujah", cursive;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.playful-font {
+    font-family: "Fontdiner Swanky", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.fancy-font {
+    font-family: "Macondo Swash Caps", cursive;
+    font-weight: 400;
+    font-style: normal;
 }
 
 .handwriting-font {
