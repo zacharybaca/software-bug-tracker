@@ -59,15 +59,6 @@ app.use('/api/main', expressjwt({secret: process.env.SECRET, algorithms: ['HS256
 app.use("/api/main/tasks", require("./routes/taskRouter.js"));
 app.use("/api/employees", require("./routes/employeeRouter.js"));
 
-const connectToMongoDB = async () => {
-    try {
-        await mongoose.connect(process.env.MONGODB_URI);
-        console.log("Connected to MongoDB");
-    } catch (error) {
-        console.error("Failed to connect to MongoDB", error);
-    }
-};
-
 io.on("connection", client => {
     client.on("username", username => {
         const user = {
@@ -105,9 +96,20 @@ io.on("connection", client => {
     client.on("disconnect", () => {
       const username = users[client.id];
       delete users[client.id];
-      io.emit("disconnected", client.id);
+      io.emit("disconnected", { id: client.id, username });
     });
 });
+
+const connectToMongoDB = async () => {
+  try {
+    await mongoose.connect(process.env.MONGODB_URI, {
+      serverSelectionTimeoutMS: 30000
+    });
+    console.log("Connected to MongoDB");
+  } catch (error) {
+    console.error("Failed to connect to MongoDB", error);
+  }
+};
 
 connectToMongoDB();
 
