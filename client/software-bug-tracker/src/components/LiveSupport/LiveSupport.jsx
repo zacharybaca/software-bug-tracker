@@ -276,7 +276,7 @@ const LiveSupport = () => {
             <option value="colorful-font">Colorful Style Font</option>
             <option value="fancy-font">Fancy Style Font</option>
             <option value="playful-font">Playful Style Font</option>
-            <option value="handwriting-font">Handwriting Style Font</option>
+            <option value="notebook-handwriting-font">Notebook Handwriting Style Font</option>
             <option value="egyptian-hieroglyphs-font">Egyptian Hieroglyphs Style Font</option>
           </select>
         </div>
