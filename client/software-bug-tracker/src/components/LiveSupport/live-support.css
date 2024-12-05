@@ -26,15 +26,16 @@
     min-height: 50vh;
     max-height: 50vh;
     box-sizing: border-box;
-    padding: 2%;
+    border: 2px solid black;
 }
 
 #messages-container {
     display: flex;
     flex-direction: column;
-    max-width: 75%;
-    min-width: 75%;
-    padding: 0.5%;
+    max-width: 85%;
+    min-width: 85%;
+    min-height: 50vh;
+    max-height: 50vh;
     overflow: scroll;
     scrollbar-color: beige green;
     scrollbar-width: auto;
@@ -44,6 +45,7 @@
     opacity: 0.5;
     color: white;
     box-sizing: border-box;
+    border: 2px solid yellow;
 }
 
 #message-options-container {
@@ -113,9 +115,10 @@
 }
 
 #users-online-container {
-    max-width: 25%;
-    min-width: 25%;
-    height: 42vh;
+    max-width: 15%;
+    min-width: 15%;
+    min-height: 50vh;
+    max-height: 50vh;
     box-sizing: border-box;
     overflow: scroll;
     scrollbar-color: beige green;
@@ -125,6 +128,7 @@
     background-size: contain;
     background-position-y: center;
     mix-blend-mode: multiply;
+    border: 3px solid orange;
 }
 
 #users-online-list {
@@ -135,16 +139,16 @@
 }
 
 .online-user {
-    font-family: "Vast Shadow", serif;
+    font-family: "Gloria Hallelujah", cursive;
     font-weight: 400;
     font-style: normal;
-    font-size: 1.95rem;
+    font-size: 1.50rem;
     padding: 2%;
 }
 
 .online-user img {
     width: 50px;
-    height: 50px;
+    height: 40px;
 }
 
 #users-online-heading {
@@ -240,7 +244,7 @@
     font-style: normal;
 }
 
-.handwriting-font {
+.notebook-handwriting-font {
     font-family: "Gloria Hallelujah", cursive;
     font-weight: 400;
     font-style: normal;
