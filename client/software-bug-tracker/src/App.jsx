@@ -108,28 +108,31 @@ function App() {
             <div id="nav-main-container">
               <hr />
               <div id="nav-button-container">
-                <button
+                <LogOutButton logout={context.logout}/>
+                {/* <button
                   type="button"
                   id="logout-button"
                   onClick={context.logout}>
                   <img src={LogOut} />
                   Logout
-                </button>
-                <button
+                </button> */}
+                <TasksButton navigate={navigate}/>
+                {/* <button
                   type="button"
                   id="my-tasks-button"
                   onClick={() => navigate("/tasks")}>
                   <img src={AssignTask} />
                   {context.hasAdminRights() ? "Employee Tasks" : "My Tasks"}
-                </button>
+                </button> */}
                 {context.employees.length > 0 && context.hasAdminRights() ? (
-                  <button
-                    type="button"
-                    id="employee-directory-button"
-                    onClick={() => navigate("/employee-directory")}>
-                    <img src={Directory} />
-                    Employee Directory
-                  </button>
+                  <EmployeeDirectoryButton navigate={navigate}/>
+                  // <button
+                  //   type="button"
+                  //   id="employee-directory-button"
+                  //   onClick={() => navigate("/employee-directory")}>
+                  //   <img src={Directory} />
+                  //   Employee Directory
+                  // </button>
                 ) : null}
 
                 <button

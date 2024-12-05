@@ -2,6 +2,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 4px;
     border-radius: 5px;
     height: 15vh;
     background-color: #f5f5dc;
@@ -13,4 +14,11 @@
     cursor: url("./assets/click.png"), pointer;
     background-color: green;
     color: white;
+}
+
+.logout-content {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    /* Adjust spacing between animation and text */
 }

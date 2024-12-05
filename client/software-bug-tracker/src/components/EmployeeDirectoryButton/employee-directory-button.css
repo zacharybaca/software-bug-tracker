@@ -14,3 +14,10 @@
     background-color: green;
     color: white;
 }
+
+.employee-directory-content {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    /* Adjust spacing between animation and text */
+}

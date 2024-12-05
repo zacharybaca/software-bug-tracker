@@ -117,7 +117,7 @@
     animation-name: slidein;
 }
 
-#logout-button {
+/* #logout-button {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -126,7 +126,7 @@
     background-color: #f5f5dc;
     font-size: 1rem;
     font-weight: 600;
-}
+} */
 
 #live-support-button {
     display: flex;
@@ -176,11 +176,11 @@
     font-weight: 600;
 }
 
-#logout-button:hover {
+/* #logout-button:hover {
     cursor: url("./assets/click.png"), pointer;
     background-color: green;
     color: white;
-}
+} */
 
 #live-support-button:hover {
     cursor: url("./assets/click.png"), pointer;

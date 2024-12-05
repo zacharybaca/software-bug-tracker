@@ -254,14 +254,14 @@ const LiveSupport = () => {
             <TypingIndicator />
           </>
         ) : (
-          <p>
+          <div>
             {usersTyping.length >= 3
               ? <>
                   <p>There are many people typing a message</p>
                   <TypingIndicator />
                 </>
               : <p>Nobody is typing a message....</p>}
-          </p>
+          </div>
         )}
       </div>
       <div id="message-options-container">

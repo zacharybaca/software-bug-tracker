@@ -1,26 +1,30 @@
-import { Player } from "react-lottie";
-import logOutAnimation from '../../animations/logout-animation.json';
+import Lottie from "react-lottie";
+import logOutAnimation from "../../animations/logout-animation.json";
 import "./log-out-button.css";
 
-const LogOutButton = () => {
+const LogOutButton = (props) => {
+  const lottieOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: logOutAnimation,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice",
+    },
+  };
 
   return (
-    <button id="logout-button">
-      <Player
-        autoplay
-        loop
-        src={logOutAnimation}
-        style={lottieStyle} 
-      />
-      Log Out
-    </button> 
-  );
-};
+    <button id="logout-button" onClick={props.logout}>
+      <div className="logout-content">
+        <Lottie options={lottieOptions} height={40} width={40} />
+        <span>Log Out</span>
+      </div>
+    </button>
 
-const lottieStyle = {
-  width: "40px", // Adjust the size of the animation
-  height: "40px",
-  marginRight: "10px",
+    // <button id="logout-button">
+    //   <Lottie options={lottieOptions} height={40} width={40} />
+    //   Log Out
+    // </button>
+  );
 };
 
 export default LogOutButton;
