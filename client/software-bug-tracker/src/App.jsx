@@ -22,9 +22,6 @@ import AddEmployee from './assets/add-user.gif';
 import LogOutButton from './components/LogOutButton/LogOutButton';
 import TasksButton from './components/TasksButton/TasksButton';
 import EmployeeDirectoryButton from './components/EmployeeDirectoryButton/EmployeeDirectoryButton';
-import UnAssignButton from './components/UnAssignButton/UnAssignButton';
-import DeleteButton from './components/DeleteButton/DeleteButton';
-import EditButton from './components/EditButton/EditButton';
 import SaveButton from './components/SaveButton/SaveButton';
 import SettingsButton from './components/SettingsButton/SettingsButton';
 import React from 'react';
@@ -109,30 +106,9 @@ function App() {
               <hr />
               <div id="nav-button-container">
                 <LogOutButton logout={context.logout}/>
-                {/* <button
-                  type="button"
-                  id="logout-button"
-                  onClick={context.logout}>
-                  <img src={LogOut} />
-                  Logout
-                </button> */}
                 <TasksButton navigate={navigate}/>
-                {/* <button
-                  type="button"
-                  id="my-tasks-button"
-                  onClick={() => navigate("/tasks")}>
-                  <img src={AssignTask} />
-                  {context.hasAdminRights() ? "Employee Tasks" : "My Tasks"}
-                </button> */}
                 {context.employees.length > 0 && context.hasAdminRights() ? (
                   <EmployeeDirectoryButton navigate={navigate}/>
-                  // <button
-                  //   type="button"
-                  //   id="employee-directory-button"
-                  //   onClick={() => navigate("/employee-directory")}>
-                  //   <img src={Directory} />
-                  //   Employee Directory
-                  // </button>
                 ) : null}
 
                 <button

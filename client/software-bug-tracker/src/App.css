@@ -117,17 +117,6 @@
     animation-name: slidein;
 }
 
-/* #logout-button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 5px;
-    height: 15vh;
-    background-color: #f5f5dc;
-    font-size: 1rem;
-    font-weight: 600;
-} */
-
 #live-support-button {
     display: flex;
     justify-content:center;
@@ -143,28 +132,6 @@
     margin-left: -1%;
 }
 
-#my-tasks-button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 5px;
-    height: 15vh;
-    background-color: #f5f5dc;
-    font-size: 1rem;
-    font-weight: 600;
-}
-
-#employee-directory-button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 5px;
-    height: 15vh;
-    background-color: #f5f5dc;
-    font-size: 1rem;
-    font-weight: 600;
-}
-
 #unassigned-tasks-button {
     display: flex;
     justify-content: center;
@@ -176,25 +143,7 @@
     font-weight: 600;
 }
 
-/* #logout-button:hover {
-    cursor: url("./assets/click.png"), pointer;
-    background-color: green;
-    color: white;
-} */
-
 #live-support-button:hover {
-    cursor: url("./assets/click.png"), pointer;
-    background-color: green;
-    color: white;
-}
-
-#my-tasks-button:hover {
-    cursor: url("./assets/click.png"), pointer;
-    background-color: green;
-    color: white;
-}
-
-#employee-directory-button:hover {
     cursor: url("./assets/click.png"), pointer;
     background-color: green;
     color: white;

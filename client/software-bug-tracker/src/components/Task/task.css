@@ -36,18 +36,6 @@
     border-radius: 10px;
 }
 
-#edit-task-button:hover {
-    cursor: url("../../assets/click.png"), pointer;
-    background-color: green;
-    color: white;
-}
-
-#delete-task-button:hover {
-    cursor: url("../../assets/click.png"), pointer;
-    background-color: red;
-    color: white;
-}
-
 .heading {
     font-family: "Nerko One", cursive;
     font-weight: 10;
@@ -66,16 +54,5 @@
     background-color: green;
     min-width: 100%;
     max-width: 100%;
-    color: white;
-}
-
-#unassign-task-button {
-    width: 100%;
-    border-radius: 5px;
-}
-
-#unassign-task-button:hover {
-    cursor: url("../../assets/click.png"), pointer;
-    background-color: green;
     color: white;
 }

@@ -1,20 +1,25 @@
-import { Player } from "react-lottie";
+import Lottie from "react-lottie";
 import "./un-assign-button.css";
 import unAssignAnimation from "../../animations/unassign-animation.json";
 
-const UnAssignButton = () => {
+const UnAssignButton = (props) => {
+  const lottieOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: unAssignAnimation,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice",
+    },
+  };
+
   return (
-    <button id="unassigned-tasks-button">
-      <Player autoplay loop src={unAssignAnimation} style={lottieStyle} />
-      
+    <button id="unassign-task-button" onClick={() => props.unAssignTask(props.id)}>
+      <div className="unassign-content">
+        <Lottie options={lottieOptions} height={40} width={40} />
+        <span>UnAssign</span>
+      </div>
     </button>
   );
-};
-
-const lottieStyle = {
-  width: "40px", // Adjust the size of the animation
-  height: "40px",
-  marginRight: "10px",
 };
 
 export default UnAssignButton;

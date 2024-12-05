@@ -22,6 +22,7 @@
 }
 
 #new-user-button {
+    cursor: url("../../assets/click.png"), pointer;
     width: 100%;
     border-radius: 5px;
     margin-top: 8%;
@@ -58,7 +59,7 @@
     width: 180px;  
     position: relative;  
     display: inline-block;  
-    cursor: pointer;  
+    cursor: url("../../assets/click.png"), pointer;
     outline: none;  
     border: 0px;  
     vertical-align: middle;  
@@ -67,7 +68,7 @@
     font-family: inherit;  
     font-weight: 600;  
     text-transform: uppercase;  
-    padding: 1.15em 2em;  
+    padding: 1em 2em;  
     border-radius: 0.75em;  
     transform-style: preserve-3d;  
     transition: transform 0.15s ease-out, background 0.15s ease-out;

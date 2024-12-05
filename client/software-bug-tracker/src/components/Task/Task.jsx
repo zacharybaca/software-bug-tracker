@@ -3,6 +3,9 @@ import TaskForm from '../TaskForm/TaskForm';
 import React from 'react';
 import { EmployeesContext } from '../../context/employeesContext';
 import { TasksContext } from '../../context/tasksContext';
+import EditButton from "../EditButton/EditButton";
+import DeleteButton from "../DeleteButton/DeleteButton";
+import UnAssignButton from "../UnAssignButton/UnAssignButton";
 
 
 const Task = (props) => {
@@ -68,25 +71,28 @@ const Task = (props) => {
               </div>
             </div>
             <div id="buttons-container">
-              <button
+              <EditButton setShowForm={setShowForm}/>
+              {/* <button
                 type="button"
                 id="edit-task-button"
                 onClick={() => setShowForm((prevState) => !prevState)}>
                 Edit
-              </button>
-              <button
+              </button> */}
+              <DeleteButton deleteTask={props.deleteTask} id={props.id} />
+              {/* <button
                 type="button"
                 id="delete-task-button"
                 onClick={() => props.deleteTask(props.id)}>
                 Delete
-              </button>
+              </button> */}
               {props.assignedEmployee ? (
-                <button
-                  type="button"
-                  id="unassign-task-button"
-                  onClick={() => tasks.unAssignTask(props.id)}>
-                  Un-Assign Task
-                </button>
+                <UnAssignButton unAssignTask={tasks.unAssignTask} id={props.id}/>
+                // <button
+                //   type="button"
+                //   id="unassign-task-button"
+                //   onClick={() => tasks.unAssignTask(props.id)}>
+                //   Un-Assign Task
+                // </button>
               ) : null}
             </div>
             {props.errMsg ? <p style={{ color: "red" }}>{props.errMsg}</p> : ""}

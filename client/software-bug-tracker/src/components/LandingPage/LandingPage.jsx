@@ -11,7 +11,7 @@ function LandingPage() {
     userID: "",
     password: "",
     avatarPic:
-      "https://api.dicebear.com/9.x/icons/svg?icon=bug,display,globe,globe2,hdd,keyboard,laptop,mouse,mouse2,printer,router,search&backgroundType=gradientLinear&backgroundColor=ffdfbf&size=130&radius=50"
+      "https://api.dicebear.com/9.x/icons/svg?icon=search&backgroundType=gradientLinear&backgroundColor=eab581&size=130&radius=50",
   };
 
   const [formData, setFormData] = React.useState(initialValues);
@@ -31,7 +31,7 @@ function LandingPage() {
 
     return (
       <div id="landing-page-container">
-        <h1 id="form-header">Sign In To Access Your Assigned Tasks</h1>
+        <h1 id="form-header">Sign On To Access Your Assigned Tasks</h1>
         <form id="login-form" name="loginForm" onSubmit={handleSubmit}>
           <div id="landing-page-avatar">
             <img src={formData.avatarPic ? formData.avatarPic : "/uploads/landing-page-avatar.png"} alt="landing page avatar" />
@@ -43,6 +43,7 @@ function LandingPage() {
             value={formData.userID}
             onChange={handleChange}
             required
+            autoFocus
             placeholder="Enter Username"
           />
           <input
@@ -54,7 +55,7 @@ function LandingPage() {
             required
             placeholder="Enter Password"
           />
-          <button className="btn btn-layered-3d btn-layered-3d--green">Sign In</button>
+          <button className="btn btn-layered-3d btn-layered-3d--green">Sign On</button>
           {context.userState.errMsg ? <p className="error-message">{context.userState.errMsg}</p> : ""}
         </form>
           <button type="button" id="new-user-button" onClick={() => navigate("/sign-up")}>

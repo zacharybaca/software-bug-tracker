@@ -19,11 +19,6 @@ const LogOutButton = (props) => {
         <span>Log Out</span>
       </div>
     </button>
-
-    // <button id="logout-button">
-    //   <Lottie options={lottieOptions} height={40} width={40} />
-    //   Log Out
-    // </button>
   );
 };
 

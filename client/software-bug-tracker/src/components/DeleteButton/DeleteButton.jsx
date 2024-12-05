@@ -1,20 +1,25 @@
-import { Player } from "react-lottie";
-import './delete-button.css';
+import Lottie from "react-lottie";
+import "./delete-button.css";
 import deleteAnimation from "../../animations/delete-animation.json";
 
-const DeleteButton = () => {
+const DeleteButton = (props) => {
+  const lottieOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: deleteAnimation,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice",
+    },
+  };
+
   return (
-    <button>
-      <Player autoplay loop src={deleteAnimation} style={lottieStyle} />
-      Remove Employee
+    <button id="delete-task-button" onClick={() => props.deleteTask(props.id)}>
+      <div className="delete-content">
+        <Lottie options={lottieOptions} height={40} width={40} />
+        <span>Delete</span>
+      </div>
     </button>
   );
-};
-
-const lottieStyle = {
-  width: "40px", // Adjust the size of the animation
-  height: "40px",
-  marginRight: "10px",
 };
 
 export default DeleteButton;

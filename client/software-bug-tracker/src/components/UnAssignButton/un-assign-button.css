@@ -1,15 +1,21 @@
-#unassigned-tasks-button {
+#unassign-task-button {
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 5px;
-    height: 15vh;
+    height: 5vh;
     background-color: #f5f5dc;
     font-size: 1rem;
     font-weight: 600;
 }
 
-#unassigned-tasks-button:hover {
+.unassign-content {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+#unassign-task-button:hover {
     cursor: url("./assets/click.png"), pointer;
     background-color: green;
     color: white;

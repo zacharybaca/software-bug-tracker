@@ -1,20 +1,25 @@
-import { Player } from "react-lottie";
+import Lottie from "react-lottie";
 import "./edit-button.css";
 import editAnimation from "../../animations/edit-animation.json";
 
-const EditButton = () => {
+const EditButton = (props) => {
+  const lottieOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: editAnimation,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice",
+    },
+  };
+
   return (
-    <button>
-      <Player autoplay loop src={editAnimation} style={lottieStyle} />
-      Edit
+    <button id="edit-task-button" onClick={() => props.setShowForm((prevState) => !prevState)}>
+      <div className="edit-content">
+        <Lottie options={lottieOptions} height={40} width={40} />
+        <span>Edit</span>
+      </div>
     </button>
   );
-};
-
-const lottieStyle = {
-  width: "40px", // Adjust the size of the animation
-  height: "40px",
-  marginRight: "10px",
 };
 
 export default EditButton;

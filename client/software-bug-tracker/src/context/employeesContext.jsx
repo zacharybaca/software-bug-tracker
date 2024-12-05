@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { Navigate } from 'react-router-dom';
 
@@ -247,12 +248,19 @@ function EmployeesContextProvider(props) {
     const employee = employees.find(employee => employee._id === employeeID);
 
     if (employee) {
-      if (accessToken !== employee.accessCode) {
-        throw new Error("The Access Code You Have Entered is Invalid");
+      const hasExistingAccount = hasUserID(employeeID);
+
+      if (hasExistingAccount) {
+        return handleAuthErr(`${employee.firstName} ${employee.lastName} Already Has An Existing Account`);
       }
+
+      if (accessToken !== employee.accessCode) {
+        return handleAuthErr("The Access Code You Have Entered is Invalid");
+      }
+
     }
     else {
-      throw new Error("That Employee Does Not Exist in Our Database");
+      return handleAuthErr("That Employee Does Not Exist in Our Database");
     }
 
     try {
@@ -279,6 +287,7 @@ function EmployeesContextProvider(props) {
   };
   
   useEffect(() => {
+    userState.errMsg ? resetAuthErr() : false;
     const getEmployees = async () => {
       try {
         const response = await fetch("/api/employees");
