@@ -274,6 +274,10 @@ const LiveSupport = () => {
             <option value="cursive-font">Cursive Style Font</option>
             <option value="terminal-font">Terminal Style Font</option>
             <option value="colorful-font">Colorful Style Font</option>
+            <option value="fancy-font">Fancy Style Font</option>
+            <option value="playful-font">Playful Style Font</option>
+            <option value="handwriting-font">Handwriting Style Font</option>
+            <option value="egyptian-hieroglyphs-font">Egyptian Hieroglyphs Style Font</option>
           </select>
         </div>
         <div id="clear-button-container">
