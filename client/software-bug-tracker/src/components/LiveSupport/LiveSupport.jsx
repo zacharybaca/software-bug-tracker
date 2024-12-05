@@ -12,6 +12,7 @@ import SettingsLogo from '../../assets/settings.gif';
 import ChatListAvatar from '../../assets/developer.png';
 
 
+
 const LiveSupport = () => {
   const typingTimeoutRef = useRef(null);
   const socketRef = useRef(null);
@@ -24,7 +25,6 @@ const LiveSupport = () => {
   const nodeEnv = import.meta.env.VITE_NODE_ENV;
   const user = JSON.parse(localStorage.getItem("user"))?.userID;
   const loggedInEmployee = context.getLoggedInEmployee();
-
 
   const TypingIndicator = () => {
     const defaultOptions = {
@@ -256,8 +256,11 @@ const LiveSupport = () => {
         ) : (
           <p>
             {usersTyping.length >= 3
-              ? "There are many people typing a message...."
-              : "Nobody is typing a message...."}
+              ? <>
+                  <p>There are many people typing a message</p>
+                  <TypingIndicator />
+                </>
+              : <p>Nobody is typing a message....</p>}
           </p>
         )}
       </div>

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import TaskList from './components/TaskList/TaskList';
 import EmployeeForm from './components/EmployeeForm/EmployeeForm';
 import SignUpForm from './components/SignUpForm/SignUpForm';
@@ -18,6 +19,14 @@ import Directory from './assets/directory.gif';
 import UnassignedTask from './assets/unassigned-tasks.gif';
 import Networking from './assets/networking.gif';
 import AddEmployee from './assets/add-user.gif';
+import LogOutButton from './components/LogOutButton/LogOutButton';
+import TasksButton from './components/TasksButton/TasksButton';
+import EmployeeDirectoryButton from './components/EmployeeDirectoryButton/EmployeeDirectoryButton';
+import UnAssignButton from './components/UnAssignButton/UnAssignButton';
+import DeleteButton from './components/DeleteButton/DeleteButton';
+import EditButton from './components/EditButton/EditButton';
+import SaveButton from './components/SaveButton/SaveButton';
+import SettingsButton from './components/SettingsButton/SettingsButton';
 import React from 'react';
 import './App.css'
 
