@@ -16,7 +16,7 @@
 }
 
 #unassign-task-button:hover {
-    cursor: url("./assets/click.png"), pointer;
+    cursor: url("../../assets/click.png"), pointer;
     background-color: green;
     color: white;
 }
