@@ -311,12 +311,14 @@
 #typing-indicator {
     display: flex;
     padding-left: 2%;
+    margin-top: 2%;
     min-width: 100%;
     max-width: 100%;
     height: fit-content;
     box-sizing: border-box;
-    font-style: italic;
-    font-size: 2rem;
+    font-size: 1.25rem;
+    font-family: "Gloria Hallelujah", cursive;
+    font-weight: 400;
     color: green;
 }
 
