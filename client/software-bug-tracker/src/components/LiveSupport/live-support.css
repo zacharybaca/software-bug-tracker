@@ -224,8 +224,8 @@
 #submit-button {
     border-radius: 5px;
     height: 10vh;
-    min-width: 50%;
-    max-width: 50%;
+    min-width: 60%;
+    max-width: 60%;
     background-color: beige;
     font-size: 1rem;
     font-weight: 600;

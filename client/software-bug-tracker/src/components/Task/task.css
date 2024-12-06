@@ -48,11 +48,28 @@
     flex-direction: column;
     flex-wrap: wrap;
     align-content: center;
+    justify-content: center;
     border-radius: 10px;
-    padding-top: 2%;
-    padding-bottom: 2%;
+    padding-top: 4%;
+    padding-bottom: 4%;
+    gap: 1.25rem;
     background-color: green;
     min-width: 100%;
     max-width: 100%;
     color: white;
+}
+
+.task-info {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+hr {
+    min-width: 100%;
+    max-width: 100%;
+    min-height: 0.1rem;
+    max-height: 0.1rem;
 }
