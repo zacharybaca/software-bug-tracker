@@ -7,6 +7,7 @@ const morgan = require('morgan');
 require("dotenv").config({ path: `.env.${process.env.NODE_ENV}` });
 const server = require('http').createServer(app);
 const { expressjwt } = require("express-jwt");
+const { v4: uuidv4 } = require('uuid');
 let io;
 
 // Middleware That Will Serve Static Files from Uploads Folder
@@ -60,43 +61,56 @@ app.use("/api/main/tasks", require("./routes/taskRouter.js"));
 app.use("/api/employees", require("./routes/employeeRouter.js"));
 
 io.on("connection", client => {
+  const userUUID = uuidv4();
+
+  console.log("New Connection: ", userUUID);
+
     client.on("username", username => {
         const user = {
             name: username,
-            id: client.id
+            id: userUUID,
         };
-        users[client.id] = user;
+        users[userUUID] = user;
         io.emit("connected", user);
         io.emit("users", Object.values(users));
+        console.log("User Connected: ", user);
+        console.log("Current Users: ", users);
     });
 
     client.on("send", message => {
-        io.emit("message", {
+        const user = users[userUUID];
+
+        if (user) {
+          io.emit("message", {
             text: message,
             date: new Date().toISOString(),
-            user: users[client.id]
-        });
+            user,
+          });
+        } else {
+          console.error("Message received from unknown user");
+        }
     });
 
     client.on("typingStart", (typingUser) => {
       console.log("Broadcasting typing event with username:", typingUser);
       const currentTyper = {
         name: typingUser,
-        id: client.id,
+        id: userUUID,
       };
-      usersTyping[client.id] = currentTyper;
+      usersTyping[userUUID] = currentTyper;
       io.emit("typingUsers", Object.values(usersTyping));
     });
 
     client.on("typingStop", () => {
-      delete usersTyping[client.id];
+      delete usersTyping[userUUID];
       io.emit("typingUsers", Object.values(usersTyping));
     });
 
     client.on("disconnect", () => {
-      const username = users[client.id];
-      delete users[client.id];
-      io.emit("disconnected", { id: client.id, username });
+      const username = users[userUUID];
+      delete users[userUUID];
+      delete usersTyping[userUUID];
+      io.emit("disconnected", { id: userUUID, username });
     });
 });
 
