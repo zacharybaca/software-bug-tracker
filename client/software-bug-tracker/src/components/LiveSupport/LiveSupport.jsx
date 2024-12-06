@@ -4,7 +4,6 @@ import Lottie from 'react-lottie';
 import typingAnimation from '../../animations/typing-animation.json';
 import "./live-support.css";
 import io from "socket.io-client";
-import moment from "moment";
 import { Navigate } from "react-router-dom";
 import { EmployeesContext } from "../../context/employeesContext";
 import SpeechBubble from '../../assets/speech-bubble.gif';
@@ -239,10 +238,10 @@ const LiveSupport = () => {
         <div id="users-online-container">
           <h1 id="users-online-heading">Users Online</h1>
           <ul id="users-online-list">
-            {users.map(({ id }) => (
-              <li key={id} className="online-user">
+            {users.map((user) => (
+              <li key={user.id} className="online-user">
                 <img src={ChatListAvatar} alt="chat list avatar" />
-                {loggedInEmployee.firstName} {loggedInEmployee.lastName}
+                <p>{user.name}</p>
               </li>
             ))}
           </ul>
