@@ -10,6 +10,7 @@ import { EmployeesContext } from "../../context/employeesContext";
 import SpeechBubble from '../../assets/speech-bubble.gif';
 import SettingsLogo from '../../assets/settings.gif';
 import ChatListAvatar from '../../assets/developer.png';
+import ChatMessage from '../ChatMessage/ChatMessage';
 
 
 
@@ -208,7 +209,15 @@ const LiveSupport = () => {
           {messages.length > 0
             ? messages.map(({ date, text }, index) => (
                 <>
-                  <div key={index} className="message-container">
+                  <ChatMessage 
+                    messageIndex={index} 
+                    text={text} 
+                    font={font} 
+                    date={date} 
+                    loggedInEmployee={loggedInEmployee} 
+                    avatar={loggedInEmployee.avatar}
+                  />
+                  {/* <div key={index} className="message-container">
                     <div className="message-time">
                       {moment(date).format("h:mm:ss a")}
                     </div>
@@ -222,7 +231,7 @@ const LiveSupport = () => {
                       </div>
                     </div>
                     <div className={font}>{text}</div>
-                  </div>
+                  </div> */}
                 </>
               ))
             : ""}

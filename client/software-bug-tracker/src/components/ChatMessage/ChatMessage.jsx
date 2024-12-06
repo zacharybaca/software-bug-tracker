@@ -26,7 +26,7 @@ function ChatMessage(props) {
         <img
           src={chatMessage.avatar}
           alt="Avatar"
-          style="width:100%;"
+          style={{ width:"100%" }}
           className={
             chatMessage.messageIndex && chatMessage.messageIndex % 2 === 0 ? "right" : ""
           }
@@ -36,9 +36,9 @@ function ChatMessage(props) {
             chatMessage.messageIndex && chatMessage.messageIndex % 2 === 0 ? "right" : ""
           }
           >
-            {chatMessage.loggedInEmployee.firstName} {chatMessage.loggedInEmployee.lastName}
+            {chatMessage.loggedInEmployee.firstName} {chatMessage.loggedInEmployee.lastName} says:
         </span>
-        <p className={chatMessage.font}>{chatMessage.text}</p>
+        <p className={chatMessage.font} id="message-text">{chatMessage.text}</p>
         <span
           className={
             chatMessage.messageIndex && chatMessage.messageIndex % 2 === 0
