@@ -16,6 +16,16 @@
     border: 2px solid black;
 }
 
+#profile-pic-and-upload-container {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    padding-top: 4%;
+    padding-bottom: 4%;
+    min-width: 100%;
+    max-width: 100%;
+}
+
 #employee-form-wrapper {
     display: flex;
     flex-direction: column;
@@ -31,7 +41,7 @@
 
 input, select, label {
     max-width: 100%;
-    min-width: 50%;
+    min-width: 100%;
     text-align: center;
     font-weight: 800;
     font-size: 1rem;
@@ -45,6 +55,11 @@ input::placeholder {
     display: flex;
     flex-direction: column;
     align-items: center;
+    overflow-x: hidden;
+    max-width: 100%;
+    min-width: 100%;
+    min-height: fit-content;
+    max-height: fit-content;
 }
 
 #upload-container label {
@@ -61,6 +76,7 @@ input::placeholder {
 #avatar-pic img {
     width: 200px;
     height: 200px;
+    border-radius: 10px;
 }
 
 #add-employee-button {
@@ -97,7 +113,8 @@ input::placeholder {
 }
 
 #employee-role {
-    width: 60%;
+    min-width: 100%;
+    max-width: 100%;
     font-size: 1rem;
     font-weight: 800;
     overflow: scroll;

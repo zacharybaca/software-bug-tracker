@@ -189,18 +189,16 @@ function EmployeeForm(props) {
           checked={employee.generateAccessCode}
           onChange={handleChange}
         />
-        <div id="access-code-container">
-          {context.userState?.accessCode && (
-            <p>Access Code: {context.userState.accessCode}</p>
-          )}
-        </div>
+        {context.userState?.accessCode && (
+          <div id="access-code-container"><p>Access Code: {context.userState.accessCode}</p></div>
+        )}
         {employee.user.userID ? (
           <div id="profile-pic-and-upload-container">
-            <div id="avatar-or-upload-container">
-                <div id="avatar-pic">
-                  <img src={employee.avatar || "/uploads/default-profile-pic.jpg"} />
-                </div>
+            
+            <div id="avatar-pic">
+              <img src={employee.avatar || "/uploads/default-profile-pic.jpg"} />
             </div>
+      
             <div id="upload-container">
               {props.avatarUrl ? (
                 <label htmlFor="avatar">Update Your Profile Image</label>
@@ -220,6 +218,7 @@ function EmployeeForm(props) {
         <button type="submit" id="add-employee-button" disabled={!employee.roleAtCompany}>
           {props.bttnText || "Add Employee"}
         </button>
+        {props.bttnText ? <button type="button" id="close-update-button" onClick={() => props.setShowForm((prevState) => !prevState)}>Close</button> : null}
       </form>
     </div>
   );
