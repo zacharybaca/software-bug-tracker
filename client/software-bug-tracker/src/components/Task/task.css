@@ -73,3 +73,14 @@ hr {
     min-height: 0.1rem;
     max-height: 0.1rem;
 }
+
+#task-form-update-container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-content: center;
+    min-width: 100%;
+    min-height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+}

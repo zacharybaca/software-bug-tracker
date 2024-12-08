@@ -138,13 +138,13 @@ const TaskForm = (props) => {
             : "enabled-task-complete"
         }
       />
-
       <button
         type="submit"
         id="add-task-button"
         disabled={!task.taskTitle || !task.taskDetails}>
         {props.buttonText}
       </button>
+      {props.showForm ? <button type="button" id="close-task-update-button" onClick={() => props.setShowForm((prevState) => !prevState)}>Close</button> : null}
       {props.errMsg ? <p className="error-message">{props.errMsg}</p> : ""}
     </form>
   );

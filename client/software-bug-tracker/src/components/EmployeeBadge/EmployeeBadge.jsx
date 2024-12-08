@@ -107,7 +107,6 @@ const EmployeeBadge = (props) => {
                 setShowForm={setShowForm}
               />
             </div>
-          
         )}
       </>
     );

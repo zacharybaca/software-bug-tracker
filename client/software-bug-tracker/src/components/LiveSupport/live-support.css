@@ -50,8 +50,9 @@
 #message-options-container {
     display: flex;
     justify-content: space-evenly;
-    width: 100%;
-    padding-top: 1%;
+    min-width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 .not-allowed {
@@ -65,9 +66,12 @@
 
 #clear-button-container {
     display: flex;
-    padding-top: 1%;
-    min-width: 25%;
-    max-width: 25%;
+    justify-content: center;
+    min-width: fit-content;
+    min-height: fit-content;
+    padding-left: 3%;
+    padding-right: 3%;
+    padding-top: 2%;
 }
 
 #clear-button-container img {
@@ -78,12 +82,10 @@
 }
 
 #clear-messages-button {
-    height: 40%;
-    max-width: 100%;
-    min-width: 50%;
+    max-height: fit-content;
     background-color: beige;
     border-radius: 5px;
-    font-size: 1rem;
+    font-size: 1.25rem;
     font-weight: 600;
 }
 
@@ -199,14 +201,37 @@
 #select-font-container {
     display: flex;
     align-items: center;
+    justify-content: center;
     min-width: fit-content;
-    box-sizing: border-box;
+    min-height: fit-content;
+    padding-left: 3%;
+    padding-right: 3%;
 }
 
 #select-font-container img {
     width: 50px;
     height: 50px;
     padding-bottom: 15%;
+    padding-right: 5%;
+}
+
+#set-font-size-container {
+    display: flex;
+    align-items: center;
+    min-width: fit-content;
+    min-height: fit-content;
+    padding-left: 3%;
+    padding-right: 8%;
+}
+
+#fontSize {
+    min-height: 20%;
+}
+
+#set-font-size-container label {
+    width: 50px;
+    height: 50px;
+    padding-bottom: 5%;
     padding-right: 5%;
 }
 

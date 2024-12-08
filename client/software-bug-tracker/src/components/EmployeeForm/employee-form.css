@@ -41,14 +41,13 @@
 
 input, select, label {
     max-width: 100%;
-    min-width: 100%;
+    min-width: fit-content;
     text-align: center;
     font-weight: 800;
     font-size: 1rem;
-}
-
-input::placeholder {
-    font-size: 1rem;
+    margin-top: 5%;
+    margin-bottom: 20%;
+    padding: 5%;
 }
 
 #upload-container {
@@ -81,7 +80,7 @@ input::placeholder {
 
 #add-employee-button {
     width: 100%;
-    padding: 3%;
+    height: 5vh;
     border-radius: 5px;
 }
 
@@ -113,9 +112,7 @@ input::placeholder {
 }
 
 #employee-role {
-    min-width: 100%;
-    max-width: 100%;
-    font-size: 1rem;
+    min-width: fit-content;
     font-weight: 800;
     overflow: scroll;
 }

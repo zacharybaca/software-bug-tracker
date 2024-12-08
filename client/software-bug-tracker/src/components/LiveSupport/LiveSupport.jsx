@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useRef, useEffect, useState, useContext } from "react";
 import Lottie from 'react-lottie';
 import typingAnimation from '../../animations/typing-animation.json';
@@ -21,6 +20,7 @@ const LiveSupport = () => {
   const [messages, setMessages] = useState([]);
   const [usersTyping, setUsersTyping] = useState([]);
   const [font, setFont] = useState("");
+  const [fontSize, setFontSize] = useState("");
   const context = useContext(EmployeesContext);
   const nodeEnv = import.meta.env.VITE_NODE_ENV;
   const user = JSON.parse(localStorage.getItem("user"))?.userID;
@@ -88,6 +88,14 @@ const LiveSupport = () => {
       localStorage.setItem("font", font);
     }
 
+    if (localStorage.getItem("fontSize")) {
+      const savedFontSize = Number(localStorage.getItem("fontSize"));
+      setFontSize(savedFontSize);
+    }
+    else if (!localStorage.getItem("fontSize")) {
+      localStorage.setItem("fontSize", fontSize);
+    }
+
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -99,13 +107,23 @@ const LiveSupport = () => {
     if (font) {
       localStorage.setItem("font", font);
     }
-  }, [messages, font]);
+
+    if (fontSize) {
+      localStorage.setItem("fontSize", Number(fontSize));
+    }
+
+  }, [messages, font, fontSize]);
 
 
   const handleFont = (e) => {
     const { value } = e.target;
     setFont(value);
   };
+
+  const handleFontSize = (e) => {
+    const { value } = e.target;
+    setFontSize(value);
+  }
 
   useEffect(() => {
     if (user) {
@@ -207,31 +225,18 @@ const LiveSupport = () => {
         <div id="messages-container">
           {messages.length > 0
             ? messages.map(({ date, text }, index) => (
-                <>
+                <React.Fragment key={index}>
                   <ChatMessage 
-                    messageIndex={index} 
+                    firstUser={users.indexOf(user) === 0 ? user : false}
+                    user={user} 
                     text={text} 
                     font={font} 
-                    date={date} 
+                    date={date}
+                    fontSize={fontSize} 
                     loggedInEmployee={loggedInEmployee} 
                     avatar={loggedInEmployee.avatar}
                   />
-                  {/* <div key={index} className="message-container">
-                    <div className="message-time">
-                      {moment(date).format("h:mm:ss a")}
-                    </div>
-                    <div className="user-id-container">
-                      <div id="profile-thumbnail">
-                        <img src={loggedInEmployee.avatar} alt="profile pic" />
-                      </div>
-                      <div id="username-container">
-                        {loggedInEmployee.firstName} {loggedInEmployee.lastName}{" "}
-                        says:
-                      </div>
-                    </div>
-                    <div className={font}>{text}</div>
-                  </div> */}
-                </>
+                </React.Fragment>
               ))
             : ""}
         </div>
@@ -287,6 +292,11 @@ const LiveSupport = () => {
             <option value="notebook-handwriting-font">Notebook Handwriting Style Font</option>
             <option value="egyptian-hieroglyphs-font">Egyptian Hieroglyphs Style Font</option>
           </select>
+        </div>
+        <div id="set-font-size-container">
+          <img />
+          <label htmlFor="fontSize">Select Your Font Size</label>
+          <input type="number" id="fontSize" name="fontSize" value={fontSize} onChange={handleFontSize} />
         </div>
         <div id="clear-button-container">
           <img src={SpeechBubble} alt="speech-icon" />
