@@ -8,10 +8,8 @@
     align-items: center;
     justify-content: space-around;
     box-sizing: border-box;
-    min-height: fit-content;
-    max-height: fit-content;
-    max-width: 100%;
-    min-width: 100%;
+    min-height: 100vh;
+    width: 100%;
     background-image: url('./assets/signup-login-page-background.jpg');
     background-repeat: no-repeat;
     background-size: cover;
