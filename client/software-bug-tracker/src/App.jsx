@@ -34,13 +34,13 @@ function App() {
   const loggedInEmployee = context.getLoggedInEmployee();
 
   React.useEffect(() => {
-    if (loader && token) {
+    if (loader) {
       setTimeout(() => {
         loader.style.display = "none";
         setLoading(false);
       }, 3000);
     }
-  }, [loader, token]);
+  }, [loader]);
 
   return (
     !loading && (
@@ -98,9 +98,7 @@ function App() {
           </div>
           {token && (
             <>
-              <hr />
               <StickyNavBar navigate={navigate} />
-              <hr />
             </>
           )}
         

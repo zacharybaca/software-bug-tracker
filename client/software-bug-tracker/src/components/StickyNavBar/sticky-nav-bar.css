@@ -4,10 +4,13 @@
     justify-content: center;
     align-items: center;
     gap: 8px;
-    min-height: 8vh;
+    max-height: 40vh;
     padding-top: 1%;
     padding-bottom: 1%;
     box-sizing: border-box;
+    position: sticky;
+    top: 0;
+    z-index: 10;
 }
 
 #nav-button-container button {
@@ -15,8 +18,8 @@
     font-weight: 400;
     font-style: normal;
     font-size: 1rem;
-    min-width: 25%;
-    max-width: 25%;
+    min-width: 15%;
+    max-width: 15%;
 }
 
 #unassigned-tasks-button {
