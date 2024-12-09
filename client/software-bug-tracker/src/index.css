@@ -130,3 +130,65 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+
+
+
+/* Base CSS file for global breakpoints and responsive design */
+
+/* Global Variables */
+:root {
+	--breakpoint-xs: 480px;
+	--breakpoint-sm: 576px;
+	--breakpoint-md: 768px;
+	--breakpoint-lg: 992px;
+	--breakpoint-xl: 1200px;
+
+	--primary-font-size: 16px;
+	--secondary-font-size: 14px;
+	--padding: 16px;
+	--margin: 16px;
+}
+
+/* Global Reset */
+
+img {
+	max-width: 100%;
+	display: block;
+}
+
+/* Media Queries */
+@media (max-width: var(--breakpoint-xl)) {
+	body {
+		font-size: 15px;
+	}
+}
+
+@media (max-width: var(--breakpoint-lg)) {
+	body {
+		font-size: 14px;
+	}
+}
+
+@media (max-width: var(--breakpoint-md)) {
+	body {
+		font-size: 13px;
+	}
+
+	.container {
+		padding: 0 calc(var(--padding) / 2);
+	}
+}
+
+@media (max-width: var(--breakpoint-sm)) {
+	body {
+		font-size: 12px;
+	}
+
+	.hidden-sm {
+		display: none;
+	}
+}
+
+@media (max-width: var(--breakpoint-xs)) {
+	
+}
