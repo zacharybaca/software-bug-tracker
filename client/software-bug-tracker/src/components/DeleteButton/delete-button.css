@@ -18,6 +18,6 @@
 
 #delete-task-button:hover {
     cursor: url("../../assets/click.png"), pointer;
-    background-color: green;
+    background-color: red;
     color: white;
 }

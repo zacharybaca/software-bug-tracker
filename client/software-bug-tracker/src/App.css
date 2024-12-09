@@ -24,25 +24,8 @@
     padding-top: 2%;
     padding-bottom: 2%;
     box-sizing: border-box;
-}
-
-#nav-button-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
-    min-height: 8vh;
-    padding-top: 1%;
-    padding-bottom: 1%;
-    box-sizing: border-box;
-}
-
-#nav-button-container button {
-    font-family: "Vast Shadow", serif;
-    font-weight: 400;
-    font-style: normal;
-    font-size: 1rem;
+    animation-duration: 5s;
+    animation-name: slidein;
 }
 
 .stand-out {
@@ -64,8 +47,6 @@
     color: #EAB581;
     padding-bottom: 2%;
     text-shadow: 1px 1px 2px brown;
-    animation-duration: 5s;
-    animation-name: slidein;
 }
 
 @keyframes slidein {
@@ -86,8 +67,6 @@
     font-size: 25px;
     font-weight: 500;
     color: #e6b17e;
-    animation-duration: 5s;
-    animation-name: slidein;
 }
 
 #position-at-company-heading {
@@ -96,84 +75,18 @@
      font-weight: 500;
      font-style: normal;
      color: #e6b17e;
-     animation-duration: 5s;
-     animation-name: slidein;
 }
 
 #info-heading {
     font-size: 18px;
     font-weight: 800;
     color: #e6b17e;
-    animation-duration: 5s;
-    animation-name: slidein;
 }
 
 #unassigned-tasks-info-heading {
     font-size: 18px;
     font-weight: 800;
     color: #e6b17e;
-    animation-duration: 5s;
-    animation-name: slidein;
-}
-
-#live-support-button {
-    display: flex;
-    justify-content:center;
-    align-items: center;
-    border-radius: 5px;
-    height: 15vh;
-    background-color: #f5f5dc;
-    font-size: 1rem;
-    font-weight: 600;
-}
-
-#networking-image {
-    margin-left: -1%;
-}
-
-#unassigned-tasks-button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 5px;
-    height: 15vh;
-    background-color: #f5f5dc;
-    font-size: 1rem;
-    font-weight: 600;
-}
-
-#live-support-button:hover {
-    cursor: url("./assets/click.png"), pointer;
-    background-color: green;
-    color: white;
-}
-
-#unassigned-tasks-button:hover {
-    cursor: url("./assets/click.png"), pointer;
-    background-color: green;
-    color: white;
-}
-
-#add-employee-main-button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 15vh;
-    border-radius: 5px;
-    background-color: #f5f5dc;
-    font-size: 1rem;
-    font-weight: 600;
-}
-
-#add-employee-main-button:hover {
-    cursor: url("./assets/click.png"), pointer;
-    background-color: green;
-    color: white;
-}
-
-#nav-button-container button {
-    min-width: 25%;
-    max-width: 25%;
 }
 
 #main-profile-pic img {
@@ -181,6 +94,4 @@
     height: 200px;
     vertical-align: middle;
     border-radius: 50%;
-    animation-duration: 5s;
-    animation-name: slidein;
 }

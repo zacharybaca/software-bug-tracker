@@ -33,8 +33,8 @@ function ChatMessage(props) {
         />
         <span
           className={chatMessage.firstUser === chatMessage.user ? "right" : ""}>
-          {chatMessage.loggedInEmployee.firstName}{" "}
-          {chatMessage.loggedInEmployee.lastName} says:
+          {chatMessage.loggedInEmployee && chatMessage.loggedInEmployee.firstName ? chatMessage.loggedInEmployee.firstName : ""}{" "}
+          {chatMessage.loggedInEmployee && chatMessage.loggedInEmployee.lastName ? chatMessage.loggedInEmployee.lastName : ""} says:
         </span>
         <p
           className={chatMessage.font}

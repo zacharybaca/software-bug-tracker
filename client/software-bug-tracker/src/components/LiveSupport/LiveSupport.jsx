@@ -218,23 +218,35 @@ const LiveSupport = () => {
   return (
     <>
       <h1 id="support-heading">
-        Welcome to Live Support, {loggedInEmployee.firstName}{" "}
-        {loggedInEmployee.lastName}!
+        Welcome to Live Support,{" "}
+        {loggedInEmployee && loggedInEmployee.firstName
+          ? loggedInEmployee.firstName
+          : ""}{" "}
+        {loggedInEmployee && loggedInEmployee.lastName
+          ? loggedInEmployee.lastName
+          : ""}
+        !
       </h1>
       <div id="chat-container">
         <div id="messages-container">
           {messages.length > 0
             ? messages.map(({ date, text }, index) => (
                 <React.Fragment key={index}>
-                  <ChatMessage 
+                  <ChatMessage
                     firstUser={users.indexOf(user) === 0 ? user : false}
-                    user={user} 
-                    text={text} 
-                    font={font} 
+                    user={user}
+                    text={text}
+                    font={font}
                     date={date}
-                    fontSize={fontSize} 
-                    loggedInEmployee={loggedInEmployee} 
-                    avatar={loggedInEmployee.avatar}
+                    fontSize={fontSize}
+                    loggedInEmployee={
+                      loggedInEmployee ? loggedInEmployee : null
+                    }
+                    avatar={
+                      loggedInEmployee && loggedInEmployee.avatar
+                        ? loggedInEmployee.avatar
+                        : ""
+                    }
                   />
                 </React.Fragment>
               ))
@@ -268,14 +280,30 @@ const LiveSupport = () => {
           </>
         ) : (
           <div>
-            {usersTyping.length >= 3
-              ? <>
-                  <p>There are many people typing a message</p>
-                  <TypingIndicator />
-                </>
-              : <p>Nobody is typing a message....</p>}
+            {usersTyping.length >= 3 ? (
+              <>
+                <p>There are many people typing a message</p>
+                <TypingIndicator />
+              </>
+            ) : (
+              <p>Nobody is typing a message....</p>
+            )}
           </div>
         )}
+      </div>
+      <div id="form-container">
+        <form onSubmit={submit} id="form">
+          <textarea
+            type="text"
+            placeholder="Enter a message. Press Enter to Type More if You Run Out of Room."
+            value={message}
+            id="text"
+            onChange={handleInputChange}
+          />
+          <button type="submit" id="submit-button">
+            Send
+          </button>
+        </form>
       </div>
       <div id="message-options-container">
         <div id="select-font-container">
@@ -289,14 +317,24 @@ const LiveSupport = () => {
             <option value="colorful-font">Colorful Style Font</option>
             <option value="fancy-font">Fancy Style Font</option>
             <option value="playful-font">Playful Style Font</option>
-            <option value="notebook-handwriting-font">Notebook Handwriting Style Font</option>
-            <option value="egyptian-hieroglyphs-font">Egyptian Hieroglyphs Style Font</option>
+            <option value="notebook-handwriting-font">
+              Notebook Handwriting Style Font
+            </option>
+            <option value="egyptian-hieroglyphs-font">
+              Egyptian Hieroglyphs Style Font
+            </option>
           </select>
         </div>
         <div id="set-font-size-container">
           <img />
           <label htmlFor="fontSize">Select Your Font Size</label>
-          <input type="number" id="fontSize" name="fontSize" value={fontSize} onChange={handleFontSize} />
+          <input
+            type="number"
+            id="fontSize"
+            name="fontSize"
+            value={fontSize}
+            onChange={handleFontSize}
+          />
         </div>
         <div id="clear-button-container">
           <img src={SpeechBubble} alt="speech-icon" />
@@ -309,23 +347,6 @@ const LiveSupport = () => {
             Clear Messages
           </button>
         </div>
-      </div>
-      <div id="form-container">
-        <form onSubmit={submit} id="form">
-          <div id="message-input-container">
-            <input
-              type="text"
-              placeholder="Enter a message"
-              value={message}
-              id="text"
-              onChange={handleInputChange}
-              autoFocus
-            />
-            <button type="submit" id="submit-button">
-              Send
-            </button>
-          </div>
-        </form>
       </div>
     </>
   );

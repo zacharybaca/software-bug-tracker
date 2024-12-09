@@ -95,12 +95,6 @@
     color: white;
 }
 
-.message-container {
-    display: flex;
-    padding: 1%;
-    font-size: 2rem;
-}
-
 .message-time {
     padding-right: 2%;
 }
@@ -179,25 +173,6 @@
     padding: 2%;
 }
 
-#form-container {
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    min-width: 100%;
-    max-width: 100%;
-    box-sizing: border-box;
-}
-
-#message-input-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-width: 40vw;
-    max-width: 40vw;
-    box-sizing: content-box;
-    margin-bottom: 20%;
-}
-
 #select-font-container {
     display: flex;
     align-items: center;
@@ -241,9 +216,8 @@
 }
 
 #text {
-    width: 100%;
+    min-width: 50%;
     background-color: beige;
-    box-sizing: border-box;
 }
 
 #select-font-container option {
@@ -252,9 +226,7 @@
 
 #submit-button {
     border-radius: 5px;
-    height: 10vh;
-    min-width: 60%;
-    max-width: 60%;
+    min-width: 50%;
     background-color: beige;
     font-size: 1rem;
     font-weight: 600;
@@ -357,4 +329,43 @@
     min-width: fit-content;
     max-width: 100%;
     height: 5vh;
+}
+
+#form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 100%;
+    max-width: 100%;
+}
+
+#form-container {
+    display: flex;
+    justify-content: center;
+    min-width: 50%;
+    max-width: 50%;
+    box-sizing: border-box;
+}
+
+textarea,
+button {
+    margin-bottom: 2%;
+    /* Removes any external spacing */
+    padding: 2%;
+    /* Keeps internal spacing minimal */
+}
+
+textarea {
+    width: 70%;
+    /* Takes up 70% of parent container */
+    max-width: 400px;
+    /* Restricts width on larger screens */
+    min-width: 200px;
+    /* Ensures usability on smaller screens */
+    padding: 10px;
+    resize: none;
+    /* Prevents manual resizing if undesired */
+    border: 1px solid green;
+    border-radius: 5px;
+    font-size: 14px;
 }
