@@ -149,13 +149,6 @@ table {
 	--margin: 16px;
 }
 
-/* Global Reset */
-
-img {
-	max-width: 100%;
-	display: block;
-}
-
 /* Media Queries */
 @media (max-width: var(--breakpoint-xl)) {
 	body {
