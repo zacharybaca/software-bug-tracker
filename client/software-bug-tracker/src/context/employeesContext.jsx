@@ -36,15 +36,6 @@ function EmployeesContextProvider(props) {
     }
   };
 
-  const findName = (username) => {
-    const foundEmployee = employees.find(
-      (employee) => employee.user?.userID === username
-    );
-    return foundEmployee
-      ? `${foundEmployee.firstName} ${foundEmployee.lastName}`
-      : undefined;
-  };
-
   const findRoleAtCompany = (username) => {
     const foundEmployee = employees.find(
       (employee) => employee.user?.userID === username
@@ -319,7 +310,6 @@ function EmployeesContextProvider(props) {
         findRoleAtCompany,
         login,
         logout,
-        findName,
         handleAuthErr,
         resetAuthErr,
         userState,

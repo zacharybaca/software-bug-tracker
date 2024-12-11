@@ -61,7 +61,7 @@ function App() {
                   />
                 </div>
                 <h2 id="user-welcome-heading">
-                  Welcome {context.findName(context.userState.user.userID)}
+                  Welcome {`${loggedInEmployee.firstName} ${loggedInEmployee.lastName}`}
                 </h2>
                 <h2 id="position-at-company-heading">
                   We Are Glad to Have You As a{" "}

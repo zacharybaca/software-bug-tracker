@@ -47,7 +47,7 @@ const LiveSupport = () => {
       </div>
     );
   };
-
+  console.log('Logged In: ', loggedInEmployee.firstName);
   // Function That Returns Parsed JSON
   // Returns An Empty Array If Value is Un-Parsable
   const parseJSON = (value) => {
@@ -214,7 +214,13 @@ const LiveSupport = () => {
 
   // Redirect to login if user is not found
   if (!user) return <Navigate to="/login" />;
-
+  console.log('User: ', user);
+  console.log('Users: ', users);
+  
+  console.log(
+    "First User: ",
+    users[0].name === user
+  );
   return (
     <>
       <h1 id="support-heading">
@@ -233,14 +239,16 @@ const LiveSupport = () => {
             ? messages.map(({ date, text }, index) => (
                 <React.Fragment key={index}>
                   <ChatMessage
-                    firstUser={users.indexOf(user) === 0 ? user : false}
+                    firstUser={users && users[0].name === user}
                     user={user}
                     text={text}
                     font={font}
                     date={date}
                     fontSize={fontSize}
                     loggedInEmployee={
-                      loggedInEmployee ? loggedInEmployee : null
+                      loggedInEmployee
+                        ? `${loggedInEmployee.firstName} ${loggedInEmployee.lastName}`
+                        : null
                     }
                     avatar={
                       loggedInEmployee && loggedInEmployee.avatar

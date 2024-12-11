@@ -10,18 +10,18 @@ function ChatMessage(props) {
       font: props.font ? props.font : "",
       date: props.date ? props.date : "",
       fontSize: props.fontSize ? props.fontSize : "",
-      firstUser: props.firstUser ? props.firstUser : "",
+      firstUser: props.firstUser ? true : false,
       user: props.user ? props.user : "",
       loggedInEmployee: props.loggedInEmployee ? props.loggedInEmployee : null,
-      avatar: props.loggedInEmployee && props.loggedInEmployee.avatar
-        ? props.loggedInEmployee.avatar
+      avatar: props.avatar
+        ? props.avatar
         : "/uploads/default-profile-pic.jpg",
     };
-
+    
     return (
       <div
         className={
-          chatMessage.firstUser === chatMessage.user
+          chatMessage.firstUser
             ? "container darker"
             : "container"
         }>
@@ -29,12 +29,11 @@ function ChatMessage(props) {
           src={chatMessage.avatar}
           alt="Avatar"
           style={{ width: "100%" }}
-          className={chatMessage.firstUser === chatMessage.user ? "right" : ""}
+          className={chatMessage.firstUser ? "right" : ""}
         />
         <span
-          className={chatMessage.firstUser === chatMessage.user ? "right" : ""}>
-          {chatMessage.loggedInEmployee && chatMessage.loggedInEmployee.firstName ? chatMessage.loggedInEmployee.firstName : ""}{" "}
-          {chatMessage.loggedInEmployee && chatMessage.loggedInEmployee.lastName ? chatMessage.loggedInEmployee.lastName : ""} says:
+          className={chatMessage.firstUser ? "right" : ""}>
+          {chatMessage.loggedInEmployee ? chatMessage.loggedInEmployee : ""} says:
         </span>
         <p
           className={chatMessage.font}
@@ -44,7 +43,7 @@ function ChatMessage(props) {
         </p>
         <span
           className={
-            chatMessage.firstUser === chatMessage.user
+            chatMessage.firstUser
               ? "time-left"
               : "time-right"
           }>
