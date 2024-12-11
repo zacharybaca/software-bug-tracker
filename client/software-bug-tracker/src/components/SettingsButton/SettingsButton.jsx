@@ -1,21 +1,25 @@
-import { Player } from "react-lottie";
+import Lottie from "react-lottie";
 import "./settings-button.css";
-import settingsAnimation from "../../animations/settings-animation.json";
+import settingsAnimation from '../../animations/settings-animation.json';
 
+const SettingsButton = (props) => {
+  const lottieOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: settingsAnimation,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice",
+    },
+  };
 
-const SettingsButton = () => {
   return (
-    <button>
-      <Player autoplay loop src={settingsAnimation} style={lottieStyle} />
-      Settings
+    <button id="my-settings-button">
+      <div className="settings-content">
+        <Lottie options={lottieOptions} height={40} width={40} />
+        <span>Settings</span>
+      </div>
     </button>
   );
-};
-
-const lottieStyle = {
-  width: "40px", // Adjust the size of the animation
-  height: "40px",
-  marginRight: "10px",
 };
 
 export default SettingsButton;

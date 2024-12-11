@@ -1,21 +1,25 @@
-import { Player } from "react-lottie";
+import Lottie from "react-lottie";
 import "./save-button.css";
 import saveAnimation from "../../animations/save-animation.json";
 
+const SaveButton = (props) => {
+  const lottieOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: saveAnimation,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice",
+    },
+  };
 
-const SaveButton = () => {
   return (
-    <button>
-      <Player autoplay loop src={saveAnimation} style={lottieStyle} />
-      Save
+    <button id="my-save-button">
+      <div className="save-content">
+        <Lottie options={lottieOptions} height={40} width={40} />
+        <span>Save</span>
+      </div>
     </button>
   );
-};
-
-const lottieStyle = {
-  width: "40px", // Adjust the size of the animation
-  height: "40px",
-  marginRight: "10px",
 };
 
 export default SaveButton;

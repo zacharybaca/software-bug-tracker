@@ -12,7 +12,7 @@
 
 #logout-button:hover {
     cursor: url("./assets/click.png"), pointer;
-    background-color: green;
+    background-color: #e6b17f;
     color: white;
 }
 

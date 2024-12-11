@@ -97,9 +97,9 @@ function App() {
             )}
           </div>
           {token && (
-            <>
+            <div id="sticky-nav-bar">
               <StickyNavBar navigate={navigate} />
-            </>
+            </div>
           )}
         
         <Routes>
