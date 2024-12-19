@@ -1,9 +1,9 @@
 #nav-button-container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: space-around;
     gap: 10px;
-    max-height: 40vh;
+    max-height: fit-content;
     max-width: 100%;
     padding-top: 2%;
     box-sizing: border-box;

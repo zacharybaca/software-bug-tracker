@@ -131,10 +131,7 @@ table {
 	border-spacing: 0;
 }
 
-
-
 /* Base CSS file for global breakpoints and responsive design */
-
 /* Global Variables */
 :root {
 	--breakpoint-xs: 480px;

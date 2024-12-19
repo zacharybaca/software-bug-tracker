@@ -84,7 +84,6 @@ function LandingPage() {
         )}
       </form>
       
-      
       <button
         type="button"
         id="new-user-button"

@@ -11,7 +11,6 @@ import ChatListAvatar from '../../assets/developer.png';
 import ChatMessage from '../ChatMessage/ChatMessage';
 
 
-
 const LiveSupport = () => {
   const typingTimeoutRef = useRef(null);
   const socketRef = useRef(null);
@@ -150,7 +149,7 @@ const LiveSupport = () => {
         console.log(`Reconnect attempt ${attempt}`);
       });
 
-      socketRef.current.on("users", (users) => setUsers(users));
+      socketRef.current.on("users", async (users) => setUsers(users));
 
       socketRef.current.on("message", (message) =>
         setMessages((prevMessages) => [...prevMessages, message])
@@ -219,7 +218,7 @@ const LiveSupport = () => {
   
   console.log(
     "First User: ",
-    users[0].name === user
+    users[0] && users[0].name ? users[0].name === user : false
   );
   return (
     <>
@@ -236,14 +235,14 @@ const LiveSupport = () => {
       <div id="chat-container">
         <div id="messages-container">
           {messages.length > 0
-            ? messages.map(({ date, text }, index) => (
+            ? messages.map((message, index) => (
                 <React.Fragment key={index}>
                   <ChatMessage
-                    firstUser={users && users[0].name === user}
-                    user={user}
-                    text={text}
+                    firstUser={users && users[0]?.name ? users[0].name = user : loggedInEmployee.firstName}
+                    user={message.user}
+                    text={message.text}
                     font={font}
-                    date={date}
+                    date={message.date}
                     fontSize={fontSize}
                     loggedInEmployee={
                       loggedInEmployee

@@ -116,8 +116,12 @@
 #landing-page-avatar img {
     width: 150px;
     height: 150px;
+    border-radius: 50%;
+    background: #e0e0e0;
+    box-shadow: 10px 10px 20px #b8b8b8, -10px -10px 20px #ffffff;
 }
 
 #landing-page-avatar {
     border-radius: 10px;
+    margin-top: 15%;
 }
