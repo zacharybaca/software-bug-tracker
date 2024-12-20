@@ -53,7 +53,6 @@ function LandingPage() {
           <img
             id="avatarImage"
             src={formData.avatarPic}
-            
             alt="landing page avatar"
           />
         </div>
@@ -82,14 +81,14 @@ function LandingPage() {
         {context.userState.errMsg && (
           <p className="error-message">{context.userState.errMsg}</p>
         )}
-      </form>
-      
-      <button
-        type="button"
-        id="new-user-button"
-        onClick={() => navigate("/sign-up")}>
+        <button
+          type="button"
+          id="new-user-button"
+          onClick={() => navigate("/sign-up")}
+        >
         New User? Click Here
-      </button>
+        </button>
+      </form>
     </div>
   );
 }
