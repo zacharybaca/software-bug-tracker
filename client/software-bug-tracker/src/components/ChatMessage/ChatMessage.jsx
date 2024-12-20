@@ -20,6 +20,7 @@ function ChatMessage(props) {
     console.log('First User in Chat Message: ', chatMessage.firstUser);
     console.log('User in Chat Message: ', chatMessage.user);
     console.log('Avatar in Chat Message: ', chatMessage.avatar);
+    console.log('Props: ', props);
     return (
       <div
         className={
