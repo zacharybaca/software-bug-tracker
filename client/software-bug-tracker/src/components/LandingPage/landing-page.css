@@ -22,26 +22,11 @@
     align-items: center;
 }
 
-#new-user-button {
-    cursor: url("../../assets/click.png"), pointer;
-    width: 100%;
-    border-radius: 5px;
-    margin-top: 8%;
-    margin-bottom: 8%;
-    height: 5vh;
-}
-
 #form-header {
     font-size: 25px;
     padding-bottom: 10%;
     font-weight: 800;
     color: #EAB581;
-}
-
-#new-user-button:hover {
-    cursor: url("../../assets/click.png"), pointer;
-    background-color: green;
-    color: white;
 }
 
 .btn {  
