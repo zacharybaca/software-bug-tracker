@@ -7,11 +7,12 @@
     padding-right: 80%;
     padding-top: 20%;
     padding-bottom: 20%;
+    margin-bottom: 3%;
     border-radius: 10px;
     gap: 30px;
     background-color: beige;
     width: 75%;
-    height: 50vh;
+    height: fit-content;
     border: 2px solid black;
 }
 
@@ -123,5 +124,5 @@
 
 #landing-page-avatar {
     border-radius: 10px;
-    margin-top: 15%;
+    border: 2px solid black;
 }
