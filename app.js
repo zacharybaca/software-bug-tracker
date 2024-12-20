@@ -86,6 +86,7 @@ io.on("connection", client => {
             date: new Date().toISOString(),
             user,
           });
+          console.log('Message Sent: ', user.name);
         } else {
           console.error("Message received from unknown user");
         }
