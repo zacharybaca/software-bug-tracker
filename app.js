@@ -82,9 +82,10 @@ io.on("connection", client => {
 
         if (user) {
           io.emit("message", {
-            text: message,
+            text: message.text,
             date: new Date().toISOString(),
-            user,
+            user: message.user.name,
+            avatar: message.avatar
           });
           console.log('Message Sent: ', user.name);
         } else {
