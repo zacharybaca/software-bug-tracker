@@ -10,14 +10,16 @@ function ChatMessage(props) {
       font: props.font ? props.font : "",
       date: props.date ? props.date : "",
       fontSize: props.fontSize ? props.fontSize : "",
-      firstUser: props.firstUser ? true : false,
+      firstUser: props.firstUser && props.user ? props.firstUser === props.user.name : false,
       user: props.user ? props.user : "",
       loggedInEmployee: props.loggedInEmployee ? props.loggedInEmployee : null,
       avatar: props.avatar
         ? props.avatar
         : "/uploads/default-profile-pic.jpg",
     };
-    
+    console.log('First User in Chat Message: ', chatMessage.firstUser);
+    console.log('User in Chat Message: ', chatMessage.user);
+    console.log('Avatar in Chat Message: ', chatMessage.avatar);
     return (
       <div
         className={

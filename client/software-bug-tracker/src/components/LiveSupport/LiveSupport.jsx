@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useRef, useEffect, useState, useContext } from "react";
 import Lottie from 'react-lottie';
 import typingAnimation from '../../animations/typing-animation.json';
@@ -18,12 +19,15 @@ const LiveSupport = () => {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const [usersTyping, setUsersTyping] = useState([]);
+  const [userSentMessage, setUserSentMessage] = useState("");
   const [font, setFont] = useState("");
   const [fontSize, setFontSize] = useState("");
   const context = useContext(EmployeesContext);
   const nodeEnv = import.meta.env.VITE_NODE_ENV;
   const user = JSON.parse(localStorage.getItem("user"))?.userID;
   const loggedInEmployee = context.getLoggedInEmployee();
+  const avatar =
+    loggedInEmployee && loggedInEmployee.avatar ? loggedInEmployee.avatar : "";
 
   const TypingIndicator = () => {
     const defaultOptions = {
@@ -94,8 +98,6 @@ const LiveSupport = () => {
     else if (!localStorage.getItem("fontSize")) {
       localStorage.setItem("fontSize", fontSize);
     }
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -152,7 +154,9 @@ const LiveSupport = () => {
       socketRef.current.on("users", async (users) => setUsers(users));
 
       socketRef.current.on("message", (message) =>
-        setMessages((prevMessages) => [...prevMessages, message])
+        setMessages((prevMessages) => [...prevMessages, message]),
+        setUserSentMessage(message.user?.name),
+        console.log('User Sent Message: ', message.user?.name)
       );
 
       socketRef.current.on("connected", (newUser) =>
@@ -249,10 +253,7 @@ const LiveSupport = () => {
                         ? `${loggedInEmployee.firstName} ${loggedInEmployee.lastName}`
                         : null
                     }
-                    avatar={
-                      loggedInEmployee && loggedInEmployee.avatar
-                        ? loggedInEmployee.avatar
-                        : ""
+                    avatar={avatar
                     }
                   />
                 </React.Fragment>
