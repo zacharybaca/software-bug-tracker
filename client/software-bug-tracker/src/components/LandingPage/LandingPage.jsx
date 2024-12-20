@@ -83,7 +83,7 @@ function LandingPage() {
         )}
         <button
           type="button"
-          id="new-user-button"
+          className="btn btn-layered-3d btn-layered-3d--green"
           onClick={() => navigate("/sign-up")}
         >
         New User? Click Here
