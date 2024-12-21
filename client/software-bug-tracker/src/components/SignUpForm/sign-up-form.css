@@ -2,32 +2,29 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-left: 20%;
-    padding-right: 20%;
-    padding-top: 5%;
+    justify-content: center;
+    padding-left: 50%;
+    padding-right: 50%;
+    padding-top: 10%;
     padding-bottom: 10%;
-    margin-top: 2%;
+    margin-bottom: 3%;
     border-radius: 10px;
-    height: 67%;
+    gap: 20px;
     background-color: beige;
+    width: 75%;
+    height: fit-content;
     border: 2px solid black;
 }
 
-#existing-user-button {
-    height: 8vh;
-    border-radius: 10px;
-    margin-top: 6%;
-    margin-bottom: 6%;
-}
-
-#existing-user-button:hover {
-    cursor: url("../../assets/click.png"), pointer;
-    background-color: green;
-    color: white;
+#sign-up-form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 #sign-up-heading {
     font-size: 25px;
+    padding-bottom: 10%;
     font-weight: 800;
     color: #EAB581;
 }
@@ -42,18 +39,6 @@ label, ::placeholder {
     font-size: 0.85rem;
 }
 
-#sign-up-form-button {
-    width: 100%;
-    border-radius: 5px;
-    height: 5vh;
-}
-
-#sign-up-form-button:hover {
-    cursor: url("../../assets/click.png"), pointer;
-    background-color: green;
-    color: white;
-}
-
 #avatar {
     padding-left: 40%;
     border: 2px solid green;
@@ -64,4 +49,71 @@ input[type="file"]:hover {
     cursor: pointer;
     background-color: green;
     color: white;
+}
+
+.btn {
+    font-family: Arial, Helvetica, sans-serif;
+    text-transform: uppercase;
+}
+
+.btn:hover .btn-slide-show-text1 {
+    margin-left: 65px;
+}
+
+.btn-layered-3d> ::before {
+    box-sizing: border-box;
+}
+
+.btn-layered-3d {
+    width: 180px;
+    position: relative;
+    display: inline-block;
+    cursor: url("../../assets/click.png"), pointer;
+    outline: none;
+    border: 0px;
+    vertical-align: middle;
+    text-decoration: none;
+    font-size: inherit;
+    font-family: inherit;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 1em 2em;
+    border-radius: 0.75em;
+    transform-style: preserve-3d;
+    transition: transform 0.15s ease-out, background 0.15s ease-out;
+}
+
+.btn-layered-3d::before {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 100%;
+    inset: 0px;
+    border-radius: inherit;
+    transform: translate3d(0px, 0.75em, -1em);
+    transition: transform 0.15s ease-out, box-shadow 0.15s ease-out;
+}
+
+.btn-layered-3d:hover {
+    transform: translateY(0.25em);
+    cursor: url("../../assets/click.png"), pointer;
+}
+
+.btn-layered-3d:hover::before {
+    transform: translate3d(0px, 0.5em, -1em);
+}
+
+.btn-layered-3d--green {
+    color: white;
+    background: green;
+    border: 2px solid rgb(59, 165, 84);
+}
+
+.btn-layered-3d--green::before {
+    background: rgb(158, 220, 172);
+    box-shadow: rgb(59, 165, 84) 0px 0px 0px 2px, rgb(233, 247, 236) 0px 0.625em 0px 0px;
+}
+
+#existing-user-button {
+    width: 100%;
 }
