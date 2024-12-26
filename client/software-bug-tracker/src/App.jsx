@@ -14,6 +14,8 @@ import UnAssignedTasks from "./components/UnAssignedTasks/UnAssignedTasks";
 import StickyNavBar from "./components/StickyNavBar/StickyNavBar";
 import SaveButton from "./components/SaveButton/SaveButton";
 import SettingsButton from "./components/SettingsButton/SettingsButton";
+import SnackBarNotification from "./components/SnackBarNotification/SnackBarNotification";
+import { SnackBarNotificationContext } from "./context/snackBarNotificationContext";
 import { EmployeesContext } from "./context/employeesContext";
 import { TasksContext } from "./context/tasksContext";
 import logo from "./assets/issue-insight-logo.png";
@@ -25,6 +27,7 @@ function ProtectedRoute({ condition, redirectTo, children }) {
 
 function App() {
   const context = React.useContext(EmployeesContext);
+  const snackBarContext = React.useContext(SnackBarNotificationContext);
   const { token } = context.userState;
   const taskContext = React.useContext(TasksContext);
   const { completed, incomplete } = taskContext.getTaskCounts;
@@ -45,6 +48,7 @@ function App() {
   return (
     !loading && (
         <div id="app-container">
+          <SnackBarNotification showToast={snackBarContext.showToast} message="Example Has Logged Into Chat"/>
           <div id="application-logo-container">
             <img src={logo} alt="logo" id="logo" />
             <h1 id="application-title-heading">Issue Insight</h1>

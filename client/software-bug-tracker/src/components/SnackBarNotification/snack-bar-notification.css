@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Nabla&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Atma:wght@300;400;500;600;700&display=swap');
+
+
+#snack-bar-notification-container {
+    display: flex;
+    align-items: center;
+    padding: 1%;
+    background-color: green;
+    border-radius: 10px;
+    border: 4px dashed black;
+    z-index: 1000;
+}
+
+#snack-bar-notification-container img {
+    width: 50px;
+    height: 50px;
+}
+
+#snack-bar-notification-header {
+    font-size: 1.5rem;
+}
+
+.nabla-notification-text {
+    font-family: "Nabla", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-variation-settings:
+        "EDPT" 100,
+        "EHLT" 12;
+}
+
+.atma-light {
+    font-family: "Atma", serif;
+    font-weight: 300;
+    font-style: normal;
+    color: #e6b17e;
+}
+
+.atma-regular {
+    font-family: "Atma", serif;
+    font-weight: 400;
+    font-style: normal;
+    color: #e6b17e;
+}
+
+.atma-medium {
+    font-family: "Atma", serif;
+    font-weight: 500;
+    font-style: normal;
+    color: #e6b17e;
+}
+
+.atma-semibold {
+    font-family: "Atma", serif;
+    font-weight: 600;
+    font-style: normal;
+    color: #e6b17e;
+}
+
+.atma-bold {
+    font-family: "Atma", serif;
+    font-weight: 700;
+    font-style: normal;
+    color: #e6b17e;
+}
