@@ -17,10 +17,11 @@ const SnackBarNotification = ({ connectedUser, show, onShow, onClose, duration =
 
     return (
         
-        <div id="snack-bar-notification-container" className={`${show ? "show" : ""} atma-light`}>
-            <img src={chatEnteredImage} />
-            <h1 id="snack-bar-notification-header">{connectedUser} has logged into Live Support.</h1>
-        </div>
+            <div id="snack-bar-notification-container" className={`${show ? "show" : ""} atma-light`}>
+                <img src={chatEnteredImage} />
+                <h1 id="snack-bar-notification-header">{connectedUser ? connectedUser.name : ""} has logged into Live Support.</h1>
+            </div>
+        
     )
 }
 
