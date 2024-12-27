@@ -6,6 +6,7 @@ import "./live-support.css";
 import io from "socket.io-client";
 import { Navigate } from "react-router-dom";
 import { EmployeesContext } from "../../context/employeesContext";
+import { SnackBarNotificationContext } from "../../context/snackBarNotificationContext";
 import SpeechBubble from '../../assets/speech-bubble.gif';
 import SettingsLogo from '../../assets/settings.gif';
 import ChatListAvatar from '../../assets/developer.png';
@@ -22,6 +23,7 @@ const LiveSupport = () => {
   const [font, setFont] = useState("");
   const [fontSize, setFontSize] = useState("");
   const context = useContext(EmployeesContext);
+  const snackBarContext = useContext(SnackBarNotificationContext);
   const nodeEnv = import.meta.env.VITE_NODE_ENV;
   const user = JSON.parse(localStorage.getItem("user"))?.userID;
   const loggedInEmployee = context.getLoggedInEmployee();
@@ -157,7 +159,10 @@ const LiveSupport = () => {
       );
 
       socketRef.current.on("connected", (newUser) =>
-        setUsers((prevUsers) => [...prevUsers, newUser])
+        {
+          setUsers((prevUsers) => [...prevUsers, newUser]);
+          snackBarContext.handleShowToast();
+        }
       );
 
       socketRef.current.on("disconnected", (id) =>

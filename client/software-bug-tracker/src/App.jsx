@@ -48,12 +48,12 @@ function App() {
   return (
     !loading && (
         <div id="app-container">
-          {snackBarContext.showToast && (
-            <SnackBarNotification 
-              message="Example Has Logged Into Chat" 
+          {snackBarContext.showToast && loggedInEmployee && (
+            <SnackBarNotification  
               onClose={snackBarContext.handleCloseToast}
               onShow={snackBarContext.handleShowToast}
               show={snackBarContext.showToast}
+              connectedUser={snackBarContext.connectedUser}
             />
           )}
           <div id="application-logo-container">
