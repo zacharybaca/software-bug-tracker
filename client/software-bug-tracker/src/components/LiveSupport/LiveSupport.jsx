@@ -161,7 +161,7 @@ const LiveSupport = () => {
       socketRef.current.on("connected", (newUser) =>
         {
           setUsers((prevUsers) => [...prevUsers, newUser]);
-          snackBarContext.handleShowToast();
+          snackBarContext.handleShowToast(newUser);
         }
       );
 
