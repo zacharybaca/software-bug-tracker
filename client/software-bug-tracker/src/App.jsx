@@ -49,7 +49,12 @@ function App() {
     !loading && (
         <div id="app-container">
           {snackBarContext.showToast && (
-            <SnackBarNotification showToast={snackBarContext.showToast} message="Example Has Logged Into Chat" onClose={snackBarContext.handleCloseToast}/>
+            <SnackBarNotification 
+              message="Example Has Logged Into Chat" 
+              onClose={snackBarContext.handleCloseToast}
+              onShow={snackBarContext.handleShowToast}
+              show={snackBarContext.showToast}
+            />
           )}
           <div id="application-logo-container">
             <img src={logo} alt="logo" id="logo" />

@@ -19,7 +19,7 @@
     transition: top 0.5s ease-in-out;
 }
 
-.toast-notification .show {
+#snack-bar-notification-container.show {
     top: 20px;
 }
 

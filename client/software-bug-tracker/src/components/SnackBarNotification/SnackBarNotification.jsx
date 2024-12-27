@@ -1,23 +1,23 @@
 import './snack-bar-notification.css';
-import React, { useEffect } from "react";
+import React from "react";
 import chatEnteredImage from "../../assets/chat-entered.png";
 
 
-const SnackBarNotification = ({ message, type, showToast, onClose, duration = 3000 }) => {
-    const [visible, setVisible] = React.useState(true);
+const SnackBarNotification = ({ message, show, onShow, onClose, duration = 7000 }) => {
+    
 
-    useEffect(() => {
-        setVisible(true);
-
+    
+    React.useEffect(() => {
+        onShow();
         const timer = setTimeout(() => {
             onClose();
         }, duration);
         return () => clearTimeout(timer);
-    }, [onClose, duration]);
+    }, [onClose, onShow, duration]);
 
     return (
         
-        <div id="snack-bar-notification-container" className={`toast-notification ${visible ? "show" : ""} atma-light ${type}-toast`}>
+        <div id="snack-bar-notification-container" className={`${show ? "show" : ""} atma-light`}>
             <img src={chatEnteredImage} />
             <h1 id="snack-bar-notification-header">{message}</h1>
         </div>

@@ -19,7 +19,6 @@ function SnackBarNotificationContextProvider(props) {
         <SnackBarNotificationContext.Provider
             value={{
                 showToast,
-                setShowToast,
                 handleShowToast,
                 handleCloseToast
             }}
