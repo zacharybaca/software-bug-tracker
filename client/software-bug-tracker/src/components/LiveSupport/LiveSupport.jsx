@@ -51,7 +51,6 @@ const LiveSupport = () => {
       </div>
     );
   };
-  console.log('Logged In: ', loggedInEmployee.firstName);
   // Function That Returns Parsed JSON
   // Returns An Empty Array If Value is Un-Parsable
   const parseJSON = (value) => {
@@ -160,7 +159,6 @@ const LiveSupport = () => {
 
       socketRef.current.on("connected", (newUser) =>
         {
-          console.log("New User Connected:", newUser.name);
           setUsers((prevUsers) => [...prevUsers, newUser]);
           snackBarContext.handleShowToast(newUser.name);
         }
@@ -182,7 +180,6 @@ const LiveSupport = () => {
   useEffect(() => {
     if (socketRef.current) {
       socketRef.current.on("typingUsers", (typingUsers) => {
-        console.log("Typing event received from server:", typingUsers);
         setUsersTyping(typingUsers);
       });
     }
@@ -225,14 +222,7 @@ const LiveSupport = () => {
 
   // Redirect to login if user is not found
   if (!user) return <Navigate to="/login" />;
-  console.log('User: ', user);
-  console.log('Users: ', users);
-  console.log('Messages: ', messages);
   
-  console.log(
-    "First User: ",
-    users[0] && users[0].name ? users[0].name === user : false
-  );
   return (
     <>
       <h1 id="support-heading">
