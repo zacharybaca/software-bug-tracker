@@ -310,6 +310,7 @@ function EmployeesContextProvider(props) {
         findRoleAtCompany,
         login,
         logout,
+        getToken,
         handleAuthErr,
         resetAuthErr,
         userState,

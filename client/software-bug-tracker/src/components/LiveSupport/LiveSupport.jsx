@@ -29,6 +29,7 @@ const LiveSupport = () => {
   const loggedInEmployee = context.getLoggedInEmployee();
   const avatar =
     loggedInEmployee && loggedInEmployee.avatar ? loggedInEmployee.avatar : ChatListAvatar;
+  const hasToken = context.getToken();
 
   const TypingIndicator = () => {
     const defaultOptions = {
@@ -170,6 +171,9 @@ const LiveSupport = () => {
       
       return () => {
         if (socketRef.current) {
+          if (!hasToken) {
+            socketRef.current.emit("disconnected", user.id)
+          };
           socketRef.current.disconnect();
           socketRef.current = null;
         }
