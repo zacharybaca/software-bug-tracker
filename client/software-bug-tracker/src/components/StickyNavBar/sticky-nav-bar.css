@@ -10,6 +10,14 @@
 }
 
 #nav-button-container button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    height: 15vh;
+    background-color: #f5f5dc;
+    font-size: 1rem;
+    font-weight: 600;
     font-family: "Vast Shadow", serif;
     font-weight: 400;
     font-style: normal;
@@ -17,32 +25,10 @@
     max-width: 20%;
 }
 
-#unassigned-tasks-button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 5px;
-    height: 15vh;
-    background-color: #f5f5dc;
-    font-size: 1rem;
-    font-weight: 600;
-}
-
 #unassigned-tasks-button:hover {
     cursor: url("./assets/click.png"), pointer;
     background-color: #e6b17f;
     color: white;
-}
-
-#live-support-button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 5px;
-    height: 15vh;
-    background-color: #f5f5dc;
-    font-size: 1rem;
-    font-weight: 600;
 }
 
 #live-support-button:hover {
@@ -53,17 +39,6 @@
 
 #networking-image {
     margin-left: -1%;
-}
-
-#add-employee-main-button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 15vh;
-    border-radius: 5px;
-    background-color: #f5f5dc;
-    font-size: 1rem;
-    font-weight: 600;
 }
 
 #add-employee-main-button:hover {
