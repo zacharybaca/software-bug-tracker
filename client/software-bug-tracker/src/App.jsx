@@ -48,7 +48,7 @@ function App() {
   return (
     !loading && (
         <div id="app-container">
-          {snackBarContext.showToast && loggedInEmployee && (
+          {snackBarContext.connectedUser && snackBarContext.showToast && loggedInEmployee && (
             <SnackBarNotification  
               onClose={snackBarContext.handleCloseToast}
               onShow={snackBarContext.handleShowToast}
