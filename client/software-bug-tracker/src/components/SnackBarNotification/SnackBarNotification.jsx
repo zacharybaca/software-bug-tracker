@@ -2,21 +2,21 @@ import './snack-bar-notification.css';
 import React from "react";
 import chatEnteredImage from "../../assets/chat-entered.png";
 
-const SnackBarNotification = ({ connectedUser, show, onShow, onClose, duration = 7000 }) => {
+const SnackBarNotification = ({ connectedUser, disconnectedUser, show, onShow, onClose, duration = 7000 }) => {
     
     React.useEffect(() => {
-        onShow(connectedUser);
+        onShow();
         const timer = setTimeout(() => {
             onClose();
         }, duration);
         return () => clearTimeout(timer);
-    }, [onClose, onShow, duration, connectedUser]);
-    
+    }, [onClose, onShow, duration, connectedUser, disconnectedUser]);
+
     return (
-        <div id="snack-bar-notification-container" className={`${show ? "show" : ""} atma-light`}>
-            <img src={chatEnteredImage} />
-            <h1 id="snack-bar-notification-header">{connectedUser ? connectedUser : ""} has logged into Live Support.</h1>
-        </div>
+            <div id="snack-bar-notification-container" className={`${show ? "show" : ""} atma-light`}>
+                <img src={chatEnteredImage} />
+                <h1 id="snack-bar-notification-header">{connectedUser ? `${connectedUser} has logged into Live Support` : disconnectedUser ? `${disconnectedUser} has logged out of Live Support` : ""}</h1>
+            </div>
     )
 }
 

@@ -161,18 +161,24 @@ const LiveSupport = () => {
       socketRef.current.on("connected", (newUser) =>
         {
           setUsers((prevUsers) => [...prevUsers, newUser]);
-          snackBarContext.handleShowToast(newUser.name);
+          snackBarContext.setConnectedUser(newUser.name);
+          snackBarContext.handleShowToast();
         }
       );
 
       socketRef.current.on("disconnected", (id) =>
-        setUsers((prevUsers) => prevUsers.filter((user) => user.id !== id))
+        {
+          snackBarContext.setDisconnectedUser(users[id]);
+          snackBarContext.handleShowToast();
+          setUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));
+        }
       );
       
       return () => {
         if (socketRef.current) {
-          if (!hasToken) {
-            socketRef.current.emit("disconnected", user.id)
+          const user = users.find((foundUser) => foundUser.id === user.id);
+          if (!hasToken || !user) {
+            socketRef.current.emit("disconnected", user)
           };
           socketRef.current.disconnect();
           socketRef.current = null;
