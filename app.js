@@ -33,6 +33,7 @@ else {
 }
 
 const users = {};
+const disconnectedUsers = {};
 const usersTyping = {};
 
 app.use(
@@ -115,6 +116,7 @@ io.on("connection", client => {
       io.emit("disconnected", { id: userUUID, username });
     });
 });
+
 
 const connectToMongoDB = async () => {
   try {
