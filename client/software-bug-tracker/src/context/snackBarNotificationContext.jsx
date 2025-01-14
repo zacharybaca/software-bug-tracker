@@ -4,7 +4,7 @@ const SnackBarNotificationContext = React.createContext();
 
 
 function SnackBarNotificationContextProvider(props) {
-    const [showToast, setShowToast] = React.useState(true);
+    const [showToast, setShowToast] = React.useState(false);
     const [connectedUser, setConnectedUser] = React.useState("");
     const [disconnectedUser, setDisconnectedUser] = React.useState("");
 
