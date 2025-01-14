@@ -100,20 +100,47 @@ io.on("connection", client => {
         name: typingUser,
         id: userUUID,
       };
-      usersTyping[userUUID] = currentTyper;
-      io.emit("typingUsers", Object.values(usersTyping));
+
+      const user = users[userUUID];
+
+      if (user) {
+        usersTyping[userUUID] = currentTyper;
+        io.emit("typingUsers", Object.values(usersTyping));
+      }
+      else {
+        io.emit("typingUsers", Object.values(usersTyping));
+      }
     });
 
     client.on("typingStop", () => {
-      delete usersTyping[userUUID];
-      io.emit("typingUsers", Object.values(usersTyping));
+      const currentTyper = usersTyping[userUUID];
+
+      if (currentTyper) {
+        delete usersTyping[userUUID];
+        io.emit("typingUsers", Object.values(usersTyping));
+      }
+      else {
+        io.emit("typingUsers", Object.values(usersTyping));
+      }
     });
 
-    client.on("disconnect", () => {
-      const username = users[userUUID];
-      delete users[userUUID];
-      delete usersTyping[userUUID];
-      io.emit("disconnected", { id: userUUID, username });
+    client.on("disconnect", (loggedInUser) => {
+      const disconnectedUser = {
+        name: loggedInUser,
+        id: userUUID
+      };
+
+      const user = users[userUUID];
+
+      if (user) {
+        disconnectedUsers[userUUID] = disconnectedUser;
+        delete users[userUUID];
+        delete usersTyping[userUUID];
+        io.emit("disconnected", disconnectedUser);
+      }
+      else {
+        return null;
+      }
     });
 });
 
