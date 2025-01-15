@@ -15,7 +15,7 @@ const SnackBarNotification = ({ connectedUser, disconnectedUser, show, onShow, o
     return (
             <div id="snack-bar-notification-container" className={`${show ? "show" : ""} atma-light`}>
                 <img src={chatEnteredImage} />
-                <h1 id="snack-bar-notification-header">{connectedUser ? `${connectedUser} has logged into Live Support` : disconnectedUser ? `${disconnectedUser} has logged out of Live Support` : ""}</h1>
+                <h1 id="snack-bar-notification-header">{connectedUser ? `${connectedUser} has logged into Live Support` : disconnectedUser && disconnectedUser.name ? `${disconnectedUser.name} has logged out of Live Support` : ""}</h1>
             </div>
     )
 }
