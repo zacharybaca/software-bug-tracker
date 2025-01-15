@@ -72,8 +72,9 @@ io.on("connection", client => {
             id: userUUID,
         };
         users[userUUID] = user;
+        const users = Object.values(users);
         io.emit("connected", user);
-        io.emit("users", Object.values(users));
+        io.emit("users", users);
         console.log("User Connected: ", user);
         console.log("Current Users: ", users);
     });
@@ -134,6 +135,7 @@ io.on("connection", client => {
 
       if (user) {
         disconnectedUsers[userUUID] = disconnectedUser;
+        console.log("Disconnected User: ", disconnectedUser.name);
         delete users[userUUID];
         delete usersTyping[userUUID];
         io.emit("disconnected", disconnectedUser);
