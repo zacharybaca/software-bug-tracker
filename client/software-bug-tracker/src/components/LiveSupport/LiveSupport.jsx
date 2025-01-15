@@ -25,7 +25,6 @@ const LiveSupport = () => {
   const context = useContext(EmployeesContext);
   const snackBarContext = useContext(SnackBarNotificationContext);
   const nodeEnv = import.meta.env.VITE_NODE_ENV;
-  const user = JSON.parse(localStorage.getItem("user"))?.userID;
   const loggedInEmployee = context.getLoggedInEmployee();
   const avatar =
     loggedInEmployee && loggedInEmployee.avatar ? loggedInEmployee.avatar : ChatListAvatar;
@@ -128,7 +127,7 @@ const LiveSupport = () => {
   }
 
   useEffect(() => {
-    if (user) {
+    if (loggedInEmployee) {
       const url =
         nodeEnv === "production"
           ? "wss://software-bug-tracker.onrender.com"
@@ -141,7 +140,8 @@ const LiveSupport = () => {
 
       socketRef.current.on("connect", () => {
         console.log("Connected Successfully to Web Socket Connection");
-        socketRef.current.emit("username", user);
+        socketRef.current.emit("username", loggedInEmployee);
+        snackBarContext.setConnectedUser(loggedInEmployee);
       });
 
       socketRef.current.on("connect_error", (error) => {
@@ -161,31 +161,31 @@ const LiveSupport = () => {
       socketRef.current.on("connected", (newUser) =>
         {
           setUsers((prevUsers) => [...prevUsers, newUser]);
-          snackBarContext.setConnectedUser(newUser.name);
+          snackBarContext.setConnectedUser(newUser);
           snackBarContext.handleShowToast();
         }
       );
 
-      socketRef.current.on("disconnected", (id) =>
+      socketRef.current.on("disconnected", (loggedInUser) =>
         {
-          snackBarContext.setDisconnectedUser(users[id]);
-          snackBarContext.handleShowToast();
-          setUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));
+          snackBarContext.setDisconnectedUser(loggedInUser);
+          setUsers((prevUsers) => prevUsers.filter((user) => user.id !== loggedInUser.id));
+          snackBarContext.handleCloseToast();
         }
       );
       
       return () => {
         if (socketRef.current) {
-          const user = users.find((foundUser) => foundUser.id === user.id);
+          const user = users.find((foundUser) => foundUser.id === loggedInEmployee.id);
           if (!hasToken || !user) {
-            socketRef.current.emit("disconnected", user)
+            socketRef.current.emit("disconnected", snackBarContext.disconnectedUser)
           };
           socketRef.current.disconnect();
           socketRef.current = null;
         }
       };
     }
-  }, [nodeEnv, user]);
+  }, [nodeEnv, loggedInEmployee]);
 
   useEffect(() => {
     if (socketRef.current) {
@@ -205,7 +205,7 @@ const LiveSupport = () => {
     if (socketRef.current) {
       const messageData = {
         text: message,
-        user: user,
+        user: loggedInEmployee,
         avatar: avatar
       };
       socketRef.current.emit("send", messageData);
@@ -231,7 +231,7 @@ const LiveSupport = () => {
   };
 
   // Redirect to login if user is not found
-  if (!user) return <Navigate to="/login" />;
+  if (!loggedInEmployee) return <Navigate to="/login" />;
   
   return (
     <>
