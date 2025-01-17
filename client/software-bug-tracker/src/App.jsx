@@ -5,6 +5,7 @@ import TaskList from "./components/TaskList/TaskList";
 import EmployeeForm from "./components/EmployeeForm/EmployeeForm";
 import SignUpForm from "./components/SignUpForm/SignUpForm";
 import LandingPage from "./components/LandingPage/LandingPage";
+import DropDownMenu from "./components/DropDownMenu/DropDownMenu";
 import EmployeeDirectory from "./components/EmployeeDirectory/EmployeeDirectory";
 import Footer from "./components/Footer/Footer";
 import UnauthorizedPage from "./components/UnauthorizedPage/UnauthorizedPage";
@@ -57,6 +58,9 @@ function App() {
               disconnectedUser={snackBarContext.disconnectedUser}
             />
           )}
+          <div id="drop-down-housing-container">
+              <DropDownMenu />
+          </div>
           <div id="application-logo-container">
             <img src={logo} alt="logo" id="logo" />
             <h1 id="application-title-heading">Issue Insight</h1>
