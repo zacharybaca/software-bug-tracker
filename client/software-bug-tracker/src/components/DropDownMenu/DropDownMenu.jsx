@@ -2,21 +2,23 @@ import React from 'react';
 import './drop-down-menu.css';
 import MenuIcon from '../../assets/menu-button.png';
 
-
 const DropDownMenu = () => {
     const [showMenu, setShowMenu] = React.useState(false);
 
-    const toggleMenu = () => {
-        showMenu ? setShowMenu(false) : setShowMenu(true);
-    }
+    const toggleMenu = () => setShowMenu(!showMenu);
 
     return (
-        <div id="drop-menu-container" toggleMenu={toggleMenu}>
-            {showMenu ? <div>Menu</div> :  <div id="drop-down-container">
+        <div id="drop-menu-container">
+            <button id="menu-toggle-button" onClick={toggleMenu}>
                 <img src={MenuIcon} id="menu-icon" alt="menu icon" />
-            </div>}
+            </button>
+            {showMenu && (
+                <div id="drop-down-container">
+                    <div>Menu</div>
+                </div>
+            )}
         </div>
-    )
-}
+    );
+};
 
 export default DropDownMenu;
