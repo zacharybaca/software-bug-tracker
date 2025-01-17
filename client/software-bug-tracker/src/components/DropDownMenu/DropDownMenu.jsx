@@ -21,9 +21,9 @@ const DropDownMenu = () => {
                 <div id="drop-down-container">
                     <div id="drop-down-items-container">
                         <div id="drop-down-items">
-                            <p>Menu Item 1</p>
-                            <p>Menu Item 2</p>
-                            <p>Menu Item 3</p>
+                            <p className="menu-item">Menu Item 1</p>
+                            <p className="menu-item">Menu Item 2</p>
+                            <p className="menu-item">Menu Item 3</p>
                         </div>
                     </div>
                 </div>
