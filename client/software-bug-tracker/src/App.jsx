@@ -26,7 +26,7 @@ function ProtectedRoute({ condition, redirectTo, children }) {
   return condition ? children : <Navigate to={redirectTo} />;
 }
 
-function App(props) {
+function App() {
   const context = React.useContext(EmployeesContext);
   const snackBarContext = React.useContext(SnackBarNotificationContext);
   const { token } = context.userState;
@@ -59,7 +59,7 @@ function App(props) {
             />
           )}
           <div id="drop-down-housing-container">
-              <DropDownMenu onClick={props.toggleMenu}/>
+              <DropDownMenu />
           </div>
           <div id="application-logo-container">
             <img src={logo} alt="logo" id="logo" />
