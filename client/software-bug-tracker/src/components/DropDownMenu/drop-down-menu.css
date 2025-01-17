@@ -13,11 +13,7 @@
 
 #menu-icon:hover {
     cursor: pointer;
-    /* background-color: green;
-    box-shadow: 10px 10px 5px green; */
-    -webkit-box-shadow: -50px -60px 5px 7px rgba(153,105,64,0.8);
-    -moz-box-shadow: -50px -60px 5px 7px rgba(153,105,64,0.8);
-    box-shadow: -50px -60px 5px 7px rgba(153,105,64,0.8);
+    box-shadow: 25px 9px 3px green;
 }
 
 #drop-down-items-container {
