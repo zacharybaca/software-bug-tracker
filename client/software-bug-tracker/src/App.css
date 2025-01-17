@@ -28,6 +28,13 @@
     animation-name: slidein;
 }
 
+#drop-down-housing-container {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    border: 2px solid blue;
+}
+
 .stand-out {
     color: black;
     font-weight: 800;
