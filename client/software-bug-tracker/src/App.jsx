@@ -49,7 +49,7 @@ function App() {
     !loading && (
         <div id="app-container">
           {snackBarContext.showToast && loggedInEmployee && (
-            <SnackBarNotification  
+            <SnackBarNotification
               onClose={snackBarContext.handleCloseToast}
               onShow={snackBarContext.handleShowToast}
               show={snackBarContext.showToast}
@@ -60,7 +60,7 @@ function App() {
           <div id="application-logo-container">
             <img src={logo} alt="logo" id="logo" />
             <h1 id="application-title-heading">Issue Insight</h1>
-            {token && (
+            {token && loggedInEmployee && (
               <>
                 <div id="main-profile-pic">
                   <img
@@ -113,7 +113,7 @@ function App() {
               <StickyNavBar navigate={navigate} />
             </div>
           )}
-        
+
         <Routes>
           <Route
             path="/"

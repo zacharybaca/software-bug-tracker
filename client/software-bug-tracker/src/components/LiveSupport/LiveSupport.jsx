@@ -160,6 +160,7 @@ const LiveSupport = () => {
 
       socketRef.current.on("connected", (newUser) =>
         {
+          console.log('New User: ', newUser);
           setUsers((prevUsers) => [...prevUsers, newUser]);
           snackBarContext.setConnectedUser(newUser);
           snackBarContext.handleShowToast();
@@ -168,20 +169,24 @@ const LiveSupport = () => {
 
       socketRef.current.on("disconnected", (loggedInUser) =>
         {
+          console.log('Disconnected User: ', loggedInUser);
           snackBarContext.setDisconnectedUser(loggedInUser);
           setUsers((prevUsers) => prevUsers.filter((user) => user.id !== loggedInUser.id));
           snackBarContext.handleCloseToast();
         }
       );
-      
+
       return () => {
         if (socketRef.current) {
           const user = users.find((foundUser) => foundUser.id === loggedInEmployee.id);
           if (!hasToken || !user) {
-            socketRef.current.emit("disconnected", snackBarContext.disconnectedUser)
-          };
-          socketRef.current.disconnect();
-          socketRef.current = null;
+            socketRef.current.emit("disconnected", snackBarContext.disconnectedUser.name)
+            socketRef.current.disconnect(snackBarContext.disconnectedUser);
+            socketRef.current = null;
+          }
+          else {
+            socketRef.current.disconnect(user);
+          }
         }
       };
     }
@@ -232,7 +237,7 @@ const LiveSupport = () => {
 
   // Redirect to login if user is not found
   if (!loggedInEmployee) return <Navigate to="/login" />;
-  
+
   return (
     <>
       <h1 id="support-heading">
@@ -270,25 +275,27 @@ const LiveSupport = () => {
         </div>
         <div id="users-online-container">
           <h1 id="users-online-heading">Users Online</h1>
+          {users.map((user) => console.log('User: ', user.name.firstName))}
           <ul id="users-online-list">
             {users.map((user) => (
               <li key={user.id} className="online-user">
-                <img src={ChatListAvatar} alt="chat list avatar" />
-                <p>{user.name}</p>
+                <img src={ChatListAvatar} alt="default avatar chat list" />
+                <p>{`${user.name?.firstName || "Unknown"} ${user.name?.lastName || ""}`}</p>
               </li>
             ))}
-          </ul>
+        </ul>
         </div>
       </div>
       <div id="typing-indicator">
+        {console.log('Users Typing: ', usersTyping.length > 0 ? usersTyping[0].name : null)}
         {usersTyping.length > 0 && usersTyping.length < 3 ? (
           <>
             <ul>
               {usersTyping.map((user, index) => (
                 <li key={index}>
                   {usersTyping.length === 1
-                    ? `${user.name} is currently typing a message`
-                    : `${usersTyping[0].name} and ${usersTyping[1].name} are currently typing a message`}
+                    ? `${user.name || "Unknown"} is currently typing a message`
+                    : `${usersTyping[0].name || "Unknown"} and ${usersTyping[1].name || "Unknown"} are currently typing a message`}
                 </li>
               ))}
             </ul>

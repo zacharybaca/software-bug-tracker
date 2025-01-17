@@ -9,27 +9,15 @@ function SnackBarNotificationContextProvider(props) {
     const [disconnectedUser, setDisconnectedUser] = React.useState("");
 
     const handleShowToast = () => {
-        if (connectedUser) {
-            setShowToast(true);
-            setConnectedUser(connectedUser);
-        }
-        else if (disconnectedUser) {
-            setShowToast(true);
-            setDisconnectedUser(disconnectedUser);
-        }
-        
+        connectedUser || disconnectedUser ? setShowToast(true) : setShowToast(false);
+        connectedUser && connectedUser.name ? setConnectedUser(connectedUser.name) : setConnectedUser("");
+        disconnectedUser && disconnectedUser.name ? setDisconnectedUser(disconnectedUser.name) : setDisconnectedUser("");
     };
 
     const handleCloseToast = () => {
-        if (connectedUser) {
-            setShowToast(false);
-            setConnectedUser("");
-        }
-        else if (disconnectedUser) {
-            setShowToast(false);
-            setDisconnectedUser("");
-        }
-        
+       setShowToast(false);
+       connectedUser ? setConnectedUser("") : setDisconnectedUser("");
+
     };
 
     return (

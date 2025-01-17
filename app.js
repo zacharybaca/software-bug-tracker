@@ -25,7 +25,7 @@ if (process.env.NODE_ENV === "production") {
 else {
     io = require("socket.io")(server, {
       cors: {
-        origin: "http://localhost:9000",
+        origin: "http://localhost:5173",
         methods: ["GET", "POST"],
       },
       transports: ["websocket", "polling"],
@@ -72,11 +72,11 @@ io.on("connection", client => {
             id: userUUID,
         };
         users[userUUID] = user;
-        const users = Object.values(users);
+        const usersList = Object.values(users);
         io.emit("connected", user);
-        io.emit("users", users);
+        io.emit("users", usersList);
         console.log("User Connected: ", user);
-        console.log("Current Users: ", users);
+        console.log("Current Users: ", usersList);
     });
 
     client.on("send", message => {
