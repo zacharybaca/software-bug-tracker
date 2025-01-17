@@ -1,6 +1,5 @@
 #drop-down-container {
     padding: 20px;
-    border: 2px solid black;
 }
 
 #menu-icon {
@@ -8,4 +7,10 @@
     height: 50px;
     background-color: #BC8B5D;
     border-radius: 10px;
+}
+
+#menu-icon:hover {
+    cursor: pointer;
+    background-color: green;
+    box-shadow: 10px 10px 5px green;
 }
