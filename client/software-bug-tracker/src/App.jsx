@@ -12,9 +12,6 @@ import UnauthorizedPage from "./components/UnauthorizedPage/UnauthorizedPage";
 import PageDoesNotExist from "./components/PageDoesNotExist/PageDoesNotExist";
 import LiveSupport from "./components/LiveSupport/LiveSupport";
 import UnAssignedTasks from "./components/UnAssignedTasks/UnAssignedTasks";
-import StickyNavBar from "./components/StickyNavBar/StickyNavBar";
-import SaveButton from "./components/SaveButton/SaveButton";
-import SettingsButton from "./components/SettingsButton/SettingsButton";
 import SnackBarNotification from "./components/SnackBarNotification/SnackBarNotification";
 import { SnackBarNotificationContext } from "./context/snackBarNotificationContext";
 import { EmployeesContext } from "./context/employeesContext";
@@ -59,7 +56,9 @@ function App() {
             />
           )}
           <div id="drop-down-housing-container">
-              <DropDownMenu />
+            {loggedInEmployee && (
+                <DropDownMenu navigate={navigate}/>
+            )}
           </div>
           <div id="application-logo-container">
             <img src={logo} alt="logo" id="logo" />
@@ -112,12 +111,6 @@ function App() {
               </>
             )}
           </div>
-          {token && (
-            <div id="sticky-nav-bar">
-              <StickyNavBar navigate={navigate} />
-            </div>
-          )}
-
         <Routes>
           <Route
             path="/"

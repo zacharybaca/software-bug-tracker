@@ -1,7 +1,6 @@
 #nav-button-container {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
+    flex-direction: column;
     gap: 10px;
     max-height: fit-content;
     max-width: 100%;
@@ -11,6 +10,7 @@
 
 #nav-button-container button {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     border-radius: 5px;
@@ -22,7 +22,6 @@
     font-weight: 400;
     font-style: normal;
     font-size: 1rem;
-    max-width: 20%;
 }
 
 #unassigned-tasks-button:hover {
@@ -35,10 +34,6 @@
     cursor: url("./assets/click.png"), pointer;
     background-color: #e6b17f;
     color: white;
-}
-
-#networking-image {
-    margin-left: -1%;
 }
 
 #add-employee-main-button:hover {

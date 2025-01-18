@@ -1,9 +1,7 @@
 #employee-directory-button {
     display: flex;
     justify-content: center;
-    align-items: center;
     border-radius: 5px;
-    height: 15vh;
     background-color: #f5f5dc;
     font-size: 1rem;
     font-weight: 600;
@@ -13,11 +11,4 @@
     cursor: url("./assets/click.png"), pointer;
     background-color: #e6b17f;
     color: white;
-}
-
-.employee-directory-content {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    /* Adjust spacing between animation and text */
 }

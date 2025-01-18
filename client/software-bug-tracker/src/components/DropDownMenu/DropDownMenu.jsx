@@ -1,9 +1,10 @@
 import React from 'react';
 import './drop-down-menu.css';
+import StickyNavBar from '../StickyNavBar/StickyNavBar';
 import MenuIcon from '../../assets/menu-button.png';
 import CloseButtonIcon from '../../assets/close-button.png';
 
-const DropDownMenu = () => {
+const DropDownMenu = (props) => {
     const [showMenu, setShowMenu] = React.useState(false);
 
     const toggleMenu = () => setShowMenu(!showMenu);
@@ -13,20 +14,12 @@ const DropDownMenu = () => {
             <button id="menu-toggle-button" onClick={toggleMenu}>
                 <img
                     src={showMenu ? CloseButtonIcon : MenuIcon}
-                    id="menu-icon"
+                    id={showMenu ? 'close-button-icon' : 'menu-icon'}
                     alt={showMenu ? 'close menu icon' : 'menu icon'}
                 />
             </button>
             {showMenu && (
-                <div id="drop-down-container">
-                    <div id="drop-down-items-container">
-                        <div id="drop-down-items">
-                            <p className="menu-item">Menu Item 1</p>
-                            <p className="menu-item">Menu Item 2</p>
-                            <p className="menu-item">Menu Item 3</p>
-                        </div>
-                    </div>
-                </div>
+                <StickyNavBar navigate={props.navigate}/>
             )}
         </div>
     );
