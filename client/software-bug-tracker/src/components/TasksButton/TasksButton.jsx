@@ -13,7 +13,10 @@ const TasksButton = (props) => {
   };
 
   return (
-    <button id="my-tasks-button" onClick={() => props.navigate("/tasks")}>
+    <button id="my-tasks-button" onClick={() => {
+      props.navigate("/tasks");
+      props.setShowMenu(!props.showMenu);
+    }}>
       <div className="tasks-content">
         <Lottie options={lottieOptions} height={40} width={40} />
         <span>Employee Tasks</span>

@@ -13,7 +13,10 @@ const EmployeeDirectoryButton = (props) => {
   };
 
   return (
-    <button id="employee-directory-button" onClick={() => props.navigate("/employee-directory")}>
+    <button id="employee-directory-button" onClick={() => {
+      props.navigate("/employee-directory");
+      props.setShowMenu(!props.showMenu);
+    }}>
       <div className="employee-directory-content">
         <Lottie options={lottieOptions} height={40} width={40} />
         <span>Employee Directory</span>

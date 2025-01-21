@@ -13,7 +13,10 @@ const LogOutButton = (props) => {
   };
 
   return (
-    <button id="logout-button" onClick={props.logout}>
+    <button id="logout-button" onClick={() => {
+      props.logout();
+      props.setShowMenu(!props.showMenu);
+    }}>
       <div className="logout-content">
         <Lottie options={lottieOptions} height={40} width={40} />
         <span>Log Out</span>

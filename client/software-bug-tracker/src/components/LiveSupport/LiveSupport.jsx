@@ -141,7 +141,6 @@ const LiveSupport = () => {
       socketRef.current.on("connect", () => {
         console.log("Connected Successfully to Web Socket Connection");
         socketRef.current.emit("username", loggedInEmployee);
-        snackBarContext.setConnectedUser(loggedInEmployee);
       });
 
       socketRef.current.on("connect_error", (error) => {
@@ -171,7 +170,7 @@ const LiveSupport = () => {
         {
           console.log('Disconnected User: ', loggedInUser);
           snackBarContext.setDisconnectedUser(loggedInUser);
-          setUsers((prevUsers) => prevUsers.filter((user) => user.id !== loggedInUser.id));
+          setUsers((prevUsers) => prevUsers.filter((user) => user._id !== loggedInUser._id));
           snackBarContext.handleCloseToast();
         }
       );
@@ -185,7 +184,8 @@ const LiveSupport = () => {
             socketRef.current = null;
           }
           else {
-            socketRef.current.disconnect(user);
+            socketRef.current.emit("connected", user || snackBarContext.connectedUser.name);
+            socketRef.current.connect();
           }
         }
       };

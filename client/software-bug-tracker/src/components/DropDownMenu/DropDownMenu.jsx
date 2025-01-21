@@ -19,7 +19,7 @@ const DropDownMenu = (props) => {
                 />
             </button>
             {showMenu && (
-                <StickyNavBar navigate={props.navigate}/>
+                <StickyNavBar navigate={props.navigate} showMenu={showMenu} toggleMenu={toggleMenu}/>
             )}
         </div>
     );

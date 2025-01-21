@@ -46,6 +46,11 @@ function App() {
   return (
     !loading && (
         <div id="app-container">
+          <div id="drop-down-housing-container">
+            {loggedInEmployee && (
+                <DropDownMenu navigate={navigate}/>
+            )}
+          </div>
           {snackBarContext.showToast && loggedInEmployee && (
             <SnackBarNotification
               onClose={snackBarContext.handleCloseToast}
@@ -55,11 +60,6 @@ function App() {
               disconnectedUser={snackBarContext.disconnectedUser}
             />
           )}
-          <div id="drop-down-housing-container">
-            {loggedInEmployee && (
-                <DropDownMenu navigate={navigate}/>
-            )}
-          </div>
           <div id="application-logo-container">
             <img src={logo} alt="logo" id="logo" />
             <h1 id="application-title-heading">Issue Insight</h1>
