@@ -10,7 +10,7 @@ function SnackBarNotificationContextProvider(props) {
 
     const handleShowToast = () => {
         setShowToast(true);
-        console.log("Connected User: ", connectedUser && connectedUser.name);
+        console.log("Connected User: ", connectedUser && connectedUser.name.user.userID);
         console.log("Disconnected User: ", disconnectedUser && disconnectedUser.name);
     };
 

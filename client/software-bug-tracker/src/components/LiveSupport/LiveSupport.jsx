@@ -170,24 +170,29 @@ const LiveSupport = () => {
         {
           console.log('Disconnected User: ', loggedInUser);
           snackBarContext.setDisconnectedUser(loggedInUser);
-          setUsers((prevUsers) => prevUsers.filter((user) => user._id !== loggedInUser._id));
           snackBarContext.handleCloseToast();
         }
       );
 
       return () => {
         if (socketRef.current) {
-          const user = users.find((foundUser) => foundUser.id === loggedInEmployee.id);
-          if (!hasToken || !user) {
-            socketRef.current.emit("disconnected", snackBarContext.disconnectedUser.name)
-            socketRef.current.disconnect(snackBarContext.disconnectedUser);
+
+          if (!hasToken || !snackBarContext.connectedUser) {
+            socketRef.current.emit("disconnected", loggedInEmployee.user.userID)
+            socketRef.current.disconnect(loggedInEmployee);
             socketRef.current = null;
           }
           else {
-            socketRef.current.emit("connected", user || snackBarContext.connectedUser.name);
+            socketRef.current.emit("connected", hasToken || snackBarContext.connectedUser.name);
             socketRef.current.connect();
           }
         }
+        else {
+          socketRef.current.emit("disconnected", snackBarContext.disconnectedUser.name)
+          socketRef.current.disconnect(snackBarContext.disconnectedUser);
+
+        }
+        socketRef.current = null;
       };
     }
   }, [nodeEnv, loggedInEmployee]);
