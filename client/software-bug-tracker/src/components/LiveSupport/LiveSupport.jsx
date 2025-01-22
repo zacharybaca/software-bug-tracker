@@ -371,15 +371,22 @@ const LiveSupport = () => {
           />
         </div>
         <div id="clear-button-container">
-          <img src={SpeechBubble} alt="speech-icon" />
-          <button
-            type="button"
-            id="clear-messages-button"
-            onClick={clearMessages}
-            disabled={messages.length === 0}
-            className={messages.length === 0 ? "not-allowed" : "allowed"}>
-            Clear Messages
-          </button>
+          <div id="clear-button-image-container">
+            <img src={SpeechBubble} alt="speech-icon" />
+          </div>
+          <div id="clear-messages-button-container">
+            <button
+              type="button"
+              id="clear-messages-button"
+              onClick={clearMessages}
+              disabled={messages.length === 0}
+              className={messages.length === 0 ? "not-allowed" : "allowed"}>
+              Clear Messages
+            </button>
+          </div>
+        </div>
+        <div id="reset-options-container">
+          <button type="button" id="reset-options-button" disabled={!font || !fontSize}>Reset Options</button>
         </div>
       </div>
     </>
