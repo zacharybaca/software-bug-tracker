@@ -200,11 +200,18 @@
     padding-right: 8%;
 }
 
+#set-font-size-container label {
+    font-weight: 800;
+}
+
 #fontSize {
     min-height: 20%;
 }
 
 #set-font-size-container label {
+    font-family: "Gloria Hallelujah", cursive;
+    font-weight: 400;
+    font-style: normal;
     width: 50px;
     height: 50px;
     padding-bottom: 5%;
