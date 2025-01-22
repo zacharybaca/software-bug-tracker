@@ -82,7 +82,8 @@
 }
 
 #clear-messages-button {
-    max-height: fit-content;
+    max-height: 55%;
+    min-width: 100%;
     background-color: beige;
     border-radius: 5px;
     font-size: 1.25rem;
