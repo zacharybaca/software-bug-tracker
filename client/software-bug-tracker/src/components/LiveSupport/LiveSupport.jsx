@@ -393,7 +393,7 @@ const LiveSupport = () => {
           </div>
         </div>
         <div id="reset-options-container">
-          <button type="button" id="reset-options-button" onClick={resetMessageOptions} disabled={!font || !fontSize}>Reset Options</button>
+          <button type="button" id="reset-options-button" onClick={resetMessageOptions} disabled={font === "" && fontSize === ""}>Reset Options</button>
         </div>
       </div>
     </>
