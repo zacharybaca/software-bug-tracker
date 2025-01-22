@@ -86,8 +86,10 @@
     min-width: 100%;
     background-color: beige;
     border-radius: 5px;
-    font-size: 1.25rem;
-    font-weight: 600;
+    font-size: 1rem;
+    font-family: "Gloria Hallelujah", cursive;
+    font-weight: 800;
+    font-style: normal;
 }
 
 #clear-messages-button:hover {
@@ -215,8 +217,10 @@
     min-width: 100%;
     background-color: beige;
     border-radius: 5px;
-    font-size: 1.25rem;
-    font-weight: 600;
+    font-size: 1rem;
+    font-weight: 800;
+    font-family: "Gloria Hallelujah", cursive;
+    font-style: normal;
 }
 
 #reset-options-button:hover {
@@ -231,6 +235,7 @@
 
 #fontSize {
     min-height: 20%;
+    background-color: green;
 }
 
 #set-font-size-container label {
