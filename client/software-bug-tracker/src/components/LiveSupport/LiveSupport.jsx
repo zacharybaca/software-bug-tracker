@@ -247,6 +247,13 @@ const LiveSupport = () => {
     }
   };
 
+  const resetMessageOptions = () => {
+    setFont("");
+    setFontSize("");
+    localStorage.removeItem("font");
+    localStorage.removeItem("fontSize");
+  };
+
   // Redirect to login if user is not found
   if (!loggedInEmployee) return <Navigate to="/login" />;
 
@@ -386,7 +393,7 @@ const LiveSupport = () => {
           </div>
         </div>
         <div id="reset-options-container">
-          <button type="button" id="reset-options-button" disabled={!font || !fontSize}>Reset Options</button>
+          <button type="button" id="reset-options-button" onClick={resetMessageOptions} disabled={!font || !fontSize}>Reset Options</button>
         </div>
       </div>
     </>
