@@ -12,6 +12,7 @@
     align-items: center;
     width: 50%;
     border-radius: 10px;
+    z-index: 20;
     background-color: green;
 }
 
@@ -31,23 +32,13 @@
     box-shadow: 5px 5px 8px #BC8B5D, 10px 10px 8px #81532d, 15px 15px 8px green;
 }
 
-#drop-down-items {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    border: 5px solid yellow;
-    box-sizing: border-box;
-    background-color: #81532d;
-}
-
 #drop-menu-container {
     display: flex;
     flex-direction: column;
-    border: 7px solid red;
+    justify-content: center;
+    align-items: center;
     width: 15%;
     height: fit-content;
-    background-color: #e6b17e;
 }
 
 #close-button-icon {
