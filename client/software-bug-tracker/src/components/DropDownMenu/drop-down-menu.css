@@ -1,11 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Honk&display=swap');
+
+
 #menu-icon {
     width: 50px;
     height: 50px;
-    background-color: #BC8B5D;
-    border-radius: 10px;
 }
 
-#menu-icon:hover {
+#menu-toggle-button {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 50%;
+    border-radius: 10px;
+    background-color: green;
+}
+
+#menu-button-heading {
+    font-size: 1.5rem;
+    font-family: "Honk", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-variation-settings:
+        "MORF" 15,
+        "SHLN" 50;
+}
+
+#menu-toggle-button:hover {
     cursor: pointer;
     box-shadow: 5px 5px 8px #BC8B5D, 10px 10px 8px #81532d, 15px 15px 8px green;
 }
@@ -32,7 +53,7 @@
 #close-button-icon {
     width: 50px;
     height: 50px;
-    background-color: green;
+    background-color: red;
     border-radius: 10px;
 }
 

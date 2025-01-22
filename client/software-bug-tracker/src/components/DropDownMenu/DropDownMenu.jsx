@@ -1,7 +1,7 @@
 import React from 'react';
 import './drop-down-menu.css';
 import StickyNavBar from '../StickyNavBar/StickyNavBar';
-import MenuIcon from '../../assets/menu-button.png';
+import MenuIcon from '../../assets/bug-menu-icon.png';
 import CloseButtonIcon from '../../assets/close-button.png';
 
 const DropDownMenu = (props) => {
@@ -17,6 +17,7 @@ const DropDownMenu = (props) => {
                     id={showMenu ? 'close-button-icon' : 'menu-icon'}
                     alt={showMenu ? 'close menu icon' : 'menu icon'}
                 />
+                <h1 id="menu-button-heading">Menu</h1>
             </button>
             {showMenu && (
                 <StickyNavBar navigate={props.navigate} showMenu={showMenu} toggleMenu={toggleMenu}/>
