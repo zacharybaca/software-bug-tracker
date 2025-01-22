@@ -51,6 +51,14 @@ const LiveSupport = () => {
       </div>
     );
   };
+
+  const handleStorage = (key, value, isNumber = false) => {
+    if (value !== undefined) {
+      localStorage.setItem(key, isNumber ? Number(value) : value);
+    }
+    return localStorage.getItem(key) || "";
+  };
+
   // Function That Returns Parsed JSON
   // Returns An Empty Array If Value is Un-Parsable
   const parseJSON = (value) => {
@@ -122,12 +130,14 @@ const LiveSupport = () => {
   };
 
   const handleFontSize = (e) => {
-    const { value } = e.target;
+    const value = Math.min(Math.max(Number(e.target.value), 12), 72);
     setFontSize(value);
-  }
+  };
+  
 
   useEffect(() => {
-    if (loggedInEmployee) {
+    if (!loggedInEmployee) return;
+
       const url =
         nodeEnv === "production"
           ? "wss://software-bug-tracker.onrender.com"
@@ -166,14 +176,12 @@ const LiveSupport = () => {
         }
       );
 
-      socketRef.current.on("disconnected", (loggedInUser) =>
-        {
-          console.log('Disconnected User: ', loggedInUser);
-          snackBarContext.setDisconnectedUser(loggedInUser);
-          snackBarContext.handleCloseToast();
-        }
-      );
-
+      socketRef.current.on("disconnected", (disconnectedUser) => {
+        console.log("Disconnected User: ", disconnectedUser);
+        snackBarContext.setDisconnectedUser(disconnectedUser);
+        snackBarContext.handleCloseToast();
+      });
+      
       return () => {
         if (socketRef.current) {
 
@@ -194,7 +202,6 @@ const LiveSupport = () => {
         }
         socketRef.current = null;
       };
-    }
   }, [nodeEnv, loggedInEmployee]);
 
   useEffect(() => {
@@ -354,7 +361,6 @@ const LiveSupport = () => {
           </select>
         </div>
         <div id="set-font-size-container">
-          <img />
           <label htmlFor="fontSize">Select Your Font Size</label>
           <input
             type="number"
