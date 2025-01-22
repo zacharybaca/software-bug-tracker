@@ -49,7 +49,7 @@
 
 #message-options-container {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     min-width: 100%;
     max-width: 100%;
     box-sizing: border-box;
@@ -66,7 +66,7 @@
 
 #clear-button-container {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     min-width: fit-content;
     min-height: fit-content;
     padding-left: 3%;
@@ -91,7 +91,7 @@
 }
 
 #clear-messages-button:hover {
-    cursor: url('../../assets/click.png');
+    cursor: url('../../assets/click.png'), pointer;
     background-color: green;
     color: white;
 }
@@ -198,6 +198,31 @@
     min-height: fit-content;
     padding-left: 3%;
     padding-right: 8%;
+}
+
+#reset-options-container {
+    display: flex;
+    justify-content: center;
+    min-width: fit-content;
+    min-height: fit-content;
+    
+    padding-right: 3%;
+    padding-top: 2%;
+}
+
+#reset-options-button {
+    max-height: 55%;
+    min-width: 100%;
+    background-color: beige;
+    border-radius: 5px;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+#reset-options-button:hover {
+    cursor: url('../../assets/click.png'), pointer;
+    background-color: green;
+    color: white;
 }
 
 #set-font-size-container label {
