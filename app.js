@@ -131,9 +131,9 @@ io.on("connection", client => {
         id: userUUID
       };
 
-      const user = users[userUUID];
+      
 
-      if (user) {
+      if (disconnectedUser) {
         disconnectedUsers[userUUID] = disconnectedUser;
         console.log("Disconnected User: ", disconnectedUser.name);
         delete users[userUUID];
