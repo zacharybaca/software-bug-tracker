@@ -3,7 +3,7 @@ import './confirmation-dialog-box.css';
 
 
 const ConfirmationDialogBox = () => {
-    const [showDialog, setShowDialog] = React.useState(false);
+    const [showDialog, setShowDialog] = React.useState(true);
 
     const handleConfirm = () => {
         // Perform the action to be confirmed
@@ -22,10 +22,10 @@ const ConfirmationDialogBox = () => {
         showDialog && (
             <div className="dialog-overlay">
               <div className="dialog-content">
-                <p>Are you sure you want to perform this action?</p>
-                <button type="button" onClick={handleConfirm}>Confirm</button>
-                <button type="button" onClick={handleCancel}>Cancel</button>
-                <button type="button" onClick={handleDelete}>Delete</button>
+                <h2 className="dialog-question">Are you sure you want to perform this action?</h2>
+                <button type="button" className="confirm-button" onClick={handleConfirm}>Confirm</button>
+                <button type="button" className="delete-button" onClick={handleDelete}>Delete</button>
+                <button type="button" className="cancel-button" onClick={handleCancel}>Cancel</button>
               </div>
             </div>
           )
