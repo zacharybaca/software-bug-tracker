@@ -53,7 +53,7 @@ const TaskList = () => {
           ? "All Employee Assigned Tasks: "
           : "Tasks That Are Assigned to You: "}
       </h2>
-      
+
       {tasksContext.tasks.length === 0 ? (<h1 id="no-tasks-assigned-heading">No Tasks Assigned</h1>) :
       <ul id="task-list">
         {Array.isArray(tasksContext.tasks) ? (
@@ -76,7 +76,7 @@ const TaskList = () => {
             </React.Fragment>
           ))
         ) : (
-          <p>No tasks available</p>
+          <p id="no-tasks-para">No tasks available</p>
         )}
       </ul>
       }

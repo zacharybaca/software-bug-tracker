@@ -2,6 +2,8 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Vast+Shadow&display=swap');
 
+@import url('https://fonts.googleapis.com/css2?family=Fontdiner+Swanky&family=Gloria+Hallelujah&family=Macondo+Swash+Caps&display=swap');
+
 #app-container {
     display: flex;
     flex-direction: column;
@@ -76,14 +78,14 @@
     font-family: "Protest Guerrilla", sans-serif;
     font-style: normal;
     font-size: 25px;
-    font-weight: 500;
+    font-weight: 600;
     color: #e6b17e;
 }
 
 #position-at-company-heading {
      font-family: "Protest Guerrilla", sans-serif;
      font-size: 25px;
-     font-weight: 500;
+     font-weight: 600;
      font-style: normal;
      color: #e6b17e;
 }
@@ -97,7 +99,7 @@
 #unassigned-tasks-info-heading {
     font-size: 18px;
     font-weight: 800;
-    color: #e6b17e;
+    color: red;
 }
 
 #main-profile-pic img {

@@ -19,12 +19,20 @@
     height: 18vh;
     width: 100%;
     background-color: #f5f5dc;
-    font-size: 1rem;
     font-weight: 600;
     font-family: "Vast Shadow", serif;
     font-weight: 400;
     font-style: normal;
     font-size: 1rem;
+    margin: 1rem 0;
+    font-size: 1.5rem;
+    text-align: center;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+#nav-button-container button:hover {
+    color: #00d4ff;
 }
 
 #unassigned-tasks-button:hover {

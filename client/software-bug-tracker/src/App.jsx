@@ -106,7 +106,7 @@ function App() {
                   </strong>{" "}
                   Unassigned{" "}
                   {taskContext.unassignedTasks.length === 1 ? "Task" : "Tasks"}{" "}
-                  In The Queue
+                  In The Queue.
                 </h4>
               </>
             )}

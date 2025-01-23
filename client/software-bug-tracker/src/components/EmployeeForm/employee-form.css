@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Vast+Shadow&display=swap');
 
+@import url('https://fonts.googleapis.com/css2?family=Fontdiner+Swanky&family=Gloria+Hallelujah&family=Macondo+Swash+Caps&display=swap');
+
 #employee-form {
     display: flex;
     flex-direction: column;
@@ -14,6 +16,12 @@
     min-width: 30%;
     background-color: beige;
     border: 2px solid black;
+}
+
+#employee-form label, input, select {
+    font-family: "Gloria Hallelujah", cursive;
+    font-weight: 800;
+    font-size: 1rem;
 }
 
 #profile-pic-and-upload-container {

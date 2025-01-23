@@ -19,9 +19,10 @@ const DropDownMenu = (props) => {
                 />
                 <h1 id="menu-button-heading">Menu</h1>
             </button>
-            {showMenu && (
-                <StickyNavBar navigate={props.navigate} showMenu={showMenu} toggleMenu={toggleMenu}/>
-            )}
+
+            <div className={`menu ${showMenu ? 'open' : ""}`}>
+                <StickyNavBar navigate={props.navigate} showMenu={showMenu} toggleMenu={toggleMenu} />
+            </div>
         </div>
     );
 };
