@@ -13,7 +13,7 @@ const StickyNavBar = (props) => {
     const context = React.useContext(EmployeesContext);
 
     return (
-        <div>
+        <div id="main-nav-container">
         {props.showMenu && (
           <div id="nav-button-container">
             <LogOutButton logout={context.logout} showMenu={props.showMenu} setShowMenu={props.toggleMenu}/>
