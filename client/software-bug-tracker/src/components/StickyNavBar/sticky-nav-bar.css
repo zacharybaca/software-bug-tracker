@@ -6,7 +6,15 @@
     align-items: flex-start;
     gap: 10px;
     max-width: 100%;
+    min-height: 100%;
     padding-top: 2%;
+    border-radius: 10px;
+    background-color: green;
+    box-sizing: border-box;
+}
+
+#main-nav-container {
+    height: 100%;
     box-sizing: border-box;
 }
 
@@ -19,11 +27,9 @@
     height: 18vh;
     width: 100%;
     background-color: #f5f5dc;
-    font-weight: 600;
     font-family: "Vast Shadow", serif;
     font-weight: 400;
     font-style: normal;
-    font-size: 1rem;
     margin: 1rem 0;
     font-size: 1.5rem;
     text-align: center;
