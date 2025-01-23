@@ -23,8 +23,9 @@ const ConfirmationDialogBox = () => {
             <div className="dialog-overlay">
               <div className="dialog-content">
                 <p>Are you sure you want to perform this action?</p>
-                <button onClick={handleConfirm}>Confirm</button>
-                <button onClick={handleCancel}>Cancel</button>
+                <button type="button" onClick={handleConfirm}>Confirm</button>
+                <button type="button" onClick={handleCancel}>Cancel</button>
+                <button type="button" onClick={handleDelete}>Delete</button>
               </div>
             </div>
           )
