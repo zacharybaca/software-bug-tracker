@@ -11,7 +11,37 @@
   }
   
   .dialog-content {
-    background-color: white;
-    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 40%;
+    background-color: #E6B17E;
+    padding: 80px;
     border-radius: 5px;
+  }
+
+  .delete-button {
+    cursor: url("../../assets/click.png"), pointer;
+    background-color: red;
+    color: black;
+    border-radius: 10px;
+  }
+
+  .confirm-button {
+    cursor: url("../../assets/click.png"), pointer;
+    background-color: green;
+    color: black;
+    border-radius: 10px;
+  }
+
+  .cancel-button {
+    cursor: url("../../assets/click.png"), pointer;
+    background-color: yellow;
+    color: black;
+    border-radius: 10px;
+  }
+
+  .dialog-question {
+    padding-bottom: 2%;
+    color: red;
   }
