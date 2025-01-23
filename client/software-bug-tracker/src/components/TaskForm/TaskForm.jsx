@@ -26,15 +26,15 @@ const TaskForm = (props) => {
     }));
   }
 
+  const formattedTodos = task.taskTodos
+    .split(".")
+    .map((todo) => todo.trim())
+    .filter((todo) => todo)
+    .join(".\n");
+
   // Handle form submission
   function handleSubmit(e) {
     e.preventDefault();
-
-    const formattedTodos = task.taskTodos
-      .split(".")
-      .map((todo) => todo.trim())
-      .filter((todo) => todo)
-      .join(".\n");
 
     const updatedTask = {
       ...task,
@@ -49,12 +49,19 @@ const TaskForm = (props) => {
     }
   }
 
-  const assigned = context.employees.find((employee) =>
-    typeof task.assignedEmployee === "string"
-      ? employee._id === task.assignedEmployee
-      : employee._id === task.assignedEmployee?._id
-  );
+  // const assigned = context.employees.find((employee) =>
+  //   typeof task.assignedEmployee === "string"
+  //     ? employee._id === task.assignedEmployee
+  //     : employee._id === task.assignedEmployee?._id
+  // );
 
+  const assigned = React.useMemo(() => {
+    return context.employees.find((employee) =>
+        typeof task.assignedEmployee === "string"
+            ? employee._id === task.assignedEmployee
+            : employee._id === task.assignedEmployee?._id
+    );
+}, [context.employees, task.assignedEmployee]);
   
   return (
     <form id="task-form" name="taskForm" onSubmit={handleSubmit}>
@@ -79,7 +86,7 @@ const TaskForm = (props) => {
         required
         placeholder="Enter Description"
       />
-
+      
       <label htmlFor="task-todos">Task Todo Items: </label>
       <textarea
         id="task-todos"
