@@ -12,7 +12,7 @@
   right: 0;
   height: 100vh;
   width: 300px;
-  background-color: #333;
+  background-color: #E6B17E;
   color: #fff;
   transform: translateX(100%);
   transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
