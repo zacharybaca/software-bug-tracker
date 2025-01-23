@@ -1,16 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Fontdiner+Swanky&family=Gloria+Hallelujah&family=Macondo+Swash+Caps&display=swap');
 
 #task-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-left: 8%;
-    padding-right: 8%;
-    padding-top: 2%;
-    padding-bottom: 2%;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 10rem;
     border-radius: 10px;
-    background-color: beige;
-    border: 2px solid black;
+    background-color: #fdf5e6;
+    border: 2px solid #000;
 }
 
 #task-form label, input, select, textarea {
@@ -20,12 +17,13 @@
 }
 
 label, input, select, textarea {
-    max-width: 100%;
+    /* max-width: 100%;
     min-width: fit-content;
     font-size: 1rem;
     margin-top: 5%;
     margin-bottom: 20%;
-    padding: 5%;
+    padding: 5%; */
+    margin: 0.5rem 0;
 }
 
 #add-task-button {
@@ -66,7 +64,7 @@ label, input, select, textarea {
 }
 
 #assigned-employee {
-    max-width: fit-content;
+    min-width: 100%;
     font-weight: 800;
     overflow: scroll;
 }
