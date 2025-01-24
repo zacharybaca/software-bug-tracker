@@ -7,22 +7,25 @@ function ConfirmationDialogBoxContextProvider(props) {
     const [showDialog, setShowDialog] = React.useState(true);
     const [dialogQuestion, setDialogQuestion] = React.useState("");
 
-    const handleConfirm = () => {
-        setShowDialog(false);
+    const handleConfirm = (e) => {
+        if (e.target.value === 'confirm') {
+            setShowDialog(false);
+            return true;
+        }
     };
 
-    const handleCancel = () => {
-        setShowDialog(false);
-    };
-
-    const handleDelete = () => {
-        setShowDialog(true);
+    const handleCancel = (e) => {
+        if (e.target.value === 'cancel') {
+            setShowDialog(false);
+            return false;
+        }
     };
 
     const handleDialogQuestion = (question) => {
         setShowDialog(true);
         setDialogQuestion(question);
-    }
+    };
+    
     return (
         <ConfirmationDialogBoxContext.Provider
             value={{
@@ -30,7 +33,6 @@ function ConfirmationDialogBoxContextProvider(props) {
                 dialogQuestion,
                 handleConfirm,
                 handleCancel,
-                handleDelete,
                 handleDialogQuestion
             }}>
             {props.children}
