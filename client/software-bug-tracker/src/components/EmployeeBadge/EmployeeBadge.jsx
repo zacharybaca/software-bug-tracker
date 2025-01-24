@@ -6,7 +6,7 @@ const EmployeeBadge = (props) => {
     const [showForm, setShowForm] = React.useState(false);
     
     const isConfirmed = () => {
-      props.handleQuestion("Are You Sure You Would Like to Remove This Employee?");
+      props.handleDialogQuestion("Are You Sure You Would Like to Remove This Employee?");
       if (props.confirmation) {
         props.deleteEmployee(props.employeeID);
       }
