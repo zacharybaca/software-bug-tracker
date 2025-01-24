@@ -13,6 +13,7 @@ const UnAssignButton = (props) => {
   };
 
   const isConfirmed = () => {
+    props.handleQuestion("Are You Sure You Want to Un-Assign This Task?");
     if (props.confirmation) {
       props.unAssignTask(props.id);
     }
