@@ -1,12 +1,14 @@
 import "./employee-directory.css";
 import { EmployeesContext } from "../../context/employeesContext";
 import { TasksContext } from "../../context/tasksContext";
+import { ConfirmationDialogBoxContext } from "../../context/confirmationDialogBoxContext";
 import EmployeeBadge from "../EmployeeBadge/EmployeeBadge";
 import React from "react";
 
 const EmployeeDirectory = () => {
   const employeesContext = React.useContext(EmployeesContext);
   const tasksContext = React.useContext(TasksContext);
+  const confirmationContext = React.useContext(ConfirmationDialogBoxContext);
 
   return (
     <div id="employee-directory-container">
@@ -26,6 +28,8 @@ const EmployeeDirectory = () => {
               associatedEmployee={employee._id}
               isAdmin={employee.roleAtCompany === "manager"}
               accessCode={employee.accessCode}
+              confirmation={confirmationContext.proceed}
+              handleQuestion={confirmationContext.handleQuestion}
               avatar={
                 employee.avatar
                   ? employee.avatar
