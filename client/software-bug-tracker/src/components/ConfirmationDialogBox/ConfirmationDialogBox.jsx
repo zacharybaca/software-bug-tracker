@@ -12,9 +12,8 @@ const ConfirmationDialogBox = () => {
             <div className="dialog-overlay">
               <div className="dialog-content">
                 <h2 className="dialog-question">{context.dialogQuestion ? context.dialogQuestion : context.handleDialogQuestion(defaultQuestion)}</h2>
-                <button type="button" className="confirm-button glow-on-hover" onClick={context.handleConfirm}>✅ Confirm</button>
-                <button type="button" className="delete-button glow-on-hover" onClick={context.handleDelete}>❎ Delete</button>
-                <button type="button" className="cancel-button glow-on-hover" onClick={context.handleCancel}>🚫 Cancel</button>
+                <button type="button" className="confirm-button glow-on-hover" onClick={context.handleConfirm} value="confirm">✅ Confirm</button>
+                <button type="button" className="delete-button glow-on-hover" onClick={context.handleCancel} value="cancel">❎ Cancel</button>
               </div>
             </div>
           )
