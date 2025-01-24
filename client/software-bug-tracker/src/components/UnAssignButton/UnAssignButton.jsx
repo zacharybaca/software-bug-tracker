@@ -12,8 +12,17 @@ const UnAssignButton = (props) => {
     },
   };
 
+  const isConfirmed = () => {
+    if (props.confirmation) {
+      props.unAssignTask(props.id);
+    }
+    else {
+      return false;
+    }
+  };
+
   return (
-    <button id="unassign-task-button" onClick={() => props.unAssignTask(props.id)}>
+    <button id="unassign-task-button" onClick={isConfirmed}>
       <div className="unassign-content">
         <Lottie options={lottieOptions} height={40} width={40} />
         <span>UnAssign</span>
