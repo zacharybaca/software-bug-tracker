@@ -5,6 +5,16 @@ import React from 'react';
 const EmployeeBadge = (props) => {
     const [showForm, setShowForm] = React.useState(false);
     
+    const isConfirmed = () => {
+      props.handleQuestion("Are You Sure You Would Like to Remove This Employee?");
+      if (props.confirmation) {
+        props.deleteEmployee(props.employeeID);
+      }
+      else {
+        return false;
+      };
+    };
+
     return (
       <>
         {!showForm ? (
@@ -63,9 +73,7 @@ const EmployeeBadge = (props) => {
                   <button
                     type="button"
                     id="remove-employee-button"
-                    onClick={() =>
-                      props.unAssignTasksForDeletedEmployee(props.employeeID)
-                    }>
+                    onClick={isConfirmed}>
                     Remove Employee
                   </button>
                   <button
