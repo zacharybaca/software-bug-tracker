@@ -1,31 +1,20 @@
 import React from 'react';
 import './confirmation-dialog-box.css';
+import { ConfirmationDialogBoxContext } from '../../context/confirmationDialogBoxContext';
 
 
 const ConfirmationDialogBox = () => {
-    const [showDialog, setShowDialog] = React.useState(true);
-
-    const handleConfirm = () => {
-        // Perform the action to be confirmed
-        setShowDialog(false); // Close the dialog
-      };
-      
-      const handleCancel = () => {
-        setShowDialog(false); // Close the dialog
-      };
-
-      const handleDelete = () => {
-        setShowDialog(true);
-      };
+    const context = React.useContext(ConfirmationDialogBoxContext);
+    const defaultQuestion = "Are you sure you want to perform this action?"
 
     return (
-        showDialog && (
+        context.showDialog && (
             <div className="dialog-overlay">
               <div className="dialog-content">
-                <h2 className="dialog-question">Are you sure you want to perform this action?</h2>
-                <button type="button" className="confirm-button" onClick={handleConfirm}>Confirm</button>
-                <button type="button" className="delete-button" onClick={handleDelete}>Delete</button>
-                <button type="button" className="cancel-button" onClick={handleCancel}>Cancel</button>
+                <h2 className="dialog-question">{context.dialogQuestion ? context.dialogQuestion : context.handleDialogQuestion(defaultQuestion)}</h2>
+                <button type="button" className="confirm-button glow-on-hover" onClick={context.handleConfirm}>✅ Confirm</button>
+                <button type="button" className="delete-button glow-on-hover" onClick={context.handleDelete}>❎ Delete</button>
+                <button type="button" className="cancel-button glow-on-hover" onClick={context.handleCancel}>🚫 Cancel</button>
               </div>
             </div>
           )

@@ -13,6 +13,7 @@ import PageDoesNotExist from "./components/PageDoesNotExist/PageDoesNotExist";
 import LiveSupport from "./components/LiveSupport/LiveSupport";
 import UnAssignedTasks from "./components/UnAssignedTasks/UnAssignedTasks";
 import SnackBarNotification from "./components/SnackBarNotification/SnackBarNotification";
+import ConfirmationDialogBox from "./components/ConfirmationDialogBox/ConfirmationDialogBox";
 import { SnackBarNotificationContext } from "./context/snackBarNotificationContext";
 import { EmployeesContext } from "./context/employeesContext";
 import { TasksContext } from "./context/tasksContext";
@@ -46,6 +47,7 @@ function App() {
   return (
     !loading && (
         <div id="app-container">
+          <ConfirmationDialogBox />
           <div id="drop-down-housing-container">
             {loggedInEmployee && (
                 <DropDownMenu navigate={navigate}/>
