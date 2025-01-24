@@ -13,7 +13,7 @@ const DeleteButton = (props) => {
   };
 
   const isConfirmed = () => {
-    props.handleQuestion("Are You Sure You Want to Delete This Task?");
+    props.handleQuestion("Are You Sure You Want to Remove This Task?");
     if (props.confirmation) {
       props.deleteTask(props.id);
     }
@@ -22,6 +22,12 @@ const DeleteButton = (props) => {
     }
   };
 
+  const isConfirmedRemoveEmployee = () => {
+    props.handleQuestion("Are You Sure You Want to Remove This Employee?");
+    if (props.confirmation) {
+      
+    }
+  }
   return (
     <button id="delete-task-button" onClick={isConfirmed}>
       <div className="delete-content">
