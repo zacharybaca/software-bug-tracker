@@ -3,6 +3,7 @@ import TaskForm from '../TaskForm/TaskForm';
 import React from 'react';
 import { EmployeesContext } from '../../context/employeesContext';
 import { TasksContext } from '../../context/tasksContext';
+import { ConfirmationDialogBoxContext } from '../../context/confirmationDialogBoxContext';
 import EditButton from "../EditButton/EditButton";
 import DeleteButton from "../DeleteButton/DeleteButton";
 import UnAssignButton from "../UnAssignButton/UnAssignButton";
@@ -15,6 +16,7 @@ const Task = (props) => {
     );
     const employees = React.useContext(EmployeesContext);
     const tasks = React.useContext(TasksContext);
+    const confirmationBoxContext = React.useContext(ConfirmationDialogBoxContext);
     
     return (
       <>
@@ -76,9 +78,9 @@ const Task = (props) => {
             </div>
             <div id="buttons-container">
               <EditButton setShowForm={setShowForm}/>
-              <DeleteButton deleteTask={props.deleteTask} id={props.id} />
+              <DeleteButton deleteTask={props.deleteTask} confirmation={confirmationBoxContext.proceed} id={props.id} />
               {props.assignedEmployee ? (
-                <UnAssignButton unAssignTask={tasks.unAssignTask} id={props.id}/>
+                <UnAssignButton unAssignTask={tasks.unAssignTask} confirmation={confirmationBoxContext.proceed} id={props.id} />
               ) : null}
             </div>
             {props.errMsg ? <p style={{ color: "red" }}>{props.errMsg}</p> : ""}
