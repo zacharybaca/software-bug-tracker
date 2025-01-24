@@ -3,11 +3,13 @@ import Task from "../Task/Task";
 import React from "react";
 import { TasksContext } from "../../context/tasksContext";
 import { EmployeesContext } from "../../context/employeesContext";
+import { ConfirmationDialogBoxContext } from "../../context/confirmationDialogBoxContext";
 import TaskForm from "../TaskForm/TaskForm";
 
 const TaskList = () => {
   const tasksContext = React.useContext(TasksContext);
   const employeesContext = React.useContext(EmployeesContext);
+  const confirmationContext = React.useContext(ConfirmationDialogBoxContext);
 
   const [selectFiltered, setSelectFiltered] = React.useState("");
 
@@ -67,6 +69,8 @@ const TaskList = () => {
                   editTask={tasksContext.updateTask}
                   deleteTask={tasksContext.deleteTask}
                   errMsg={employeesContext.userState.errMsg}
+                  confirmation={confirmationContext.proceed}
+                  handleQuestion={confirmationContext.handleDialogQuestion}
                 />
               </li>
               <hr />
