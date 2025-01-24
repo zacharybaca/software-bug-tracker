@@ -13,6 +13,7 @@ const DeleteButton = (props) => {
   };
 
   const isConfirmed = () => {
+    props.handleQuestion("Are You Sure You Want to Delete This Task?");
     if (props.confirmation) {
       props.deleteTask(props.id);
     }
@@ -21,15 +22,8 @@ const DeleteButton = (props) => {
     }
   };
 
-  const setQuestion = () => {
-    props.handleQuestion("Are You Sure You Want to Delete This Task?");
-  };
-
   return (
-    <button id="delete-task-button" onClick={() => {
-      setQuestion;
-      isConfirmed;
-    }}>
+    <button id="delete-task-button" onClick={isConfirmed}>
       <div className="delete-content">
         <Lottie options={lottieOptions} height={40} width={40} />
         <span>Delete</span>
