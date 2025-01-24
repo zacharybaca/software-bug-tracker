@@ -22,9 +22,6 @@ const TaskList = () => {
     } else if (value === "all") {
       tasksContext.getTasks();
     }
-
-    // Commented this out to maintain filter selection after filtering
-    // setSelectFiltered("");
   };
 
   return (
