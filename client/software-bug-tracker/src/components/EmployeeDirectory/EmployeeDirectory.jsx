@@ -29,7 +29,7 @@ const EmployeeDirectory = () => {
               isAdmin={employee.roleAtCompany === "manager"}
               accessCode={employee.accessCode}
               confirmation={confirmationContext.proceed}
-              handleQuestion={confirmationContext.handleQuestion}
+              handleQuestion={confirmationContext.handleDialogQuestion}
               avatar={
                 employee.avatar
                   ? employee.avatar
