@@ -13,7 +13,7 @@ const TasksButton = (props) => {
   };
 
   return (
-    <button id="my-tasks-button" onClick={() => {
+    <button id="my-tasks-button" className="glow-on-entry" onClick={() => {
       props.navigate("/tasks");
       props.setShowMenu(!props.showMenu);
     }}>

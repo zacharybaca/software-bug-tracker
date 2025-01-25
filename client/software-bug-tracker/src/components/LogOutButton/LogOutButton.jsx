@@ -13,7 +13,7 @@ const LogOutButton = (props) => {
   };
 
   return (
-    <button id="logout-button" onClick={() => {
+    <button id="logout-button" className="glow-on-entry" onClick={() => {
       props.logout();
       props.setShowMenu(!props.showMenu);
     }}>

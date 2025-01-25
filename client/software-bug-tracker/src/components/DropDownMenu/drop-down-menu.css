@@ -8,10 +8,10 @@
 
 .menu {
   position: fixed;
-  top: 0;
+  top: 4.25rem;
   right: 0;
-  height: 100vh;
-  width: 300px;
+  height: 70vh;
+  width: 15%;
   background-color: #E6B17E;
   color: #fff;
   transform: translateX(100%);
@@ -20,19 +20,21 @@
   z-index: 5;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   padding: 1rem;
+  border-radius: 10px;
+  border: 0.5rem solid green;
 }
 
 .menu.open {
   transform: translateX(0);
   opacity: 1;
-  overflow: auto;
+  overflow-y: scroll;
+  scrollbar-color: #e6b17e #a27248;
 }
 
 #menu-toggle-button {
     position: fixed;
-    top: 1rem;
+    top: 0;
     right: 1rem;
     display: flex;
     justify-content: space-evenly;
@@ -54,16 +56,6 @@
     font-family: "Honk", serif;
     font-weight: 400;
     margin-left: 10px;
-}
-
-#drop-menu-container {
-    position: fixed;
-    top: 0;
-    right: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    z-index: 10;
 }
 
 #close-button-icon, #menu-icon {

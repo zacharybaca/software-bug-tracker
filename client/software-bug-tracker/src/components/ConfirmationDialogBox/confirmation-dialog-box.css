@@ -33,12 +33,6 @@
     font-size: 1rem;
   }
 
-  .dialog-content h2 {
-    font-family: "Gloria Hallelujah", cursive;
-    font-weight: 800;
-    font-size: 2rem;
-  }
-
   .delete-button {
     cursor: url("../../assets/click.png"), pointer;
     background-color: red;
@@ -53,16 +47,12 @@
     border-radius: 10px;
   }
 
-  .cancel-button {
-    cursor: url("../../assets/click.png"), pointer;
-    background-color: yellow;
-    color: black;
-    border-radius: 10px;
-  }
-
   .dialog-question {
     padding-bottom: 2%;
     color: red;
+    font-family: "Gloria Hallelujah", cursive;
+    font-weight: 800;
+    font-size: 2rem;
   }
 
   .glow-on-hover {

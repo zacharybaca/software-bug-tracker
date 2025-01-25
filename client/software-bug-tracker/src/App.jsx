@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React from "react";
 import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import TaskList from "./components/TaskList/TaskList";

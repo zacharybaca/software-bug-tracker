@@ -23,6 +23,7 @@ const StickyNavBar = (props) => {
             ) : null}
             <button
               type="button"
+              className="glow-on-entry"
               id="unassigned-tasks-button"
               onClick={() => {
                 props.navigate("/unassigned-tasks");
@@ -33,6 +34,7 @@ const StickyNavBar = (props) => {
             </button>
             <button
               type="button"
+              className="glow-on-entry"
               id="live-support-button"
               onClick={() => {
                 props.navigate("/messages");
@@ -44,6 +46,7 @@ const StickyNavBar = (props) => {
             {context.hasAdminRights() && (
               <button
                 type="button"
+                className="glow-on-entry"
                 id="add-employee-main-button"
                 onClick={() => {
                   props.navigate("/add-employee");

@@ -10,7 +10,7 @@ const DropDownMenu = (props) => {
     const toggleMenu = () => setShowMenu(!showMenu);
 
     return (
-        <div id="drop-menu-container">
+        <div>
             <button id="menu-toggle-button" className="glow-on-enter" onClick={toggleMenu}>
                 <img
                     src={showMenu ? CloseButtonIcon : MenuIcon}

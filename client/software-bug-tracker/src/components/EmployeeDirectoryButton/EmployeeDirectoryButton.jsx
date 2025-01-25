@@ -13,7 +13,7 @@ const EmployeeDirectoryButton = (props) => {
   };
 
   return (
-    <button id="employee-directory-button" onClick={() => {
+    <button id="employee-directory-button" className="glow-on-entry" onClick={() => {
       props.navigate("/employee-directory");
       props.setShowMenu(!props.showMenu);
     }}>
