@@ -22,14 +22,14 @@ const DeleteButton = (props) => {
     }
   };
 
-  const isConfirmedRemoveEmployee = () => {
-    props.handleQuestion("Are You Sure You Want to Remove This Employee?");
-    if (props.confirmation) {
-      
-    }
-  }
+  // const isConfirmedRemoveEmployee = () => {
+  //   props.handleQuestion("Are You Sure You Want to Remove This Employee?");
+  //   if (props.confirmation) {
+
+  //   }
+  // }
   return (
-    <button id="delete-task-button" onClick={isConfirmed}>
+    <button id="delete-task-button" className="glow-on-hovering" onClick={isConfirmed}>
       <div className="delete-content">
         <Lottie options={lottieOptions} height={40} width={40} />
         <span>Delete</span>

@@ -23,7 +23,7 @@ const UnAssignButton = (props) => {
   };
 
   return (
-    <button id="unassign-task-button" onClick={isConfirmed}>
+    <button id="unassign-task-button" className="glow-on-hovers" onClick={isConfirmed}>
       <div className="unassign-content">
         <Lottie options={lottieOptions} height={40} width={40} />
         <span>UnAssign</span>

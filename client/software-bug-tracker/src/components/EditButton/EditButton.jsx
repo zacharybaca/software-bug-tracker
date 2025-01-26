@@ -13,7 +13,7 @@ const EditButton = (props) => {
   };
 
   return (
-    <button id="edit-task-button" onClick={() => props.setShowForm((prevState) => !prevState)}>
+    <button id="edit-task-button" className="glow-on-welcome" onClick={() => props.setShowForm((prevState) => !prevState)}>
       <div className="edit-content">
         <Lottie options={lottieOptions} height={40} width={40} />
         <span>Edit</span>

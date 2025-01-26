@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Fontdiner+Swanky&family=Gloria+Hallelujah&family=Macondo+Swash+Caps&display=swap');
+
 #login-form {
     display: flex;
     flex-direction: column;
@@ -9,11 +11,31 @@
     padding-bottom: 10%;
     margin-bottom: 3%;
     border-radius: 10px;
+    font-family: "Gloria Hallelujah", cursive;
+    font-weight: 600;
     gap: 30px;
     background-color: beige;
     width: 75%;
     height: fit-content;
     border: 2px solid black;
+}
+
+#login-user-name {
+    width: 100%;
+    border-radius: 10px;
+}
+
+#login-user-name::placeholder {
+    font-size: 1.75rem;
+}
+
+#login-user-password::placeholder {
+    font-size: 1.75rem;
+}
+
+#login-user-password {
+    width: 100%;
+    border-radius: 10px;
 }
 
 #landing-page-container {
@@ -29,67 +51,67 @@
     color: #EAB581;
 }
 
-.btn {  
+.btn {
     font-family: Arial, Helvetica, sans-serif;  text-transform: uppercase;
-}  
+}
 
-.btn:hover .btn-slide-show-text1 {  
+.btn:hover .btn-slide-show-text1 {
     margin-left: 65px;
-}  
+}
 
-.btn-layered-3d > ::before {  
+.btn-layered-3d > ::before {
     box-sizing: border-box;
-}  
+}
 
-.btn-layered-3d {  
-    width: 180px;  
-    position: relative;  
-    display: inline-block;  
+.btn-layered-3d {
+    width: 180px;
+    position: relative;
+    display: inline-block;
     cursor: url("../../assets/click.png"), pointer;
-    outline: none;  
-    border: 0px;  
-    vertical-align: middle;  
-    text-decoration: none;  
-    font-size: inherit;  
-    font-family: inherit;  
-    font-weight: 600;  
-    text-transform: uppercase;  
-    padding: 1em 2em;  
-    border-radius: 0.75em;  
-    transform-style: preserve-3d;  
+    outline: none;
+    border: 0px;
+    vertical-align: middle;
+    text-decoration: none;
+    font-size: inherit;
+    font-family: inherit;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 1em 2em;
+    border-radius: 0.75em;
+    transform-style: preserve-3d;
     transition: transform 0.15s ease-out, background 0.15s ease-out;
-}  
+}
 
-.btn-layered-3d::before {  
-    position: absolute;  
-    content: "";  
-    width: 100%;  
-    height: 100%;  
-    inset: 0px;  
-    border-radius: inherit;  
-    transform: translate3d(0px, 0.75em, -1em);  
+.btn-layered-3d::before {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 100%;
+    inset: 0px;
+    border-radius: inherit;
+    transform: translate3d(0px, 0.75em, -1em);
     transition: transform 0.15s ease-out, box-shadow 0.15s ease-out;
-}  
+}
 
-.btn-layered-3d:hover {  
+.btn-layered-3d:hover {
     transform: translateY(0.25em);
     cursor: url("../../assets/click.png"), pointer;
-}  
+}
 
-.btn-layered-3d:hover::before {  
+.btn-layered-3d:hover::before {
     transform: translate3d(0px, 0.5em, -1em);
-}  
+}
 
-.btn-layered-3d--green {  
-    color: white;  
-    background: green;  
+.btn-layered-3d--green {
+    color: white;
+    background: green;
     border: 2px solid rgb(59, 165, 84);
 }
-  
-.btn-layered-3d--green::before {  
-    background: rgb(158, 220, 172);  
+
+.btn-layered-3d--green::before {
+    background: rgb(158, 220, 172);
     box-shadow: rgb(59, 165, 84) 0px 0px 0px 2px, rgb(233, 247, 236) 0px 0.625em 0px 0px;
-}  
+}
 
 .error-message {
     text-align: center;
@@ -114,3 +136,57 @@
 #new-user-button {
     width: 100%;
 }
+
+.glow-on-enter {
+      width: 220px;
+      height: 50px;
+      position: relative;
+      z-index: 0;
+      border-radius: 10px;
+  }
+
+  .glow-on-enter:before {
+      content: '';
+      background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+      position: absolute;
+      top: -2px;
+      left:-2px;
+      background-size: 400%;
+      z-index: -1;
+      filter: blur(5px);
+      width: calc(100% + 4px);
+      height: calc(100% + 4px);
+      animation: glowing 20s linear infinite;
+      opacity: 0;
+      transition: opacity .3s ease-in-out;
+      border-radius: 10px;
+  }
+
+  .glow-on-enter:active {
+      color: #000
+  }
+
+  .glow-on-enter:active:after {
+      background: transparent;
+  }
+
+  .glow-on-enter:hover:before {
+      opacity: 1;
+  }
+
+  .glow-on-enter:after {
+      z-index: -1;
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      left: 0;
+      top: 0;
+      border-radius: 10px;
+  }
+
+  @keyframes glowing {
+      0% { background-position: 0 0; }
+      50% { background-position: 400% 0; }
+      100% { background-position: 0 0; }
+  }

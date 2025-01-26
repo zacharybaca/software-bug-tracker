@@ -38,7 +38,6 @@
     max-height: 65vh;
     overflow: auto;
     box-sizing: border-box;
-    border: 2px solid blue;
 }
 
 .stand-out {

@@ -15,7 +15,7 @@ const Task = (props) => {
     );
     const employees = React.useContext(EmployeesContext);
     const tasks = React.useContext(TasksContext);
-    
+
     return (
       <>
         {!showForm ? (
@@ -25,12 +25,12 @@ const Task = (props) => {
                 <span className="heading">Title: </span>
                 <span className="task-details">{props.title}</span>
               </div>
-              <hr />
+
               <div className="task-info">
                 <span className="heading">Details: </span>
                 <span className="task-details">{props.details}</span>
               </div>
-              <hr />
+
               <div id="todos-list" className="task-info">
                 <span className="heading">Todos: </span>
                 {props.todos.split("\n").map((line, index) => (
@@ -52,14 +52,14 @@ const Task = (props) => {
                   </p>
                 ))}
               </div>
-              <hr />
+
               <div className="task-info">
                 <span className="heading">Completed: </span>
                 <span className="task-details">
                   {props.completed && props.assignedEmployee ? "✅" : "❌"}
                 </span>
               </div>
-              <hr />
+              
               <div className="task-info">
                 <span className="heading">Assigned: </span>
                 <span className="task-details">

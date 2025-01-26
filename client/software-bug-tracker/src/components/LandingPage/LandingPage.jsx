@@ -47,7 +47,7 @@ function LandingPage() {
   return (
     <div id="landing-page-container">
       <h1 id="form-header">Sign On To Access Your Assigned Tasks</h1>
-      
+
       <form id="login-form" name="loginForm" onSubmit={handleSubmit}>
         <div id="landing-page-avatar">
           <img
@@ -75,7 +75,7 @@ function LandingPage() {
           required
           placeholder="Enter Password"
         />
-        <button className="btn btn-layered-3d btn-layered-3d--green">
+        <button className="btn btn-layered-3d btn-layered-3d--green glow-on-enter">
           Sign On
         </button>
         {context.userState.errMsg && (
@@ -83,7 +83,7 @@ function LandingPage() {
         )}
         <button
           type="button"
-          className="btn btn-layered-3d btn-layered-3d--green"
+          className="btn btn-layered-3d btn-layered-3d--green glow-on-enter"
           id="new-user-button"
           onClick={() => navigate("/sign-up")}
         >
