@@ -62,7 +62,7 @@ const TaskForm = (props) => {
             : employee._id === task.assignedEmployee?._id
     );
 }, [context.employees, task.assignedEmployee]);
-  
+
   return (
     <form id="task-form" name="taskForm" onSubmit={handleSubmit}>
       <label htmlFor="task-title">Task Title: </label>
@@ -86,7 +86,7 @@ const TaskForm = (props) => {
         required
         placeholder="Enter Description"
       />
-      
+
       <label htmlFor="task-todos">Task Todo Items: </label>
       <textarea
         id="task-todos"
@@ -131,20 +131,22 @@ const TaskForm = (props) => {
       )}
 
       {/* Task Completed Checkbox */}
-      <label htmlFor="task-completed">Task Completed: </label>
-      <input
-        type="checkbox"
-        id="task-completed"
-        name="taskCompleted"
-        checked={task.taskCompleted} // Checkbox uses checked, not value
-        onChange={handleChange}
-        disabled={!props.assignedEmployee}
-        className={
-          !props.assignedEmployee
-            ? "disabled-task-complete"
-            : "enabled-task-complete"
-        }
-      />
+      <div id="checkbox-container">
+        <label htmlFor="task-completed">Task Completed: </label>
+        <input
+          type="checkbox"
+          id="task-completed"
+          name="taskCompleted"
+          checked={task.taskCompleted} // Checkbox uses checked, not value
+          onChange={handleChange}
+          disabled={!props.assignedEmployee}
+          className={
+            !props.assignedEmployee
+              ? "disabled-task-complete"
+              : "enabled-task-complete"
+          }
+        />
+      </div>
       <button
         type="submit"
         id="add-task-button"

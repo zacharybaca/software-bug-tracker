@@ -190,3 +190,47 @@
       50% { background-position: 400% 0; }
       100% { background-position: 0 0; }
   }
+
+  /* Checkbox and Links */
+.flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.label-for-checkbox {
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: #38a169; /* green checkbox */
+}
+
+a {
+  font-size: 0.875rem;
+  color: #38a169; /* green link */
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Card Container */
+.bg-cream {
+  background-color: #f7f7f5; /* light cream color */
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}

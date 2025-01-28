@@ -9,23 +9,35 @@ function LandingPage() {
   const initialValues = {
     userID: "",
     password: "",
-    avatarPic:
-      "",
+    avatarPic:"",
+    isChecked: false
   };
 
   const [formData, setFormData] = React.useState(initialValues);
+  const [isLoading, setIsLoading] = React.useState(false);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value, type, checked } = e.target;
     setFormData((prevState) => ({
       ...prevState,
-      [name]: value,
+      [name]: type === "checkbox" ? checked : value,
     }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    context.login(formData);
+    setIsLoading(true);
+
+    if (formData.isChecked) {
+      localStorage.setItem("userID", formData.userID);
+      localStorage.setItem("password", formData.password);
+    }
+    else {
+      localStorage.removeItem("userID");
+      localStorage.removeItem("password");
+    }
+
+    context.login(formData).finally(() => setIsLoading(false));
   };
 
   function updateImageSrc() {
@@ -42,6 +54,20 @@ function LandingPage() {
     const handleResize = () => updateImageSrc();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  React.useEffect(() => {
+    const savedUserID = localStorage.getItem("userID");
+    const savedPassword = localStorage.getItem("password");
+
+    if (savedUserID && savedPassword) {
+      setFormData((prevState) => ({
+        ...prevState,
+        userID: savedUserID,
+        password: savedPassword,
+        isChecked: true
+      }));
+    }
   }, []);
 
   return (
@@ -75,8 +101,26 @@ function LandingPage() {
           required
           placeholder="Enter Password"
         />
-        <button className="btn btn-layered-3d btn-layered-3d--green glow-on-enter">
-          Sign On
+        <div className="flex-column">
+          <label className="flex">
+            <input
+              type="checkbox"
+              id="remember-me"
+              name="isChecked"
+              checked={formData.isChecked}
+              onChange={handleChange}
+            />
+            <span className="label-for-checkbox">Remember Me</span>
+          </label>
+
+          <a
+            href="/forgot-password"
+          >
+            Forgot Password?
+          </a>
+        </div>
+        <button className="btn btn-layered-3d btn-layered-3d--green glow-on-enter" disabled={isLoading}>
+          {isLoading ? "Signing On..." : "Sign On"}
         </button>
         {context.userState.errMsg && (
           <p className="error-message">{context.userState.errMsg}</p>
