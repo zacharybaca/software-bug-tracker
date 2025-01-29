@@ -13,7 +13,7 @@ const DropDownMenu = (props) => {
     const toggleMenu = () => setShowMenu(!showMenu);
 
     return (
-        loggedInEmployee && (
+        loggedInEmployee.user.userID && (
             <div>
             <button id="menu-toggle-button" className="glow-on-enter" onClick={toggleMenu}>
                 <img
