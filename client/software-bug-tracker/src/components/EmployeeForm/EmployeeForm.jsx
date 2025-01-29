@@ -21,7 +21,7 @@ function EmployeeForm(props) {
     accessCode: props.accessCode || "",
     isAdmin: props.isAdmin || props.roleAtCompany === "manager",
   };
-  
+
   const [employee, setEmployee] = React.useState(initialValues);
 
   React.useEffect(() => {
@@ -29,7 +29,7 @@ function EmployeeForm(props) {
       ...initialValues,
       avatar: props.avatar || "/uploads/default-profile-pic.jpg",
     });
-  }, [props]);  
+  }, [props]);
 
   React.useEffect(() => {
     const fetchData = async () => {
@@ -64,11 +64,11 @@ function EmployeeForm(props) {
     fetchData();
   }, [employee.avatar, props.employeeID]);
 
-  
+
 
   function handleChange(e) {
     const { name, value, type, checked, files } = e.target;
-  
+
     if (type === "file" && files.length > 0) {
       setEmployee((prevState) => ({
         ...prevState,
@@ -95,28 +95,40 @@ function EmployeeForm(props) {
       }));
     }
   }
-  
+
   function handleSubmit(e) {
     e.preventDefault();
-  
+
+    // If buttonText is "Add Employee", then add employee, else update employee
+    if (props.bttnText !== "Update") {
+      const addProcess = async () => {
+        try {
+          context.addEmployee(employee); // Ensure this updates the global context
+        } catch (error) {
+          console.error("Error adding employee:", error);
+        }
+      };
+
+      addProcess();
+    }
+    else {
     const updateProcess = async () => {
       try {
-        await props.submitEmployee(employee, props.employeeID);
         context.updateEmployee(employee, props.employeeID); // Ensure this updates the global context
       } catch (error) {
         console.error("Error updating employee:", error);
       }
     };
-  
+
     updateProcess();
     setEmployee(initialValues);
-  
+  };
     if (props.toggleForm) {
       props.toggleForm((prevState) => !prevState);
     }
   }
-  
-  
+
+
   return (
     <div id="employee-form-wrapper">
       <h1 id="add-employee-title">{props.formHeading ? props.formHeading : "Add Employee"}</h1>
@@ -194,11 +206,11 @@ function EmployeeForm(props) {
         )}
         {employee.user.userID ? (
           <div id="profile-pic-and-upload-container">
-            
+
             <div id="avatar-pic">
               <img src={employee.avatar || "/uploads/default-profile-pic.jpg"} />
             </div>
-      
+
             <div id="upload-container">
               {props.avatarUrl ? (
                 <label htmlFor="avatar">Update Your Profile Image</label>
@@ -215,10 +227,10 @@ function EmployeeForm(props) {
             </div>
           </div>
         ) : null}
-        <button type="submit" id="add-employee-button" disabled={!employee.roleAtCompany}>
+        <button type="submit" id="add-employee-button" className="glow-on-arrival" disabled={!employee.roleAtCompany}>
           {props.bttnText || "Add Employee"}
         </button>
-        {props.bttnText ? <button type="button" id="close-update-button" onClick={() => props.setShowForm((prevState) => !prevState)}>Close</button> : null}
+        {props.bttnText ? <button type="button" id="close-update-button" className="glow-on-arrival" onClick={() => props.setShowForm((prevState) => !prevState)}>Close</button> : null}
       </form>
     </div>
   );

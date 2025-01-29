@@ -1,14 +1,16 @@
 import './employee-badge.css';
 import EmployeeForm from '../EmployeeForm/EmployeeForm';
+import { EmployeesContext } from '../../context/employeesContext';
 import React from 'react';
 
 const EmployeeBadge = (props) => {
     const [showForm, setShowForm] = React.useState(false);
-    
+    const employeesContext = React.useContext(EmployeesContext);
+
     const isConfirmed = () => {
       props.handleQuestion("Are You Sure You Would Like to Remove This Employee?");
       if (props.confirmation) {
-        props.deleteEmployee(props.employeeID);
+        employeesContext.deleteEmployee(props.employeeID);
       }
       else {
         return false;
@@ -73,12 +75,14 @@ const EmployeeBadge = (props) => {
                   <button
                     type="button"
                     id="remove-employee-button"
+                    className="glow-on-arrive"
                     onClick={isConfirmed}>
                     Remove Employee
                   </button>
                   <button
                     type="button"
                     id="edit-employee-button"
+                    className="glow-on-arrive"
                     onClick={(e) => {
                       e.stopPropagation();
                       setShowForm((prevState) => !prevState);
@@ -109,7 +113,6 @@ const EmployeeBadge = (props) => {
                 avatarUrl={props.avatar}
                 accessCode={props.accessCode}
                 toggleForm={setShowForm}
-                submitEmployee={props.updateEmployeeProfile}
                 formHeading={`Update Information for ${props.firstName} ${props.lastName}`}
                 bttnText="Update"
                 setShowForm={setShowForm}

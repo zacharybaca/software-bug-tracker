@@ -40,8 +40,6 @@ const EmployeeDirectory = () => {
                   ? employee.avatar
                   : "/uploads/default-profile-pic.jpg"
               }
-              updateEmployeeProfile={employeesContext.updateEmployee}
-              deleteEmployee={employeesContext.deleteEmployee}
               unAssignTasksForDeletedEmployee={
                 tasksContext?.unAssignTasksForDeletedEmployee
               }

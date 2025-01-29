@@ -6,6 +6,9 @@ import { TasksContext } from '../../context/tasksContext';
 import EditButton from "../EditButton/EditButton";
 import DeleteButton from "../DeleteButton/DeleteButton";
 import UnAssignButton from "../UnAssignButton/UnAssignButton";
+import TaskDetailImage from "../../assets/task-details.png";
+import TaskTodoImage from "../../assets/todos.png";
+import TaskTitleImage from "../../assets/task-title.png";
 
 
 const Task = (props) => {
@@ -22,44 +25,60 @@ const Task = (props) => {
           <div id="main-task-container">
             <div className="task-item">
               <div className="task-info">
+                <img src={TaskTitleImage} />
                 <span className="heading">Title: </span>
                 <span className="task-details">{props.title}</span>
               </div>
 
               <div className="task-info">
+                <img src={TaskDetailImage} />
                 <span className="heading">Details: </span>
                 <span className="task-details">{props.details}</span>
               </div>
 
               <div id="todos-list" className="task-info">
-                <span className="heading">Todos: </span>
-                {props.todos.split("\n").map((line, index) => (
-                  <p
-                    style={
-                      completedTodos[index]
-                        ? { textDecoration: "line-through" }
-                        : {}
-                    }
-                    key={index}
-                    onClick={() => {
-                      setCompletedTodos((prevState) => {
-                        const updatedTodos = [...prevState];
-                        updatedTodos[index] = !updatedTodos[index]; // Toggle the specific todo's completion
-                        return updatedTodos;
-                      });
-                    }}>
-                    {line}
-                  </p>
+                <img src={TaskTodoImage} />
+                {props.todos.length > 0 ? <span className="heading">Todos: </span> : <span className="heading">No Todos Assigned to Task</span>}
+                {props.todos.length > 0 && props.todos.split("\n").map((line, index) => (
+                  <div key={index} className="todo-item">
+                    <input
+                      type="checkbox"
+                      checked={completedTodos[index]}
+                      onChange={() => {
+                        setCompletedTodos((prevState) => {
+                          const updatedTodos = [...prevState];
+                          updatedTodos[index] = !updatedTodos[index]; // Toggle completion status
+                          return updatedTodos;
+                        });
+                      }}
+                    />
+                    <label
+                      style={
+                        completedTodos[index]
+                          ? { textDecoration: "line-through", cursor: "pointer" }
+                          : { cursor: "pointer" }
+                      }
+                      onClick={() => {
+                        setCompletedTodos((prevState) => {
+                          const updatedTodos = [...prevState];
+                          updatedTodos[index] = !updatedTodos[index]; // Toggle on label click too
+                          return updatedTodos;
+                        });
+                      }}
+                    >
+                      {line}
+                    </label>
+                  </div>
                 ))}
               </div>
 
               <div className="task-info">
                 <span className="heading">Completed: </span>
                 <span className="task-details">
-                  {props.completed && props.assignedEmployee ? "✅" : "❌"}
+                  {completedTodos.every((todo) => todo) && props.assignedEmployee ? "✅" : "❌"}
                 </span>
               </div>
-              
+
               <div className="task-info">
                 <span className="heading">Assigned: </span>
                 <span className="task-details">
