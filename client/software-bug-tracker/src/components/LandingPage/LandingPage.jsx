@@ -120,7 +120,7 @@ function LandingPage() {
             Forgot Password?
           </a>
         </div>
-        <button className="btn btn-layered-3d btn-layered-3d--green glow-on-enter" disabled={isLoading}>
+        <button className="btn btn-layered-3d btn-layered-3d--green glow-on-enter" id="sign-on-button" disabled={isLoading}>
           {isLoading ? "Signing On..." : "Sign On"}
         </button>
         {context.userState.errMsg && (
