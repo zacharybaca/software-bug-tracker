@@ -11,8 +11,10 @@ import AddEmployee from '../../assets/add-user.gif';
 
 const StickyNavBar = (props) => {
     const context = React.useContext(EmployeesContext);
+    const loggedInEmployee = context.getLoggedInEmployee();
 
     return (
+      loggedInEmployee && (
         <div id="main-nav-container">
         {props.showMenu && (
           <div id="nav-button-container">
@@ -59,6 +61,7 @@ const StickyNavBar = (props) => {
           </div>
         )}
         </div>
+      )  
   );
 };
 
