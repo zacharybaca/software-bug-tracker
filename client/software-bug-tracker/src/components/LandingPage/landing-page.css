@@ -192,22 +192,22 @@
   }
 
   /* Checkbox and Links */
-.flex {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.flex-column {
+.checkbox-container {
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.label-for-checkbox {
-    padding: 0.5rem;
-    margin-bottom: 1rem;
-}
+    align-items: center; /* Aligns items vertically */
+  }
+  
+  .checkbox-container label {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center; /* Ensures label and checkbox align properly */
+  }
+  
+  .checkbox-container input[type="checkbox"] {
+    margin: 0 -1.5rem;
+    width: 16px;
+    height: 16px;
+  }
 
 input[type="checkbox"] {
   width: 16px;
