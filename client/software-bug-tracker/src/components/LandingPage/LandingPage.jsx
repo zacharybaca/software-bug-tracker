@@ -101,18 +101,19 @@ function LandingPage() {
           required
           placeholder="Enter Password"
         />
-        <div className="flex-column">
-          <label className="flex">
-            <input
-              type="checkbox"
-              id="remember-me"
-              name="isChecked"
-              checked={formData.isChecked}
-              onChange={handleChange}
-            />
-            <span className="label-for-checkbox">Remember Me</span>
+        <div className="checkbox-container">
+          <input
+            type="checkbox"
+            id="remember-me"
+            name="isChecked"
+            checked={formData.isChecked}
+            onChange={handleChange}
+          />
+          <label htmlFor="remember-me" className="label-for-checkbox">
+            Remember Me?
           </label>
-
+        </div>
+        <div id="forgot-password-container">
           <a
             href="/forgot-password"
           >
