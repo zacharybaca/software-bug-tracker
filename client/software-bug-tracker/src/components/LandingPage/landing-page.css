@@ -234,3 +234,9 @@ a:hover {
   width: 100%;
   max-width: 400px;
 }
+
+#sign-on-button, #new-user-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
