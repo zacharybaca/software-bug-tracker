@@ -46,12 +46,9 @@ function App() {
   return (
     !loading && (
         <div id="app-container">
-          <ConfirmationDialogBox />
-          <div id="drop-down-housing-container">
-            {loggedInEmployee && (
+          {loggedInEmployee ? <div id="drop-down-housing-container">
                 <DropDownMenu navigate={navigate}/>
-            )}
-          </div>
+          </div> : ""}
           {snackBarContext.showToast && loggedInEmployee && (
             <SnackBarNotification
               onClose={snackBarContext.handleCloseToast}
