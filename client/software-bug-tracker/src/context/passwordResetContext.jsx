@@ -1,10 +1,12 @@
 import React from 'react';
+import { EmployeesContext } from './employeesContext';
 
 const PasswordResetContext = React.createContext();
 
 
 function PasswordResetContextProvider(props) {
     const [showPasswordResetForm, setShowPasswordResetForm] = React.useState(true);
+    const employeesContext = React.useContext(EmployeesContext);
 
      const initialValues = {
             userID: "",
@@ -35,7 +37,44 @@ function PasswordResetContextProvider(props) {
         };
     };
 
+    const updateEmployeePassword = async (userID, accessCode, newPassword, confirmPassword, employeeID) => {
+        const employee = await employeesContext.employees.find(employee => employee._id === employeeID);
 
+        if (employee) {
+            const hasAccount = await employeesContext.hasUserID(employeeID);
+
+            if (hasAccount) {
+                const username = employee.user.userID;
+
+                if (username === userID) {
+                    const updatedInfo = {
+                        userID,
+                        accessCode,
+                        newPassword,
+                        confirmPassword
+                    };
+
+                    try {
+                       const response = await fetch(`/api/employees/${employeeID}/reset-password`, {
+                        method: "PUT",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(updatedInfo)
+                       });
+
+                       if (!response.ok) {
+                        throw new Error(`Failed to update password: ${response.statusText}`);
+                       }
+
+                       const data = await response.json();
+
+                       employeesContext.setEmployees((prevState) => prevState.map((employee) => (employee._id !== employeeID ? employee : data)));
+                    } catch (error) {
+                        employeesContext.handleAuthErr(error.message);
+                    }
+                }
+            }
+        }
+    }
 
     return (
         <PasswordResetContext.Provider
@@ -44,7 +83,8 @@ function PasswordResetContextProvider(props) {
                 formData,
                 handleChange,
                 handleShowPasswordResetForm,
-                handleClosePasswordResetForm
+                handleClosePasswordResetForm,
+                updateEmployeePassword
             }}>
             {props.children}
         </PasswordResetContext.Provider>
