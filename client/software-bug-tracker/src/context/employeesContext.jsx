@@ -314,7 +314,8 @@ function EmployeesContextProvider(props) {
         handleAuthErr,
         resetAuthErr,
         userState,
-        setUserState
+        setUserState,
+        setEmployees
       }}>
       {props.children}
     </EmployeesContext.Provider>
