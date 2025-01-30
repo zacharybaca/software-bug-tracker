@@ -156,6 +156,10 @@ function App() {
             element={!token ? <SignUpForm /> : <Navigate to="/tasks" />}
           />
           <Route
+            path="/reset-password"
+            element={<PasswordReset />}
+          />
+          <Route
             path="/unassigned-tasks"
             element={
               <ProtectedRoute condition={!!token} redirectTo="/">
