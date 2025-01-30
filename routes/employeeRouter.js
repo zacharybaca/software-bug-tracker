@@ -199,34 +199,39 @@ employeeRouter
   .route("/:id/reset-password")
   .put(async (req, res, next) => {
     try {
-      const { userID, accessCode, newPassword } = req.body;
-  
+      const { userID, accessCode, newPassword, confirmPassword } = req.body;
+
       // Validate required fields
-      if (!userID || !accessCode || !newPassword) {
+      if (!userID || !accessCode || !newPassword || !confirmPassword) {
         return res.status(400).json({ error: "All fields are required" });
       }
-  
+
       // Find employee by userID and accessCode
       const employee = await Employee.findOne({
         "user.userID": userID,
         accessCode: accessCode
       });
-  
+
       if (!employee) {
         return res.status(403).json({ error: "Invalid userID or accessCode" });
-      }
-  
+      };
+
+      // Validate if new password and confirm password match
+      if (newPassword !== confirmPassword) {
+        return res.status(400).json({ error: "Passwords do not match" });
+      };
+      
       // Hash the new password
       employee.user.password = await bcrypt.hash(newPassword, 10);
-  
+
       // Save the updated employee document
       await employee.save();
-  
+
       return res.status(200).json({ message: "Password successfully updated" });
     } catch (error) {
       res.status(500);
       return next(error);
     }
   });
-  
+
 module.exports = employeeRouter;
