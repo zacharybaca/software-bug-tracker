@@ -235,7 +235,7 @@ a:hover {
   max-width: 400px;
 }
 
-#sign-on-button, #new-user-button {
+#sign-on-button, #new-user-button, #reset-password-button {
     display: flex;
     justify-content: center;
     align-items: center;
