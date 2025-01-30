@@ -113,13 +113,7 @@ function LandingPage() {
             Remember Me?
           </label>
         </div>
-        <div id="forgot-password-container">
-          <a
-            href="/forgot-password"
-          >
-            Forgot Password?
-          </a>
-        </div>
+        <button type="button" className="btn btn-layered-3d btn-layered-3d--green glow-on-enter" id="reset-password-button" onClick={() => navigate("/reset-password")}>Forgot Password?</button>
         <button className="btn btn-layered-3d btn-layered-3d--green glow-on-enter" id="sign-on-button" disabled={isLoading}>
           {isLoading ? "Signing On..." : "Sign On"}
         </button>
