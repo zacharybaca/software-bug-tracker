@@ -75,29 +75,14 @@ function EmployeesContextProvider(props) {
   };
 
   const logout = async () => {
-    const haveToken = getToken();
     try {
-      if (haveToken) {
-        localStorage.removeItem("user");
-        localStorage.removeItem("token");
-        localStorage.removeItem("messageHistory");
-        localStorage.removeItem("font");
-        localStorage.removeItem("fontSize");
-        setUserState((prevUserState) => {
-          return {
-            ...prevUserState,
-            token: "",
-            user: {},
-          };
-        });
-      }
-      else {
-        <Navigate to="/" />
-      }
+        localStorage.clear();
+        setUserState({ token: "", user: {} });
+        window.location.href = "/";  // Redirect after logout
     } catch (error) {
-      handleAuthErr(error.message);
+        handleAuthErr(error.message);
     }
-  };
+};
 
   const getLoggedInEmployee = () => {
     const loggedIn = JSON.parse(localStorage.getItem("user"));
