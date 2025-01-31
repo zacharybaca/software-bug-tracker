@@ -157,7 +157,7 @@ function App() {
           />
           <Route
             path="/reset-password"
-            element={<PasswordReset />}
+            element={!token ? <PasswordReset /> : <Navigate to="/tasks" />}
           />
           <Route
             path="/unassigned-tasks"

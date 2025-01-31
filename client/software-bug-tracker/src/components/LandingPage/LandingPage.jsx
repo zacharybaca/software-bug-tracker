@@ -2,9 +2,11 @@ import "./landing-page.css";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { EmployeesContext } from "../../context/employeesContext";
+import { PasswordResetContext } from "../../context/passwordResetContext";
 
 function LandingPage() {
   const context = React.useContext(EmployeesContext);
+  const passwordResetContext = React.useContext(PasswordResetContext);
   const navigate = useNavigate();
   const initialValues = {
     userID: "",
@@ -45,7 +47,7 @@ function LandingPage() {
     const size = screenWidth <= 768 ? 20 : screenWidth <= 1200 ? 70 : 130;
     setFormData((prevState) => ({
       ...prevState,
-      avatarPic: `https://api.dicebear.com/9.x/icons/svg?icon=search&backgroundType=gradientLinear&backgroundColor=eab581&size=${size}&radius=50`,
+      avatarPic: `https://api.dicebear.com/9.x/glass/svg?scale=50&radius=50&size=${size}&backgroundColor=ffdfbf&backgroundType=gradientLinear&translateX=-50`,
     }));
   }
 
@@ -113,7 +115,16 @@ function LandingPage() {
             Remember Me?
           </label>
         </div>
-        <button type="button" className="btn btn-layered-3d btn-layered-3d--green glow-on-enter" id="reset-password-button" onClick={() => navigate("/reset-password")}>Forgot Password?</button>
+        <button
+          type="button"
+          className="btn btn-layered-3d btn-layered-3d--green glow-on-enter"
+          id="reset-password-button"
+          onClick={() => {
+          passwordResetContext.handleShowPasswordResetForm();
+          navigate("/reset-password")}}
+        >
+          Forgot Password?
+        </button>
         <button className="btn btn-layered-3d btn-layered-3d--green glow-on-enter" id="sign-on-button" disabled={isLoading}>
           {isLoading ? "Signing On..." : "Sign On"}
         </button>

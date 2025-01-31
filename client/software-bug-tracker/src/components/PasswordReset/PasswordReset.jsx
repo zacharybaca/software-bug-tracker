@@ -1,10 +1,11 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './password-reset.css';
 import { PasswordResetContext } from '../../context/passwordResetContext';
 
 const PasswordReset = () => {
     const context = React.useContext(PasswordResetContext);
-
+    const navigate = useNavigate();
 
 
 
@@ -55,8 +56,25 @@ const PasswordReset = () => {
                                 onChange={context.handleChange}
                                 placeholder="Confirm New Password"
                             />
-                            <button type="submit" className="glow-on-hover" value="change password" onClick={context.handleShowPasswordResetForm}>Change Password</button>
-                            <button type="button" className="glow-on-hover" value="close" onClick={context.handleClosePasswordResetForm}>Close</button>
+                            <button
+                                type="submit"
+                                className="glow-on-hover"
+                                value="change password"
+                                onClick={context.handleShowPasswordResetForm}
+                            >
+                                Change Password
+                            </button>
+                            <button
+                                type="button"
+                                className="glow-on-hover"
+                                value="close"
+                                onClick={() =>
+                                    {context.handleClosePasswordResetForm()
+                                    navigate("/")
+                                }}
+                            >
+                                Close
+                            </button>
                         </form>
                     </div>
                 </div>

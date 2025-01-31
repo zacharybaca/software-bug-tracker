@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useContext, createContext } from "react";
 import { EmployeesContext } from "./employeesContext";
 
@@ -28,25 +29,25 @@ function PasswordResetContextProvider({ children }) {
     const updateEmployeePassword = async (userID, accessCode, newPassword, confirmPassword, employeeID) => {
         try {
             const updatedInfo = { userID, accessCode, newPassword, confirmPassword };
-    
+
             const response = await fetch(`/api/employees/${employeeID}/reset-password`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(updatedInfo),
             });
-    
+
             if (!response.ok) throw new Error(`Failed to update password: ${response.statusText}`);
-    
+
             const updatedEmployee = await response.json();
-    
-            employeesContext.setEmployees(prevEmployees => 
+
+            employeesContext.setEmployees(prevEmployees =>
                 prevEmployees.map(employee => (employee._id !== employeeID ? employee : updatedEmployee))
             );
-    
+
         } catch (error) {
             employeesContext.handleAuthErr(error.message);
         }
-    };    
+    };
 
     return (
         <PasswordResetContext.Provider
