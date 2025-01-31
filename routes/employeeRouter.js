@@ -60,7 +60,11 @@ employeeRouter
   .get(async (req, res, next) => {
     try {
       const foundEmployees = await Employee.find();
-      return res.status(200).send(foundEmployees);
+      const employeesWithHasUserID = foundEmployees.map((employee) => ({
+        ...employee.toObject(),
+        hasUserID: employee.hasUserID
+      }));
+      return res.status(200).send(employeesWithHasUserID);
     } catch (error) {
       res.status(500);
       return next(error);
@@ -99,7 +103,10 @@ employeeRouter
         return res.status(400).send("Employee Does Not Exist");
       }
 
-      return res.status(200).send(employee);
+      return res.status(200).send({
+        ...employee.toObject(),
+        hasUserID: employee.hasUserID
+      });
     } catch (error) {
       res.status(500);
       return next(error);
@@ -220,7 +227,7 @@ employeeRouter
       if (newPassword !== confirmPassword) {
         return res.status(400).json({ error: "Passwords do not match" });
       };
-      
+
       // Hash the new password
       employee.user.password = await bcrypt.hash(newPassword, 10);
 

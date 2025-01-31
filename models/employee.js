@@ -89,4 +89,9 @@ employeeSchema.methods.withoutPassword = function() {
   delete user.password;
   return user;
 }
+
+employeeSchema.virtual("hasUserID").get(function () {
+  return !!this.user?.userID; // Returns true if userID exists, false otherwise
+});
+
 module.exports = mongoose.model("Employee", employeeSchema);
