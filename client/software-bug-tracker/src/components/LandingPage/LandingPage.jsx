@@ -3,18 +3,18 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { EmployeesContext } from "../../context/employeesContext";
 import { PasswordResetContext } from "../../context/passwordResetContext";
+import CreateAvatar from "../CreateAvatar/CreateAvatar";
 
 
 function LandingPage() {
   const context = React.useContext(EmployeesContext);
   const passwordResetContext = React.useContext(PasswordResetContext);
   const navigate = useNavigate();
-  const loggedInEmployee = context.getLoggedInEmployee();
   
   const initialValues = {
     userID: localStorage.getItem("userID") ? localStorage.getItem("userID") : "",
     password: "",
-    avatarPic:"",
+    avatarSize:"",
     initial: "",
     isChecked: false
   };
@@ -49,7 +49,7 @@ function LandingPage() {
     const size = screenWidth <= 768 ? 20 : screenWidth <= 1200 ? 70 : 130;
     setFormData((prevState) => ({
       ...prevState,
-      avatarPic: `https://api.dicebear.com/9.x/glass/svg?scale=50&radius=50&size=${size}&backgroundColor=ffdfbf&backgroundType=gradientLinear&translateX=-50`,
+      avatarSize: size,
     }));
   }
 
@@ -78,20 +78,8 @@ function LandingPage() {
 
       <form id="login-form" name="loginForm" onSubmit={handleSubmit}>
         <div id="landing-page-avatar">
-          <img
-            id="avatarImage"
-            src={formData.avatarPic}
-            alt="landing page avatar"
-          />
+          <CreateAvatar size={formData.avatarSize}/>
         </div>
-        <input
-          type="text"
-          id="initial"
-          name="initial"
-          value={formData.initial}
-          onChange={handleChange}
-          placeholder="Enter Your Initials"
-        />
         <input
           type="text"
           id="login-user-name"
