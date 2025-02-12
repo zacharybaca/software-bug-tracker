@@ -1,14 +1,17 @@
 import './create-avatar.css';
 import { createAvatar } from '@dicebear/core';
-import { openPeeps } from '@dicebear/collection';
+import { initials } from '@dicebear/collection';
 import { useMemo } from 'react';
 
 
-function CreateAvatar() {
+function CreateAvatar({ size, initial }) {
   const avatar = useMemo(() => {
-    return createAvatar(lorelei, {
-      size: 128,
-      // ... other options
+    return createAvatar(initials, {
+      size: size,
+      seed: initial,
+      radius: 50,
+      backgroundColor: ['1e88e5', '5e35b1', '039be5', '43a047', '3949ab', 'fb8c00', 'ffb300'],
+      backgroundType: gradientLinear
     }).toDataUri();
   }, []);
 
