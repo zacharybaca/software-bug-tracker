@@ -1,12 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const EmployeesContext = React.createContext();
 
 function EmployeesContextProvider(props) {
   // State Responsible For All Employees
   const [employees, setEmployees] = useState([]);
+  const navigate = useNavigate();
 
   // State Responsible For Tracking If a User is Logged In
   const initialState = {
@@ -87,7 +88,8 @@ function EmployeesContextProvider(props) {
         }
 
         setUserState({ token: "", user: {} });
-        window.location.href = "/";  // Redirect after logout
+        // window.location.href = "/";  // Redirect after logout
+        navigate("/");
     } catch (error) {
         handleAuthErr(error.message);
     }
