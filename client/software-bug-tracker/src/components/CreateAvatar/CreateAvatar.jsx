@@ -1,21 +1,24 @@
 import './create-avatar.css';
 import { createAvatar } from '@dicebear/core';
-import { initials } from '@dicebear/collection';
+import { funEmoji } from '@dicebear/collection';
 import { useMemo } from 'react';
 
 
-function CreateAvatar({ size, initial }) {
-  const avatar = useMemo(() => {
-    return createAvatar(initials, {
-      size: size,
-      seed: initial,
-      radius: 50,
-      backgroundColor: ['1e88e5', '5e35b1', '039be5', '43a047', '3949ab', 'fb8c00', 'ffb300'],
-      backgroundType: gradientLinear
-    }).toDataUri();
-  }, []);
+function CreateAvatar({ size }) {
+    const randomNumber = Math.floor(Math.random() * (100 - 1 + 1) + 1);
+    const avatar = useMemo(() => {
+        return createAvatar(funEmoji, {
+        size: size,
+        seed: randomNumber,
+        radius: 50,
+        backgroundColor: ['b6e3f4', 'c0aede', 'd1d4f9', 'ffd5dc', 'ffdfbf'],
+        backgroundType: ['gradientLinear'],
+        eyes: ['closed', 'cute', 'glasses', 'pissed', 'plain', 'shades', 'stars', 'wink'],
+        mouth: ['cute', 'faceMask', 'lilSmile', 'pissed', 'plain', 'smileLol', 'smileTeeth', 'tongueOut', 'wideSmile']
+        }).toDataUri();
+    }, []);
 
-  return <img src={avatar} alt="Avatar" />;
+    return <img src={avatar} alt="Avatar" />;
 }
 
 export default CreateAvatar;
