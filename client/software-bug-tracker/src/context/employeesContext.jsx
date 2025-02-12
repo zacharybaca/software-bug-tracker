@@ -76,7 +76,16 @@ function EmployeesContextProvider(props) {
 
   const logout = async () => {
     try {
-        localStorage.clear();
+        const rememberUserID = localStorage.getItem("userID"); // Preserve userID if checked
+        const isChecked = rememberUserID !== null;
+
+        localStorage.removeItem("token");
+        localStorage.removeItem("user"); 
+        
+        if (!isChecked) {
+            localStorage.removeItem("userID");
+        }
+
         setUserState({ token: "", user: {} });
         window.location.href = "/";  // Redirect after logout
     } catch (error) {
