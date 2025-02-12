@@ -4,14 +4,18 @@ import { useNavigate } from "react-router-dom";
 import { EmployeesContext } from "../../context/employeesContext";
 import { PasswordResetContext } from "../../context/passwordResetContext";
 
+
 function LandingPage() {
   const context = React.useContext(EmployeesContext);
   const passwordResetContext = React.useContext(PasswordResetContext);
   const navigate = useNavigate();
+  const loggedInEmployee = context.getLoggedInEmployee();
+  
   const initialValues = {
     userID: localStorage.getItem("userID") ? localStorage.getItem("userID") : "",
     password: "",
     avatarPic:"",
+    initial: "",
     isChecked: false
   };
 
@@ -80,6 +84,14 @@ function LandingPage() {
             alt="landing page avatar"
           />
         </div>
+        <input
+          type="text"
+          id="initial"
+          name="initial"
+          value={formData.initial}
+          onChange={handleChange}
+          placeholder="Enter Your Initials"
+        />
         <input
           type="text"
           id="login-user-name"
