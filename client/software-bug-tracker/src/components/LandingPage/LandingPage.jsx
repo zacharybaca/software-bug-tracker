@@ -9,7 +9,7 @@ function LandingPage() {
   const passwordResetContext = React.useContext(PasswordResetContext);
   const navigate = useNavigate();
   const initialValues = {
-    userID: "",
+    userID: localStorage.getItem("userID") ? localStorage.getItem("userID") : "",
     password: "",
     avatarPic:"",
     isChecked: false
@@ -32,11 +32,9 @@ function LandingPage() {
 
     if (formData.isChecked) {
       localStorage.setItem("userID", formData.userID);
-      localStorage.setItem("password", formData.password);
     }
     else {
       localStorage.removeItem("userID");
-      localStorage.removeItem("password");
     }
 
     context.login(formData).finally(() => setIsLoading(false));
@@ -60,13 +58,11 @@ function LandingPage() {
 
   React.useEffect(() => {
     const savedUserID = localStorage.getItem("userID");
-    const savedPassword = localStorage.getItem("password");
 
-    if (savedUserID && savedPassword) {
+    if (savedUserID) {
       setFormData((prevState) => ({
         ...prevState,
         userID: savedUserID,
-        password: savedPassword,
         isChecked: true
       }));
     }
