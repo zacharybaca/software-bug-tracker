@@ -23,7 +23,7 @@
 #login-user-name {
     width: 100%;
     border-radius: 10px;
-    border: 5px solid black;
+    border: 5px solid green;
 }
 
 #login-user-name::placeholder {
