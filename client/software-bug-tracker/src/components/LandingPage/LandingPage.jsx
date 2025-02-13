@@ -86,7 +86,9 @@ function LandingPage() {
         <div id="landing-page-avatar">
           <CreateAvatar size={formData.avatarSize}/>
         </div>
-        <input
+        <div id="username-container">
+          <label htmlFor="login-user-name">Please Enter Your Username: </label>
+          <input
           type="text"
           id="login-user-name"
           name="userID"
@@ -95,8 +97,11 @@ function LandingPage() {
           required
           autoFocus
           placeholder="Enter Username"
-        />
-        <input
+          />
+        </div>
+        <div id="password-container">
+          <label htmlFor="login-user-password">Please Enter Your Password: </label>
+          <input
           type="password"
           id="login-user-password"
           name="password"
@@ -104,7 +109,8 @@ function LandingPage() {
           onChange={handleChange}
           required
           placeholder="Enter Password"
-        />
+          />
+        </div>
         <div className="checkbox-container">
           <input
             type="checkbox"
