@@ -72,6 +72,12 @@ function LandingPage() {
     }
   }, []);
 
+  React.useEffect(() => {
+    if (context.userState.token) {
+      navigate("/tasks");
+    }
+  }, [context.userState.token, navigate]);
+  
   return (
     <div id="landing-page-container">
       <h1 id="form-header">Sign On To Access Your Assigned Tasks</h1>
