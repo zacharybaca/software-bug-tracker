@@ -70,30 +70,27 @@ function EmployeesContextProvider(props) {
         user: { _id, userID: user.userID },
         token,
       }));
+      navigate("/");
     } catch (error) {
       handleAuthErr(error.message);
     }
   };
 
-  const logout = async () => {
-    try {
-        const rememberUserID = localStorage.getItem("userID"); // Preserve userID if checked
-        const isChecked = rememberUserID !== null;
-
-        localStorage.removeItem("token");
-        localStorage.removeItem("user"); 
-        
-        if (!isChecked) {
-            localStorage.removeItem("userID");
-        }
-
-        setUserState({ token: "", user: {} });
-        // window.location.href = "/";  // Redirect after logout
-        navigate("/");
-    } catch (error) {
-        handleAuthErr(error.message);
-    }
-};
+  const logout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    localStorage.removeItem("userID");
+  
+    setUserState({
+      user: {},
+      token: "",
+      errMsg: "",
+      tasks: [],
+    });
+  
+    navigate("/");
+  };
+  
 
   const getLoggedInEmployee = () => {
     const loggedIn = JSON.parse(localStorage.getItem("user"));
