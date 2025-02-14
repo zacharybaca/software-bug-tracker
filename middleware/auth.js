@@ -1,7 +1,7 @@
 const jwt = require("express-jwt");
 
 const authMiddleware = jwt({
-  secret: process.env.SECRET || "jellybean sunny lily jethro", // Use your actual secret
+  secret: process.env.SECRET,
   algorithms: ["HS256"],
   requestProperty: "auth", // This will attach the decoded JWT payload to req.auth
 });
