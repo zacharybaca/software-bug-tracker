@@ -13,9 +13,11 @@ import LiveSupport from "./components/LiveSupport/LiveSupport";
 import UnAssignedTasks from "./components/UnAssignedTasks/UnAssignedTasks";
 import SnackBarNotification from "./components/SnackBarNotification/SnackBarNotification";
 import PasswordReset from "./components/PasswordReset/PasswordReset";
+import ChangeAppBackground from "./components/ChangeAppBackground/ChangeAppBackground";
 import { SnackBarNotificationContext } from "./context/snackBarNotificationContext";
 import { EmployeesContext } from "./context/employeesContext";
 import { TasksContext } from "./context/tasksContext";
+import { ConfirmationDialogBoxContext } from "./context/confirmationDialogBoxContext";
 import logo from "./assets/issue-insight-logo.png";
 import "./App.css";
 
@@ -25,6 +27,7 @@ function ProtectedRoute({ condition, redirectTo, children }) {
 
 function App() {
   const context = React.useContext(EmployeesContext);
+  const dialogBoxContext = React.useContext(ConfirmationDialogBoxContext);
   const snackBarContext = React.useContext(SnackBarNotificationContext);
   const { token } = context.userState;
   const taskContext = React.useContext(TasksContext);
@@ -45,7 +48,11 @@ function App() {
 
   return (
     !loading && (
-        <div id="app-container">
+        <div id="app-container" className={dialogBoxContext.background ? dialogBoxContext.background : ""}>
+          {console.log('employee: ', loggedInEmployee)}
+          {!loggedInEmployee || !loggedInEmployee.user.userID ? <div className="change-background-button-container">
+            <ChangeAppBackground />
+          </div> : ""}
           <PasswordReset />
           {loggedInEmployee ? <div id="drop-down-housing-container">
                 <DropDownMenu navigate={navigate}/>

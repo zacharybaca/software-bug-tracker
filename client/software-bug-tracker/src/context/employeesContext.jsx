@@ -79,18 +79,17 @@ function EmployeesContextProvider(props) {
   const logout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
-    localStorage.removeItem("userID");
-  
+
     setUserState({
       user: {},
       token: "",
       errMsg: "",
       tasks: [],
     });
-  
+
     navigate("/");
   };
-  
+
 
   const getLoggedInEmployee = () => {
     const loggedIn = JSON.parse(localStorage.getItem("user"));
@@ -166,9 +165,9 @@ function EmployeesContextProvider(props) {
         },
         body: JSON.stringify(updatedEmployee),
       });
-  
+
       if (!response.ok) throw new Error(`Failed to update employee: ${response.statusText}`);
-  
+
       await fetchEmployees(); // Refetch employees to update the state
     } catch (error) {
       handleAuthErr(error.message);
@@ -178,29 +177,29 @@ function EmployeesContextProvider(props) {
   const assignEmployeeCredentials = async (updatedEmployee, employeeID, accessToken) => {
     try {
       const foundEmployee = employees.find((employee) => employee._id === employeeID);
-  
+
       if (!foundEmployee) throw new Error("Employee Not Found");
       if (foundEmployee.accessCode !== accessToken) {
         throw new Error("Access Code is Incorrect. Please Try Again.");
       }
-  
+
       if (foundEmployee.user?.userID) {
         const override = confirm(
           "An account already exists for this user. Override with new credentials?"
         );
         if (!override) return;
       }
-  
+
       const response = await fetch(`/api/employees/${employeeID}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(updatedEmployee),
       });
-  
+
       if (!response.ok) {
         throw new Error(`Failed to update employee: ${response.statusText}`);
       }
-  
+
       const data = await response.json();
       setEmployees((prevState) =>
         prevState.map((employee) => (employee._id !== employeeID ? employee : data))
@@ -208,7 +207,7 @@ function EmployeesContextProvider(props) {
     } catch (error) {
       handleAuthErr(error.message);
     }
-  };  
+  };
 
   const deleteEmployee = async (id) => {
     try {
@@ -257,20 +256,20 @@ function EmployeesContextProvider(props) {
           formData.append(key, loginData[key]);
         }
       });
-  
+
       const response = await fetch(`/api/employees/${employeeID}`, {
         method: "PUT",
         body: formData,
       });
-  
+
       if (!response.ok) throw new Error(`Failed to create login account: ${response.statusText}`);
-  
+
       await fetchEmployees(); // Refetch employees to update the state
     } catch (error) {
       handleAuthErr(error.message);
     }
   };
-  
+
   useEffect(() => {
     userState.errMsg ? resetAuthErr() : false;
     const getEmployees = async () => {

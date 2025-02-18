@@ -3,6 +3,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { EmployeesContext } from "../../context/employeesContext";
 import { PasswordResetContext } from "../../context/passwordResetContext";
+import DefaultImage from "../../assets/custom-backgrounds/issue-insight-background.png";
 import CreateAvatar from "../CreateAvatar/CreateAvatar";
 
 
@@ -10,12 +11,12 @@ function LandingPage() {
   const context = React.useContext(EmployeesContext);
   const passwordResetContext = React.useContext(PasswordResetContext);
   const navigate = useNavigate();
-  
+
   const initialValues = {
     userID: localStorage.getItem("userID") ? localStorage.getItem("userID") : "",
     password: "",
-    avatarSize:"",
-    initial: "",
+    avatarSize: "",
+    background: localStorage.getItem("background") ? localStorage.getItem("background") : DefaultImage,
     isChecked: false
   };
 
@@ -34,11 +35,28 @@ function LandingPage() {
     e.preventDefault();
     setIsLoading(true);
 
-    if (formData.isChecked) {
+    if (localStorage.getItem("userID")) {
+      setFormData((prevState) => ({
+        ...prevState,
+        userID: localStorage.getItem("userID")
+      }))
+    }
+    else if (formData.isChecked && formData.userID && !localStorage.getItem("userID")) {
       localStorage.setItem("userID", formData.userID);
     }
-    else {
+    else if (!formData.isChecked) {
       localStorage.removeItem("userID");
+      setFormData((prevState) => ({
+        ...prevState,
+        userID: ""
+      }))
+    }
+
+    if (formData.background) {
+      localStorage.setItem("background", formData.background);
+    }
+    else {
+      localStorage.removeItem("background");
     }
 
     context.login(formData).finally(() => setIsLoading(false));
@@ -77,7 +95,7 @@ function LandingPage() {
       navigate("/tasks");
     }
   }, [context.userState.token, navigate]);
-  
+
   return (
     <div id="landing-page-container">
       <h1 id="form-header">Sign On To Access Your Assigned Tasks</h1>

@@ -133,7 +133,7 @@ const LiveSupport = () => {
     const value = Math.min(Math.max(Number(e.target.value), 12), 72);
     setFontSize(value);
   };
-  
+
 
   useEffect(() => {
     if (!loggedInEmployee) return;
@@ -181,7 +181,7 @@ const LiveSupport = () => {
         snackBarContext.setDisconnectedUser(disconnectedUser);
         snackBarContext.handleCloseToast();
       });
-      
+
       return () => {
         if (socketRef.current) {
 
@@ -305,34 +305,6 @@ const LiveSupport = () => {
         </ul>
         </div>
       </div>
-      <div id="typing-indicator">
-        {console.log('Users Typing: ', usersTyping.length > 0 ? usersTyping[0].name : null)}
-        {usersTyping.length > 0 && usersTyping.length < 3 ? (
-          <>
-            <ul>
-              {usersTyping.map((user, index) => (
-                <li key={index}>
-                  {usersTyping.length === 1
-                    ? `${user.name || "Unknown"} is currently typing a message`
-                    : `${usersTyping[0].name || "Unknown"} and ${usersTyping[1].name || "Unknown"} are currently typing a message`}
-                </li>
-              ))}
-            </ul>
-            <TypingIndicator />
-          </>
-        ) : (
-          <div>
-            {usersTyping.length >= 3 ? (
-              <>
-                <p>There are many people typing a message</p>
-                <TypingIndicator />
-              </>
-            ) : (
-              <p>Nobody is typing a message....</p>
-            )}
-          </div>
-        )}
-      </div>
       <div id="form-container">
         <form onSubmit={submit} id="form">
           <textarea
@@ -342,6 +314,34 @@ const LiveSupport = () => {
             id="text"
             onChange={handleInputChange}
           />
+          <div id="typing-indicator">
+            {console.log('Users Typing: ', usersTyping.length > 0 ? usersTyping[0].name : null)}
+            {usersTyping.length > 0 && usersTyping.length < 3 ? (
+              <>
+                <ul>
+                  {usersTyping.map((user, index) => (
+                    <li key={index}>
+                      {usersTyping.length === 1
+                        ? `${user.name || "Unknown"} is currently typing a message`
+                        : `${usersTyping[0].name || "Unknown"} and ${usersTyping[1].name || "Unknown"} are currently typing a message`}
+                    </li>
+                  ))}
+                </ul>
+                <TypingIndicator />
+              </>
+            ) : (
+              <div>
+                {usersTyping.length >= 3 ? (
+                  <>
+                    <p>There are many people typing a message</p>
+                    <TypingIndicator />
+                  </>
+                ) : (
+                  <p>Nobody is typing a message....</p>
+                )}
+              </div>
+            )}
+          </div>
           <button type="submit" id="submit-button">
             Send
           </button>
