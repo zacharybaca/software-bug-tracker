@@ -52,18 +52,15 @@ function EmployeesContextProvider(props) {
         body: JSON.stringify(credentials),
       });
 
+      const data = await response.json();
       if (!response.ok) {
-        throw new Error(`Login failed: ${response.statusText}`);
+        throw new Error(data.message || `Login failed: ${response.statusText}`);
       }
 
-      const data = await response.json();
       const { _id, user, token } = data;
 
       localStorage.setItem("token", token);
-      localStorage.setItem(
-        "user",
-        JSON.stringify({ _id: _id, userID: user.userID })
-      );
+      localStorage.setItem("user", JSON.stringify({ _id, userID: user.userID }));
 
       setUserState((prevState) => ({
         ...prevState,

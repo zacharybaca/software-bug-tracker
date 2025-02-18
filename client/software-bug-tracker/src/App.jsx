@@ -50,9 +50,11 @@ function App() {
     !loading && (
         <div id="app-container" className={dialogBoxContext.background ? dialogBoxContext.background : ""}>
           {console.log('employee: ', loggedInEmployee)}
-          {!loggedInEmployee || !loggedInEmployee.user.userID ? <div className="change-background-button-container">
-            <ChangeAppBackground />
-          </div> : ""}
+          {!loggedInEmployee || !loggedInEmployee.user.userID ?
+            <div className="close-button-container">
+              <ChangeAppBackground />
+            </div>
+           : ""}
           <PasswordReset />
           {loggedInEmployee ? <div id="drop-down-housing-container">
                 <DropDownMenu navigate={navigate}/>

@@ -6,20 +6,19 @@ import { PasswordResetContext } from "../../context/passwordResetContext";
 import DefaultImage from "../../assets/custom-backgrounds/issue-insight-background.png";
 import CreateAvatar from "../CreateAvatar/CreateAvatar";
 
+const getInitialValues = () => ({
+  userID: localStorage.getItem("userID") || "",
+  password: "",
+  avatarSize: "",
+  background: localStorage.getItem("background") ? localStorage.getItem("background") : DefaultImage,
+  isChecked: !!localStorage.getItem("userID")
+});
 
 function LandingPage() {
+  const initialValues = getInitialValues();
   const context = React.useContext(EmployeesContext);
   const passwordResetContext = React.useContext(PasswordResetContext);
   const navigate = useNavigate();
-
-  const initialValues = {
-    userID: localStorage.getItem("userID") ? localStorage.getItem("userID") : "",
-    password: "",
-    avatarSize: "",
-    background: localStorage.getItem("background") ? localStorage.getItem("background") : DefaultImage,
-    isChecked: false
-  };
-
   const [formData, setFormData] = React.useState(initialValues);
   const [isLoading, setIsLoading] = React.useState(false);
 
@@ -33,6 +32,7 @@ function LandingPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (context.userState.token) return;
     setIsLoading(true);
 
     if (localStorage.getItem("userID")) {
@@ -62,21 +62,17 @@ function LandingPage() {
     context.login(formData).finally(() => setIsLoading(false));
   };
 
-  function updateImageSrc() {
+  const updateImageSrc = React.useCallback(() => {
     const screenWidth = window.innerWidth;
     const size = screenWidth <= 768 ? 20 : screenWidth <= 1200 ? 70 : 130;
-    setFormData((prevState) => ({
-      ...prevState,
-      avatarSize: size,
-    }));
-  }
+    setFormData((prevState) => ({ ...prevState, avatarSize: size }));
+  }, []);
 
   React.useEffect(() => {
     updateImageSrc();
-    const handleResize = () => updateImageSrc();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+    window.addEventListener("resize", updateImageSrc);
+    return () => window.removeEventListener("resize", updateImageSrc);
+  }, [updateImageSrc]);
 
   React.useEffect(() => {
     const savedUserID = localStorage.getItem("userID");
@@ -151,7 +147,7 @@ function LandingPage() {
         >
           Forgot Password?
         </button>
-        <button className="btn btn-layered-3d btn-layered-3d--green glow-on-enter" id="sign-on-button" disabled={isLoading}>
+        <button type="submit" className="btn btn-layered-3d btn-layered-3d--green glow-on-enter" id="sign-on-button" disabled={isLoading}>
           {isLoading ? "Signing On..." : "Sign On"}
         </button>
         {context.userState.errMsg && (

@@ -59,7 +59,6 @@
   .close-button {
     cursor: url("../../assets/click.png"), pointer;
     background-color: green;
-    color: black;
     border-radius: 10px;
   }
 
@@ -118,21 +117,19 @@
   }
 
   .change-background-button {
-    position: fixed;
-    top: 0;
-    right: 1rem;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
     width: 200px;
-    padding: 10px;
-    z-index: 20; /* Ensure button stays above the menu */
+    height: fit-content;
+    padding: 20px;
     border-radius: 10px;
     background-color: green;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    font-size: 1.5rem;
-    font-family: "Honk", serif;
+    font-size: 1.55rem;
+    font-family: "Protest Guerrilla", sans-serif;
     font-weight: 400;
+    font-style: normal;
 }
 
 .change-background-button:hover {
