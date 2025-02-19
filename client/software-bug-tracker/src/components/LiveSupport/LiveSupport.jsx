@@ -28,7 +28,6 @@ const LiveSupport = () => {
   const loggedInEmployee = context.getLoggedInEmployee();
   const avatar =
     loggedInEmployee && loggedInEmployee.avatar ? loggedInEmployee.avatar : ChatListAvatar;
-  const hasToken = context.getToken();
 
   const TypingIndicator = () => {
     const defaultOptions = {
@@ -144,6 +143,7 @@ const LiveSupport = () => {
           : "http://localhost:9000";
 
       socketRef.current = io(url, {
+        path: "/ws/socket.io",
         transports: ["websocket", "polling"],
         reconnectionAttempts: 5, // Attempt to reconnect up to 5 times
       });
@@ -167,6 +167,10 @@ const LiveSupport = () => {
         setMessages((prevMessages) => [...prevMessages, message])
       );
 
+      socketRef.current.on("typingUsers", (typingUsers) => {
+        setUsersTyping(typingUsers);
+      });
+
       socketRef.current.on("connected", (newUser) =>
         {
           console.log('New User: ', newUser);
@@ -184,38 +188,30 @@ const LiveSupport = () => {
 
       return () => {
         if (socketRef.current) {
-
-          if (!hasToken || !snackBarContext.connectedUser) {
-            socketRef.current.emit("disconnected", loggedInEmployee.user.userID)
-            socketRef.current.disconnect(loggedInEmployee);
-            socketRef.current = null;
-          }
-          else {
-            socketRef.current.emit("connected", hasToken || snackBarContext.connectedUser.name);
-            socketRef.current.connect();
-          }
+          socketRef.current.emit("disconnected", loggedInEmployee.user.userID);
+          socketRef.current.disconnect();
+          socketRef.current = null;
         }
-        else {
-          socketRef.current.emit("disconnected", snackBarContext.disconnectedUser.name)
-          socketRef.current.disconnect(snackBarContext.disconnectedUser);
+        // if (socketRef.current) {
 
-        }
-        socketRef.current = null;
+        //   if (!hasToken || !snackBarContext.connectedUser) {
+        //     socketRef.current.emit("disconnected", loggedInEmployee.user.userID)
+        //     socketRef.current.disconnect(loggedInEmployee);
+        //     socketRef.current = null;
+        //   }
+        //   else {
+        //     socketRef.current.emit("connected", hasToken || snackBarContext.connectedUser.name);
+        //     socketRef.current.connect();
+        //   }
+        // }
+        // else {
+        //   socketRef.current.emit("disconnected", snackBarContext.disconnectedUser.name)
+        //   socketRef.current.disconnect(snackBarContext.disconnectedUser);
+
+        // }
+        // socketRef.current = null;
       };
   }, [nodeEnv, loggedInEmployee]);
-
-  useEffect(() => {
-    if (socketRef.current) {
-      socketRef.current.on("typingUsers", (typingUsers) => {
-        setUsersTyping(typingUsers);
-      });
-    }
-    return () => {
-      if (socketRef.current) {
-        socketRef.current.off("typingUsers");
-      }
-    };
-  }, []);
 
   const submit = (e) => {
     e.preventDefault();
@@ -298,7 +294,7 @@ const LiveSupport = () => {
           <ul id="users-online-list">
             {users.map((user) => (
               <li key={user.id} className="online-user">
-                <img src={ChatListAvatar} alt="default avatar chat list" />
+                <img src={user.avatar || ChatListAvatar} alt="avatar" />
                 <p>{`${user.name?.firstName || "Unknown"} ${user.name?.lastName || ""}`}</p>
               </li>
             ))}

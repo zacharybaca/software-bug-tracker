@@ -131,7 +131,7 @@
 //         id: userUUID
 //       };
 
-      
+
 
 //       if (disconnectedUser) {
 //         disconnectedUsers[userUUID] = disconnectedUser;
@@ -194,6 +194,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 // Initialize Socket.IO
 if (process.env.NODE_ENV === "production") {
   io = require("socket.io")(server, {
+    path: "/ws/socket.io",
     cors: {
       origin: "https://software-bug-tracker.onrender.com",
       methods: ["GET", "POST"],
@@ -202,6 +203,7 @@ if (process.env.NODE_ENV === "production") {
   });
 } else {
   io = require("socket.io")(server, {
+    path: "/ws/socket.io",
     cors: {
       origin: "http://localhost:5173",
       methods: ["GET", "POST"],
