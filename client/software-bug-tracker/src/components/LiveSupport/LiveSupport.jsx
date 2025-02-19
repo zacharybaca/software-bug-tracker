@@ -25,6 +25,9 @@ const LiveSupport = () => {
   const context = useContext(EmployeesContext);
   const snackBarContext = useContext(SnackBarNotificationContext);
   const nodeEnv = import.meta.env.VITE_NODE_ENV;
+  const wsUrl = nodeEnv === "production"
+  ? import.meta.env.VITE_WS_URL_PROD
+  : import.meta.env.VITE_WS_URL;
   const loggedInEmployee = context.getLoggedInEmployee();
   const avatar =
     loggedInEmployee && loggedInEmployee.avatar ? loggedInEmployee.avatar : ChatListAvatar;
@@ -133,16 +136,10 @@ const LiveSupport = () => {
     setFontSize(value);
   };
 
-
   useEffect(() => {
     if (!loggedInEmployee) return;
 
-      const url =
-        nodeEnv === "production"
-          ? "wss://software-bug-tracker.onrender.com"
-          : "http://localhost:9000";
-
-      socketRef.current = io(url, {
+      socketRef.current = io(wsUrl, {
         path: "/ws/socket.io",
         transports: ["websocket", "polling"],
         reconnectionAttempts: 5, // Attempt to reconnect up to 5 times
