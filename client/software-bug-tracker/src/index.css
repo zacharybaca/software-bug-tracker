@@ -147,19 +147,19 @@ table {
 }
 
 /* Media Queries */
-@media (max-width: var(--breakpoint-xl)) {
+@media (max-width: 1200px) {
 	body {
 		font-size: 15px;
 	}
 }
 
-@media (max-width: var(--breakpoint-lg)) {
+@media (max-width: 992px) {
 	body {
 		font-size: 14px;
 	}
 }
 
-@media (max-width: var(--breakpoint-md)) {
+@media (max-width: 768px) {
 	body {
 		font-size: 13px;
 	}
@@ -169,7 +169,7 @@ table {
 	}
 }
 
-@media (max-width: var(--breakpoint-sm)) {
+@media (max-width: 576px) {
 	body {
 		font-size: 12px;
 	}
@@ -177,8 +177,4 @@ table {
 	.hidden-sm {
 		display: none;
 	}
-}
-
-@media (max-width: var(--breakpoint-xs)) {
-	
 }
