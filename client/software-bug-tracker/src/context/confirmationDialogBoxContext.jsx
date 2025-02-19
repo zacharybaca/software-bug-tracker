@@ -8,7 +8,7 @@ function ConfirmationDialogBoxContextProvider(props) {
     const [proceed, setProceed] = React.useState(false);
     const [enableBackgroundOptions, setEnableBackgroundOptions] = React.useState(false);
     const [dialogQuestion, setDialogQuestion] = React.useState("");
-    const [background, setBackground] = React.useState(localStorage.getItem("background") || "background-default");
+    const [background, setBackground] = React.useState(localStorage.getItem("background") || localStorage.setItem("background", "background-default"));
 
     const handleConfirm = (e) => {
         if (e.target.value === 'confirm') {
