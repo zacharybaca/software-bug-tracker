@@ -182,7 +182,7 @@ const path = require("path");
 const cors = require("cors");
 const mongoose = require('mongoose');
 const morgan = require('morgan');
-require("dotenv").config({ path: `.env.${process.env.NODE_ENV}` });
+require("dotenv").config({ path: './.env' });
 const server = require('http').createServer(app);
 const { expressjwt } = require("express-jwt");
 const { v4: uuidv4 } = require('uuid');
