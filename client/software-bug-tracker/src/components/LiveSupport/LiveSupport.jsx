@@ -23,7 +23,7 @@ const LiveSupport = () => {
   const [usersTyping, setUsersTyping] = useState([]);
   const [font, setFont] = useState("");
   const [fontSize, setFontSize] = useState("");
-  const [state, dispatch] = useReducer(Reducer, initialState);
+  // const [state, dispatch] = useReducer(Reducer, initialState);
   const context = useContext(EmployeesContext);
   const snackBarContext = useContext(SnackBarNotificationContext);
   const nodeEnv = import.meta.env.VITE_NODE_ENV;
@@ -35,14 +35,14 @@ const LiveSupport = () => {
     loggedInEmployee && loggedInEmployee.avatar ? loggedInEmployee.avatar : ChatListAvatar;
 
 
-  const initialState = {
-    message: "",
-    messages: [],
-    users: [],
-    usersTyping: [],
-    font: "",
-    fontSize: "",
-  };
+  // const initialState = {
+  //   message: "",
+  //   messages: [],
+  //   users: [],
+  //   usersTyping: [],
+  //   font: "",
+  //   fontSize: "",
+  // };
 
   const TypingIndicator = () => {
     const defaultOptions = {
