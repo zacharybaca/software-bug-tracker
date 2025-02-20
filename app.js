@@ -87,18 +87,22 @@ io.on("connection", (client) => {
 
   // Handle message sending
   client.on("send", (message) => {
-    const user = users[userUUID];
+    try {
+      const user = users[userUUID];
 
-    if (user) {
-      io.emit("message", {
-        text: message.text,
-        date: new Date().toISOString(),
-        user: message.user.name,
-        avatar: message.avatar,
-      });
-      console.log("Message Sent: ", user.name);
-    } else {
-      console.error("Message received from unknown user");
+      if (user) {
+        io.emit("message", {
+          text: message.text,
+          date: new Date().toISOString(),
+          user: message.user.name,
+          avatar: message.avatar,
+        });
+        console.log("Message Sent: ", user.name);
+      } else {
+        console.error("Message received from unknown user");
+      }
+    } catch (err) {
+      console.error("Error processing message:", err);
     }
   });
 
@@ -157,7 +161,7 @@ connectToMongoDB();
 app.use((err, req, res, next) => {
   console.error(err);
   if (err.name === "UnauthorizedError") {
-    res.status(err.status);
+    return res.status(err.status).send({ errMsg: err.message });
   }
   return res.send({ errMsg: err.message });
 });
@@ -170,4 +174,10 @@ app.get('*', (req, res) =>
 // Start the server
 server.listen(process.env.PORT, () => {
   console.log(`Server Listening on ${process.env.PORT}`);
+});
+
+process.on("SIGINT", async () => {
+  await mongoose.connection.close();
+  console.log("MongoDB connection closed");
+  process.exit(0);
 });
