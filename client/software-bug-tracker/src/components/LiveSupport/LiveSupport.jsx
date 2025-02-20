@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useRef, useEffect, useState, useContext } from "react";
+import React, { useRef, useEffect, useState, useContext, useReducer } from "react";
 import Lottie from 'react-lottie';
 import typingAnimation from '../../animations/typing-animation.json';
 import "./live-support.css";
@@ -11,6 +11,7 @@ import SpeechBubble from '../../assets/speech-bubble.gif';
 import SettingsLogo from '../../assets/settings.gif';
 import ChatListAvatar from '../../assets/developer.png';
 import ChatMessage from '../ChatMessage/ChatMessage';
+import Reducer from '../../reducer/Reducer';
 
 
 const LiveSupport = () => {
@@ -22,6 +23,7 @@ const LiveSupport = () => {
   const [usersTyping, setUsersTyping] = useState([]);
   const [font, setFont] = useState("");
   const [fontSize, setFontSize] = useState("");
+  const [state, dispatch] = useReducer(Reducer, initialState);
   const context = useContext(EmployeesContext);
   const snackBarContext = useContext(SnackBarNotificationContext);
   const nodeEnv = import.meta.env.VITE_NODE_ENV;
@@ -31,6 +33,16 @@ const LiveSupport = () => {
   const loggedInEmployee = context.getLoggedInEmployee();
   const avatar =
     loggedInEmployee && loggedInEmployee.avatar ? loggedInEmployee.avatar : ChatListAvatar;
+
+
+  const initialState = {
+    message: "",
+    messages: [],
+    users: [],
+    usersTyping: [],
+    font: "",
+    fontSize: "",
+  };
 
   const TypingIndicator = () => {
     const defaultOptions = {
@@ -150,14 +162,6 @@ const LiveSupport = () => {
         socketRef.current.emit("username", loggedInEmployee);
       });
 
-      socketRef.current.on("connect_error", (error) => {
-        console.error("Connection Error:", error);
-      });
-
-      socketRef.current.on("reconnect_attempt", (attempt) => {
-        console.log(`Reconnect attempt ${attempt}`);
-      });
-
       socketRef.current.on("users", async (users) => setUsers(users));
 
       socketRef.current.on("message", (message) =>
@@ -185,28 +189,11 @@ const LiveSupport = () => {
 
       return () => {
         if (socketRef.current) {
+          socketRef.current.off("typingUsers");
           socketRef.current.emit("disconnected", loggedInEmployee.user.userID);
           socketRef.current.disconnect();
           socketRef.current = null;
         }
-        // if (socketRef.current) {
-
-        //   if (!hasToken || !snackBarContext.connectedUser) {
-        //     socketRef.current.emit("disconnected", loggedInEmployee.user.userID)
-        //     socketRef.current.disconnect(loggedInEmployee);
-        //     socketRef.current = null;
-        //   }
-        //   else {
-        //     socketRef.current.emit("connected", hasToken || snackBarContext.connectedUser.name);
-        //     socketRef.current.connect();
-        //   }
-        // }
-        // else {
-        //   socketRef.current.emit("disconnected", snackBarContext.disconnectedUser.name)
-        //   socketRef.current.disconnect(snackBarContext.disconnectedUser);
-
-        // }
-        // socketRef.current = null;
       };
   }, [nodeEnv, loggedInEmployee]);
 
