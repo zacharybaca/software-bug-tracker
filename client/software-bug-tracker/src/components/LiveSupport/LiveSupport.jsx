@@ -168,6 +168,10 @@ const LiveSupport = () => {
         setMessages((prevMessages) => [...prevMessages, message])
       );
 
+      socketRef.current.on("errorMessage", (errorMsg) => {
+        alert(errorMsg);
+      });
+      
       socketRef.current.on("typingUsers", (typingUsers) => {
         setUsersTyping(typingUsers);
       });

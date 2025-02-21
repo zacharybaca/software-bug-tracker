@@ -65,6 +65,14 @@ app.use("/api/main/tasks", require("./routes/taskRouter.js"));
 app.use("/api/employees", require("./routes/employeeRouter.js"));
 
 // WebSocket connection handler
+// Store the timestamp of the last message for each user
+const Filter = require("bad-words");
+const filter = new Filter();
+
+const lastMessageTimestamps = {};
+const lastMessages = {};
+const throttleDelays = {}; // Dynamic delays for exponential backoff
+
 io.on("connection", (client) => {
   const userUUID = uuidv4();
   console.log("New Connection: ", userUUID);
@@ -90,19 +98,65 @@ io.on("connection", (client) => {
     try {
       const user = users[userUUID];
 
-      if (user) {
-        io.emit("message", {
-          text: message.text,
-          date: new Date().toISOString(),
-          user: message.user.name,
-          avatar: message.avatar,
-        });
-        console.log("Message Sent: ", user.name);
-      } else {
+      if (!user) {
         console.error("Message received from unknown user");
+        return;
       }
+
+      // Validation: Check for empty message or too long
+      if (!message.text || message.text.trim() === "") {
+        client.emit("errorMessage", "Message cannot be empty.");
+        return;
+      }
+      if (message.text.length > 500) {
+        client.emit("errorMessage", "Message exceeds the 500-character limit.");
+        return;
+      }
+
+      // Profanity filtering
+      const cleanedMessage = filter.clean(message.text);
+
+      // Duplicate message prevention
+      if (lastMessages[userUUID] === cleanedMessage) {
+        client.emit("errorMessage", "Duplicate messages are not allowed.");
+        return;
+      }
+      lastMessages[userUUID] = cleanedMessage;
+
+      // Throttling: Allow only one message per second per user
+      const now = Date.now();
+      const lastMessageTime = lastMessageTimestamps[userUUID] || 0;
+      const baseDelay = 1000; // 1 second base delay
+      const userDelay = throttleDelays[userUUID] || baseDelay;
+
+      if (now - lastMessageTime < userDelay) {
+        // Increase delay exponentially on repeated fast sends
+        throttleDelays[userUUID] = userDelay * 2;
+        client.emit(
+          "errorMessage",
+          `You're sending messages too quickly. Please wait ${userDelay / 1000} seconds.`
+        );
+        return;
+      } else {
+        // Reset delay after successful send
+        throttleDelays[userUUID] = baseDelay;
+      }
+      lastMessageTimestamps[userUUID] = now;
+
+      // Broadcast the message if all checks pass
+      io.emit("message", {
+        text: cleanedMessage,
+        date: new Date().toISOString(),
+        user: message.user.name,
+        avatar: message.avatar,
+      });
+      console.log("Message Sent: ", user.name);
     } catch (err) {
       console.error("Error processing message:", err);
+      client.emit(
+        "errorMessage",
+        "An error occurred while sending your message."
+      );
     }
   });
 
