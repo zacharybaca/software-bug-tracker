@@ -8,6 +8,13 @@ require("dotenv").config({ path: './.env' });
 const server = require('http').createServer(app);
 const { expressjwt } = require("express-jwt");
 const { v4: uuidv4 } = require('uuid');
+let filter;
+// Dynamically import the 'bad-words' module in CommonJS
+(async () => {
+  const { Filter } = await import('bad-words'); // Access the named export directly
+  filter = new Filter();
+  console.log(filter.clean("Don't be an ash0le")); // Should log a cleaned-up message
+})();
 let io;
 
 // Middleware to serve static files from the uploads folder
@@ -66,8 +73,8 @@ app.use("/api/employees", require("./routes/employeeRouter.js"));
 
 // WebSocket connection handler
 // Store the timestamp of the last message for each user
-const Filter = require("bad-words");
-const filter = new Filter();
+
+
 
 const lastMessageTimestamps = {};
 const lastMessages = {};
