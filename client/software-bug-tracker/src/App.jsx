@@ -50,15 +50,17 @@ function App() {
     !loading && (
         <div id="app-container" className={dialogBoxContext.background ? dialogBoxContext.background : ""}>
           {console.log('employee: ', loggedInEmployee)}
-          {!loggedInEmployee || !loggedInEmployee.user.userID ?
-            <div className="close-button-container">
-              <ChangeAppBackground />
-            </div>
-           : ""}
+          <div className="header-container">
+            {!loggedInEmployee || !loggedInEmployee.user.userID ?
+              <div className="close-button-container">
+                <ChangeAppBackground />
+              </div>
+            : ""}
+            {loggedInEmployee ? <div id="drop-down-housing-container">
+                  <DropDownMenu navigate={navigate}/>
+            </div> : ""}
+          </div>
           <PasswordReset />
-          {loggedInEmployee ? <div id="drop-down-housing-container">
-                <DropDownMenu navigate={navigate}/>
-          </div> : ""}
           {snackBarContext.showToast && loggedInEmployee && (
             <SnackBarNotification
               onClose={snackBarContext.handleCloseToast}
