@@ -9,13 +9,13 @@ const server = require('http').createServer(app);
 const { expressjwt } = require("express-jwt");
 const { v4: uuidv4 } = require('uuid');
 let filter;
+let io;
+
 // Dynamically import the 'bad-words' module in CommonJS
 (async () => {
   const { Filter } = await import('bad-words'); // Access the named export directly
   filter = new Filter();
-  console.log(filter.clean("Don't be an ash0le")); // Should log a cleaned-up message
 })();
-let io;
 
 // Middleware to serve static files from the uploads folder
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
