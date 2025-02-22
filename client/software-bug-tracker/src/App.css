@@ -40,8 +40,11 @@
 }
 
 .header-container {
-    width: 100%;
-    
+    min-width: 100%;
+    max-width: 100%;
+    min-height: 13rem;
+    max-height: 13rem;
+    background-color: rgba(0, 100, 0, 0.5);
     border: 2px solid black;
 }
 

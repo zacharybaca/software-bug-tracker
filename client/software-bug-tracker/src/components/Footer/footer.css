@@ -5,9 +5,8 @@
     min-width: 100%;
     max-width: 100%;
     min-height: 13vh;
-    background-color: green;
+    background-color: rgba(0, 100, 0, 0.5);;
     color: white;
-    opacity: 0.5;
     box-sizing: border-box;
 }
 

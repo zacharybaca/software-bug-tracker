@@ -1,6 +1,7 @@
 import React from 'react';
 import './change-app-background.css';
 import { ConfirmationDialogBoxContext } from '../../context/confirmationDialogBoxContext';
+import ReusableStyledButton from '../ReusableStyledButton/ReusableStyledButton';
 
 
 const ChangeAppBackground = () => {
@@ -8,7 +9,7 @@ const ChangeAppBackground = () => {
 
     return (
         context.enableBackgroundOptions ? (
-            <div className="dialog-overlay">
+            <div className={context.enableBackgroundOptions ? "dialog-overlay" : "dialog-overlay-only-button-container"}>
                 <div className="dialog-items">
                     <h2 className="background-question">
                         {context.dialogQuestion ? context.dialogQuestion : ""}
@@ -36,7 +37,11 @@ const ChangeAppBackground = () => {
                 </div>
             </div>
         )
-            : <button type="button" className="glow-on-arrival change-background-button" onClick={() => context.toggleBackgroundOptions("Make a Background Selection for the App.")}>Change Application Background</button>
+            : <ReusableStyledButton
+                type="button"
+                title="Set Wallpaper"
+                clickFunction={() => context.toggleBackgroundOptions("Make a Background Selection for the App.")}
+              />
     )
 }
 
