@@ -12,6 +12,16 @@
 
 #footer a {
     color: white;
+    font-weight: 800;
+    text-decoration: none;
+}
+
+#footer a:hover {
+    color: blue;
+}
+
+#footer a:visited {
+    color: grey;
 }
 
 #footer img {
@@ -24,5 +34,6 @@
 }
 
 #copyright-para {
+    color: white;
     padding-right: 2%;
 }
