@@ -5,8 +5,8 @@ import { useMemo } from 'react';
 
 
 function CreateAvatar({ size }) {
-    const randomNumber = Math.floor(Math.random() * (100 - 1 + 1) + 1);
     const avatar = useMemo(() => {
+        const randomNumber = Math.floor(Math.random() * (100 - 1 + 1) + 1);
         return createAvatar(icons, {
             size: size,
             seed: randomNumber,
@@ -15,7 +15,7 @@ function CreateAvatar({ size }) {
             backgroundType: ['gradientLinear'],
             icon: ['bug', 'display', 'envelope', 'globe', 'globe2', 'inbox', 'inboxes', 'keyboard', 'laptop', 'mouse', 'mouse2', 'printer', 'router', 'search', 'webcam']
         }).toDataUri();
-    }, [randomNumber, size]);
+    }, [size]);
 
     return <img src={avatar} alt="Avatar" />;
 }

@@ -12,6 +12,7 @@ const TaskList = () => {
   const confirmationContext = React.useContext(ConfirmationDialogBoxContext);
 
   const [selectFiltered, setSelectFiltered] = React.useState("");
+  const [updateInputs, setUpdateInputs] = React.useState({});
 
   const handleFilter = (e) => {
     const { value } = e.target;
@@ -23,6 +24,24 @@ const TaskList = () => {
       tasksContext.incomplete();
     } else if (value === "all") {
       tasksContext.getTasks();
+    }
+  };
+
+  const handleUpdateChange = (taskId, value) => {
+    setUpdateInputs((prev) => ({ ...prev, [taskId]: value }));
+  };
+
+  const handleSaveUpdate = (taskId) => {
+    const updateText = updateInputs[taskId]?.trim();
+    if (updateText) {
+      const updatedTask = tasksContext.tasks.find((task) => task._id === taskId);
+      const newUpdates = [
+        ...(updatedTask.taskUpdates || []),
+        { updateText, updatedAt: new Date() },
+      ];
+
+      tasksContext.updateTask(taskId, { taskUpdates: newUpdates });
+      setUpdateInputs((prev) => ({ ...prev, [taskId]: "" }));
     }
   };
 
@@ -72,6 +91,23 @@ const TaskList = () => {
                   confirmation={confirmationContext.proceed}
                   handleQuestion={confirmationContext.handleDialogQuestion}
                 />
+                {/* Updates Section */}
+                <div className="task-updates-section">
+                  <h4>Task Updates:</h4>
+                  <ul>
+                    {(task.taskUpdates || []).map((update, index) => (
+                      <li key={index}>
+                        {update.updateText} — {new Date(update.updatedAt).toLocaleString()}
+                      </li>
+                    ))}
+                  </ul>
+                  <textarea
+                    value={updateInputs[task._id] || ""}
+                    onChange={(e) => handleUpdateChange(task._id, e.target.value)}
+                    placeholder="Add an update..."
+                  />
+                  <button onClick={() => handleSaveUpdate(task._id)}>Save Update</button>
+                </div>
               </li>
               <hr />
             </React.Fragment>
