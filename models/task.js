@@ -17,10 +17,31 @@ const taskSchema = new Schema({
     taskTodos: {
         type: String,
     },
+    taskUpdates: [
+        {
+            updateText: { type: String, required: false },
+            updatedAt: { type: Date, default: Date.now }
+        }
+    ],
+
     assignedEmployee: {
         type: Schema.Types.ObjectId,
         ref: "Employee"
     }
-})
+});
+
+
+taskSchema.methods.getSummary = function() {
+    return {
+        title: this.taskTitle,
+        completed: this.taskCompleted,
+        details: this.taskDetails
+    };
+};
+
+taskSchema.methods.markComplete = function() {
+    this.taskCompleted = true;
+    return this.save();
+};
 
 module.exports = mongoose.model("Task", taskSchema);
