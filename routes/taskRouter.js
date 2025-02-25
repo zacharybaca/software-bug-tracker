@@ -196,7 +196,7 @@ taskRouter
       // Delete Task If User Owns the Task
       const taskToBeDeleted = await Task.findOneAndDelete({ _id: id });
       return res.status(200).send(`You Have Successfully Deleted ${taskToBeDeleted.taskTitle}`);
-      
+
     } catch (error) {
       res.status(500);
       return next(error);
@@ -217,6 +217,68 @@ taskRouter.route("/unassigned-tasks").get(async (req, res, next) => {
   } catch (error) {
     res.status(500);
     return next(error);
+  }
+});
+
+// Add a new update to a task
+taskRouter.route("/:taskId/updates", async (req, res, next) => {
+  try {
+    const { updateText } = req.body;
+    const task = await Task.findById(req.params.taskId);
+    if (!task) return res.status(404).send("Task not found");
+
+    task.taskUpdates.push({ updateText });
+    await task.save();
+    res.status(200).send(task);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
+
+// Edit an existing update
+taskRouter.route("/:taskId/updates/:updateId", async (req, res, next) => {
+   try {
+     const { updateText } = req.body;
+     const task = await Task.findById(req.params.taskId);
+     if (!task) return res.status(404).send("Task not found");
+
+     const update = task.taskUpdates.id(req.params.updateId);
+     if (!update) return res.status(404).send("Update not found");
+
+     update.updateText = updateText;
+     update.updatedAt = new Date();
+     await task.save();
+     res.status(200).send(task);
+   } catch (err) {
+     res.status(500).send(err);
+   }
+});
+
+// Delete a specific update from task
+taskRouter.route("/:taskId/updates/:updateId", async (req, res, next) => {
+    try {
+      const task = await Task.findById(req.params.taskId);
+      if (!task) return res.status(404).send("Task not found");
+
+      task.taskUpdates.id(req.params.updateId).remove();
+      await task.save();
+      res.status(200).send({ message: "Update removed successfully", task });
+    } catch (err) {
+      res.status(500).send(err);
+    }
+});
+
+// Delete all updates from a task
+taskRouter.route("/:taskId/updates", async (req, res, next) => {
+  try {
+    const task = await Task.findById(req.params.taskId);
+    if (!task) return res.status(404).send("Task not found");
+
+    task.taskUpdates = [];
+    await task.save();
+    res.status(200).send({ message: "All updates removed successfully", task });
+  } catch (err) {
+    res.status(500).send(err);
   }
 });
 
