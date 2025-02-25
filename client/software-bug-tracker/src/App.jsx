@@ -72,7 +72,6 @@ function App() {
           )}
           <div id="application-logo-container">
             <img src={logo} alt="logo" id="logo" />
-            <h1 id="application-title-heading">Issue Insight</h1>
             {token && loggedInEmployee && (
               <>
                 <div id="main-profile-pic">

@@ -70,16 +70,6 @@
     border-radius: 10px;
 }
 
-#application-title-heading {
-    font-family: "Protest Guerrilla", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-    font-size: 45px;
-    color: #EAB581;
-    padding-bottom: 2%;
-    text-shadow: 1px 1px 2px brown;
-}
-
 @keyframes slidein {
   from {
     translate: 150vw 0;

@@ -40,6 +40,33 @@
     border: 5px solid green;
 }
 
+#application-title-heading {
+    font-family: "Protest Guerrilla", sans-serif;
+    font-weight: 800;
+    font-style: normal;
+    font-size: 45px;
+    color: #cba788;
+    padding-bottom: 2%;
+    text-shadow: 1px 1px 2px brown;
+}
+
+#application-intro-heading-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    background-color: #edc8a4;
+    gap: 10px;
+    margin-bottom: 2%;
+    border-radius: 10px;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    padding-left: 2%;
+    padding-right: 2%;
+    border: 2px solid black;
+}
+
 #landing-page-container {
     display: flex;
     flex-direction: column;
@@ -59,14 +86,17 @@
 }
 
 #form-header {
-    font-size: 25px;
-    padding-bottom: 10%;
+    font-family: "Protest Guerrilla", sans-serif;
     font-weight: 800;
-    color: #EAB581;
+    font-style: normal;
+    font-size: 25px;
+    color: #cba788;
+    padding-bottom: 2%;
+    text-shadow: 1px 1px 2px brown;
 }
 
 .btn {
-    font-family: Arial, Helvetica, sans-serif;  
+    font-family: Arial, Helvetica, sans-serif;
     text-transform: uppercase;
     min-width: 100%;
 }
@@ -213,13 +243,13 @@
     justify-content: flex-end;
     align-items: center; /* Aligns items vertically */
   }
-  
+
   .checkbox-container label {
     display: flex;
     flex-direction: row;
     align-items: center; /* Ensures label and checkbox align properly */
   }
-  
+
   .checkbox-container input[type="checkbox"] {
     margin: 0 -1.5rem;
     width: 16px;

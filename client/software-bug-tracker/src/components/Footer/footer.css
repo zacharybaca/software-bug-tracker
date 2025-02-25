@@ -1,14 +1,14 @@
 #footer {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+    gap: 30px;
     width: 100%;
     padding: 20px;
     background-color: rgba(0, 100, 0, 0.85);
+    color: #f0f0f0; /* Updated for better contrast */
     font-family: "Protest Guerrilla", sans-serif;
     font-weight: 400;
-    font-style: normal;
-    box-sizing: border-box;
     box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -44,14 +44,20 @@
 }
 
 #footer a:hover {
-    color: blue;
+    color: #f7a76c; /* Matches the existing color palette */
+    text-decoration: underline;
 }
 
-.tech-description {
-    font-style:italic;
+#app-info-container-footer {
+    font-style: italic;
     font-weight: 800;
     font-size: 1.2rem;
     color: #edc8a4;
+    transition: transform 0.3s ease;
+}
+
+#app-info-container-footer:hover {
+    transform: scale(1.05); /* Slight zoom effect on hover */
 }
 
 @media (max-width: 768px) {

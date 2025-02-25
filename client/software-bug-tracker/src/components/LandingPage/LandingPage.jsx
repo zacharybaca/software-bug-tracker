@@ -94,8 +94,10 @@ function LandingPage() {
 
   return (
     <div id="landing-page-container">
-      <h1 id="form-header">Sign On To Access Your Assigned Tasks</h1>
-
+      <div id="application-intro-heading-container">
+        <h1 id="application-title-heading">Issue Insight</h1>
+        <h1 id="form-header">Navigating Issues, Uncovering Insights</h1>
+      </div>
       <form id="login-form" name="loginForm" onSubmit={handleSubmit}>
         <div id="landing-page-avatar">
           <CreateAvatar size={formData.avatarSize}/>
