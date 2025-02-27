@@ -34,6 +34,7 @@
 #tagline-container-footer img {
     width: 20%;
     transition: transform 0.3s ease;
+    filter: contrast(180%);
 }
 
 #tagline-container-footer img:hover {
