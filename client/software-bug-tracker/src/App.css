@@ -49,6 +49,7 @@
     min-height: 13rem;
     max-height: 13rem;
     background-color: rgba(0, 100, 0, 0.85);
+    backdrop-filter: brightness(60%);
     box-sizing: border-box;
     box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
     border: 2px solid black;
@@ -86,7 +87,7 @@
       transform: rotate(360deg);
     }
   }
-  
+
 @keyframes slidein {
   from {
     translate: 150vw 0;
