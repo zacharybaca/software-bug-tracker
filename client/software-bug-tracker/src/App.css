@@ -73,6 +73,20 @@
     border-radius: 10px;
 }
 
+#logo:hover {
+    animation-name: rotate;
+    animation-duration: 0.7s;
+}
+
+@keyframes rotate {
+    0% {
+      transform: rotate(0);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
 @keyframes slidein {
   from {
     translate: 150vw 0;
