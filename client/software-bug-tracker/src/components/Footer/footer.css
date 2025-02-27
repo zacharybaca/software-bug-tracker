@@ -3,7 +3,10 @@
     justify-content: center;
     align-items: center;
     gap: 30px;
-    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
+    min-height: 13rem;
+    max-height: 13rem;
     padding: 20px;
     background-color: rgba(0, 100, 0, 0.85);
     color: #f0f0f0; /* Updated for better contrast */
