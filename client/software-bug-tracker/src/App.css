@@ -48,7 +48,7 @@
     max-width: 100%;
     min-height: 13rem;
     max-height: 13rem;
-    background-color: rgba(0, 100, 0, 0.5);
+    background-color: rgba(0, 100, 0, 0.85);
     box-sizing: border-box;
     border: 2px solid black;
 }
