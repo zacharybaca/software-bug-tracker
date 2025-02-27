@@ -9,6 +9,7 @@
     max-height: 13rem;
     padding: 20px;
     background-color: rgba(0, 100, 0, 0.85);
+    backdrop-filter: brightness(60%);
     color: #f0f0f0; /* Updated for better contrast */
     font-family: "Protest Guerrilla", sans-serif;
     font-weight: 400;
