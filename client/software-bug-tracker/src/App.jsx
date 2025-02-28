@@ -52,9 +52,7 @@ function App() {
           {console.log('employee: ', loggedInEmployee)}
           <div className="header-container">
             {!loggedInEmployee || !loggedInEmployee.user.userID ?
-              <div className="close-button-container">
                 <ChangeAppBackground />
-              </div>
             : ""}
             {loggedInEmployee ? <div id="drop-down-housing-container">
                   <DropDownMenu navigate={navigate}/>

@@ -47,17 +47,10 @@
     max-width: 100%;
     min-height: 13rem;
     max-height: 13rem;
-    background-color: rgba(0, 100, 0, 0.5);
+    background-color: rgba(0, 100, 0, 0.85);
+    box-sizing: border-box;
     border: 2px solid black;
 }
-
-.close-button-container {
-    display: flex;
-    justify-content: center;
-    min-width: 100%;
-    min-height: 5vh;
-    padding: 2%;
-  }
 
 .stand-out {
     color: black;
@@ -67,6 +60,7 @@
 #logo {
     width: 200px;
     height: 200px;
+    filter: contrast(180%);
     border-radius: 10px;
 }
 

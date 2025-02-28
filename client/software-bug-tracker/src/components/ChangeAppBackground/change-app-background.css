@@ -19,6 +19,15 @@
     align-items: center;
   }
 
+  .reusable-styled-button-container {
+    display: flex;
+    justify-content: center;
+    padding-top: 2.5%;
+    min-width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
   .dialog-items {
     display: flex;
     flex-direction: column;

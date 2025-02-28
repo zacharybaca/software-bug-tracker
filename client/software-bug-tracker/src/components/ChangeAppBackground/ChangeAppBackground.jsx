@@ -37,11 +37,14 @@ const ChangeAppBackground = () => {
                 </div>
             </div>
         )
-            : <ReusableStyledButton
-                type="button"
-                title="Set Wallpaper"
-                clickFunction={() => context.toggleBackgroundOptions("Make a Background Selection for the App.")}
-              />
+            :
+            <div className="reusable-styled-button-container">
+                <ReusableStyledButton
+                    type="button"
+                    title="Set Wallpaper"
+                    clickFunction={() => context.toggleBackgroundOptions("Make a Background Selection for the App.")}
+                />
+            </div>
     )
 }
 
