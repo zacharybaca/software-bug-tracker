@@ -50,14 +50,14 @@ function App() {
     !loading && (
         <div id="app-container" className={dialogBoxContext.background ? dialogBoxContext.background : ""}>
           {console.log('employee: ', loggedInEmployee)}
-          <div className="header-container">
-            {!loggedInEmployee || !loggedInEmployee.user.userID ?
-                <ChangeAppBackground />
-            : ""}
-            {loggedInEmployee ? <div id="drop-down-housing-container">
-                  <DropDownMenu navigate={navigate}/>
-            </div> : ""}
-          </div>
+          {!loggedInEmployee || !loggedInEmployee.user.userID ? (
+            <div className="header-container">
+              <ChangeAppBackground />
+            </div>
+          ): ""}
+          {loggedInEmployee ? <div id="drop-down-housing-container">
+            <DropDownMenu navigate={navigate} />
+          </div> : ""}
           <PasswordReset />
           {snackBarContext.showToast && loggedInEmployee && (
             <SnackBarNotification
@@ -82,39 +82,41 @@ function App() {
                     alt="profile pic"
                   />
                 </div>
-                <h2 id="user-welcome-heading">
-                  Welcome {`${loggedInEmployee.firstName} ${loggedInEmployee.lastName}`}
-                </h2>
-                <h2 id="position-at-company-heading">
-                  We Are Glad to Have You As a{" "}
-                  {context
-                    .findRoleAtCompany(context.userState.user.userID)
-                    .charAt(0)
-                    .toUpperCase() +
-                    context
+                <div id="user-info">
+                  <h2 id="user-welcome-heading">
+                    Welcome {`${loggedInEmployee.firstName} ${loggedInEmployee.lastName}`}
+                  </h2>
+                  <h2 id="position-at-company-heading">
+                    We Are Glad to Have You As a{" "}
+                    {context
                       .findRoleAtCompany(context.userState.user.userID)
-                      .slice(1)}
-                  !
-                </h2>
-                <h4 id="info-heading">
-                  {context.hasAdminRights() ? "There Are " : "You Have "}
-                  <strong className="stand-out">
-                    {completed}
-                  </strong> Completed {completed === 1 ? "Task" : "Tasks"} and{" "}
-                  <strong className="stand-out">{incomplete}</strong> Incomplete{" "}
-                  {incomplete === 1 ? "Task" : "Tasks"}.
-                </h4>
-                <h4 id="unassigned-tasks-info-heading">
-                  There{" "}
-                  {taskContext.unassignedTasks.length === 1 ? "Is" : "Are"}{" "}
-                  Currently{" "}
-                  <strong className="stand-out">
-                    {taskContext.unassignedTasks.length || 0}
-                  </strong>{" "}
-                  Unassigned{" "}
-                  {taskContext.unassignedTasks.length === 1 ? "Task" : "Tasks"}{" "}
-                  In The Queue.
-                </h4>
+                      .charAt(0)
+                      .toUpperCase() +
+                      context
+                        .findRoleAtCompany(context.userState.user.userID)
+                        .slice(1)}
+                    !
+                  </h2>
+                  <h4 id="info-heading">
+                    {context.hasAdminRights() ? "There Are " : "You Have "}
+                    <strong className="stand-out">
+                      {completed}
+                    </strong> Completed {completed === 1 ? "Task" : "Tasks"} and{" "}
+                    <strong className="stand-out">{incomplete}</strong> Incomplete{" "}
+                    {incomplete === 1 ? "Task" : "Tasks"}.
+                  </h4>
+                  <h4 id="unassigned-tasks-info-heading">
+                    There{" "}
+                    {taskContext.unassignedTasks.length === 1 ? "Is" : "Are"}{" "}
+                    Currently{" "}
+                    <strong className="stand-out">
+                      {taskContext.unassignedTasks.length || 0}
+                    </strong>{" "}
+                    Unassigned{" "}
+                    {taskContext.unassignedTasks.length === 1 ? "Task" : "Tasks"}{" "}
+                    In The Queue.
+                  </h4>
+                </div>
               </>
             )}
           </div>

@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Honk&display=swap');
 
-
 #menu-icon {
     width: 50px;
     height: 50px;
@@ -35,7 +34,8 @@
 #menu-toggle-button {
     position: fixed;
     top: 0;
-    right: 1rem;
+    right: 2rem;
+    height: 50px;
     display: flex;
     justify-content: space-evenly;
     align-items: center;

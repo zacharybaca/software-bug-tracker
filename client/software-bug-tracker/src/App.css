@@ -32,6 +32,25 @@
     animation-name: slidein;
 }
 
+#user-info {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    padding: 4%;
+    min-width: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    min-height: 100%;
+    gap: 15px;
+    overflow: auto;
+    box-sizing: border-box;
+    background-color: #e0e0e0;
+    border-radius: 10px;
+    border: 2px solid black;
+}
+
 #drop-down-housing-container {
     display: flex;
     justify-content: flex-end;
@@ -81,7 +100,7 @@
     font-style: normal;
     font-size: 25px;
     font-weight: 600;
-    color: #e6b17e;
+    color: black;
 }
 
 #position-at-company-heading {
@@ -89,7 +108,7 @@
      font-size: 25px;
      font-weight: 600;
      font-style: normal;
-     color: #e6b17e;
+     color: black;
 }
 
 #info-heading {
