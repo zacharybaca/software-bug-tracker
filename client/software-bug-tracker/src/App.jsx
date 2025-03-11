@@ -14,6 +14,7 @@ import UnAssignedTasks from "./components/UnAssignedTasks/UnAssignedTasks";
 import SnackBarNotification from "./components/SnackBarNotification/SnackBarNotification";
 import PasswordReset from "./components/PasswordReset/PasswordReset";
 import ChangeAppBackground from "./components/ChangeAppBackground/ChangeAppBackground";
+import ErrorModal from "./components/ErrorModal/ErrorModal";
 import { SnackBarNotificationContext } from "./context/snackBarNotificationContext";
 import { EmployeesContext } from "./context/employeesContext";
 import { TasksContext } from "./context/tasksContext";
@@ -58,6 +59,7 @@ function App() {
           {loggedInEmployee ? <div id="drop-down-housing-container">
             <DropDownMenu navigate={navigate} />
           </div> : ""}
+          <ErrorModal />
           <PasswordReset />
           {snackBarContext.showToast && loggedInEmployee && (
             <SnackBarNotification
