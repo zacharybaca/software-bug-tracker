@@ -5,6 +5,7 @@ import { EmployeesContext } from "../../context/employeesContext";
 import { PasswordResetContext } from "../../context/passwordResetContext";
 import DefaultImage from "../../assets/custom-backgrounds/issue-insight-background.png";
 import CreateAvatar from "../CreateAvatar/CreateAvatar";
+import ErrorModal from "../ErrorModal/ErrorModal";
 
 const getInitialValues = () => ({
   userID: localStorage.getItem("userID") || "",
@@ -94,6 +95,7 @@ function LandingPage() {
 
   return (
     <div id="landing-page-container">
+      {context.userState.errMsg ? <ErrorModal errorStatement={context.userState.errMsg} /> : ""}
       <div id="application-intro-heading-container">
         <h1 id="application-title-heading">Issue Insight</h1>
         <h1 id="form-header">Navigating Issues, Uncovering Insights</h1>
