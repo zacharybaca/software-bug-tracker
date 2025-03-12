@@ -54,7 +54,7 @@ function EmployeesContextProvider(props) {
 
       const data = await response.json();
       if (!response.ok) {
-        throw new Error(data.message || `Login failed: ${response.statusText}`);
+        throw new Error(data.message || "Login failed. Please try again.");
       }
 
       const { _id, user, token } = data;
@@ -66,7 +66,9 @@ function EmployeesContextProvider(props) {
         ...prevState,
         user: { _id, userID: user.userID },
         token,
+        errMsg: "", // Clear any previous error
       }));
+
       navigate("/");
     } catch (error) {
       handleAuthErr(error.message);
