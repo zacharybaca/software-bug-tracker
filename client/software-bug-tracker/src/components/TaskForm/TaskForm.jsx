@@ -12,7 +12,11 @@ const TaskForm = (props) => {
     taskCompleted: props.completed || false,
     taskDetails: props.details || "",
     taskTodos: props.todos || "",
-    assignedEmployee: props.assignedEmployee || context.getLoggedInEmployee() || "",
+    assignedEmployee:(props.assignedEmployee && props.assignedEmployee._id) ||
+    (context.getLoggedInEmployee() && context.getLoggedInEmployee()._id) ||
+    "",
+
+
   };
 
   const [task, setTask] = React.useState(initialValues);
@@ -26,11 +30,14 @@ const TaskForm = (props) => {
     }));
   }
 
-  const formattedTodos = task.taskTodos
-    .split(".")
-    .map((todo) => todo.trim())
-    .filter((todo) => todo)
-    .join(".\n");
+  const formattedTodos =
+    typeof task.taskTodos === "string"
+      ? task.taskTodos
+        .split(".")
+        .map((todo) => todo.trim())
+        .filter((todo) => todo)
+        .join(".\n")
+      : "";
 
   // Handle form submission
   function handleSubmit(e) {
@@ -115,18 +122,14 @@ const TaskForm = (props) => {
         </>
       ) : (
         <>
-          <h3 id="employee-heading-container">
-            Assigned Employee:{" "}
-            <span id="assigned-employee-heading">
-              {assigned && assigned.firstName && assigned.lastName ? (
-                <p>
-                  {assigned.firstName} {assigned.lastName}
-                </p>
-              ) : (
-                <p>None</p>
-              )}
-            </span>
-          </h3>
+            <h3 id="employee-heading-container">
+              Assigned Employee:{" "}
+              <span id="assigned-employee-heading">
+                {assigned && assigned.firstName && assigned.lastName
+                  ? `${assigned.firstName} ${assigned.lastName}`
+                  : "None"}
+              </span>
+            </h3>
         </>
       )}
 
