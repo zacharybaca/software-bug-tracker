@@ -8,10 +8,11 @@ function EmployeesContextProvider(props) {
   // State Responsible For All Employees
   const [employees, setEmployees] = useState([]);
   const navigate = useNavigate();
+  const storedEmployee = JSON.parse(localStorage.getItem("user"));
 
   // State Responsible For Tracking If a User is Logged In
   const initialState = {
-    user: JSON.parse(localStorage.getItem("user")) || {},
+    user: storedEmployee ? JSON.parse(storedEmployee) : null,
     token: localStorage.getItem("token") || "",
     tasks: [],
     errMsg: "",
