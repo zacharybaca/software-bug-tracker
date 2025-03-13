@@ -117,6 +117,7 @@ const Task = (props) => {
               setShowForm={setShowForm}
               showForm={showForm}
               confirmation={props.proceed}
+              errMsg={props.errMsg ? props.errMsg : employees.userState.errMsg}
             />
           </div>
         )}

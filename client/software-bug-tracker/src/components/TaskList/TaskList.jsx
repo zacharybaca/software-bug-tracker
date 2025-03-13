@@ -36,7 +36,7 @@ const TaskList = () => {
     if (updateText) {
       const updatedTask = tasksContext.tasks.find((task) => task._id === taskId);
       const newUpdates = [
-        ...(updatedTask.taskUpdates || []),
+        ...(updatedTask.taskUpdates || []), // Ensure it's an array
         { updateText, updatedAt: new Date() },
       ];
 

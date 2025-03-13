@@ -11,8 +11,11 @@ const TaskForm = (props) => {
     taskTitle: props.title || "",
     taskCompleted: props.completed || false,
     taskDetails: props.details || "",
-    taskTodos: props.todos || "",
-    assignedEmployee: props.assignedEmployee || context.getLoggedInEmployee() || "",
+    taskTodos: props.todos || [],
+    assignedEmployee:
+      (props.assignedEmployee && props.assignedEmployee._id) ||
+      (context.getLoggedInEmployee() && context.getLoggedInEmployee()._id) ||
+      "",
   };
 
   const [task, setTask] = React.useState(initialValues);
@@ -20,17 +23,25 @@ const TaskForm = (props) => {
   // Handle input changes
   function handleChange(e) {
     const { name, value, type, checked } = e.target;
-    setTask((prevState) => ({
-      ...prevState,
-      [name]: type === "checkbox" ? checked : value,
-    }));
-  }
 
-  const formattedTodos = task.taskTodos
-    .split(".")
-    .map((todo) => todo.trim())
-    .filter((todo) => todo)
-    .join(".\n");
+    if (name === "taskTodos") {
+      const todosArray = value
+        .split(".")
+        .map((todo) => todo.trim())
+        .filter((todo) => todo)
+        .map((todo) => ({ description: todo, completed: false })); // Convert to objects
+
+      setTask((prevState) => ({
+        ...prevState,
+        [name]: todosArray, // Store as an array of objects
+      }));
+    } else {
+      setTask((prevState) => ({
+        ...prevState,
+        [name]: type === "checkbox" ? checked : value,
+      }));
+    }
+  }
 
   // Handle form submission
   function handleSubmit(e) {
@@ -38,10 +49,16 @@ const TaskForm = (props) => {
 
     const updatedTask = {
       ...task,
-      taskTodos: formattedTodos,
+      taskTodos: task.taskTodos.map((todo) => ({
+        description: todo.description,
+        completed: todo.completed || false,
+      })), // Ensure todos are stored correctly
     };
-    props.submitTask(updatedTask, task.id); // Submit the updated task object
-    setTask(initialValues); // Reset the form
+
+    props.submitTask(updatedTask, task.id);
+
+    // Wait for submitTask to complete before resetting
+    setTimeout(() => setTask(initialValues), 100);
 
     if (props.toggleForm) {
       props.toggleForm((prevState) => !prevState);
@@ -49,19 +66,11 @@ const TaskForm = (props) => {
     }
   }
 
-  // const assigned = context.employees.find((employee) =>
-  //   typeof task.assignedEmployee === "string"
-  //     ? employee._id === task.assignedEmployee
-  //     : employee._id === task.assignedEmployee?._id
-  // );
-
   const assigned = React.useMemo(() => {
-    return context.employees.find((employee) =>
-        typeof task.assignedEmployee === "string"
-            ? employee._id === task.assignedEmployee
-            : employee._id === task.assignedEmployee?._id
+    return context.employees.find(
+      (employee) => employee._id === task.assignedEmployee
     );
-}, [context.employees, task.assignedEmployee]);
+  }, [context.employees, task.assignedEmployee]);
 
   return (
     <form id="task-form" name="taskForm" onSubmit={handleSubmit}>
@@ -115,21 +124,16 @@ const TaskForm = (props) => {
         </>
       ) : (
         <>
-          <h3 id="employee-heading-container">
-            Assigned Employee:{" "}
-            <span id="assigned-employee-heading">
-              {assigned && assigned.firstName && assigned.lastName ? (
-                <p>
-                  {assigned.firstName} {assigned.lastName}
-                </p>
-              ) : (
-                <p>None</p>
-              )}
-            </span>
-          </h3>
+            <h3 id="employee-heading-container">
+              Assigned Employee:{" "}
+              <span id="assigned-employee-heading">
+                {assigned && assigned.firstName && assigned.lastName
+                  ? `${assigned.firstName} ${assigned.lastName}`
+                  : "None"}
+              </span>
+            </h3>
         </>
       )}
-
       {/* Task Completed Checkbox */}
       <div id="checkbox-container">
         <label htmlFor="task-completed">Task Completed: </label>

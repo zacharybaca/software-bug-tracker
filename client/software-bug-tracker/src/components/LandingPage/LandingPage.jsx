@@ -63,6 +63,10 @@ function LandingPage() {
     context.login(formData).finally(() => setIsLoading(false));
   };
 
+  const handleCloseErrorModal = () => {
+    context.resetAuthErr(); // Assuming there's a function to clear errors in EmployeesContext
+  };
+
   const updateImageSrc = React.useCallback(() => {
     const screenWidth = window.innerWidth;
     const size = screenWidth <= 768 ? 20 : screenWidth <= 1200 ? 70 : 130;
@@ -95,7 +99,7 @@ function LandingPage() {
 
   return (
     <div id="landing-page-container">
-      {context.userState.errMsg ? <ErrorModal errorStatement={context.userState.errMsg} /> : ""}
+      {context.userState.errMsg ? <ErrorModal errorStatement={context.userState.errMsg} onClose={handleCloseErrorModal}/> : ""}
       <div id="application-intro-heading-container">
         <h1 id="application-title-heading">Issue Insight</h1>
         <h1 id="form-header">Navigating Issues, Uncovering Insights</h1>

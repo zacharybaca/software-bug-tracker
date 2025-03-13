@@ -8,11 +8,10 @@ function EmployeesContextProvider(props) {
   // State Responsible For All Employees
   const [employees, setEmployees] = useState([]);
   const navigate = useNavigate();
-  const storedEmployee = JSON.parse(localStorage.getItem("user"));
 
   // State Responsible For Tracking If a User is Logged In
   const initialState = {
-    user: storedEmployee ? JSON.parse(storedEmployee) : null,
+    user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : "",
     token: localStorage.getItem("token") || "",
     tasks: [],
     errMsg: "",
@@ -37,7 +36,7 @@ function EmployeesContextProvider(props) {
       handleAuthErr(error.message);
     }
   };
-
+  console.log("USER: ", userState.user.userID);
   const findRoleAtCompany = (username) => {
     const foundEmployee = employees.find(
       (employee) => employee.user?.userID === username
@@ -92,7 +91,8 @@ function EmployeesContextProvider(props) {
 
 
   const getLoggedInEmployee = () => {
-    const loggedIn = JSON.parse(localStorage.getItem("user"));
+    const loggedIn = userState.user ? userState.user : null;
+    if (!loggedIn) return false;
     const foundEmployee =  employees.find(
         (employee) => employee.user?.userID === loggedIn?.userID
       );
