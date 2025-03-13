@@ -1,10 +1,29 @@
 import './error-modal.css';
+import React from 'react';
 import PropTypes from 'prop-types';
 import ErrorIcon from "../../assets/login-error-icon.jpg";
 
 const ErrorModal = ({ errorStatement, errorIcon, onClose }) => {
-    return errorStatement ? (
-        <div id="error-dialog-overlay" role="dialog" aria-hidden={!errorStatement}>
+    const [showDialog, setShowDialog] = React.useState(!!errorStatement);
+
+    React.useEffect(() => {
+        setShowDialog(!!errorStatement);
+    }, [errorStatement]);
+
+    React.useEffect(() => {
+        document.body.style.overflow = showDialog ? "hidden" : "auto";
+        return () => {
+            document.body.style.overflow = "auto";
+        };
+    }, [showDialog]);
+
+    const handleDialog = () => {
+        setShowDialog(false);
+        onClose?.();
+    };
+
+    return showDialog ? (
+        <div id="error-dialog-overlay" role="dialog" aria-hidden={!showDialog}>
             <div id="error-dialog-content">
                 <div id="error-title-container">
                     <img src={errorIcon || ErrorIcon} id="error-icon" alt="error icon" />
@@ -12,7 +31,7 @@ const ErrorModal = ({ errorStatement, errorIcon, onClose }) => {
                 <h2 id="error-dialog-statement">
                     {errorStatement || "Unknown Error Has Occurred"}
                 </h2>
-                <button type="button" className="error-confirm-button glow-on-entra" onClick={onClose}>
+                <button type="button" className="error-confirm-button glow-on-entra" onClick={handleDialog}>
                     ✅ Okay
                 </button>
             </div>
@@ -23,7 +42,7 @@ const ErrorModal = ({ errorStatement, errorIcon, onClose }) => {
 ErrorModal.propTypes = {
     errorStatement: PropTypes.string,
     errorIcon: PropTypes.string,
-    onClose: PropTypes.func.isRequired, // Ensures the parent provides this function
+    onClose: PropTypes.func,
 };
 
 export default ErrorModal;
