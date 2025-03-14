@@ -37,6 +37,28 @@ const taskSchema = new Schema({
 
 // You may want to add methods related to category in the future, like updating it based on task data
 
+taskSchema.methods.autoAssignCategory = function() {
+    const taskDescription = `${this.taskTitle} ${this.taskDetails}`.toLowerCase();
+    
+    // Add your category detection logic here
+    const categoryKeywords = {
+        Frontend: ["UI", "layout", "mobile", "button", "design", "responsive", "image", "CSS"],
+        Backend: ["API", "database", "server", "authentication", "backend", "request", "response", "endpoint"],
+        Performance: ["optimize", "speed", "performance", "load", "time", "CPU", "memory", "lag", "slow"],
+        Security: ["secure", "authentication", "login", "privacy", "encryption", "hack", "vulnerability"],
+    };
+
+    for (const [category, keywords] of Object.entries(categoryKeywords)) {
+        if (keywords.some(keyword => taskDescription.includes(keyword.toLowerCase()))) {
+            this.category = category;
+            return this.save();
+        }
+    }
+
+    this.category = "Uncategorized"; // Default category
+    return this.save();
+};
+
 taskSchema.methods.getSummary = function() {
     return {
         title: this.taskTitle,
