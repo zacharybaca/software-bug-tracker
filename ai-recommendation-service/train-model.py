@@ -1,35 +1,46 @@
 import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.preprocessing import LabelEncoder
+from sklearn.preprocessing import LabelEncoder, OneHotEncoder
+from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 import joblib
+from scipy.sparse import hstack
 
 # Load dataset
 df = pd.read_csv("data.csv")
 
-# Convert text data (Bug Description) into numerical features
+# Convert `taskCompleted` to binary (0 = Incomplete, 1 = Complete)
+df["taskCompleted"] = df["taskCompleted"].astype(int)
+
+# Vectorize text fields (`taskTitle` and `taskDetails`)
 vectorizer = TfidfVectorizer()
-X_text = vectorizer.fit_transform(df["Bug Description"])
+X_title = vectorizer.fit_transform(df["taskTitle"])
+X_details = vectorizer.fit_transform(df["taskDetails"])
 
-# Convert category and assigned developer into numerical values
-category_encoder = LabelEncoder()
-df["Category"] = category_encoder.fit_transform(df["Category"])
+# Encode `taskTodos` as the count of todo items
+df["taskTodos"] = df["taskTodos"].apply(lambda x: len(str(x).split(',')))
 
+# Encode assigned employee (target variable)
 developer_encoder = LabelEncoder()
-y = developer_encoder.fit_transform(df["Assigned Developer"])
+y = developer_encoder.fit_transform(df["assignedEmployee"])
 
-# Combine text features and category
-import scipy.sparse
-X = scipy.sparse.hstack((X_text, df["Category"].values.reshape(-1, 1)))
+# Combine all features
+X = hstack((X_title, X_details, df["taskCompleted"].values.reshape(-1, 1), df["taskTodos"].values.reshape(-1, 1)))
 
-# Train a RandomForest model
+# Split into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Train the model
 model = RandomForestClassifier(n_estimators=100, random_state=42)
-model.fit(X, y)
+model.fit(X_train, y_train)
 
-# Save the trained model and encoders
+# Evaluate accuracy
+accuracy = model.score(X_test, y_test)
+print(f"Model Accuracy: {accuracy:.2f}")
+
+# Save trained model and encoders
 joblib.dump(model, "bug_assignment_model.pkl")
 joblib.dump(vectorizer, "vectorizer.pkl")
-joblib.dump(category_encoder, "category_encoder.pkl")
 joblib.dump(developer_encoder, "developer_encoder.pkl")
 
-print("Model training complete and saved!")
+print("Model retrained and saved successfully!")
