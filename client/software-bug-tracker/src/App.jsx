@@ -42,7 +42,7 @@ function App() {
       setTimeout(() => {
         loader.style.display = "none";
         setLoading(false);
-      }, 3000);
+      }, 6000);
     }
   }, [loader]);
 
