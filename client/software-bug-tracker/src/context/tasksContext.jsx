@@ -42,7 +42,7 @@
 
 //       const data = await response.json();
 //       const hasUserID = context.hasUserID(data.assignedEmployee);
-      
+
 //       if (!hasUserID && loggedInEmployee.isAdmin) {
 //         throw new Error(`${data.assignedEmployee} Does Not Have a User ID Associated With It.`);
 //       }
@@ -364,6 +364,18 @@ function TasksContextProvider(props) {
     }
   };
 
+  // This Function Utilizes the AI Recommendation Service
+  // to Suggest Who the Unassigned Task Should Be Assigned To.
+  const assignBug = async (bugDescription, category) => {
+    const response = await fetch("http://127.0.0.1:5000/predict-assignee", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ description: bugDescription, category: category }),
+    });
+    const data = await response.json();
+    console.log("Recommended Assignee:", data.assigned_developer);
+  };
+
   const updateTask = async (updatedTask, id) => {
     try {
       const token = getToken();
@@ -595,6 +607,7 @@ function TasksContextProvider(props) {
         deleteTask,
         updateTask,
         unAssignTask,
+        assignBug,
         completed: getCompletedTasks,
         incomplete: getIncompleteTasks,
         getTaskCounts,
