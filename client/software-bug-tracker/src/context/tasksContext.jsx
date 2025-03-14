@@ -70,40 +70,40 @@ function TasksContextProvider(props) {
   };
 
   const updateTask = async (updatedTask, id) => {
-    try {
-      const token = getToken();
-      if (!token) return;
+  try {
+    const token = getToken();
+    if (!token) return;
 
-      const response = await fetch(`/api/main/tasks/${id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(updatedTask),
-      });
+    const response = await fetch(`/api/main/tasks/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(updatedTask),
+    });
 
-      if (!response.ok) {
-        throw new Error(`${response.status} ${response.statusText} : ${await response.text()}`);
-      }
-
-      const data = await response.json();
-
-      // Update tasks and unassignedTasks without calling getTasks() or getUnassignedTasks() right away
-      setTasks((prevTasks) => prevTasks.map((task) => (task._id !== id ? task : data)));
-      setUnassignedTasks((prevTasks) =>
-        data.assignedEmployee == null
-          ? [...prevTasks, data].filter((task, index, self) =>
-              index === self.findIndex((t) => t._id === task._id)
-            )
-          : prevTasks.filter((task) => task._id !== id)
-      );
-      getTasks();
-    } catch (error) {
-      console.error("Error: ", error);
-      context.handleAuthErr(error);
+    if (!response.ok) {
+      throw new Error(`${response.status} ${response.statusText} : ${await response.text()}`);
     }
-  };
+
+    const data = await response.json();
+
+    // Update tasks and unassignedTasks without calling getTasks() or getUnassignedTasks() right away
+    setTasks((prevTasks) => prevTasks.map((task) => (task._id !== id ? task : data)));
+    setUnassignedTasks((prevTasks) =>
+      data.assignedEmployee == null
+        ? [...prevTasks, data].filter((task, index, self) =>
+            index === self.findIndex((t) => t._id === task._id)
+          )
+        : prevTasks.filter((task) => task._id !== id)
+    );
+    getTasks();
+  } catch (error) {
+    console.error("Error: ", error);
+    context.handleAuthErr(error);
+  }
+};
 
   const deleteTask = async (id) => {
     try {
