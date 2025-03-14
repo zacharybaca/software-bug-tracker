@@ -23,17 +23,43 @@ const taskSchema = new mongoose.Schema({
 
 const Task = mongoose.model('Task', taskSchema);
 
+// Define keyword mappings for categories
+const categoryKeywords = {
+  Frontend: ["UI", "layout", "mobile", "button", "design", "responsive", "image", "CSS"],
+  Backend: ["API", "database", "server", "authentication", "backend", "request", "response", "endpoint"],
+  Performance: ["optimize", "speed", "performance", "load", "time", "CPU", "memory", "lag", "slow"],
+  Security: ["secure", "authentication", "login", "privacy", "encryption", "hack", "vulnerability"],
+  Uncategorized: [] // Default category if no match
+};
+
+// Function to determine category based on keywords
+function categorizeTask(task) {
+  const taskDescription = `${task.taskTitle} ${task.taskDetails}`.toLowerCase();
+
+  for (const [category, keywords] of Object.entries(categoryKeywords)) {
+    if (keywords.some(keyword => taskDescription.includes(keyword.toLowerCase()))) {
+      return category;
+    }
+  }
+
+  return "Uncategorized";  // Default category if no match found
+}
+
 // Fetch data from MongoDB
 Task.find()
   .then(tasks => {
-    const data = tasks.map(task => ({
-      taskTitle: task.taskTitle,
-      taskCompleted: task.taskCompleted ? 1 : 0,  // Convert to 1 or 0
-      taskDetails: task.taskDetails,
-      taskTodos: task.taskTodos.length,  // Assuming it's a count of todos
-      assignedEmployee: task.assignedEmployee,
-      Category: task.category,  // Add the category (Frontend, Backend, etc.)
-    }));
+    const data = tasks.map(task => {
+      const category = categorizeTask(task);
+
+      return {
+        taskTitle: task.taskTitle,
+        taskCompleted: task.taskCompleted ? 1 : 0,  // Convert to 1 or 0
+        taskDetails: task.taskDetails,
+        taskTodos: task.taskTodos.length,  // Assuming it's a count of todos
+        assignedEmployee: task.assignedEmployee,
+        Category: category,  // Automatically categorized
+      };
+    });
 
     // Convert data to CSV format
     const json2csvParser = new Parser();
