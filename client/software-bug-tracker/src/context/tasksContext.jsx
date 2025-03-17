@@ -3,6 +3,7 @@ import React, { useEffect, useState, useMemo, useCallback } from "react";
 import { EmployeesContext } from "./employeesContext";
 
 const TasksContext = React.createContext();
+const AI_API_URL = "https://ai-suggestion-service.onrender.com";
 
 function TasksContextProvider(props) {
   const context = React.useContext(EmployeesContext);
@@ -19,6 +20,15 @@ function TasksContextProvider(props) {
     }
     return token;
   };
+
+  async function getAIRecommendation(taskTitle, taskDetails) {
+    const response = await fetch(`${AI_API_URL}/predict-assignee`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ taskTitle, taskDetails })
+    });
+    return response.json();
+  }
 
   const addTask = async (newTask) => {
     try {
@@ -39,18 +49,30 @@ function TasksContextProvider(props) {
       }
 
       const data = await response.json();
-      const hasUserID = context.hasUserID(data.assignedEmployee);
+      setTasks((prevState) => [...prevState, data]);
 
-      if (!hasUserID && loggedInEmployee.isAdmin) {
-        throw new Error(`${data.assignedEmployee} Does Not Have a User ID Associated With It.`);
-      }
+      // Only fetch AI suggestion if no assignee was selected
+      if (!newTask.assignedEmployee) {
+        const aiResponse = await getAIRecommendation(newTask.taskTitle, newTask.taskDetails);
+        const aiData = await aiResponse.json();
 
-      if (data.assignedEmployee == null) {
-        setUnassignedTasks((prev) => [...prev, data].filter((task, index, self) =>
-          index === self.findIndex((t) => t._id === task._id)
-        ));
-      } else {
-        setTasks((prevState) => [...prevState, data]);
+        // Update task with AI-suggested assignee
+        if (aiData.assigned_developer) {
+          await fetch(`/api/main/tasks/${data._id}`, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({ assignedEmployee: aiData.assigned_developer }),
+          });
+
+          setTasks((prevState) =>
+            prevState.map((task) =>
+              task._id === data._id ? { ...task, assignedEmployee: aiData.assigned_developer } : task
+            )
+          );
+        }
       }
     } catch (error) {
       console.error(error);
@@ -60,7 +82,7 @@ function TasksContextProvider(props) {
   // This Function Utilizes the AI Recommendation Service
   // to Suggest Who the Unassigned Task Should Be Assigned To.
   const assignBug = async (bugDescription, category) => {
-    const response = await fetch("http://127.0.0.1:5000/predict-assignee", {
+    const response = await fetch(`${AI_API_URL}/predict-assignee`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ description: bugDescription, category: category }),
