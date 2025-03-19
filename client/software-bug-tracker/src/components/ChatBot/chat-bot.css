@@ -1,0 +1,8 @@
+#chatbot-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 15%;
+    height: 5vh;
+    border: 3px solid black;
+}
