@@ -23,7 +23,37 @@
 }
 
 #chatbot-box {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    width: 25%;
     border: 3px solid yellow;
+}
+
+#chatbot-box button {
+    font-family: "Protest Guerrilla", sans-serif;
+    font-style: normal;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: black;
+    background-color: #e6b17f;
+    min-width: 15%;
+}
+
+#chatbot-box button:hover {
+    cursor: url("./assets/click.png"), pointer;
+    background-color: #e6b17f;
+    color: white;
+}
+
+#chat--bot {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    border: 4px solid orange;
 }
 
 .glow-on-access {
