@@ -16,6 +16,12 @@ const ChatBot = () => {
                 <div id="chat--bot">
                     <h1>Chatbot</h1>
                     <h1>Chatbot2</h1>
+                    <h1>Chatbot3</h1>
+                    <h1>Chatbot4</h1>
+                    <h1>Chatbot5</h1>
+                    <h1>Chatbot6</h1>
+                    <h1>Chatbot7</h1>
+                    <h1>Chatbot8</h1>
                 </div>
             </div>}
         </>
