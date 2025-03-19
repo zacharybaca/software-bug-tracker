@@ -54,8 +54,8 @@
 #chatbot {
     display: flex;
     justify-content: flex-end;
-    border: 2px solid blue;
     min-width: 100%;
+    max-width: 100%;
     box-sizing: border-box;
 }
 
