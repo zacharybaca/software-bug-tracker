@@ -14,6 +14,7 @@ import UnAssignedTasks from "./components/UnAssignedTasks/UnAssignedTasks";
 import SnackBarNotification from "./components/SnackBarNotification/SnackBarNotification";
 import PasswordReset from "./components/PasswordReset/PasswordReset";
 import ChangeAppBackground from "./components/ChangeAppBackground/ChangeAppBackground";
+import ChatBot from "./components/ChatBot/ChatBot";
 import { SnackBarNotificationContext } from "./context/snackBarNotificationContext";
 import { EmployeesContext } from "./context/employeesContext";
 import { TasksContext } from "./context/tasksContext";
@@ -179,6 +180,12 @@ function App() {
           <Route path="/unauthorized" element={<UnauthorizedPage />} />
           <Route path="*" element={<PageDoesNotExist />} />
         </Routes>
+        {/* {loggedInEmployee ? <div id="chatbot">
+          <ChatBot />
+        </div> : ""} */}
+        <div id="chatbot">
+          <ChatBot />
+        </div>
         <Footer />
       </div>
     )
