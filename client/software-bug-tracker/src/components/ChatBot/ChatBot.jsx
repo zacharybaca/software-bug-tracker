@@ -7,9 +7,11 @@ const ChatBot = () => {
     const chatBot = React.useContext(ChatBotContext);
 
     return (
-        <div id="chatbot-container" className="glow-on-access">
-            <h1>Click Here for Help!</h1>
-        </div>
+        <>
+            {!chatBot.showChatBox ? <div id="chatbot-container" className="glow-on-access">
+                <h1>Click Here for Help!</h1>
+            </div> : ""}
+        </>
     )
 }
 
