@@ -12,8 +12,11 @@ const ChatBot = () => {
                 <h1 onClick={chatBot.toggleChatBox}>Click Here for Help!</h1>
             </div> : 
             <div id="chatbot-box">
-                <button type="button" id="chat-box-close-button" onClick={chatBot.toggleChatBox}>❎Close</button>
-                <h1>Chatbot</h1>
+                <button type="button" id="chat-box-close-button" className="glow-on-access" onClick={chatBot.toggleChatBox}>❎Close</button>
+                <div id="chat--bot">
+                    <h1>Chatbot</h1>
+                    <h1>Chatbot2</h1>
+                </div>
             </div>}
         </>
     )
