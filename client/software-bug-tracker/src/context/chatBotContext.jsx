@@ -4,9 +4,15 @@ const ChatBotContext = React.createContext();
 
 
 function ChatBotContextProvider(props) {
+    const [showChatBox, setShowChatBox] = React.useState(false);
 
     return (
-        <ChatBotContext.Provider>
+        <ChatBotContext.Provider
+            value={{
+                showChatBox,
+                setShowChatBox
+            }}
+        >
             {props.children}
         </ChatBotContext.Provider>
     );
