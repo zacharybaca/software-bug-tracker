@@ -26,7 +26,8 @@
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    width: 25%;
+    min-width: 25%;
+    max-width: 25%;
     border: 3px solid yellow;
 }
 
@@ -50,10 +51,21 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 10px;
     min-width: 100%;
     max-width: 100%;
     box-sizing: border-box;
+    overflow-y: scroll;
+    overflow-wrap: break-word;
     border: 4px solid orange;
+}
+
+#chat--bot h1 {
+    font-family: "Protest Guerrilla", sans-serif;
+    font-style: normal;
+    font-size: 2rem;
+    font-weight: 600;
+    color: black;
 }
 
 .glow-on-access {
