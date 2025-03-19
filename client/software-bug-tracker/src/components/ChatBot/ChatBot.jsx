@@ -8,7 +8,7 @@ const ChatBot = () => {
 
     return (
         <div id="chatbot-container">
-
+            <h1>Click Here for Help!</h1>
         </div>
     )
 }
