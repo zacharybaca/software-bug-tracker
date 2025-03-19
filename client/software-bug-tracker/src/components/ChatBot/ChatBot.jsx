@@ -9,10 +9,10 @@ const ChatBot = () => {
     return (
         <>
             {!chatBot.showChatBox ? <div id="chatbot-container" className="glow-on-access">
-                <h1>Click Here for Help!</h1>
+                <h1 onClick={chatBot.toggleChatBox}>Click Here for Help!</h1>
             </div> : 
             <div id="chatbot-box">
-                <button type="button" id="chat-box-close-button">❎Close</button>
+                <button type="button" id="chat-box-close-button" onClick={chatBot.toggleChatBox}>❎Close</button>
                 <h1>Chatbot</h1>
             </div>}
         </>
