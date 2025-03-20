@@ -23,8 +23,13 @@ const ChatBot = () => {
                         <li key={i}>Chatbot {i + 1}</li>
                     ))}
                     </ul>}
+                    <div id="message-box">
+                        <textarea id="messageArea" name="messageArea" rows="4" cols="50" placeholder="Type a message..."></textarea>
+                        <button type="submit" id="submitMessage" name="submitMessage">Send</button>
+                    </div>
                 </div>
-            </div>}
+            </div>
+            }
         </>
     )
 }
