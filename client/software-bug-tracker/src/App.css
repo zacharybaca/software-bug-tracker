@@ -51,14 +51,6 @@
     border: 2px solid black;
 }
 
-#chatbot {
-    display: flex;
-    justify-content: flex-end;
-    min-width: 100%;
-    max-width: 100%;
-    box-sizing: border-box;
-}
-
 #drop-down-housing-container {
     display: flex;
     justify-content: flex-end;

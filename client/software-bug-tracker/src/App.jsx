@@ -183,9 +183,7 @@ function App() {
         {/* {loggedInEmployee ? <div id="chatbot">
           <ChatBot />
         </div> : ""} */}
-        <div id="chatbot">
-          <ChatBot />
-        </div>
+        <ChatBot />
         <Footer />
       </div>
     )

@@ -1,7 +1,7 @@
-/* eslint-disable no-unused-vars */
 import React from 'react';
 import './chat-bot.css';
 import { ChatBotContext } from '../../context/chatBotContext';
+import ChatIcon from "../../assets/chat.ico";
 
 const ChatBot = () => {
     const chatBot = React.useContext(ChatBotContext);
@@ -9,8 +9,9 @@ const ChatBot = () => {
     return (
         <>
             {!chatBot.showChatBox ? <div id="chatbot-container" className="glow-on-access">
+                <img src={ChatIcon} alt="chat-icon" />
                 <h1 onClick={chatBot.toggleChatBox}>Click Here for Help!</h1>
-            </div> : 
+            </div> :
             <div id="chatbot-box">
                 <div id="chatbox-heading">
                     <h1>Issue Insight Chatbot</h1>

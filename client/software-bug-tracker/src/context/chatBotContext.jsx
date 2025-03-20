@@ -6,11 +6,15 @@ const ChatBotContext = React.createContext();
 function ChatBotContextProvider(props) {
     const [showChatBox, setShowChatBox] = React.useState(false);
 
+    const toggleChatBox = () => {
+        setShowChatBox(!showChatBox);
+    }
+
     return (
         <ChatBotContext.Provider
             value={{
                 showChatBox,
-                setShowChatBox
+                toggleChatBox
             }}
         >
             {props.children}
