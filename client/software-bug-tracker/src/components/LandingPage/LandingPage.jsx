@@ -11,7 +11,7 @@ const getInitialValues = () => ({
   userID: localStorage.getItem("userID") || "",
   password: "",
   avatarSize: "",
-  background: localStorage.getItem("background") ? localStorage.getItem("background") : DefaultImage,
+  background: localStorage.getItem("background") ? localStorage.getItem("background") : localStorage.setItem("background", DefaultImage),
   isChecked: !!localStorage.getItem("userID")
 });
 
