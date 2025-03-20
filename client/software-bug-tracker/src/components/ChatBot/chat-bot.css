@@ -8,7 +8,7 @@
     justify-content: center;
     align-items: center;
     width: 15%;
-    height: 5vh;
+    height: 8vh;
     font-family: "Protest Guerrilla", sans-serif;
     font-style: normal;
     font-size: 25px;
@@ -108,6 +108,23 @@
     font-weight: 600;
 }
 
+#help-button {
+    font-family: "Protest Guerrilla", sans-serif;
+    font-style: normal;
+    font-size: 1rem;
+    font-weight: 600;
+    color: black;
+    background-color: #e6b17f;
+    min-width: 45%;
+    max-width: 45%;
+}
+
+#help-button:hover {
+    cursor: url("./assets/click.png"), pointer;
+    background-color: #e6b17f;
+    color: white;
+}
+
 #message-box {
     display: flex;
     flex-direction: column;
@@ -120,7 +137,16 @@
     background-color: #FFE4A3;
 }
 
+#chatForm {
+    border: 3px solid blue;
+}
+textarea {
+    resize: none;
+}
+
 #messageArea {
+    min-width: 100%;
+    max-width: 100%;
     box-sizing: border-box;
 }
 
