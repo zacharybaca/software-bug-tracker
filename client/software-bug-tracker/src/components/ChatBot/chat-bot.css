@@ -123,6 +123,9 @@
     max-width: 45%;
 }
 
+#submit-message-button {
+    border: 2px solid yellow;
+}
 #help-button:hover {
     cursor: url("./assets/click.png"), pointer;
     background-color: #e6b17f;
@@ -149,12 +152,12 @@
     display: flex;
     min-width: fit-content;
     max-width: 100%;
-    border: 3px solid yellow;
 }
 
 #chatForm {
     border: 3px solid blue;
 }
+
 textarea {
     resize: none;
 }
