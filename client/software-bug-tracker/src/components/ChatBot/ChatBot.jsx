@@ -5,16 +5,7 @@ import ChatIcon from "../../assets/chat.ico";
 
 const ChatBot = () => {
     const chatBot = useContext(ChatBotContext);
-    const [message, setMessage] = useState("");
-    const [messages, setMessages] = useState([]);
-
-    const handleSendMessage = (e) => {
-        e.preventDefault();
-        if (message.trim()) {
-            setMessages([...messages, message]);
-            setMessage(""); // Clear input after sending
-        }
-    };
+    
 
     return (
         <>
@@ -43,20 +34,20 @@ const ChatBot = () => {
                             {[...Array(15)].map((_, i) => (
                             <li key={i}>Chatbot {i + 1}</li>
                             ))}
-                            {messages.map((msg, i) => (
+                            {chatBot.messages.map((msg, i) => (
                                 <li key={i}>{msg}</li>
                             ))}
                         </ul>
                         <div id="message-box">
-                            <form onSubmit={handleSendMessage}>
+                            <form onSubmit={chatBot.handleSendMessage}>
                                 <textarea 
                                     id="messageArea" 
                                     name="messageArea" 
                                     rows="4" 
                                     cols="50" 
                                     placeholder="Type a message..." 
-                                    value={message} 
-                                    onChange={(e) => setMessage(e.target.value)}
+                                    value={chatBot.message} 
+                                    onChange={(e) => chatBot.setMessage(e.target.value)}
                                 />
                                 <button type="submit" id="submitMessage">
                                     Send
