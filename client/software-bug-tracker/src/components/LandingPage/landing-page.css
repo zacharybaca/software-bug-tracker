@@ -286,4 +286,7 @@ a:hover {
     display: flex;
     justify-content: center;
     align-items: center;
+    font-weight: 800;
+    font-size: 1.5rem;
+    color: black;
 }

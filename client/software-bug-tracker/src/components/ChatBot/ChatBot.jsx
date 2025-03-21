@@ -1,11 +1,11 @@
-import React, { useContext, useState } from 'react';
+import React from 'react';
 import './chat-bot.css';
 import { ChatBotContext } from '../../context/chatBotContext';
 import ChatIcon from "../../assets/chat.ico";
 
 const ChatBot = () => {
-    const chatBot = useContext(ChatBotContext);
-    
+    const chatBot = React.useContext(ChatBotContext);
+
 
     return (
         <>
@@ -20,10 +20,10 @@ const ChatBot = () => {
                 <div id="chatbot-box">
                     <div id="chatbox-heading">
                         <h1>Issue Insight Chatbot</h1>
-                        <button 
-                            type="button" 
-                            id="chat-box-close-button" 
-                            className="glow-on-access" 
+                        <button
+                            type="button"
+                            id="chat-box-close-button"
+                            className="glow-on-access"
                             onClick={chatBot.toggleChatBox}
                         >
                             ❎ Close
@@ -40,16 +40,16 @@ const ChatBot = () => {
                         </ul>
                         <div id="message-box">
                             <form onSubmit={chatBot.handleSendMessage} id="message-form">
-                                <textarea 
-                                    id="messageArea" 
-                                    name="messageArea" 
-                                    rows="4" 
-                                    cols="50" 
-                                    placeholder="Type a message..." 
-                                    value={chatBot.message} 
+                                <textarea
+                                    id="messageArea"
+                                    name="messageArea"
+                                    rows="4"
+                                    cols="50"
+                                    placeholder="Type a message..."
+                                    value={chatBot.message}
                                     onChange={(e) => chatBot.setMessage(e.target.value)}
                                 />
-                                <button type="submit" id="submit-message-button">
+                                <button type="submit" id="submit-message-button" className="hvr-pulse">
                                     Send
                                 </button>
                             </form>
