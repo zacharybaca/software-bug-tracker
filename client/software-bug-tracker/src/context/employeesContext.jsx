@@ -75,21 +75,36 @@ function EmployeesContextProvider(props) {
     }
   };
 
-  const logout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-
-    setUserState({
-      user: {},
-      token: "",
-      errMsg: "",
-      tasks: [],
-    });
-
-    navigate("/");
+  const logout = async () => {
+    try {
+      const token = localStorage.getItem("token");
+  
+      if (token) {
+        await fetch("/api/employees/logout", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
+      }
+  
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+  
+      setUserState({
+        user: {},
+        token: "",
+        errMsg: "",
+        tasks: [],
+      });
+  
+      navigate("/");
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
   };
-
-
+  
   const getLoggedInEmployee = () => {
     const loggedIn = userState.user ? userState.user : null;
     if (!loggedIn) return false;
