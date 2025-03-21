@@ -49,7 +49,7 @@ const ChatBot = () => {
                                     value={chatBot.message} 
                                     onChange={(e) => chatBot.setMessage(e.target.value)}
                                 />
-                                <button type="submit" id="submitMessage">
+                                <button type="submit" id="submit-message-button">
                                     Send
                                 </button>
                             </form>
