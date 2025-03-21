@@ -39,7 +39,7 @@ const ChatBot = () => {
                             ))}
                         </ul>
                         <div id="message-box">
-                            <form onSubmit={chatBot.handleSendMessage}>
+                            <form onSubmit={chatBot.handleSendMessage} id="message-form">
                                 <textarea 
                                     id="messageArea" 
                                     name="messageArea" 
