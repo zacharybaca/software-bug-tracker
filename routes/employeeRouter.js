@@ -55,6 +55,15 @@ employeeRouter.route("/login").post(async (req, res, next) => {
   }
 });
 
+employeeRouter.route("/logout").post(async (req, res, next) => {
+  const token = req.header("Authorization")?.split(" ")[1];
+
+    if (!token) return res.status(400).json({ message: "No token provided" });
+
+    blacklistedTokens.add(token); // Invalidate the token
+    res.json({ message: "Logged out successfully" });
+});
+
 const upload = multer({ storage: storage });
 
 employeeRouter
