@@ -19,25 +19,45 @@ const ChatBot = () => {
             ) : (
                 <div id="chatbot-box">
                     <div id="chatbox-heading">
-                        <h1>Issue Insight Chatbot</h1>
-                        <button
-                            type="button"
-                            id="chat-box-close-button"
-                            className="glow-on-access"
-                            onClick={chatBot.toggleChatBox}
-                        >
-                            ❎ Close
-                        </button>
+                        <div id="chatbox-title">
+                            <img src={ChatIcon} alt="Chat Icon" />
+                            <h1>Issue Insight Chatbot</h1>
+                        </div>
+                        <div id="close-chat-button-container">
+                                <button
+                                    type="button"
+                                    id="chat-box-close-button"
+                                    className="glow-on-access"
+                                    onClick={chatBot.toggleChatBox}
+                                >
+                                    ❎ Close
+                                </button>
+                        </div>
+
                     </div>
                     <div id="chat--bot">
+
                         <ul>
                             {[...Array(15)].map((_, i) => (
-                            <li key={i}>Chatbot {i + 1}</li>
+
+                                <li key={i} className={i % 2 === 0 ? "user-message" : "bot-message"}>Chatbot {i + 1}</li>
+
+
                             ))}
                             {chatBot.messages.map((msg, i) => (
                                 <li key={i}>{msg}</li>
                             ))}
                         </ul>
+                            <ul>
+                                {Array.isArray(chatBot.messages) &&
+                                    chatBot.messages.map((msg, i) => (
+                                            <li key={i} className={msg.sender === "user" ? "user-message" : "bot-message"}>
+                                                {msg.sender === "user" ? "You: " : "Bot: "} {msg.text}
+                                            </li>
+                                    ))
+                                }
+                            </ul>
+                        <hr />
                         <div id="message-box">
                             <form onSubmit={chatBot.handleSendMessage} id="message-form">
                                 <textarea
@@ -51,6 +71,9 @@ const ChatBot = () => {
                                 />
                                 <button type="submit" id="submit-message-button" className="hvr-pulse">
                                     Send
+                                </button>
+                                <button type="button" id="clear-message-button" className="hvr-pulse" onClick={chatBot.clearMessage}>
+                                    Clear
                                 </button>
                             </form>
                         </div>

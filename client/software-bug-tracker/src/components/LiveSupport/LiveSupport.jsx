@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useRef, useEffect, useState, useContext, useReducer } from "react";
+import React, { useRef, useEffect, useState, useContext } from "react";
 import Lottie from 'react-lottie';
 import typingAnimation from '../../animations/typing-animation.json';
 import "./live-support.css";
@@ -11,7 +11,7 @@ import SpeechBubble from '../../assets/speech-bubble.gif';
 import SettingsLogo from '../../assets/settings.gif';
 import ChatListAvatar from '../../assets/developer.png';
 import ChatMessage from '../ChatMessage/ChatMessage';
-import Reducer from '../../reducer/Reducer';
+
 
 
 const LiveSupport = () => {
@@ -64,13 +64,6 @@ const LiveSupport = () => {
         )}
       </div>
     );
-  };
-
-  const handleStorage = (key, value, isNumber = false) => {
-    if (value !== undefined) {
-      localStorage.setItem(key, isNumber ? Number(value) : value);
-    }
-    return localStorage.getItem(key) || "";
   };
 
   // Function That Returns Parsed JSON
@@ -171,7 +164,7 @@ const LiveSupport = () => {
       socketRef.current.on("errorMessage", (errorMsg) => {
         alert(errorMsg);
       });
-      
+
       socketRef.current.on("typingUsers", (typingUsers) => {
         setUsersTyping(typingUsers);
       });

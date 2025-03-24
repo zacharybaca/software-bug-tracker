@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useReducer, useRef, useContext } from "react";
 import io from "socket.io-client";
 import { EmployeeContext } from "../../context/EmployeesContext";
