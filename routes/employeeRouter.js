@@ -6,6 +6,7 @@ const path = require('path');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
+const blacklistedTokens = new Set(); // Set to store blacklisted tokens
 
 const multer = require('multer');
 
@@ -40,11 +41,11 @@ employeeRouter.route("/login").post(async (req, res, next) => {
     }
 
     const token = jwt.sign(
-      { _id: employee._id, userID: employee.user.userID }, 
-      process.env.SECRET, 
+      { _id: employee._id, userID: employee.user.userID },
+      process.env.SECRET,
       { expiresIn: "1h" } // Token expires in 1 hour
     );
-    
+
     return res.status(201).send({
       user: { _id: employee._id, userID: employee.user.userID },
       token,
