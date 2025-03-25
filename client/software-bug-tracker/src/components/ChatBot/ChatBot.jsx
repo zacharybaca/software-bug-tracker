@@ -2,6 +2,9 @@ import React from 'react';
 import './chat-bot.css';
 import { ChatBotContext } from '../../context/chatBotContext';
 import ChatIcon from "../../assets/chat.ico";
+import BotIcon from "../../assets/bot.png";
+import DevIcon from "../../assets/developer-chatbot.png";
+import CloseIcon from "../../assets/close-chat-icon.png";
 
 const ChatBot = () => {
     const chatBot = React.useContext(ChatBotContext);
@@ -30,7 +33,7 @@ const ChatBot = () => {
                                     className="glow-on-access"
                                     onClick={chatBot.toggleChatBox}
                                 >
-                                    ❎ Close
+                                    <img src={CloseIcon} alt="Close Icon" />
                                 </button>
                         </div>
 
@@ -51,7 +54,7 @@ const ChatBot = () => {
                                 {Array.isArray(chatBot.messages) &&
                                     chatBot.messages.map((msg, i) => (
                                         <li key={i} className={msg.sender === "user" ? "user-message" : "bot-message"}>
-                                            {msg.sender === "user" ? "You: " : "Bot: "}
+                                            {msg.sender === "user" ? <span className="you-span"><img src={DevIcon} alt="Developer Icon" /> You: </span> : <span className="bot-span"><img src={BotIcon} alt="Bot Icon" /> Bot: </span>}
                                             {typeof msg.text === "string" ? msg.text : msg.text.message}
                                         </li>
 
@@ -59,7 +62,7 @@ const ChatBot = () => {
                                 }
 
                             </ul>
-                        <hr />
+
                         <div id="message-box">
                             <form onSubmit={chatBot.handleSendMessage} id="message-form">
                                 <textarea

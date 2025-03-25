@@ -86,8 +86,7 @@
     padding-top: 2%;
     min-width: 100%;
     max-width: 100%;
-    max-height: 30vh;
-    min-height: 30vh;
+    height: 70vh;
     overflow-y: auto;
     box-sizing: border-box;
     border-radius: 10px;
@@ -133,6 +132,11 @@
     box-sizing: border-box;
 }
 
+#close-chat-button-container img {
+    width: 40px;
+    height: 40px;;
+}
+
 #chatbox-heading h1 {
     font-family: "Protest Guerrilla", sans-serif;
     font-style: normal;
@@ -176,15 +180,19 @@
 }
 
 #chat-box-close-button {
-    border: 5px solid black;
+    border: 2px solid black;
+    max-width: max-content;
+    max-height: max-content;
 }
 
 #message-box {
+    position: sticky;
+    bottom: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-width: max-content;
-    max-width: 95%;
+    min-width: 97%;
+    max-width: 97%;
     padding-top: 2%;
     padding-bottom: 2%;
     box-sizing: border-box;
@@ -337,7 +345,7 @@ textarea::placeholder {
     border: 3px solid black;
     border-radius: 10px;
     text-align: right;
-    color: blue;
+    color: black;
 }
 
 .bot-message {
@@ -356,11 +364,30 @@ textarea::placeholder {
     border: 3px solid black;
     border-radius: 10px;
     text-align: left;
+    color: black;
+}
+
+.you-span {
+    display: block;
+    margin: 0 auto;
     color: green;
+}
+
+.bot-span {
+    display: block;
+    margin: 0 auto;
+    color: red;
 }
 
 hr {
     margin-bottom: 5%;
     min-width: 90%;
     max-width: 90%;
+}
+
+#chatbot-container:hover,
+#help-button:hover,
+#chatbot-box button:hover {
+    background-color: #e6b17f;
+    color: black;
 }
