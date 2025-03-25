@@ -5,7 +5,7 @@ import ChatIcon from "../../assets/chat.ico";
 
 const ChatBot = () => {
     const chatBot = React.useContext(ChatBotContext);
-
+    console.log('CM: ', chatBot.messages.map(msg => msg.text[0]));
 
     return (
         <>
@@ -44,18 +44,20 @@ const ChatBot = () => {
 
 
                             ))}
-                            {chatBot.messages.map((msg, i) => (
-                                <li key={i}>{msg}</li>
-                            ))}
+                                    {console.log("ChatBot messages:", chatBot.messages.map(msg => msg.text))
+}
                         </ul>
                             <ul>
                                 {Array.isArray(chatBot.messages) &&
                                     chatBot.messages.map((msg, i) => (
-                                            <li key={i} className={msg.sender === "user" ? "user-message" : "bot-message"}>
-                                                {msg.sender === "user" ? "You: " : "Bot: "} {msg.text}
-                                            </li>
+                                        <li key={i} className={msg.sender === "user" ? "user-message" : "bot-message"}>
+                                            {msg.sender === "user" ? "You: " : "Bot: "}
+                                            {typeof msg.text === "string" ? msg.text : msg.text.message}
+                                        </li>
+
                                     ))
                                 }
+
                             </ul>
                         <hr />
                         <div id="message-box">

@@ -25,9 +25,13 @@ function ChatBotContextProvider(props) {
         e.preventDefault();
         if (message.trim()) {
             // Add the user's message to the chat
-            setMessages((prevMessages) => [...prevMessages, { sender: "user", text: message }]);
+            setMessages((prevMessages) => [
+                ...prevMessages,
+                { sender: "user", text: typeof message === "string" ? message : message.message }
+            ]);
 
             const userMessage = message; // Save message before clearing
+            console.log('userMessage', userMessage)
             setMessage(""); // Clear input after sending
 
             // Send the message to the chatbot
@@ -53,17 +57,33 @@ function ChatBotContextProvider(props) {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${token}`,
                 },
-                body: JSON.stringify(message),
+                body: JSON.stringify({ message }), // Ensure it's structured correctly
             });
 
+            if (!token) {
+                setMessages((prevMessages) => [
+                    ...prevMessages,
+                    { sender: "bot", text: "You are not logged in. Please log in to interact with the chatbot." },
+                ]);
+            };
+            
             if (!response.ok) {
                 throw new Error(`${response.status} ${response.statusText} : ${await response.text()}`);
             }
 
             const data = await response.json();
-            setMessages((prevMessages) => [...prevMessages, { sender: "bot", text: data.answer }]);
+            console.log("API response:", data); // Log the response format for debugging
+
+            // Ensure data.text is either a string or an array
+            const botResponse = Array.isArray(data.text) ? data.text.join(" ") : data.text;
+
+            // Add the response to the messages
+            setMessages((prevMessages) => [
+                ...prevMessages,
+                { sender: "bot", text: botResponse },
+            ]);
         } catch (error) {
-            console.error(error);
+            console.error("Error:", error);
         }
     };
 
