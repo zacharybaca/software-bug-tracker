@@ -17,8 +17,12 @@ const PasswordReset = () => {
             <div className="dialog-overlay">
                 <div className="dialog-content">
                     <div id="password-reset-container">
-                        {console.log('context: ', context)}
-                        <h1>Password Reset</h1>
+                        <div id="password-reset-header">
+                            <h1>Password Reset</h1>
+                        </div>
+                        <br />
+                        <br />
+                        <hr />
                         <form id="password-reset-form">
                             <label htmlFor="userID">Enter Your UserID:</label>
                             <input
