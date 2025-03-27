@@ -64,7 +64,7 @@ const ChatBot = () => {
                                 {Array.isArray(chatBot.messages) &&
                                     chatBot.messages.map((msg, i) => (
                                         <li key={i} className={msg.sender === "user" ? "user-message" : "bot-message"}>
-                                            {msg.sender === "user" ? <span className="you-span"><img src={DevIcon} alt="Developer Icon" /> {loggedInEmployee ? loggedInEmployee.firstName + " " + loggedInEmployee.lastName : "You"}</span> : <span className="bot-span"><img src={BotIcon} alt="Bot Icon" /> Bot: </span>}
+                                            {msg.sender === "user" ? <span className="you-span"><img src={DevIcon} alt="Developer Icon" /> {loggedInEmployee ? loggedInEmployee.firstName + " " + loggedInEmployee.lastName : "You: "}</span> : <span className="bot-span"><img src={BotIcon} alt="Bot Icon" /> Bot: </span>}
                                             {typeof msg.text === "string" ? msg.text : msg.text.message}
                                         </li>
 
