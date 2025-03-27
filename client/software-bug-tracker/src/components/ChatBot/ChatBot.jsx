@@ -8,7 +8,14 @@ import CloseIcon from "../../assets/close-chat-icon.png";
 
 const ChatBot = () => {
     const chatBot = React.useContext(ChatBotContext);
+    const chatRef = React.useRef(null);
     console.log('CM: ', chatBot.messages.map(msg => msg.text[0]));
+
+    React.useEffect(() => {
+        if (chatRef.current) {
+            chatRef.current.scrollTop = chatRef.current.scrollHeight;
+          }
+    }, [chatBot.messages]);
 
     return (
         <>
@@ -38,7 +45,7 @@ const ChatBot = () => {
                         </div>
 
                     </div>
-                    <div id="chat--bot">
+                    <div id="chat--bot" ref={chatRef}>
 
                         <ul>
                             {[...Array(15)].map((_, i) => (
