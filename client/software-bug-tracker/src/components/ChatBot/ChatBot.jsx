@@ -1,14 +1,17 @@
 import React from 'react';
 import './chat-bot.css';
 import { ChatBotContext } from '../../context/chatBotContext';
+import { EmployeesContext } from '../../context/employeesContext';
 import ChatIcon from "../../assets/chat.ico";
 import BotIcon from "../../assets/bot.png";
 import DevIcon from "../../assets/developer-chatbot.png";
 import CloseIcon from "../../assets/close-chat-icon.png";
 
 const ChatBot = () => {
+    const employees = React.useContext(EmployeesContext);
     const chatBot = React.useContext(ChatBotContext);
     const chatRef = React.useRef(null);
+    const loggedInEmployee = employees.getLoggedInEmployee();
     console.log('CM: ', chatBot.messages.map(msg => msg.text[0]));
 
     React.useEffect(() => {
@@ -61,7 +64,7 @@ const ChatBot = () => {
                                 {Array.isArray(chatBot.messages) &&
                                     chatBot.messages.map((msg, i) => (
                                         <li key={i} className={msg.sender === "user" ? "user-message" : "bot-message"}>
-                                            {msg.sender === "user" ? <span className="you-span"><img src={DevIcon} alt="Developer Icon" /> You: </span> : <span className="bot-span"><img src={BotIcon} alt="Bot Icon" /> Bot: </span>}
+                                            {msg.sender === "user" ? <span className="you-span"><img src={DevIcon} alt="Developer Icon" /> {loggedInEmployee ? loggedInEmployee.firstName + " " + loggedInEmployee.lastName : "You"}</span> : <span className="bot-span"><img src={BotIcon} alt="Bot Icon" /> Bot: </span>}
                                             {typeof msg.text === "string" ? msg.text : msg.text.message}
                                         </li>
 
