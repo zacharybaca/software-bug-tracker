@@ -1,8 +1,8 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import './password-reset.css';
-import { PasswordResetContext } from '../../context/passwordResetContext';
-import { EmployeesContext } from '../../context/employeesContext';
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import "./password-reset.css";
+import { PasswordResetContext } from "../../context/passwordResetContext";
+import { EmployeesContext } from "../../context/employeesContext";
 
 const PasswordReset = () => {
     const context = React.useContext(PasswordResetContext);
@@ -11,22 +11,18 @@ const PasswordReset = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-    
+
         const { userID, accessCode, newPassword, confirmPassword } = context.formData;
-    
-        // Assuming employeeID is fetched from EmployeesContext or stored elsewhere
         const employee = employeesContext.employees.find(emp => emp.user.userID === userID);
-    
+
         if (!employee) {
-            alert("User not found!"); // Replace with proper error handling
+            employeesContext.handleAuthErr({ message: "User not found!", type: "userID" });
             return;
         }
-    
-        context.updateEmployeePassword(userID, accessCode, newPassword, confirmPassword);
 
-        context.handleShowPasswordResetForm
+        context.updateEmployeePassword(userID, accessCode, newPassword, confirmPassword);
     };
-    
+
     return (
         context.showPasswordResetForm && (
             <div className="dialog-overlay">
@@ -35,10 +31,8 @@ const PasswordReset = () => {
                         <div id="password-reset-header">
                             <h1>Password Reset</h1>
                         </div>
-                        <br />
-                        <br />
                         <hr />
-                        <form id="password-reset-form">
+                        <form id="password-reset-form" onSubmit={handleSubmit}>
                             <label htmlFor="userID">Enter Your UserID:</label>
                             <input
                                 type="text"
@@ -75,21 +69,15 @@ const PasswordReset = () => {
                                 onChange={context.handleChange}
                                 placeholder="Confirm New Password"
                             />
-                            <button
-                                type="submit"
-                                className="glow-on-hover"
-                                value="change password"
-                                onClick={handleSubmit}
-                            >
+                            <button type="submit" className="glow-on-hover">
                                 Change Password
                             </button>
                             <button
                                 type="button"
                                 className="glow-on-hover"
-                                value="close"
                                 onClick={() => {
                                     context.handleClosePasswordResetForm();
-                                    setTimeout(() => navigate("/"), 100); // Small delay to ensure the function executes first
+                                    setTimeout(() => navigate("/"), 100);
                                 }}
                             >
                                 Close
@@ -104,7 +92,7 @@ const PasswordReset = () => {
                 </div>
             </div>
         )
-    )
-}
+    );
+};
 
 export default PasswordReset;
