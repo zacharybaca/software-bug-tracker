@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "./password-reset.css";
 import { PasswordResetContext } from "../../context/passwordResetContext";
 import { EmployeesContext } from "../../context/employeesContext";
+import { v4 as uuidv4 } from "uuid";
 
 const PasswordReset = () => {
     const context = React.useContext(PasswordResetContext);
@@ -23,6 +24,13 @@ const PasswordReset = () => {
         context.updateEmployeePassword(userID, accessCode, newPassword, confirmPassword);
     };
 
+    // Generate unique IDs for each field
+    const userIDFieldId = uuidv4();
+    const accessCodeFieldId = uuidv4();
+    const newPasswordFieldId = uuidv4();
+    const confirmPasswordFieldId = uuidv4();
+    const passwordResetFormId = uuidv4();
+
     return (
         context.showPasswordResetForm && (
             <div className="dialog-overlay">
@@ -32,11 +40,11 @@ const PasswordReset = () => {
                             <h1>Password Reset</h1>
                         </div>
                         <hr />
-                        <form id="password-reset-form" onSubmit={handleSubmit}>
+                        <form id={passwordResetFormId} onSubmit={handleSubmit}>
                             <label htmlFor="userID">Enter Your UserID:</label>
                             <input
                                 type="text"
-                                id="userID"
+                                id={userIDFieldId}
                                 name="userID"
                                 value={context.formData.userID}
                                 onChange={context.handleChange}
@@ -45,7 +53,7 @@ const PasswordReset = () => {
                             <label htmlFor="accessCode">Enter Access Code:</label>
                             <input
                                 type="number"
-                                id="accessCode"
+                                id={accessCodeFieldId}
                                 name="accessCode"
                                 value={context.formData.accessCode}
                                 onChange={context.handleChange}
@@ -54,7 +62,7 @@ const PasswordReset = () => {
                             <label htmlFor="newPassword">Enter New Password:</label>
                             <input
                                 type="password"
-                                id="newPassword"
+                                id={newPasswordFieldId}
                                 name="newPassword"
                                 value={context.formData.newPassword}
                                 onChange={context.handleChange}
@@ -63,7 +71,7 @@ const PasswordReset = () => {
                             <label htmlFor="confirmPassword">Confirm New Password:</label>
                             <input
                                 type="password"
-                                id="confirmPassword"
+                                id={confirmPasswordFieldId}
                                 name="confirmPassword"
                                 value={context.formData.confirmPassword}
                                 onChange={context.handleChange}
