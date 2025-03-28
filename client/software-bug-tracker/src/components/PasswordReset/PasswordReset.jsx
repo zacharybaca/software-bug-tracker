@@ -21,6 +21,8 @@ const PasswordReset = () => {
         }
     
         context.updateEmployeePassword(userID, accessCode, newPassword, confirmPassword, employee._id);
+
+        context.handleShowPasswordResetForm
     };
     
     return (
@@ -34,7 +36,7 @@ const PasswordReset = () => {
                         <br />
                         <br />
                         <hr />
-                        <form id="password-reset-form" onSubmit={handleSubmit}>
+                        <form id="password-reset-form">
                             <label htmlFor="userID">Enter Your UserID:</label>
                             <input
                                 type="text"
@@ -75,7 +77,7 @@ const PasswordReset = () => {
                                 type="submit"
                                 className="glow-on-hover"
                                 value="change password"
-                                onClick={context.handleShowPasswordResetForm}
+                                onClick={handleSubmit}
                             >
                                 Change Password
                             </button>
@@ -83,9 +85,9 @@ const PasswordReset = () => {
                                 type="button"
                                 className="glow-on-hover"
                                 value="close"
-                                onClick={() =>
-                                    {context.handleClosePasswordResetForm()
-                                    navigate("/")
+                                onClick={() => {
+                                    context.handleClosePasswordResetForm();
+                                    setTimeout(() => navigate("/"), 100); // Small delay to ensure the function executes first
                                 }}
                             >
                                 Close
