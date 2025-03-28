@@ -15,6 +15,7 @@ function EmployeesContextProvider(props) {
     token: localStorage.getItem("token") || "",
     tasks: [],
     errMsg: "",
+    errorType: "",
     accessCode: ""
   };
 
