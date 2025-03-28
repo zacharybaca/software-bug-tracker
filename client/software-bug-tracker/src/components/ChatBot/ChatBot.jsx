@@ -12,14 +12,14 @@ const ChatBot = () => {
     const chatBot = React.useContext(ChatBotContext);
     const chatRef = React.useRef(null);
     const loggedInEmployee = employees.getLoggedInEmployee();
-    console.log('CM: ', chatBot.messages.map(msg => msg.text[0]));
+    console.log('CM: ', chatBot.messages.map(msg => msg.text));
 
     React.useEffect(() => {
         if (chatRef.current) {
             chatRef.current.scrollTop = chatRef.current.scrollHeight;
           }
     }, [chatBot.messages]);
-
+    console.log('Messages: ', chatBot.messages);
     return (
         <>
             {!chatBot.showChatBox ? (
@@ -65,7 +65,7 @@ const ChatBot = () => {
                                     chatBot.messages.map((msg, i) => (
                                         <li key={i} className={msg.sender === "user" ? "user-message" : "bot-message"}>
                                             {msg.sender === "user" ? <span className="you-span"><img src={DevIcon} alt="Developer Icon" /> {loggedInEmployee ? loggedInEmployee.firstName + " " + loggedInEmployee.lastName : "You: "}</span> : <span className="bot-span"><img src={BotIcon} alt="Bot Icon" /> Bot: </span>}
-                                            {typeof msg.text === "string" ? msg.text : msg.text.message}
+                                            {typeof msg.text === "string" ? msg.text : String(msg.text)}
                                         </li>
 
                                     ))

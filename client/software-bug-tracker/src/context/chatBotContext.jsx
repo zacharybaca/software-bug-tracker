@@ -51,6 +51,13 @@ function ChatBotContextProvider(props) {
         try {
             const token = getToken();
 
+            if (!token) {
+                setMessages((prevMessages) => [
+                    ...prevMessages,
+                    { sender: "bot", text: "You are not logged in. Please log in to interact with the chatbot." },
+                ]);
+            };
+
             const response = await fetch(apiUrl, {
                 method: "POST",
                 headers: {
@@ -60,13 +67,6 @@ function ChatBotContextProvider(props) {
                 body: JSON.stringify({ message }), // Ensure it's structured correctly
             });
 
-            if (!token) {
-                setMessages((prevMessages) => [
-                    ...prevMessages,
-                    { sender: "bot", text: "You are not logged in. Please log in to interact with the chatbot." },
-                ]);
-            };
-            
             if (!response.ok) {
                 throw new Error(`${response.status} ${response.statusText} : ${await response.text()}`);
             }
@@ -75,7 +75,7 @@ function ChatBotContextProvider(props) {
             console.log("API response:", data); // Log the response format for debugging
 
             // Ensure data.text is either a string or an array
-            const botResponse = Array.isArray(data.text) ? data.text.join(" ") : data.text;
+            const botResponse = data.answer || data.text || "I didn't understand that.";
 
             // Add the response to the messages
             setMessages((prevMessages) => [
