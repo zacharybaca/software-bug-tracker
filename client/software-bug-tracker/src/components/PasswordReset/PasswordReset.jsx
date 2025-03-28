@@ -7,11 +7,22 @@ const PasswordReset = () => {
     const context = React.useContext(PasswordResetContext);
     const navigate = useNavigate();
 
-
-
-
-
-
+    const handleSubmit = (e) => {
+        e.preventDefault();
+    
+        const { userID, accessCode, newPassword, confirmPassword } = context.formData;
+    
+        // Assuming employeeID is fetched from EmployeesContext or stored elsewhere
+        const employee = employeesContext.employees.find(emp => emp.user.userID === userID);
+    
+        if (!employee) {
+            alert("User not found!"); // Replace with proper error handling
+            return;
+        }
+    
+        context.updateEmployeePassword(userID, accessCode, newPassword, confirmPassword, employee._id);
+    };
+    
     return (
         context.showPasswordResetForm && (
             <div className="dialog-overlay">
@@ -23,7 +34,7 @@ const PasswordReset = () => {
                         <br />
                         <br />
                         <hr />
-                        <form id="password-reset-form">
+                        <form id="password-reset-form" onSubmit={handleSubmit}>
                             <label htmlFor="userID">Enter Your UserID:</label>
                             <input
                                 type="text"
