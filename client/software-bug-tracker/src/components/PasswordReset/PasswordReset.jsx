@@ -20,7 +20,7 @@ const PasswordReset = () => {
             return;
         }
     
-        context.updateEmployeePassword(userID, accessCode, newPassword, confirmPassword, employee._id);
+        context.updateEmployeePassword(userID, accessCode, newPassword, confirmPassword);
 
         context.handleShowPasswordResetForm
     };
