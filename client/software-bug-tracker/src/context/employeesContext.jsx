@@ -21,6 +21,18 @@ function EmployeesContextProvider(props) {
 
   const [userState, setUserState] = useState(initialState);
 
+  const handleAuthErr = (error) => {
+    setUserState((prevState) => ({
+        ...prevState,
+        errMsg: error.message || "Something went wrong. Please try again.",
+        errorType: error.type || "general",
+    }));
+};
+
+  const resetAuthErr = () => {
+    setUserState((prevState) => ({ ...prevState, errMsg: "" }));
+  };
+  
   const getToken = () => {
     const token = localStorage.getItem("token");
     if (!token) throw new Error("No Token Present");
@@ -132,18 +144,6 @@ function EmployeesContextProvider(props) {
   const hasUserID = (id) => {
     const employee = employees.find((employee) => employee._id === id);
     return !!employee?.user?.userID;
-  };
-
-  const handleAuthErr = (error) => {
-    setUserState((prevState) => ({
-        ...prevState,
-        errMsg: error.message || "Something went wrong. Please try again.",
-        errorType: error.type || "general",
-    }));
-};
-
-  const resetAuthErr = () => {
-    setUserState((prevState) => ({ ...prevState, errMsg: "" }));
   };
 
   const addEmployee = async (newEmployee) => {
