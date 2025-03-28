@@ -31,18 +31,22 @@ function PasswordResetContextProvider({ children }) {
             const employee = employeesContext.employees.find(emp => emp.user.userID === userID);
     
             if (!employee) {
-                throw new Error("User not found");
+                throw { message: "User not found", type: "userID" };
             }
-    
-            const updatedInfo = { userID, accessCode, newPassword, confirmPassword };
     
             const response = await fetch(`/api/employees/${employee._id}/reset-password`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(updatedInfo),
+                body: JSON.stringify({ userID, accessCode, newPassword, confirmPassword }),
             });
     
-            if (!response.ok) throw new Error(`Failed to update password: ${response.statusText}`);
+            if (response.status === 401) {
+                throw { message: "Invalid access code.", type: "accessCode" };
+            } else if (response.status === 400) {
+                throw { message: "Passwords do not match.", type: "password" };
+            } else if (!response.ok) {
+                throw { message: `Server error: ${response.statusText}`, type: "general" };
+            }
     
             const updatedEmployee = await response.json();
     
@@ -51,9 +55,9 @@ function PasswordResetContextProvider({ children }) {
             );
     
         } catch (error) {
-            employeesContext.handleAuthErr(error.message);
+            employeesContext.handleAuthErr(error);
         }
-    };    
+    };        
 
     return (
         <PasswordResetContext.Provider
