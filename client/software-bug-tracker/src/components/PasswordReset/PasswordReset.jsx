@@ -2,9 +2,11 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './password-reset.css';
 import { PasswordResetContext } from '../../context/passwordResetContext';
+import { EmployeesContext } from '../../context/employeesContext';
 
 const PasswordReset = () => {
     const context = React.useContext(PasswordResetContext);
+    const employeesContext = React.useContext(EmployeesContext);
     const navigate = useNavigate();
 
     const handleSubmit = (e) => {
@@ -93,6 +95,11 @@ const PasswordReset = () => {
                                 Close
                             </button>
                         </form>
+                        {employeesContext.userState.errMsg && (
+                            <p className={`error-message ${employeesContext.userState.errorType}`}>
+                                {employeesContext.userState.errMsg}
+                            </p>
+                        )}
                     </div>
                 </div>
             </div>
