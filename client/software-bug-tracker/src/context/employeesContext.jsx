@@ -133,12 +133,13 @@ function EmployeesContextProvider(props) {
     return !!employee?.user?.userID;
   };
 
-  const handleAuthErr = (errMsg) => {
+  const handleAuthErr = (error) => {
     setUserState((prevState) => ({
-      ...prevState,
-      errMsg,
+        ...prevState,
+        errMsg: error.message || "Something went wrong. Please try again.",
+        errorType: error.type || "general",
     }));
-  };
+};
 
   const resetAuthErr = () => {
     setUserState((prevState) => ({ ...prevState, errMsg: "" }));
