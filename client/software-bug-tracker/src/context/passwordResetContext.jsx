@@ -44,7 +44,10 @@ function PasswordResetContextProvider({ children }) {
                 throw { message: "Invalid access code.", type: "accessCode" };
             } else if (response.status === 400) {
                 throw { message: "Passwords do not match.", type: "password" };
-            } else if (!response.ok) {
+            } else if (response.status === 403) {
+                throw { message: "You are not authorized to view this content.", type: "access"};
+            }
+             else if (!response.ok) {
                 throw { message: `Server error: ${response.statusText}`, type: "general" };
             }
     
