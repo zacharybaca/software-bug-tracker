@@ -11,13 +11,13 @@ export const AppProviders = ({ children }) => {
     <Router>
       <ChatBotContextProvider>
         <ConfirmationDialogBoxContextProvider>
-          <PasswordResetContextProvider>
             <SnackBarNotificationContextProvider>
               <EmployeesContextProvider>
-                <TasksContextProvider>{children}</TasksContextProvider>
+                <PasswordResetContextProvider>
+                  <TasksContextProvider>{children}</TasksContextProvider>
+                </PasswordResetContextProvider>
               </EmployeesContextProvider>
             </SnackBarNotificationContextProvider>
-          </PasswordResetContextProvider>
         </ConfirmationDialogBoxContextProvider>
       </ChatBotContextProvider>
     </Router>
