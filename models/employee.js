@@ -90,6 +90,17 @@ employeeSchema.methods.withoutPassword = function() {
   return user;
 }
 
+// Virtual property to combine first and last name into a full name
+employeeSchema.virtual("fullName").get(function() {
+  return `${this.firstName} ${this.lastName}`;
+});
+
+// Virtual property to get the avatar URL
+employeeSchema.virtual("profilePicture").get(function() {
+  return this.avatar || '/uploads/default-profile-pic.jpg';
+});
+
+// Check if the employee has a user ID for authentication
 employeeSchema.virtual("hasUserID").get(function () {
   return !!this.user?.userID; // Returns true if userID exists, false otherwise
 });
