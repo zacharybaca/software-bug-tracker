@@ -1,6 +1,6 @@
 # Software Bug Tracker
 
-This is a full-stack web application designed for managing software development tasks and tracking bugs. The application allows users to create, assign, and update tasks. It's particularly useful for teams, providing tools to manage tasks between employees and managers.
+This comprehensive full-stack web application facilitates efficient management of software development tasks and bug tracking. It enables users to create, assign, update, and monitor tasks, making it particularly beneficial for teams by providing tools to manage tasks among employees and managers.
 
 ## Table of Contents
 
@@ -10,6 +10,9 @@ This is a full-stack web application designed for managing software development 
 - [Installation](#installation)
 - [Running the Application](#running-the-application)
 - [API Documentation](#api-documentation)
+- [WebSocket Messaging](#websocket-messaging)
+- [Project Structure](#project-structure)
+- [Deployment](#deployment)
 - [Future Enhancements](#future-enhancements)
 
 ## Features
@@ -19,42 +22,43 @@ This is a full-stack web application designed for managing software development 
 - **Authentication**: Secure login using JWT tokens.
 - **Role-Based Access**: Employees and managers have different access permissions.
 - **Task Filters**: View tasks based on their completion status (completed or incomplete).
+- **Real-Time Chat**: Integrated WebSocket server for instant messaging between users.
+- **Chatbot Assistance**: Users can interact with an AI-powered chatbot to manage tasks and receive assistance.
 
 ## Technologies Used
 
-- **Frontend**: React.js
-- **Backend**: Node.js, Express.js
-- **Database**: MongoDB with Mongoose ORM
-- **Authentication**: JWT (JSON Web Tokens)
-- **Styling**: CSS
+- **Frontend**: React.js with Vite for fast development and optimized builds.
+- **Backend**: Node.js, Express.js.
+- **Database**: MongoDB with Mongoose ORM.
+- **Authentication**: JWT (JSON Web Tokens).
+- **Styling**: CSS.
+- **WebSockets**: Integrated WebSocket server for real-time communication.
+- **AI Chatbot**: NLP.js for natural language processing and chatbot functionalities.
 
 ## Prerequisites
 
 Ensure you have the following installed on your machine:
 
-- **Node.js**: v14.x or later
-- **npm**: v6.x or later
-- **MongoDB**: A running MongoDB instance, either local or cloud-based (e.g., MongoDB Atlas)
-- **Git**: To clone the repository
-- **Vite**: For Frontend Development
-- **Render**: Hosting For Deployment
+- **Node.js**: v14.x or later.
+- **npm**: v6.x or later.
+- **MongoDB**: A running MongoDB instance, either local or cloud-based (e.g., MongoDB Atlas).
+- **Git**: To clone the repository.
+- **Vite**: For frontend development.
+- **Render**: Hosting for deployment.
 
 ## Installation
 
 1. **Clone the repository**:
    ```bash
    git clone https://github.com/zacharybaca/software-bug-tracker.git
-   ```
 
 2. **Navigate to the project directory**:
    ```bash
    cd software-bug-tracker
-   ```
 
 3. **Install backend dependencies**:
    ```bash
    npm install
-   ```
 
 4. **Navigate to the frontend directory**:
    ```bash
@@ -63,7 +67,6 @@ Ensure you have the following installed on your machine:
 5. **Install frontend dependencies**:
    ```bash
    npm install
-   ```
 
 6. **Create a <code>.env</code> file in the root directory with the following contents**:
    ```bash
@@ -71,12 +74,10 @@ Ensure you have the following installed on your machine:
    SECRET=<your-jwt-secret>
    PORT=9000
    NODE_ENV=development
-   ```
 
 7. **Optional: If using MongoDB locally, ensure the service is running**:
    ```bash
    mongod
-   ```
 
 ## Running the Application
 
@@ -93,7 +94,6 @@ Ensure you have the following installed on your machine:
    
 - The backend API will run at <code>http://localhost:9000</code>.
 - The frontend will be accessible at <code>http://localhost:3000</code>.
-
 
 # API Documentation
 
@@ -199,6 +199,5 @@ Ensure you have the following installed on your machine:
 
 # Future Enhancements
    - Email Notifications: Notify users when tasks are assigned or updated.
-   - Improved Task Filters: Filter tasks by priority and due dates.
-   - Reporting: Generate reports on task completion and employee performance.
-   - Comments: Add a commenting system to tasks for better communication.
+   - Priority and due date filters.
+   - Better chatbot NLP and response context.
