@@ -15,11 +15,11 @@ function ChatBotContextProvider(props) {
     const getToken = () => {
         const token = localStorage.getItem("token");
         if (!token) {
-          console.warn("No token found, please log in.");
-          return null;
+            console.warn("No token found, please log in.");
+            return null;
         }
         return token;
-      };
+    };
 
     const handleSendMessage = async (e) => {
         e.preventDefault();
@@ -56,36 +56,55 @@ function ChatBotContextProvider(props) {
             const token = getToken();
 
             if (!token) {
+                const response = await fetch("http://localhost:3000/api/bot/general", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ message }),
+                });
+
+                if (!response.ok) {
+                    throw new Error(`${response.status} ${response.statusText} : ${await response.text()}`);
+                }
+
+                const data = await response.json();
+                console.log("API response:", data); // Log the response format for debugging
+
+                // Ensure data.text is either a string or an array
+                const botResponse = data.answer || data.text || "I didn't understand that.";
                 setMessages((prevMessages) => [
                     ...prevMessages,
-                    { sender: "bot", text: "You are not logged in. Please log in to interact with the chatbot." },
+                    { sender: "bot", text: botResponse },
                 ]);
-            };
-
-            const response = await fetch(apiUrl, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`,
-                },
-                body: JSON.stringify({ message }), // Ensure it's structured correctly
-            });
-
-            if (!response.ok) {
-                throw new Error(`${response.status} ${response.statusText} : ${await response.text()}`);
             }
 
-            const data = await response.json();
-            console.log("API response:", data); // Log the response format for debugging
+            else {
+                const response = await fetch(apiUrl, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                    body: JSON.stringify({ message }), // Ensure it's structured correctly
+                });
 
-            // Ensure data.text is either a string or an array
-            const botResponse = data.answer || data.text || "I didn't understand that.";
+                if (!response.ok) {
+                    throw new Error(`${response.status} ${response.statusText} : ${await response.text()}`);
+                }
 
-            // Add the response to the messages
-            setMessages((prevMessages) => [
-                ...prevMessages,
-                { sender: "bot", text: botResponse },
-            ]);
+                const data = await response.json();
+                console.log("API response:", data); // Log the response format for debugging
+
+                // Ensure data.text is either a string or an array
+                const botResponse = data.answer || data.text || "I didn't understand that.";
+
+                // Add the response to the messages
+                setMessages((prevMessages) => [
+                    ...prevMessages,
+                    { sender: "bot", text: botResponse },
+                ]);
+            }
         } catch (error) {
             console.error("Error:", error);
         }
