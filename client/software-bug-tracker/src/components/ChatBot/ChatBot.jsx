@@ -88,7 +88,10 @@ const ChatBot = () => {
                                     Send
                                 </button>
                                 <button type="button" id="clear-message-button" className="hvr-pulse" onClick={chatBot.clearMessage}>
-                                    Clear
+                                    Clear Input
+                                </button>
+                                <button type="button" id="clear-chat-history-button" className="hvr-pulse" onClick={chatBot.clearHistory}>
+                                    Clear Chat History
                                 </button>
                             </form>
                         </div>

@@ -43,6 +43,10 @@ function ChatBotContextProvider(props) {
         setMessage("");
     };
 
+    const clearHistory = () => {
+        setMessages([]);
+    };
+
     const toggleChatBox = () => {
         setShowChatBox(!showChatBox);
     }
@@ -97,7 +101,8 @@ function ChatBotContextProvider(props) {
                 handleSendMessage,
                 setMessage,
                 chatWithBot,
-                clearMessage
+                clearMessage,
+                clearHistory
             }}
         >
             {props.children}

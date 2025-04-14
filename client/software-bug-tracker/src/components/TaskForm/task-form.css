@@ -79,9 +79,9 @@
     cursor: url("../../assets/click.png"), pointer;
 }
 
-textarea::placeholder {
-    font-size: 1rem;
-    font-weight: 800;
+#task-todos::placeholder {
+    font-size: 1.75rem;
+    font-weight: 100;
 }
 
 #checkbox-container {
