@@ -28,12 +28,19 @@ const TaskForm = (props) => {
       const todosArray = value
         .split(".")
         .map((todo) => todo.trim())
-        .filter((todo) => todo)
-        .map((todo) => ({ description: todo, completed: false })); // Convert to objects
+        .filter((todo) => todo) // Remove empty strings
+        .map((todo, i) => {
+          // Preserve completion status if todo already exists
+          const existing = task.taskTodos[i];
+          return {
+            description: todo,
+            completed: existing ? existing.completed : false,
+          };
+        });
 
       setTask((prevState) => ({
         ...prevState,
-        [name]: todosArray, // Store as an array of objects
+        [name]: todosArray,
       }));
     } else {
       setTask((prevState) => ({
@@ -100,7 +107,7 @@ const TaskForm = (props) => {
       <textarea
         id="task-todos"
         name="taskTodos"
-        value={task.taskTodos}
+        value={task.taskTodos.map(todo => todo.description).join('. ') + '.'}
         onChange={handleChange}
         placeholder="Enter Each Todo Item Followed By a Period"
       />

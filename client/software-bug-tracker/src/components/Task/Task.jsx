@@ -14,7 +14,7 @@ import TaskTitleImage from "../../assets/task-title.png";
 const Task = (props) => {
     const [showForm, setShowForm] = React.useState(false);
     const [completedTodos, setCompletedTodos] = React.useState(
-      new Array(props.todos.split("\n").length).fill(false)
+      new Array(props.todos.length).fill(false)
     );
     const employees = React.useContext(EmployeesContext);
     const tasks = React.useContext(TasksContext);
@@ -38,38 +38,28 @@ const Task = (props) => {
 
               <div id="todos-list" className="task-info">
                 <img src={TaskTodoImage} />
-                {props.todos.length > 0 ? <span className="heading">Todos: </span> : <span className="heading">No Todos Assigned to Task</span>}
-                {props.todos.length > 0 && props.todos.split("\n").map((line, index) => (
-                  <div key={index} className="todo-item">
-                    <input
-                      type="checkbox"
-                      checked={completedTodos[index]}
-                      onChange={() => {
-                        setCompletedTodos((prevState) => {
-                          const updatedTodos = [...prevState];
-                          updatedTodos[index] = !updatedTodos[index]; // Toggle completion status
-                          return updatedTodos;
-                        });
-                      }}
-                    />
-                    <label
-                      style={
-                        completedTodos[index]
-                          ? { textDecoration: "line-through", cursor: "pointer" }
-                          : { cursor: "pointer" }
-                      }
-                      onClick={() => {
-                        setCompletedTodos((prevState) => {
-                          const updatedTodos = [...prevState];
-                          updatedTodos[index] = !updatedTodos[index]; // Toggle on label click too
-                          return updatedTodos;
-                        });
-                      }}
-                    >
-                      {line}
-                    </label>
-                  </div>
-                ))}
+                {props.todos.length > 0 ? (
+                  <span className="heading">Todos: </span>
+                ) : (
+                  <span className="heading">No Todos Assigned to Task</span>
+                )}
+                {Array.isArray(props.todos) && props.todos.length > 0 &&
+                  props.todos.map((line, index) => (
+                    <div key={index} className="todo-item">
+                      <input
+                        type="checkbox"
+                        checked={line.completed ?? false}
+                      />
+                      <label
+                        style={{
+                          textDecoration: line.completed ? "line-through" : "none",
+                          cursor: "default",
+                        }}
+                      >
+                        {line.description || ""}
+                      </label>
+                    </div>
+                  ))}
               </div>
 
               <div className="task-info">
